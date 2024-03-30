@@ -59,7 +59,7 @@ We're constantly adding new functionalities, so be sure to check back for more t
 The Svelte MiniApps project showcases a collection of pre-built mini-apps. You can simply clone this repository and run the development server to explore existing functionalities.
 
 ```bash
-git clone https://github.com/michael-obele/svelte-mini-apps.git
+git clone https://github.com/Michael-Obele/Svelte-MiniApps.git
 cd svelte-mini-apps
 npm install  # Install dependencies
 npm run dev  # Start the development server
