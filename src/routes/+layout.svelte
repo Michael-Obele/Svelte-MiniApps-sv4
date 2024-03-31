@@ -7,6 +7,13 @@
 		const routeId = $page.route.id;
 		return routeId && (`/${item}` === routeId || routeId.includes(item));
 	};
+
+	$: show = false;
+
+	let classNew =
+		'fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform bg-white dark:bg-gray-800 transform-none';
+	let classOld =
+		'fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800';
 </script>
 
 <!-- Nav Bar -->
@@ -21,8 +28,8 @@
 		<button
 			data-collapse-toggle="navbar-default"
 			type="button"
+			on:click={() => (show = !show)}
 			class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
-			aria-controls="navbar-default"
 			aria-expanded="false"
 		>
 			<span class="sr-only">Open main menu</span>
@@ -42,6 +49,82 @@
 				/>
 			</svg>
 		</button>
+		<!-- Side Bar -->
+		<div class:hidden={!show} class="fixed inset-0 z-30 bg-gray-900/50 dark:bg-gray-900/80"></div>
+		<div
+			id="drawer-navigation"
+			class:transform-none={show}
+			class="fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800"
+			tabindex="-1"
+			aria-labelledby="drawer-navigation-label"
+		>
+			<h5
+				id="drawer-navigation-label"
+				class="text-base font-semibold uppercase text-gray-500 dark:text-gray-400"
+			>
+				Menu
+			</h5>
+			<button
+				type="button"
+				on:click={() => (show = !show)}
+				data-drawer-hide="drawer-navigation"
+				aria-controls="drawer-navigation"
+				class="absolute end-2.5 top-2.5 inline-flex items-center rounded-lg bg-transparent p-1.5 text-sm text-gray-400 hover:bg-gray-200 hover:text-gray-900 dark:hover:bg-gray-600 dark:hover:text-white"
+			>
+				<svg
+					aria-hidden="true"
+					class="h-5 w-5"
+					fill="currentColor"
+					viewBox="0 0 20 20"
+					xmlns="http://www.w3.org/2000/svg"
+					><path
+						fill-rule="evenodd"
+						d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+						clip-rule="evenodd"
+					></path></svg
+				>
+				<span class="sr-only">Close menu</span>
+			</button>
+			<div class="overflow-y-auto py-4">
+				<ul class="space-y-2 font-medium">
+					<li>
+						{#if $page.route.id === '/'}
+							<a
+								href="/"
+								class="group flex items-center rounded-lg bg-blue-700 p-2 px-3 py-2 text-white dark:text-white dark:hover:bg-gray-700 md:bg-transparent md:p-0"
+								aria-current="page"
+							>
+								<span class="ms-3 flex-1 whitespace-nowrap">Home</span>
+							</a>
+						{:else}
+							<a
+								href="/"
+								class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+								>Home</a
+							>
+						{/if}
+					</li>
+
+					{#each ['Apps', 'About'] as item}
+						<li>
+							<a
+								href={'/' + item}
+								class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+								class:bg-blue-700={isActive(item)}
+								class:bg-transparent={isActive(item)}
+								class:dark:text-blue-500={isActive(item)}
+								class:text-blue-700={isActive(item)}
+								aria-current={isActive(item) ? 'page' : undefined}
+							>
+								{item}
+							</a>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		</div>
+
+		<!-- End of Side Bar -->
 		<div class="hidden w-full md:block md:w-auto" id="navbar-default">
 			<ul
 				class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900 rtl:space-x-reverse"
