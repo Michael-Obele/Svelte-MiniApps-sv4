@@ -1,9 +1,6 @@
 <script lang="ts">
 	import '../app.pcss';
 	import { page } from '$app/stores';
-	import { error } from '@sveltejs/kit';
-	export let data;
-	// console.log(data);
 
 	// Reactive statement to determine if the current route matches the item
 	$: isActive = (item: string) => {
