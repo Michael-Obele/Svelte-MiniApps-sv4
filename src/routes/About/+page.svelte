@@ -38,7 +38,7 @@
 		<div class="my-5">
 			<ul class="space-y-4 text-left">
 				<li class="flex items-center space-x-3 rtl:space-x-reverse">
-					<Check size="25" class="text-green-500 dark:text-green-400" />
+					<Check size="25" class="mr-3 text-green-500 dark:text-green-400" />
 					<span class="font-semibold">
 						Simple and Focused: <span class="font-normal"
 							>Each mini-app is dedicated to a single functionality, providing a clear and
@@ -47,7 +47,7 @@
 					</span>
 				</li>
 				<li class="flex items-center space-x-3 rtl:space-x-reverse">
-					<Check size="35" class="text-green-500 dark:text-green-400" />
+					<Check size="25" class="mr-3 text-green-500 dark:text-green-400" />
 					<span class="font-semibold">
 						Lightning Fast: <span class="font-normal">
 							Built with SvelteKit, these mini-apps offer exceptional performance and load times,
@@ -56,7 +56,7 @@
 					>
 				</li>
 				<li class="flex items-center space-x-3 rtl:space-x-reverse">
-					<Check size="45" class="text-green-500 dark:text-green-400" />
+					<Check size="25" class="mr-3 text-green-500 dark:text-green-400" />
 					<span class="font-semibold">
 						Standalone and Web-Based:
 						<span class="font-normal">

@@ -12,8 +12,8 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
-
 	import { toggleMode } from 'mode-watcher';
+	import Svelte from '$lib/logo/svelte.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
@@ -23,8 +23,8 @@
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
 	<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
 		<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-			<span class="self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
-				>MiniApps</span
+			<span class="flex self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
+				<Svelte classes="w-6 h-6 m-1" /> MiniApps</span
 			>
 		</a>
 

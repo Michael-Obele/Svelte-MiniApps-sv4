@@ -1,7 +1,4 @@
 // place files you want to import through the `$lib` alias in this folder.
-import { BadgeCheck, HardHat, ArrowRight } from 'lucide-svelte';
-import { Box, Lock, Pen, CheckSquare, Book, PiggyBank, Heart, Speaker, Code } from 'lucide-svelte';
-
 export const done = ['Random Password Generator'];
 export const projects = [
 	{
