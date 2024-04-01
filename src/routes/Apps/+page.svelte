@@ -13,8 +13,6 @@
 		Speaker,
 		Code
 	} from 'lucide-svelte';
-
-	const randomColorSimilarBrightness = `rgb(${Math.floor(Math.random() * 30) + 220}, ${Math.floor(Math.random() * 30) + 220}, ${Math.floor(Math.random() * 30) + 230})`;
 </script>
 
 <div class="mx-12 my-8 grid gap-8 md:grid-cols-2">
@@ -37,7 +35,7 @@
 					class:easy={item.difficulty === 'easy'}
 					class:medium={item.difficulty === 'medium'}
 					class:hard={item.difficulty === 'hard'}
-					class="mb-2 inline-flex w-fit items-center rounded-md bg-green-100 px-2.5 py-0.5 text-sm font-medium text-green-800"
+					class="mb-2 inline-flex w-fit items-center rounded-md px-2.5 py-0.5 text-sm font-medium"
 				>
 					<HardHat size="16" class="mx-1" />
 					{item.difficulty}
