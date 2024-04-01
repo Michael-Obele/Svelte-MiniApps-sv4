@@ -8,9 +8,9 @@
 	>
 		Svelte MiniApps: Tiny, Powerful Tools Built with SvelteKit
 	</h3>
-	<div class="grid-row-2 grid">
+	<div class="grid-row-2 mx-1 grid">
 		<div
-			class="mb-5 mt-5 block max-w-md rounded-lg border border-gray-200 bg-white object-left p-6 shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+			class="mb-5 mt-5 block max-w-md rounded-lg border border-gray-200 bg-white object-left p-6 shadow dark:border-gray-700 dark:bg-gray-800"
 		>
 			<p class="justify-start text-left text-lg text-gray-900 dark:text-white">
 				Svelte MiniApps is a collection of <span
@@ -20,7 +20,7 @@
 			</p>
 		</div>
 		<div
-			class="mb-5 mt-5 block max-w-md justify-self-end rounded-lg border border-gray-200 bg-white object-right p-6 shadow dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700"
+			class="mb-5 mt-5 block max-w-md justify-self-end rounded-lg border border-gray-200 bg-white object-right p-6 shadow dark:border-gray-700 dark:bg-gray-800"
 		>
 			<p class="text-left text-lg text-gray-900 dark:text-white">
 				These mini-apps offer a <span class="bold text-xl text-green-800 dark:text-green-400"
@@ -29,9 +29,9 @@
 			</p>
 		</div>
 	</div>
-	<div class="px-10">
+	<div class="px-16">
 		<p
-			class="bold mx-auto my-5 w-fit text-2xl underline-offset-1 transition-all hover:text-3xl hover:underline"
+			class="bold mx-auto my-5 w-fit cursor-pointer text-2xl underline-offset-1 transition-all hover:text-3xl hover:underline"
 		>
 			Why Svelte MiniApps?
 		</p>
