@@ -22,7 +22,7 @@
 		<div
 			class="mb-5 mt-5 block max-w-md justify-self-end rounded-lg border border-gray-200 bg-white object-right p-6 shadow dark:border-gray-700 dark:bg-gray-800"
 		>
-			<p class="text-left text-lg text-gray-900 dark:text-white">
+			<p class="text-right text-lg text-gray-900 dark:text-white">
 				These mini-apps offer a <span class="bold text-xl text-green-800 dark:text-green-400"
 					>focused and efficient way to tackle everyday tasks,</span
 				> leveraging the speed and flexibility of SvelteKit.
