@@ -4,7 +4,7 @@
 
 <section class="m-2 py-3">
 	<h3
-		class="mb-10 mt-5 text-center text-3xl text-gray-900 underline decoration-blue-400 decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
+		class="mb-10 mt-5 text-center text-3xl text-gray-900 underline decoration-green-400 decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
 	>
 		Svelte MiniApps: Tiny, Powerful Tools Built with SvelteKit
 	</h3>
