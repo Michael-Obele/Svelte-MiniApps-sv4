@@ -9,15 +9,17 @@
 	};
 
 	$: show = false;
+	import { ModeWatcher } from 'mode-watcher';
+	import Sun from 'lucide-svelte/icons/sun';
+	import Moon from 'lucide-svelte/icons/moon';
 
-	let classNew =
-		'fixed top-0 left-0 z-40 w-64 h-screen p-4 overflow-y-auto transition-transform bg-white dark:bg-gray-800 transform-none';
-	let classOld =
-		'fixed left-0 top-0 z-40 h-screen w-64 -translate-x-full overflow-y-auto bg-white p-4 transition-transform dark:bg-gray-800';
+	import { toggleMode } from 'mode-watcher';
+	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
-<!-- Nav Bar -->
+<ModeWatcher />
 
+<!-- Nav Bar -->
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
 	<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
 		<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -91,7 +93,7 @@
 						{#if $page.route.id === '/'}
 							<a
 								href="/"
-								class="group flex items-center rounded-lg bg-blue-700 p-2 px-3 py-2 text-white dark:text-white dark:hover:bg-gray-700 md:bg-transparent md:p-0"
+								class="group flex items-center rounded-lg bg-red-700 p-2 px-3 py-2 text-white dark:text-white dark:hover:bg-gray-700 md:bg-transparent md:p-0"
 								aria-current="page"
 							>
 								<span class="ms-3 flex-1 whitespace-nowrap">Home</span>
@@ -110,10 +112,9 @@
 							<a
 								href={'/' + item}
 								class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-								class:bg-blue-700={isActive(item)}
-								class:bg-transparent={isActive(item)}
-								class:dark:text-blue-500={isActive(item)}
-								class:text-blue-700={isActive(item)}
+								class:bg-red-700={isActive(item)}
+								class:dark:text-red-500={isActive(item)}
+								class:text-red-700={isActive(item)}
 								aria-current={isActive(item) ? 'page' : undefined}
 							>
 								{item}
@@ -133,13 +134,13 @@
 					{#if $page.route.id === '/'}
 						<a
 							href="/"
-							class="block rounded bg-blue-700 px-3 py-2 text-white dark:text-white md:bg-transparent md:p-0 md:text-blue-700 md:dark:text-blue-500"
+							class="block rounded bg-red-700 px-3 py-2 text-white dark:text-white md:bg-transparent md:p-0 md:text-red-700 md:dark:text-red-500"
 							aria-current="page">Home</a
 						>
 					{:else}
 						<a
 							href="/"
-							class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
+							class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500"
 							>Home</a
 						>
 					{/if}
@@ -149,17 +150,26 @@
 					<li>
 						<a
 							href={'/' + item}
-							class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-blue-700 md:dark:hover:bg-transparent md:dark:hover:text-blue-500"
-							class:bg-blue-700={isActive(item)}
+							class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500"
+							class:bg-red-700={isActive(item)}
 							class:md:bg-transparent={isActive(item)}
-							class:md:dark:text-blue-500={isActive(item)}
-							class:md:text-blue-700={isActive(item)}
+							class:md:dark:text-red-500={isActive(item)}
+							class:md:text-red-700={isActive(item)}
 							aria-current={isActive(item) ? 'page' : undefined}
 						>
 							{item}
 						</a>
 					</li>
 				{/each}
+				<Button on:click={toggleMode} variant="outline" class="-my-2" size="icon">
+					<Sun
+						class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+					/>
+					<Moon
+						class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+					/>
+					<span class="sr-only">Toggle theme</span>
+				</Button>
 			</ul>
 		</div>
 	</div>

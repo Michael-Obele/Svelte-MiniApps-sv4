@@ -30,7 +30,7 @@ export const load: PageServerLoad = async () => {
 
 
 export const actions: Actions = {
-  len: async ({ request }) => {
+  generate: async ({ request }) => {
     const formData = await request.formData()
     const data = Object.fromEntries(formData)
     // do whatever you want

@@ -3,10 +3,6 @@ import {projects} from '$lib/index'
 
 
 
-
-
-
-
 export const load = (async () => {
     return {
         projects
