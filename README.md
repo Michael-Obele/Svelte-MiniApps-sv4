@@ -8,10 +8,6 @@ This project is a collection of small, single-purpose applications written in Sv
 
 [//]: # (This is a comment using a reference link syntax)
 
-``
-<!-- * (List some of the mini-apps you've already created - replace with actual names) -->
-<!-- * (Add placeholders for future mini-apps - "Text Summarizer (Coming Soon!)") -->
-``
 
 ## **Explore a Variety of Tools:**
 
@@ -78,4 +74,3 @@ Here are some guidelines for contributing:
 * **Write clean and maintainable code:** Follow Svelte best practices and keep your code organized for future enhancements.
 
 **Let's build a collection of valuable Svelte tools together!**
-
