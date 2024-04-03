@@ -27,8 +27,6 @@
 		falseCount += !number ? 1 : 0;
 		falseCount += !symbols ? 1 : 0;
 		falseCount += !uppercaseLetters ? 1 : 0;
-
-		console.log(falseCount);
 	}
 
 	function generateNewPassword() {
@@ -39,10 +37,8 @@
 <section class="container">
 	<h3 class="m-4 text-center text-3xl font-bold underline decoration-green-400">Hi</h3>
 	<h3 class="m-6 text-center text-2xl">Your Proposed password is</h3>
-	<div
-		class="mx-auto flex w-fit max-w-[60vw] gap-x-4 rounded-lg bg-slate-400 px-2 py-4 text-center"
-	>
-		<p class="md:mx-5">{password}</p>
+	<div class="mx-auto flex h-fit w-fit max-w-[85vw] rounded-lg bg-slate-400 px-2 py-4 text-center">
+		<p class="mx-5 w-full overflow-hidden text-ellipsis">{password}</p>
 		<button on:click={() => _copyToClipboard(password)}>
 			<Clipboard />
 		</button>
@@ -58,7 +54,7 @@
 				id="length"
 				bind:value={length}
 				min="10"
-				max="30"
+				max="50"
 				required
 				class="my-4 w-20 rounded-lg border-2 border-gray-300 px-4 py-2 text-center md:my-0"
 				placeholder=""
@@ -67,7 +63,7 @@
 				type="range"
 				bind:value={length}
 				min="10"
-				max="30"
+				max="50"
 				id="length"
 				name="length"
 				list="markers"
