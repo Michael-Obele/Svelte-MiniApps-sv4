@@ -38,7 +38,7 @@
 	<h3 class="m-4 text-center text-3xl font-bold underline decoration-green-400">Hi</h3>
 	<h3 class="m-6 text-center text-2xl">Your Proposed password is</h3>
 	<div
-		class="mx-auto flex h-fit w-fit max-w-[85vw] space-x-5 rounded-lg bg-slate-400 px-2 py-4 text-center"
+		class="mx-auto flex h-fit w-fit max-w-[85vw] space-x-4 rounded-lg bg-slate-400 px-2 py-4 text-center"
 	>
 		<p class="mx-5 w-full overflow-hidden text-ellipsis">{password}</p>
 		<button on:click={() => _copyToClipboard(password)}>
@@ -83,7 +83,7 @@
 						<input
 							id="uppercase"
 							type="checkbox"
-							disabled={falseCount >= 2 && uppercaseLetters == true}
+							disabled={falseCount >= 3 && uppercaseLetters == true}
 							bind:checked={uppercaseLetters}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -99,7 +99,7 @@
 						<input
 							id="lowercase"
 							type="checkbox"
-							disabled={falseCount >= 2 && lowercaseLetters == true}
+							disabled={falseCount >= 3 && lowercaseLetters == true}
 							bind:checked={lowercaseLetters}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -115,7 +115,7 @@
 						<input
 							id="numbers"
 							type="checkbox"
-							disabled={falseCount >= 2 && number == true}
+							disabled={falseCount >= 3 && number == true}
 							bind:checked={number}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -131,7 +131,7 @@
 						<input
 							id="symbols"
 							type="checkbox"
-							disabled={falseCount >= 2 && symbols == true}
+							disabled={falseCount >= 3 && symbols == true}
 							bind:checked={symbols}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
