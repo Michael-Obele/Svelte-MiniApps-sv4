@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Clipboard,RefreshCcw } from 'lucide-svelte';
+	import { Clipboard, RefreshCcw } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 
 	let passwordOptions = {
@@ -37,13 +37,14 @@
 <section class="container">
 	<h3 class="m-4 text-center text-3xl font-bold underline decoration-green-400">Hi</h3>
 	<h3 class="m-6 text-center text-2xl">Your Proposed password is</h3>
-	<div class="mx-auto flex h-fit w-fit max-w-[85vw] rounded-lg bg-slate-400 px-2 py-4 text-center">
+	<div
+		class="mx-auto flex h-fit w-fit max-w-[85vw] space-x-5 rounded-lg bg-slate-400 px-2 py-4 text-center"
+	>
 		<p class="mx-5 w-full overflow-hidden text-ellipsis">{password}</p>
 		<button on:click={() => _copyToClipboard(password)}>
 			<Clipboard />
 		</button>
 		<button on:click={generateNewPassword}>
-		
 			<RefreshCcw />
 		</button>
 	</div>
@@ -143,12 +144,6 @@
 				</li>
 			</ul>
 		</div>
-		<button
-			type="submit"
-			on:click={generateNewPassword}
-			class="mb-8 rounded-lg bg-red-500 px-4 py-2 font-bold text-white transition duration-200 hover:bg-red-700"
-			>Submit</button
-		>
 	</div>
 </section>
 
