@@ -16,17 +16,24 @@
 	// Using destructured variables in the function call
 	var password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
 
-	function generateNewPassword() {
-		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
-		console.log(length, uppercaseLetters, lowercaseLetters, number, symbols);
+	$: password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
+
+	// Reactive statement to ensure at least one option is always true
+	let falseCount = 0;
+
+	$: {
+		falseCount = 0;
+		falseCount += !lowercaseLetters ? 1 : 0;
+		falseCount += !number ? 1 : 0;
+		falseCount += !symbols ? 1 : 0;
+		falseCount += !uppercaseLetters ? 1 : 0;
+
+		console.log(falseCount);
 	}
 
-	let options = [
-		{ id: 'uppercase', label: 'Uppercase', value: 'uppercaseLetters' },
-		{ id: 'lowercase', label: 'Lowercase', value: 'lowercaseLetters' },
-		{ id: 'numbers', label: 'Numbers', value: 'number' },
-		{ id: 'symbols', label: 'Symbols', value: 'symbols' }
-	];
+	function generateNewPassword() {
+		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
+	}
 </script>
 
 <section class="container">
@@ -67,23 +74,15 @@
 				class="my-4 w-full md:my-0"
 			/>
 
-			<datalist id="markers">
-				<option value="5" label="5"></option>
-				<option value="10" label="10"></option>
-				<option value="15" label="15"></option>
-				<option value="20" label="20"></option>
-				<option value="25" label="25"></option>
-				<option value="30" label="30"></option>
-			</datalist>
-
 			<ul
-				class="m-4 w-48 rounded-lg border border-gray-200 bg-white text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white md:m-0"
+				class="m-4 w-48 rounded-lg border border-gray-200 bg-white px-1 text-sm font-medium text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white md:m-0"
 			>
 				<li class="w-full rounded-t-lg border-b border-gray-200 dark:border-gray-600">
 					<div class="flex items-center ps-3">
 						<input
 							id="uppercase"
 							type="checkbox"
+							disabled={falseCount >= 2 && uppercaseLetters == true}
 							bind:checked={uppercaseLetters}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -99,6 +98,7 @@
 						<input
 							id="lowercase"
 							type="checkbox"
+							disabled={falseCount >= 2 && lowercaseLetters == true}
 							bind:checked={lowercaseLetters}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -114,6 +114,7 @@
 						<input
 							id="numbers"
 							type="checkbox"
+							disabled={falseCount >= 2 && number == true}
 							bind:checked={number}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -129,6 +130,7 @@
 						<input
 							id="symbols"
 							type="checkbox"
+							disabled={falseCount >= 2 && symbols == true}
 							bind:checked={symbols}
 							class="h-4 w-4 rounded border-gray-300 bg-gray-100 text-blue-600 focus:ring-2 focus:ring-blue-500 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:focus:ring-blue-600 dark:focus:ring-offset-gray-700"
 						/>
@@ -150,8 +152,8 @@
 	</div>
 </section>
 
-<style>
+<!-- <style>
 	* {
 		border: 1px solid red;
 	}
-</style>
+</style> -->
