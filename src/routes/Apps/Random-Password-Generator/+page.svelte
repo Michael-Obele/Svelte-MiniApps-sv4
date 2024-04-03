@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Clipboard } from 'lucide-svelte';
+	import { Clipboard,RefreshCcw } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 
 	let passwordOptions = {
@@ -41,6 +41,10 @@
 		<p class="mx-5 w-full overflow-hidden text-ellipsis">{password}</p>
 		<button on:click={() => _copyToClipboard(password)}>
 			<Clipboard />
+		</button>
+		<button on:click={generateNewPassword}>
+		
+			<RefreshCcw />
 		</button>
 	</div>
 

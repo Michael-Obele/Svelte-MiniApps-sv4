@@ -18,8 +18,27 @@ const features = [
 	}
 ];
 
+const reasons = [
+	{
+		title: "SvelteKit's Superpowers",
+		description:
+			"We loved SvelteKit's speed, ease of use, and ability to create standalone apps. It was the perfect platform for building these mini powerhouses."
+	},
+	{
+		title: 'Simplicity is Key',
+		description:
+			'We believe in clear, focused functionality. No overwhelming interfaces, just the tools you need to tackle your task quickly.'
+	},
+	{
+		title: 'Learning by Doing',
+		description:
+			'Each mini-app is a mini-lesson in SvelteKit. Beginners can learn by example, while experienced devs can pick up new tricks.'
+	}
+];
+
 export const load: PageLoad = async () => {
 	return {
-		features
+		features,
+		reasons
 	};
 };
