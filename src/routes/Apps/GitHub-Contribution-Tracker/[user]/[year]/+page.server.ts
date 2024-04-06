@@ -1,5 +1,6 @@
 // +page.server.ts
 import { parseHTML } from 'linkedom';
+import { json } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params, setHeaders }) {
@@ -11,48 +12,52 @@ export async function load({ params, setHeaders }) {
 		'Cache-Control': `public, s-maxage=${60 * 60 * 24 * 365}` // one year
 	});
 
-	const api = `https://github.com/users/${user}/contributions`;
+	const api = `https://github.com/users/${user}/contributions?from=${year}-02-01&to=${year}-03-31`;
 	const response = await fetch(api);
 	if (!response.ok) {
 		throw new Error(`Failed to fetch GitHub contributions for user ${user}`);
 	}
 	const htmlData = await response.text(); // Get the SVG data as text
 
-	function parseContributions(html: string) {
-		const { document } = parseHTML(html);
+	const api2 = `https://github-readme-streak-stats.herokuapp.com/?user=${user}&theme=dark&hide_border=false`;
+	const response2 = await fetch(api2);
+	const svgData = await response2.text();
 
-		const rows = document.querySelectorAll<HTMLTableRowElement>('tbody > tr');
+	// function parseContributions(html: string) {
+	// 	const { document } = parseHTML(html);
 
-		const contributions = [];
+	// 	const rows = document.querySelectorAll<HTMLTableRowElement>('tbody > tr');
 
-		for (const row of rows) {
-			const days = row.querySelectorAll<HTMLTableCellElement>(
-				'td:not(.ContributionCalendar-label)'
-			);
+	// 	const contributions = [];
 
-			const currentRow = [];
+	// 	for (const row of rows) {
+	// 		const days = row.querySelectorAll<HTMLTableCellElement>(
+	// 			'td:not(.ContributionCalendar-label)'
+	// 		);
 
-			for (const day of days) {
-				const data = day.innerText.split(' ');
+	// 		const currentRow = [];
 
-				if (data.length > 1) {
-					const contribution = {
-						count: data[0] === 'No' ? 0 : +data[0],
-						month: data[3],
-						day: data[4].replace('.', ''),
-						level: +day.dataset.level!
-					};
-					currentRow.push(contribution);
-				} else {
-					currentRow.push(null);
-				}
-			}
+	// 		for (const day of days) {
+	// 			const data = day.innerText.split(' ');
 
-			contributions.push(currentRow);
-		}
+	// 			if (data.length > 1) {
+	// 				const contribution = {
+	// 					count: data[0] === 'No' ? 0 : +data[0],
+	// 					month: data[3],
+	// 					day: data[4].replace('.', ''),
+	// 					level: +day.dataset.level!
+	// 				};
+	// 				currentRow.push(contribution);
+	// 			} else {
+	// 				currentRow.push(null);
+	// 			}
+	// 		}
 
-		return contributions;
-	}
+	// 		contributions.push(currentRow);
+	// 	}
+
+	// 	return contributions;
+	// }
 
 	// Return the manipulated HTML data to the client
 	return {
@@ -60,6 +65,7 @@ export async function load({ params, setHeaders }) {
 			user,
 			year
 		},
-		info: parseContributions(htmlData)
+		info: htmlData,
+		streak: svgData
 	};
 }
