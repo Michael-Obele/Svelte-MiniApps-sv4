@@ -1,71 +1,44 @@
 // +page.server.ts
-import { parseHTML } from 'linkedom';
-import { json } from '@sveltejs/kit';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params, setHeaders }) {
-	let user = params.user;
-	let year = params.year;
+	const { user, year } = params;
 
-	setHeaders({
+	// Define headers
+	const responseHeaders = {
 		'Access-Control-Allow-Origin': '*', // allow CORS
 		'Cache-Control': `public, s-maxage=${60 * 60 * 24 * 365}` // one year
-	});
-
-	const api = `https://github.com/users/${user}/contributions?from=${year}-02-01&to=${year}-03-31`;
-	const response = await fetch(api);
-	if (!response.ok) {
-		throw new Error(`Failed to fetch GitHub contributions for user ${user}`);
-	}
-	const htmlData = await response.text(); // Get the SVG data as text
-
-	const api2 = `https://github-readme-streak-stats.herokuapp.com/?user=${user}&theme=dark&hide_border=false`;
-	const response2 = await fetch(api2);
-	const svgData = await response2.text();
-
-	// function parseContributions(html: string) {
-	// 	const { document } = parseHTML(html);
-
-	// 	const rows = document.querySelectorAll<HTMLTableRowElement>('tbody > tr');
-
-	// 	const contributions = [];
-
-	// 	for (const row of rows) {
-	// 		const days = row.querySelectorAll<HTMLTableCellElement>(
-	// 			'td:not(.ContributionCalendar-label)'
-	// 		);
-
-	// 		const currentRow = [];
-
-	// 		for (const day of days) {
-	// 			const data = day.innerText.split(' ');
-
-	// 			if (data.length > 1) {
-	// 				const contribution = {
-	// 					count: data[0] === 'No' ? 0 : +data[0],
-	// 					month: data[3],
-	// 					day: data[4].replace('.', ''),
-	// 					level: +day.dataset.level!
-	// 				};
-	// 				currentRow.push(contribution);
-	// 			} else {
-	// 				currentRow.push(null);
-	// 			}
-	// 		}
-
-	// 		contributions.push(currentRow);
-	// 	}
-
-	// 	return contributions;
-	// }
-
-	// Return the manipulated HTML data to the client
-	return {
-		props: {
-			user,
-			year
-		},
-		info: htmlData,
-		streak: svgData
 	};
+	setHeaders(responseHeaders);
+
+	// Define the date range for contributions
+	const startDate = `${year}-02-01`;
+	const endDate = `${year}-03-31`;
+
+	try {
+		// Fetch GitHub contributions
+		const contributionsApiUrl = `https://github.com/users/${user}/contributions?from=${startDate}&to=${endDate}`;
+		const contributionsResponse = await fetch(contributionsApiUrl);
+		if (!contributionsResponse.ok) {
+			throw new Error(`Failed to fetch GitHub contributions for user ${user}`);
+		}
+		const contributionsHtmlData = await contributionsResponse.text(); // Get the SVG data as text
+
+		// Fetch GitHub streak stats
+		const streakStatsApiUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${user}&theme=dark&hide_border=false`;
+		const streakStatsResponse = await fetch(streakStatsApiUrl);
+		const streakStatsSvgData = await streakStatsResponse.text();
+
+		return {
+			props: {
+				user,
+				year
+			},
+			contributionsInfo: contributionsHtmlData,
+			streakStats: streakStatsSvgData
+		};
+	} catch (error) {
+		console.error(`Error fetching data: ${(error as Error).message}`);
+		throw error; // Rethrow the error to be handled by the caller
+	}
 }

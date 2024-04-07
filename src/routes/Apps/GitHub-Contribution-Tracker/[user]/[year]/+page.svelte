@@ -1,90 +1,26 @@
 <script lang="ts">
 	import { parseHTML } from 'linkedom';
-	// import { page } from '$app/stores';
+	import SvelteHeatmap from 'svelte-heatmap';
 	import { writable } from 'svelte/store';
+
 	export let data;
+	const year: string = data.props.year;
+	const user: string = data.props.user;
 
 	function extractContributionData(html: any): ContributionsData {
 		const { document } = parseHTML(html);
 		const tooltips = document.querySelectorAll('tool-tip');
 		const contributionsData: any[] = [];
 
-		if (tooltips) {
-			// Loop through each tool-tip
-			tooltips.forEach((tooltip) => {
-				const content = tooltip.textContent?.trim() ?? '';
-				contributionsData.push([content]);
-			});
-		}
+		tooltips.forEach((tooltip) => {
+			const content = tooltip.textContent?.trim() ?? '';
+			contributionsData.push([content]);
+		});
+
 		return contributionsData;
 	}
 
-	// Example usage:
-	const jsonData = extractContributionData(data.info);
-
 	type ContributionsData = string[][];
-	type ContributionsGrid = number[][];
-
-	// Initialize a 7x52 grid with default values
-	let grid: ContributionsGrid = Array.from({ length: 52 }, () => Array(7).fill(0));
-
-	// Fill the grid with the number of contributions
-	jsonData.forEach((entry) => {
-		const match = entry[0].match(/(\d+) contributions? on (\w+) (\d+)/);
-		if (match) {
-			const [_, contributions, month, day] = match;
-			const monthIndex = [
-				'January',
-				'February',
-				'March',
-				'April',
-				'May',
-				'June',
-				'July',
-				'August',
-				'September',
-				'October',
-				'November',
-				'December'
-			].indexOf(month);
-			const dayIndex = [
-				'Sunday',
-				'Monday',
-				'Tuesday',
-				'Wednesday',
-				'Thursday',
-				'Friday',
-				'Saturday'
-			].indexOf(day);
-			if (monthIndex !== -1 && dayIndex !== -1) {
-				grid[monthIndex][dayIndex] = parseInt(contributions, 10);
-			}
-		}
-	});
-
-	// Function to generate the HTML for the grid
-	function generateGridHTML(grid: ContributionsGrid): string {
-		let html = '<table border="1">\n';
-		for (let week = 0; week < 52; week++) {
-			html += '<tr>';
-			for (let day = 0; day < 7; day++) {
-				const contributions = grid[week][day];
-				let color = 'white';
-				if (contributions > 0) {
-					color = contributions === 1 ? 'green' : contributions === 2 ? 'blue' : 'red';
-				}
-				html += `<td style="background-color: ${color};">${contributions}</td>`;
-			}
-			html += '</tr>\n';
-		}
-		html += '</table>';
-		return html;
-	}
-
-	// Generate and display the grid
-	let gridHTML: string = generateGridHTML(grid);
-
-	// Assuming ContributionsData is defined as an array of arrays containing strings
 
 	let contributions = writable([
 		{ date: 'January', count: 0 },
@@ -101,25 +37,89 @@
 		{ date: 'December', count: 0 }
 	]);
 
+	const jsonData = extractContributionData(data.contributionsInfo);
+
 	const parseData = (data: ContributionsData) => {
-		for (const entry of data) {
+		data.forEach((entry) => {
 			const [contributionString] = entry;
 			const match = contributionString.match(/(\d+) contributions? on (\w+)/);
 			if (match) {
-				const [_, count, month] = match;
+				const [, count, month] = match;
 				contributions.update((current) => {
 					const monthIndex = current.findIndex((m) => m.date === month);
 					if (monthIndex !== -1) {
 						current[monthIndex].count += parseInt(count, 10);
 					}
+ 
 					return current;
 				});
 			}
-		}
+		});
 	};
 
 	parseData(jsonData);
-	console.log($contributions);
+
+	interface ContributionsByMonth {
+		[month: string]: {
+			[day: string]: number;
+		};
+	}
+
+	let contributionsByMonth: ContributionsByMonth = {};
+
+	jsonData.forEach((entry) => {
+		const [contributionString] = entry;
+		const match = contributionString.match(/(\d+) contributions? on (\w+) (\d+)/);
+		if (match) {
+			const [, count, month, day] = match;
+			if (!contributionsByMonth[month]) {
+				contributionsByMonth[month] = {};
+			}
+			contributionsByMonth[month][day] = parseInt(count, 10);
+		}
+	});
+
+	Object.keys(contributionsByMonth).forEach((month) => {
+		if (Object.values(contributionsByMonth[month]).reduce((a, b) => a + b, 0) === 0) {
+			delete contributionsByMonth[month];
+		}
+	});
+
+	const monthAbs = [
+		'Jan',
+		'Feb',
+		'Mar',
+		'Apr',
+		'May',
+		'Jun',
+		'Jul',
+		'Aug',
+		'Sep',
+		'Oct',
+		'Nov',
+		'Dec'
+	];
+
+	let dataSet: OutputEntry[] = jsonData
+		.map((entry) => {
+			const [contributionString] = entry;
+			const match = contributionString.match(/(\d+) contributions? on (\w+) (\d+)/);
+			if (match) {
+				const [, count, month, day] = match;
+				const date = new Date(`${month} ${day}, ${year}`);
+				return { date: date.toISOString(), value: parseInt(count) };
+			}
+			return null;
+		})
+		.filter((entry) => entry !== null) as OutputEntry[];
+
+	interface OutputEntry {
+		date: string;
+		value: number;
+	}
+
+	let totalContributions = dataSet.reduce((accumulator, current) => accumulator + current.value, 0);
+ 
 </script>
 
 <svelte:head>
@@ -128,24 +128,56 @@
 
 <h1 class="text-center text-2xl">GitHub Contributions</h1>
 
-<h1 class="my-15 text-center text-xl">Contributions for {data.props.user} - {data.props.year}</h1>
-{#if data.streak}
+<h1 class="my-15 text-center text-xl">
+	Contributions for <span class="capitalize">{user}</span> - {year}
+</h1>
+{#if data.streakStats}
 	<div class="mx-auto my-5 w-fit">
-		<div contenteditable="false" bind:innerHTML={data.streak}></div>
+		<div contenteditable="false" bind:innerHTML={data.streakStats}></div>
 	</div>
-	<div class="mx-auto w-fit text-center">
-		<h3>On the year {data.props.year}. You made:</h3>
+	<div class="mx-auto w-fit space-y-3 text-center">
+		<h3>
+			On {data.props.year}.
+			<span>Your Total contributions are {totalContributions}</span>
+		</h3>
 		{#each $contributions as item}
 			<div class="m-5 flex space-x-3">
-				{#if item.count === 1}
-					<h3>{item.count} contribution on</h3>
-				{:else}
-					<h3>{item.count} contributions on</h3>
-				{/if}
+				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
 				<h1>{item.date}</h1>
 			</div>
 		{/each}
 	</div>
 {/if}
 
-<!-- <div>{@html gridHTML}</div> -->
+{#each Object.keys(contributionsByMonth) as month}
+	<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
+		<h2>{month}</h2>
+		<ul>
+			{#each Object.keys(contributionsByMonth[month]) as day}
+				<li>
+					{day} : {contributionsByMonth[month][day]}
+					{contributionsByMonth[month][day] === 1 ? 'contribution' : 'contributions'}
+				</li>
+			{/each}
+		</ul>
+	</div>
+{/each}
+
+<div class="container">
+	<SvelteHeatmap
+		allowOverflow={true}
+		cellGap={5}
+		fontColor={'white'}
+		cellRadius={1}
+		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
+		data={dataSet}
+		dayLabelWidth={10}
+		emptyColor={'#ecedf0'}
+		monthLabels={monthAbs}
+		endDate={`${year}-12-01T03:00:00.000Z`}
+		monthGap={20}
+		monthLabelHeight={20}
+		startDate={`${year}-01-01T03:00:00.000Z`}
+		view={'monthly'}
+	/>
+</div>
