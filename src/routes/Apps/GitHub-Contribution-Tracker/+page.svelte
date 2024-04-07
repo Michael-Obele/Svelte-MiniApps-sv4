@@ -1,5 +1,4 @@
 <script>
-	export let data;
 </script>
 
 <h1 class="m-3 text-center text-2xl">

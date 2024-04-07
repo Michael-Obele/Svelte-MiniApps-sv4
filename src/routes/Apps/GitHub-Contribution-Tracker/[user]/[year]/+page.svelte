@@ -50,7 +50,7 @@
 					if (monthIndex !== -1) {
 						current[monthIndex].count += parseInt(count, 10);
 					}
- 
+
 					return current;
 				});
 			}
@@ -119,7 +119,6 @@
 	}
 
 	let totalContributions = dataSet.reduce((accumulator, current) => accumulator + current.value, 0);
- 
 </script>
 
 <svelte:head>
