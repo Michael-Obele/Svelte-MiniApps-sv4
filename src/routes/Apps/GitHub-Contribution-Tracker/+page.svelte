@@ -1,4 +1,14 @@
-<script>
+<script lang="ts">
+	import { invalidateAll, goto } from '$app/navigation';
+	import { applyAction, deserialize } from '$app/forms';
+	import type { ActionResult } from '@sveltejs/kit';
+
+	let username: string;
+	let year: string;
+
+	async function gitCommit() {
+		goto(`GitHub-Contribution-Tracker/${username}/${year}`);
+	}
 </script>
 
 <h1 class="m-3 text-center text-2xl">
@@ -8,3 +18,40 @@
 	</span>
 	in the search box just after the current url
 </h1>
+
+<form on:submit|preventDefault={gitCommit} class="mx-auto mt-16 max-w-sm">
+	<div class="mb-5">
+		<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Your Github Username</label
+		>
+		<input
+			type="text"
+			name="user"
+			bind:value={username}
+			id="user"
+			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			placeholder="John-Doe"
+			required
+		/>
+	</div>
+	<div class="mb-5">
+		<label for="year" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
+			>Enter Year</label
+		>
+		<input
+			type="text"
+			name="year"
+			bind:value={year}
+			id="year"
+			class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+			placeholder="2020"
+			required
+		/>
+	</div>
+	<button
+		type="submit"
+		class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
+	>
+		Submit
+	</button>
+</form>

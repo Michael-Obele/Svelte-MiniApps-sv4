@@ -27,7 +27,7 @@
 				<Svelte classes="w-6 h-6 m-1" /> MiniApps</span
 			>
 		</a>
-
+		<!-- Toggle Theme -->
 		<Button on:click={toggleMode} variant="outline" class="-my-2 md:hidden" size="icon">
 			<Sun
 				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
@@ -37,6 +37,7 @@
 			/>
 			<span class="sr-only">Toggle theme</span>
 		</Button>
+		<!-- End of Toggle Theme -->
 
 		<button
 			data-collapse-toggle="navbar-default"
@@ -64,7 +65,19 @@
 		</button>
 
 		<!-- Side Bar -->
-		<div class:hidden={!show} class="fixed inset-0 z-30 bg-gray-900/50 dark:bg-gray-900/80"></div>
+		<!-- Backdrop -->
+
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<div
+			class:hidden={!show}
+			on:click={() => (show = !show)}
+			class="fixed inset-0 z-30 bg-gray-900/50 dark:bg-gray-900/80"
+			aria-label="Close sidebar"
+			role="button"
+			tabindex="0"
+		></div>
+		<!-- End of Backdrop -->
+
 		<div
 			id="drawer-navigation"
 			class:transform-none={show}
