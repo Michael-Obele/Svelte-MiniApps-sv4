@@ -1,7 +1,5 @@
 <script lang="ts">
-	import { invalidateAll, goto } from '$app/navigation';
-	import { applyAction, deserialize } from '$app/forms';
-	import type { ActionResult } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
 
 	let username: string;
 	let year: string;

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { goto } from '$app/navigation';
 	import { parseHTML } from 'linkedom';
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { writable } from 'svelte/store';
@@ -143,6 +144,14 @@
 			On {data.props.year}.
 			<span>Your Total contributions are {totalContributions}</span>
 		</h3>
+
+		<div class="inline-flex w-full items-center justify-center">
+			<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+			<span
+				class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+				>that's</span
+			>
+		</div>
 		{#each $contributions as item}
 			<div class="m-5 flex space-x-3">
 				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
@@ -150,9 +159,17 @@
 			</div>
 		{/each}
 	</div>
+
+	<div class="inline-flex w-full items-center justify-center">
+		<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+		<span
+			class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+			>or</span
+		>
+	</div>
 {/if}
 
-{#each Object.keys(contributionsByMonth) as month}
+{#each Object.keys(contributionsByMonth) as month, i}
 	<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
 		<h2>{month}</h2>
 		<ul>
@@ -164,7 +181,25 @@
 			{/each}
 		</ul>
 	</div>
+	<div
+		class:hidden={i + 1 == Object.keys(contributionsByMonth).length}
+		class="inline-flex w-full items-center justify-center"
+	>
+		<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+		<span
+			class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+			>and</span
+		>
+	</div>
 {/each}
+
+<div class="inline-flex w-full items-center justify-center">
+	<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+	<span
+		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+		>Heat Map</span
+	>
+</div>
 
 <div class="mx-auto w-full space-y-7 px-6 py-5 lg:hidden">
 	<SvelteHeatmap
@@ -225,13 +260,21 @@
 		cellRadius={1}
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
 		data={dataSet}
-		dayLabelWidth={3}
 		emptyColor={'#ecedf0'}
 		monthLabels={monthAbs}
 		endDate={`${year}-12-01T03:00:00.000Z`}
-		monthGap={10}
-		monthLabelHeight={20}
+		monthGap={8}
+		monthLabelHeight={25}
 		startDate={`${year}-01-01T03:00:00.000Z`}
 		view={'monthly'}
 	/>
+</div>
+
+<div class="mx-auto w-fit">
+	<button
+		class="mb-2 me-2 rounded-lg border border-green-700 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+		on:click={() => goto('/Apps/GitHub-Contribution-Tracker')}
+	>
+		Go Back
+	</button>
 </div>
