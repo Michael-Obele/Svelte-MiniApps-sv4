@@ -19,7 +19,16 @@
 	in the search box just after the current url
 </h1>
 
-<form on:submit|preventDefault={gitCommit} class="mx-auto mt-16 max-w-sm">
+<div class="inline-flex w-full items-center justify-center">
+	<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+	<span
+		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+		>or</span
+	>
+</div>
+
+<h3 class="text-center text-xl capitalize">Enter you details</h3>
+<form on:submit|preventDefault={gitCommit} class="mx-auto mt-16 max-w-sm p-3">
 	<div class="mb-5">
 		<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 			>Your Github Username</label

@@ -131,8 +131,12 @@
 	Contributions for <span class="capitalize">{user}</span> - {year}
 </h1>
 {#if data.streakStats}
-	<div class="my-5 flex w-svw justify-center overflow-scroll px-20">
-		<div class="mx-auto" contenteditable="false" bind:innerHTML={data.streakStats}></div>
+	<div class="my-5">
+		<div
+			class="mx-auto flex w-full justify-center"
+			contenteditable="false"
+			bind:innerHTML={data.streakStats}
+		></div>
 	</div>
 	<div class="mx-auto w-fit space-y-3 text-center">
 		<h3>
@@ -162,7 +166,58 @@
 	</div>
 {/each}
 
-<div class="mx-auto flex h-fit w-full justify-center overflow-scroll p-2 text-center">
+<div class="mx-auto w-full space-y-7 px-6 py-5 lg:hidden">
+	<SvelteHeatmap
+		allowOverflow={true}
+		cellGap={3}
+		fontColor={'white'}
+		cellRadius={1}
+		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
+		data={dataSet}
+		dayLabelWidth={3}
+		emptyColor={'#ecedf0'}
+		monthLabels={monthAbs}
+		endDate={`${year}-04-01T03:00:00.000Z`}
+		monthGap={10}
+		monthLabelHeight={8}
+		startDate={`${year}-01-01T03:00:00.000Z`}
+		view={'monthly'}
+	/>
+	<SvelteHeatmap
+		allowOverflow={true}
+		cellGap={3}
+		fontColor={'white'}
+		cellRadius={1}
+		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
+		data={dataSet}
+		dayLabelWidth={3}
+		emptyColor={'#ecedf0'}
+		monthLabels={monthAbs}
+		endDate={`${year}-08-01T03:00:00.000Z`}
+		monthGap={10}
+		monthLabelHeight={8}
+		startDate={`${year}-05-01T03:00:00.000Z`}
+		view={'monthly'}
+	/>
+	<SvelteHeatmap
+		allowOverflow={true}
+		cellGap={3}
+		fontColor={'white'}
+		cellRadius={1}
+		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
+		data={dataSet}
+		dayLabelWidth={5}
+		emptyColor={'#ecedf0'}
+		monthLabels={monthAbs}
+		endDate={`${year}-12-01T03:00:00.000Z`}
+		monthGap={10}
+		monthLabelHeight={8}
+		startDate={`${year}-09-01T03:00:00.000Z`}
+		view={'monthly'}
+	/>
+</div>
+
+<div class="mx-auto hidden w-full px-6 py-2 lg:block">
 	<SvelteHeatmap
 		allowOverflow={true}
 		cellGap={3}

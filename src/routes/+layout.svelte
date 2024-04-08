@@ -202,4 +202,6 @@
 
 <!-- End of Nav Bar -->
 
-<slot />
+<div class="text-gray-900 dark:text-white">
+	<slot />
+</div>
