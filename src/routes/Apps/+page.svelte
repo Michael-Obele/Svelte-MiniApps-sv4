@@ -15,7 +15,7 @@
 	} from 'lucide-svelte';
 </script>
 
-<div class="group mx-12 my-8 grid gap-8 md:grid-flow-row md:grid-cols-2">
+<div class="group mx-12 my-8 flex max-w-md">
 	{#each projects as item}
 		<a
 			class:pointer-events-none={!done.includes(item.title)}

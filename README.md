@@ -1,5 +1,3 @@
-Here's an updated README for your Svelte MiniApps project, reflecting the changes you mentioned:
-
 ## Svelte MiniApps
 
 **A Playground of Useful and Engaging Tools Built with Svelte**

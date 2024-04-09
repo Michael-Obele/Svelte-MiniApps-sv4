@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { parseHTML } from 'linkedom';
+	import { ChevronLeft } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { writable } from 'svelte/store';
 
@@ -129,7 +130,7 @@
 <h1 class="text-center text-2xl">GitHub Contributions</h1>
 
 <h1 class="my-15 text-center text-xl">
-	Contributions for <span class="capitalize">{user}</span> - {year}
+	For <span class="capitalize">{user}</span> - {year}
 </h1>
 {#if data.streakStats}
 	<div class="my-5">
@@ -272,9 +273,12 @@
 
 <div class="mx-auto w-fit">
 	<button
-		class="mb-2 me-2 rounded-lg border border-green-700 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+		class="group mb-2 me-2 flex justify-center rounded-lg border border-green-700 px-2 py-2.5 pr-7 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
 		on:click={() => goto('/Apps/GitHub-Contribution-Tracker')}
 	>
-		Go Back
+		<span class="opacity-5 transition-all group-hover:opacity-100">
+			<ChevronLeft />
+		</span>
+		<span class="mt-1"> Go Back </span>
 	</button>
 </div>
