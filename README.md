@@ -4,13 +4,9 @@
 
 This project is a collection of small, single-purpose applications written in Svelte. Each mini-app tackles a specific task, offering a simple and user-friendly experience for users.
 
-[//]: # (This is a comment using a reference link syntax)
-
-
 ## **Explore a Variety of Tools:**
 
-This project currently **will** includes a variety of mini-apps, such as:
-
+This project currently **includes** a variety of mini-apps, such as:
 
 
 ### Easy Tools with SvelteKit:
@@ -30,6 +26,7 @@ This project currently **will** includes a variety of mini-apps, such as:
 * **Music Player:** Simple music player that allows browsing and playing local audio files.
 * **QR Code Generator:** Generates QR codes for URLs, text, or vCards.
 * **To-Do List with Persistence:** Create and manage to-do items with local storage for persistence.
+* **GitHub Contribution Tracker (New!)** Visualize your GitHub contributions in a clear and engaging way. Track streaks, identify patterns, and stay motivated.
 
 ### Challenging Tools with SvelteKit:
 
@@ -39,6 +36,10 @@ This project currently **will** includes a variety of mini-apps, such as:
 * **Math Equation Solver:** Solve simple mathematical equations with step-by-step explanations.
 * **Budget Tracker:** Track income and expenses to manage personal finances.
 * **Simple Drawing App:** Create basic drawings using lines, shapes, and colors.
+
+### Additional Tools (New!)
+
+* **Markdown Store:** Write, save, and organize your markdown files with ease. Perfect for quick notes, to-do lists, or even creative writing projects.
 
 We're constantly adding new functionalities, so be sure to check back for more tools in the future!
 
