@@ -118,7 +118,7 @@ interface OutputEntry {
 
 export const _sortedContributions = sortContributionsByMonth(_contributionsByMonth);
 
-console.log(_sortedContributions);
+//console.log(_sortedContributions);
 
 export const load: PageLoad = async ({ parent, data }) => {
 	await parent();
