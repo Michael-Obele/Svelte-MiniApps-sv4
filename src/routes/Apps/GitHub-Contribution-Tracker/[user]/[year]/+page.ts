@@ -1,7 +1,7 @@
 import type { PageLoad } from './$types';
-
 import { writable } from 'svelte/store';
 import { parseHTML } from 'linkedom';
+import { contributions } from '$lib/utils';
 
 function extractContributionData(html: any): ContributionsData {
 	const { document } = parseHTML(html);
@@ -18,28 +18,13 @@ function extractContributionData(html: any): ContributionsData {
 
 export type ContributionsData = string[][];
 
-export let _contributions = writable([
-	{ date: 'January', count: 0 },
-	{ date: 'February', count: 0 },
-	{ date: 'March', count: 0 },
-	{ date: 'April', count: 0 },
-	{ date: 'May', count: 0 },
-	{ date: 'June', count: 0 },
-	{ date: 'July', count: 0 },
-	{ date: 'August', count: 0 },
-	{ date: 'September', count: 0 },
-	{ date: 'October', count: 0 },
-	{ date: 'November', count: 0 },
-	{ date: 'December', count: 0 }
-]);
-
 const parseData = (data: ContributionsData) => {
 	data.forEach((entry) => {
 		const [contributionString] = entry;
 		const match = contributionString.match(/(\d+) contributions? on (\w+)/);
 		if (match) {
 			const [, count, month] = match;
-			_contributions.update((current) => {
+			contributions.update((current) => {
 				const monthIndex = current.findIndex((m) => m.date === month);
 				if (monthIndex !== -1) {
 					current[monthIndex].count += parseInt(count, 10);
@@ -131,6 +116,8 @@ export const load: PageLoad = async ({ parent, data }) => {
 
 	let contributionsByMonth: ContributionsByMonth = {};
 
+	parseData(jsonData);
+
 	jsonData.forEach((entry) => {
 		const [contributionString] = entry;
 		const match = contributionString.match(/(\d+) contributions? on (\w+) (\d+)/);
@@ -171,7 +158,6 @@ export const load: PageLoad = async ({ parent, data }) => {
 		contributionsInfo,
 		streakStats,
 		page_data: {
-			message: 'From the page.js',
 			jsonData,
 			totalContributions,
 			dataSet,

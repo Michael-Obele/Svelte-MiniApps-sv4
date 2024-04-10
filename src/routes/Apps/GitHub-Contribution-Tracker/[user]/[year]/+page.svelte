@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { ChevronLeft } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
+	import { contributions } from '$lib/utils';
 
 	export let data;
 	const year: string = data.props.year;
@@ -21,8 +22,6 @@
 		'Nov',
 		'Dec'
 	];
-
-	import { _contributions } from './+page';
 </script>
 
 <svelte:head>
@@ -55,7 +54,7 @@
 				>that's</span
 			>
 		</div>
-		{#each $_contributions as item}
+		{#each $contributions as item}
 			<div class="m-5 flex space-x-3">
 				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
 				<h1>{item.date}</h1>
