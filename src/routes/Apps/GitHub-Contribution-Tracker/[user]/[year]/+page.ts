@@ -3,7 +3,7 @@ import type { PageLoad } from './$types';
 import { writable } from 'svelte/store';
 import { parseHTML } from 'linkedom';
 
-export function _extractContributionData(html: any): ContributionsData {
+function extractContributionData(html: any): ContributionsData {
 	const { document } = parseHTML(html);
 	const tooltips = document.querySelectorAll('tool-tip');
 	const contributionsData: any[] = [];
@@ -33,7 +33,7 @@ export let _contributions = writable([
 	{ date: 'December', count: 0 }
 ]);
 
-export const _parseData = (data: ContributionsData) => {
+const parseData = (data: ContributionsData) => {
 	data.forEach((entry) => {
 		const [contributionString] = entry;
 		const match = contributionString.match(/(\d+) contributions? on (\w+)/);
@@ -51,15 +51,15 @@ export const _parseData = (data: ContributionsData) => {
 	});
 };
 
-export interface ContributionsByMonth {
+interface ContributionsByMonth {
 	[month: string]: {
 		[day: string]: number;
 	};
 }
 
-export let _contributionsByMonth: ContributionsByMonth = {};
+let contributionsByMonth: ContributionsByMonth = {};
 
-export const _monthOrder = [
+const monthOrder = [
 	'January',
 	'February',
 	'March',
@@ -89,8 +89,8 @@ function sortContributionsByMonth(
 	// Sort the entries by month and then by day
 	const sortedEntries = entries.sort(([monthA, daysA], [monthB, daysB]) => {
 		// Get the index of each month in the monthOrder array
-		const indexA = _monthOrder.indexOf(monthA);
-		const indexB = _monthOrder.indexOf(monthB);
+		const indexA = monthOrder.indexOf(monthA);
+		const indexB = monthOrder.indexOf(monthB);
 
 		// Sort by month first
 		if (indexA < indexB) return -1;
@@ -116,9 +116,9 @@ interface OutputEntry {
 	value: number;
 }
 
-export const _sortedContributions = sortContributionsByMonth(_contributionsByMonth);
+const sortedContributions = sortContributionsByMonth(contributionsByMonth);
 
-//console.log(_sortedContributions);
+//console.log( sortedContributions);
 
 export const load: PageLoad = async ({ parent, data }) => {
 	await parent();
@@ -127,7 +127,7 @@ export const load: PageLoad = async ({ parent, data }) => {
 	const user = props.user;
 	const year = props.year;
 
-	const jsonData = _extractContributionData(contributionsInfo);
+	const jsonData = extractContributionData(contributionsInfo);
 
 	let contributionsByMonth: ContributionsByMonth = {};
 

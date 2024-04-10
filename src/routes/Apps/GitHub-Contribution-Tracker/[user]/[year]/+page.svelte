@@ -22,17 +22,7 @@
 		'Dec'
 	];
 
-	import {
-		_extractContributionData,
-		_sortedContributions,
-		_contributions,
-		_parseData,
-		_contributionsByMonth,
-		_monthOrder
-	} from './+page';
-
-	console.log(_sortedContributions);
-	console.log(_contributionsByMonth);
+	import { _contributions } from './+page';
 </script>
 
 <svelte:head>
