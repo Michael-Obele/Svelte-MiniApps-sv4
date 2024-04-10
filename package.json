@@ -36,6 +36,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@prisma/client": "latest",
     "bits-ui": "^0.21.1",
     "clsx": "^2.1.0",
     "formsnap": "^1.0.0",

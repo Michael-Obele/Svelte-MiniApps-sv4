@@ -121,6 +121,6 @@ export const projects = [
 		details:
 			'Write, save, and organize your markdown files with ease. Perfect for quick notes, to-do lists, or even creative writing projects.',
 		tag: 'utility',
-		difficulty: 'easy'
+		difficulty: 'hard'
 	}
 ];

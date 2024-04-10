@@ -32,7 +32,35 @@
 	function generateNewPassword() {
 		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
 	}
+
+	let appData = {
+		title: 'Random Password Generator',
+		details: 'Generates random passwords with configurable length and complexity.',
+		tag: 'security',
+		difficulty: 'easy'
+	};
+
+	let websiteTitle = `Svelte MiniApps - ${appData.title}`;
+	let websiteDescription = appData.details;
+	let websiteUrl = `https://svelte-mini-apps.netlify.app/apps/${appData.title.toLowerCase().replace(/\s/g, '-')}`; // Replace with actual URL structure
+	let websiteImage = 'https://svelte-mini-apps.netlify.app/apps/password-generator.png'; // Replace with an image of the app
+
+	let twitterTitle = `${websiteTitle} - Secure Your Accounts`;
+	let twitterDescription = `Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator.`;
 </script>
+
+<svelte:head>
+	<title>{websiteTitle}</title>
+	<meta name="description" content={websiteDescription} />
+	<meta property="og:title" content={websiteTitle} />
+	<meta property="og:description" content={websiteDescription} />
+	<meta property="og:url" content={websiteUrl} />
+	<meta property="og:image" content={websiteImage} />
+
+	<meta name="twitter:title" content={websiteTitle} />
+	<meta name="twitter:description" content={websiteDescription} />
+	<meta name="twitter:image" content={websiteImage} />
+</svelte:head>
 
 <section class="container">
 	<h3 class="m-4 text-center text-3xl font-bold underline decoration-green-400">Hi</h3>

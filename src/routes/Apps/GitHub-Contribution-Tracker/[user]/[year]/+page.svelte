@@ -55,10 +55,12 @@
 			>
 		</div>
 		{#each $contributions as item}
-			<div class="m-5 flex space-x-3">
-				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
-				<h1>{item.date}</h1>
-			</div>
+			{#if item.count >= 1}
+				<div class="m-5 flex space-x-3">
+					<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
+					<h1>{item.date}</h1>
+				</div>
+			{/if}
 		{/each}
 	</div>
 
