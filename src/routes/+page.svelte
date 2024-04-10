@@ -1,7 +1,25 @@
 <script lang="ts">
 	import { projects } from '$lib/index';
 	import { done } from '$lib/index';
+	let websiteTitle = 'Svelte MiniApps';
+	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
+	let websiteUrl = 'https://svelte-mini-apps.netlify.app/'; // Replace with your actual website URL
+	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
+	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
+	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 </script>
+
+<svelte:head>
+	<title>{websiteTitle}</title>
+	<meta name="description" content={websiteDescription} />
+	<meta property="og:title" content={websiteTitle} />
+	<meta property="og:description" content={websiteDescription} />
+	<meta property="og:url" content={websiteUrl} />
+	<meta property="og:image" content={websiteImage} />
+	<meta name="twitter:title" content={twitterTitle} />
+	<meta name="twitter:description" content={twitterDescription} />
+	<meta name="twitter:image" content={websiteImage} />
+</svelte:head>
 
 <main class="mx-auto my-12 max-w-screen-xl rounded-lg bg-white px-4 py-8 dark:bg-gray-900 lg:py-16">
 	<div class="flex flex-col items-center justify-center md:flex-row md:space-x-10">

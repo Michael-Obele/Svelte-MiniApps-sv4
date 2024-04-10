@@ -202,6 +202,10 @@
 
 <!-- End of Nav Bar -->
 
+<svelte:head>
+	<title>Svelte MiniApps</title>
+</svelte:head>
+
 <div class="text-gray-900 dark:text-white">
 	<slot />
 </div>
