@@ -1,151 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { parseHTML } from 'linkedom';
 	import { ChevronLeft } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
-	import { writable } from 'svelte/store';
 
 	export let data;
 	const year: string = data.props.year;
 	const user: string = data.props.user;
-
-	function extractContributionData(html: any): ContributionsData {
-		const { document } = parseHTML(html);
-		const tooltips = document.querySelectorAll('tool-tip');
-		const contributionsData: any[] = [];
-
-		tooltips.forEach((tooltip) => {
-			const content = tooltip.textContent?.trim() ?? '';
-			contributionsData.push([content]);
-		});
-
-		return contributionsData;
-	}
-
-	type ContributionsData = string[][];
-
-	let contributions = writable([
-		{ date: 'January', count: 0 },
-		{ date: 'February', count: 0 },
-		{ date: 'March', count: 0 },
-		{ date: 'April', count: 0 },
-		{ date: 'May', count: 0 },
-		{ date: 'June', count: 0 },
-		{ date: 'July', count: 0 },
-		{ date: 'August', count: 0 },
-		{ date: 'September', count: 0 },
-		{ date: 'October', count: 0 },
-		{ date: 'November', count: 0 },
-		{ date: 'December', count: 0 }
-	]);
-
-	const jsonData = extractContributionData(data.contributionsInfo);
-
-	const parseData = (data: ContributionsData) => {
-		data.forEach((entry) => {
-			const [contributionString] = entry;
-			const match = contributionString.match(/(\d+) contributions? on (\w+)/);
-			if (match) {
-				const [, count, month] = match;
-				contributions.update((current) => {
-					const monthIndex = current.findIndex((m) => m.date === month);
-					if (monthIndex !== -1) {
-						current[monthIndex].count += parseInt(count, 10);
-					}
-
-					return current;
-				});
-			}
-		});
-	};
-
-	parseData(jsonData);
-
-	interface ContributionsByMonth {
-		[month: string]: {
-			[day: string]: number;
-		};
-	}
-
-	let contributionsByMonth: ContributionsByMonth = {};
-
-	jsonData.forEach((entry) => {
-		const [contributionString] = entry;
-		const match = contributionString.match(/(\d+) contributions? on (\w+) (\d+)/);
-		if (match) {
-			const [, count, month, day] = match;
-			if (!contributionsByMonth[month]) {
-				contributionsByMonth[month] = {};
-			}
-			contributionsByMonth[month][day] = parseInt(count, 10);
-		}
-	});
-
-	Object.keys(contributionsByMonth).forEach((month) => {
-		if (Object.values(contributionsByMonth[month]).reduce((a, b) => a + b, 0) === 0) {
-			delete contributionsByMonth[month];
-		}
-	});
-
-	console.log(contributionsByMonth);
-
-	interface ContributionsDataForSorting {
-		[month: string]: {
-			[day: string]: number;
-		};
-	}
-
-	// Array of month names in the correct order
-	const monthOrder = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'October',
-		'November',
-		'December'
-	];
-
-	function sortContributionsByMonth(
-		contributionsByMonth: ContributionsDataForSorting
-	): ContributionsDataForSorting {
-		// Convert the object into an array of entries
-		const entries = Object.entries(contributionsByMonth);
-
-		// Sort the entries by month and then by day
-		const sortedEntries = entries.sort(([monthA, daysA], [monthB, daysB]) => {
-			// Get the index of each month in the monthOrder array
-			const indexA = monthOrder.indexOf(monthA);
-			const indexB = monthOrder.indexOf(monthB);
-
-			// Sort by month first
-			if (indexA < indexB) return -1;
-			if (indexA > indexB) return 1;
-
-			// If months are equal, sort by day
-			const dayA = Object.keys(daysA)[0]; // Assuming you want to sort by the first day of each month
-			const dayB = Object.keys(daysB)[0]; // Assuming you want to sort by the first day of each month
-			return dayA.localeCompare(dayB); // Use localeCompare for string comparison
-		});
-
-		// Convert the sorted array back into an object
-		const sortedContributionsByMonth: ContributionsDataForSorting = {};
-		sortedEntries.forEach(([month, days]) => {
-			sortedContributionsByMonth[month] = days;
-		});
-
-		return sortedContributionsByMonth;
-	}
-
-	// Example usage
-
-	const sortedContributions = sortContributionsByMonth(contributionsByMonth);
-	console.log(sortedContributions);
 
 	const monthAbs = [
 		'Jan',
@@ -162,25 +22,17 @@
 		'Dec'
 	];
 
-	let dataSet: OutputEntry[] = jsonData
-		.map((entry) => {
-			const [contributionString] = entry;
-			const match = contributionString.match(/(\d+) contributions? on (\w+) (\d+)/);
-			if (match) {
-				const [, count, month, day] = match;
-				const date = new Date(`${month} ${day}, ${year}`);
-				return { date: date.toISOString(), value: parseInt(count) };
-			}
-			return null;
-		})
-		.filter((entry) => entry !== null) as OutputEntry[];
+	import {
+		_extractContributionData,
+		_sortedContributions,
+		_contributions,
+		_parseData,
+		_contributionsByMonth,
+		_monthOrder
+	} from './+page';
 
-	interface OutputEntry {
-		date: string;
-		value: number;
-	}
-
-	let totalContributions = dataSet.reduce((accumulator, current) => accumulator + current.value, 0);
+	console.log(_sortedContributions);
+	console.log(_contributionsByMonth);
 </script>
 
 <svelte:head>
@@ -203,7 +55,7 @@
 	<div class="mx-auto w-fit space-y-3 text-center">
 		<h3>
 			On {data.props.year}.
-			<span>Your Total contributions are {totalContributions}</span>
+			<span>Your Total contributions are {data.page_data.totalContributions}</span>
 		</h3>
 
 		<div class="inline-flex w-full items-center justify-center">
@@ -213,7 +65,7 @@
 				>that's</span
 			>
 		</div>
-		{#each $contributions as item}
+		{#each $_contributions as item}
 			<div class="m-5 flex space-x-3">
 				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
 				<h1>{item.date}</h1>
@@ -230,20 +82,20 @@
 	</div>
 {/if}
 
-{#each Object.keys(sortedContributions) as month, i}
+{#each Object.keys(data.page_data.sortedContributions) as month, i}
 	<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
 		<h2>{month}</h2>
 		<ul>
-			{#each Object.keys(sortedContributions[month]) as day}
+			{#each Object.keys(data.page_data.sortedContributions[month]) as day}
 				<li>
-					{day} : {sortedContributions[month][day]}
-					{sortedContributions[month][day] === 1 ? 'contribution' : 'contributions'}
+					{day} : {data.page_data.sortedContributions[month][day]}
+					{data.page_data.sortedContributions[month][day] === 1 ? 'contribution' : 'contributions'}
 				</li>
 			{/each}
 		</ul>
 	</div>
 	<div
-		class:hidden={i + 1 == Object.keys(sortedContributions).length}
+		class:hidden={i + 1 == Object.keys(data.page_data.sortedContributions).length}
 		class="inline-flex w-full items-center justify-center"
 	>
 		<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
@@ -269,7 +121,7 @@
 		fontColor={'white'}
 		cellRadius={1}
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={dataSet}
+		data={data.page_data.dataSet}
 		dayLabelWidth={3}
 		emptyColor={'#ecedf0'}
 		monthLabels={monthAbs}
@@ -285,7 +137,7 @@
 		fontColor={'white'}
 		cellRadius={1}
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={dataSet}
+		data={data.page_data.dataSet}
 		dayLabelWidth={3}
 		emptyColor={'#ecedf0'}
 		monthLabels={monthAbs}
@@ -301,7 +153,7 @@
 		fontColor={'white'}
 		cellRadius={1}
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={dataSet}
+		data={data.page_data.dataSet}
 		dayLabelWidth={5}
 		emptyColor={'#ecedf0'}
 		monthLabels={monthAbs}
@@ -320,7 +172,7 @@
 		fontColor={'white'}
 		cellRadius={1}
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={dataSet}
+		data={data.page_data.dataSet}
 		emptyColor={'#ecedf0'}
 		monthLabels={monthAbs}
 		endDate={`${year}-12-01T03:00:00.000Z`}

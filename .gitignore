@@ -11,6 +11,11 @@ bun.lockb
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+
+#In House Test Code
+Untitled.*
+Untitled-*.*
+
 # Node.js files
 node_modules/
 .yarn/cache/
