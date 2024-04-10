@@ -87,6 +87,66 @@
 		}
 	});
 
+	console.log(contributionsByMonth);
+
+	interface ContributionsDataForSorting {
+		[month: string]: {
+			[day: string]: number;
+		};
+	}
+
+	// Array of month names in the correct order
+	const monthOrder = [
+		'January',
+		'February',
+		'March',
+		'April',
+		'May',
+		'June',
+		'July',
+		'August',
+		'September',
+		'October',
+		'November',
+		'December'
+	];
+
+	function sortContributionsByMonth(
+		contributionsByMonth: ContributionsDataForSorting
+	): ContributionsDataForSorting {
+		// Convert the object into an array of entries
+		const entries = Object.entries(contributionsByMonth);
+
+		// Sort the entries by month and then by day
+		const sortedEntries = entries.sort(([monthA, daysA], [monthB, daysB]) => {
+			// Get the index of each month in the monthOrder array
+			const indexA = monthOrder.indexOf(monthA);
+			const indexB = monthOrder.indexOf(monthB);
+
+			// Sort by month first
+			if (indexA < indexB) return -1;
+			if (indexA > indexB) return 1;
+
+			// If months are equal, sort by day
+			const dayA = Object.keys(daysA)[0]; // Assuming you want to sort by the first day of each month
+			const dayB = Object.keys(daysB)[0]; // Assuming you want to sort by the first day of each month
+			return dayA.localeCompare(dayB); // Use localeCompare for string comparison
+		});
+
+		// Convert the sorted array back into an object
+		const sortedContributionsByMonth: ContributionsDataForSorting = {};
+		sortedEntries.forEach(([month, days]) => {
+			sortedContributionsByMonth[month] = days;
+		});
+
+		return sortedContributionsByMonth;
+	}
+
+	// Example usage
+
+	const sortedContributions = sortContributionsByMonth(contributionsByMonth);
+	console.log(sortedContributions);
+
 	const monthAbs = [
 		'Jan',
 		'Feb',
@@ -147,9 +207,9 @@
 		</h3>
 
 		<div class="inline-flex w-full items-center justify-center">
-			<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+			<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
 			<span
-				class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+				class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
 				>that's</span
 			>
 		</div>
@@ -162,28 +222,28 @@
 	</div>
 
 	<div class="inline-flex w-full items-center justify-center">
-		<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+		<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
 		<span
-			class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+			class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
 			>or</span
 		>
 	</div>
 {/if}
 
-{#each Object.keys(contributionsByMonth) as month, i}
+{#each Object.keys(sortedContributions) as month, i}
 	<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
 		<h2>{month}</h2>
 		<ul>
-			{#each Object.keys(contributionsByMonth[month]) as day}
+			{#each Object.keys(sortedContributions[month]) as day}
 				<li>
-					{day} : {contributionsByMonth[month][day]}
-					{contributionsByMonth[month][day] === 1 ? 'contribution' : 'contributions'}
+					{day} : {sortedContributions[month][day]}
+					{sortedContributions[month][day] === 1 ? 'contribution' : 'contributions'}
 				</li>
 			{/each}
 		</ul>
 	</div>
 	<div
-		class:hidden={i + 1 == Object.keys(contributionsByMonth).length}
+		class:hidden={i + 1 == Object.keys(sortedContributions).length}
 		class="inline-flex w-full items-center justify-center"
 	>
 		<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
@@ -195,9 +255,9 @@
 {/each}
 
 <div class="inline-flex w-full items-center justify-center">
-	<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
 	<span
-		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
 		>Heat Map</span
 	>
 </div>
