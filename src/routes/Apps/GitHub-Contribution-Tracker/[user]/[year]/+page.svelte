@@ -41,37 +41,37 @@
 			bind:innerHTML={data.streakStats}
 		></div>
 	</div>
-	<div class="mx-auto w-fit space-y-3 text-center">
-		<h3>
-			On {data.props.year}.
-			<span>Your Total contributions are {data.page_data.totalContributions}</span>
-		</h3>
-
-		<div class="inline-flex w-full items-center justify-center">
-			<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
-			<span
-				class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
-				>that's</span
-			>
-		</div>
-		{#each $contributions as item}
-			{#if item.count >= 1}
-				<div class="m-5 flex space-x-3">
-					<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
-					<h1>{item.date}</h1>
-				</div>
-			{/if}
-		{/each}
-	</div>
+{/if}
+<div class="mx-auto w-fit space-y-3 text-center">
+	<h3>
+		On {data.props.year}.
+		<span>Your Total contributions are {data.page_data.totalContributions}</span>
+	</h3>
 
 	<div class="inline-flex w-full items-center justify-center">
 		<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
 		<span
 			class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
-			>or</span
+			>that's</span
 		>
 	</div>
-{/if}
+	{#each $contributions as item}
+		{#if item.count >= 1}
+			<div class="m-5 flex space-x-3">
+				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
+				<h1>{item.date}</h1>
+			</div>
+		{/if}
+	{/each}
+</div>
+
+<div class="inline-flex w-full items-center justify-center">
+	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
+	<span
+		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+		>or</span
+	>
+</div>
 
 {#each Object.keys(data.page_data.sortedContributions) as month, i}
 	<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
@@ -105,7 +105,7 @@
 	>
 </div>
 
-<div class="mx-auto w-full space-y-7 px-6 py-5 lg:hidden">
+<div class="mx-auto w-full space-y-8 px-6 py-5 lg:hidden">
 	<SvelteHeatmap
 		allowOverflow={true}
 		cellGap={3}
@@ -156,10 +156,29 @@
 	/>
 </div>
 
-<div class="mx-auto hidden w-full px-6 py-2 lg:block">
+<div class="mx-auto hidden w-full space-y-10 px-6 py-2 lg:block">
 	<SvelteHeatmap
 		allowOverflow={true}
 		cellGap={3}
+		dayLabelWidth={2}
+		dayLabels={['', 'Mon', '', 'Web', '', 'Fri', '']}
+		fontColor={'white'}
+		cellRadius={1}
+		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
+		data={data.page_data.dataSet}
+		emptyColor={'#ecedf0'}
+		monthLabels={monthAbs}
+		endDate={`${year}-06-01T03:00:00.000Z`}
+		monthGap={8}
+		monthLabelHeight={25}
+		startDate={`${year}-01-01T03:00:00.000Z`}
+		view={'monthly'}
+	/>
+	<SvelteHeatmap
+		allowOverflow={true}
+		cellGap={3}
+		dayLabelWidth={2}
+		dayLabels={['', 'Mon', '', 'Web', '', 'Fri', '']}
 		fontColor={'white'}
 		cellRadius={1}
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
@@ -169,7 +188,7 @@
 		endDate={`${year}-12-01T03:00:00.000Z`}
 		monthGap={8}
 		monthLabelHeight={25}
-		startDate={`${year}-01-01T03:00:00.000Z`}
+		startDate={`${year}-07-01T03:00:00.000Z`}
 		view={'monthly'}
 	/>
 </div>

@@ -3,8 +3,8 @@
 </script>
 
 <svg
-	width="initial"
-	height="initial"
+	width="800px"
+	height="800px"
 	class={classes}
 	viewBox="-26 0 308 308"
 	version="1.1"

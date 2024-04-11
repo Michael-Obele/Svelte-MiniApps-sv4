@@ -56,6 +56,7 @@ export const flyAndScale = (
 	};
 };
 
+// An array of contributions for each month, initialized with a count of 0 for each month
 export let contributions = writable([
 	{ date: 'January', count: 0 },
 	{ date: 'February', count: 0 },
@@ -70,3 +71,6 @@ export let contributions = writable([
 	{ date: 'November', count: 0 },
 	{ date: 'December', count: 0 }
 ]);
+
+// A writable store that represents a filter state, initially set to false
+export let filter = writable(false);

@@ -26,8 +26,14 @@ export async function load({ params, setHeaders }) {
 
 		// Fetch GitHub streak stats
 		const streakStatsApiUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${user}&theme=dark&hide_border=false`;
+
+		let streakStatsSvgData = 'No data available'; // Default value in case of error
 		const streakStatsResponse = await fetch(streakStatsApiUrl);
-		const streakStatsSvgData = await streakStatsResponse.text();
+		if (!streakStatsResponse.ok) {
+			console.error('Failed to fetch streak stats'); // Log the error for debugging
+		} else {
+			streakStatsSvgData = await streakStatsResponse.text();
+		}
 
 		return {
 			props: {
