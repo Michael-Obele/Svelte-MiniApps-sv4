@@ -78,10 +78,10 @@
 						<span class:hidden={item.tag !== 'multimedia'}>
 							<Speaker size="16" class="mx-1" />
 						</span>
-						<span class:hidden={item.tag !== 'developer tools'}>
+						<span class:hidden={item.tag !== 'developer-tools'}>
 							<Code size="16" class="mx-1" />
 						</span>
-						{item.tag}
+						{item.tag.split('-').join(' ')}
 					</span>
 				</div>
 
@@ -103,6 +103,8 @@
 		</a>
 	{/each}
 </div>
+
+<!-- Filtered List -->
 
 <div class:hidden={!$filter} class="mx-12 my-8 grid h-fit grid-cols-2 gap-5">
 	{#each projects as item}
@@ -163,10 +165,10 @@
 							<span class:hidden={item.tag !== 'multimedia'}>
 								<Speaker size="16" class="mx-1" />
 							</span>
-							<span class:hidden={item.tag !== 'developer tools'}>
+							<span class:hidden={item.tag !== 'developer-tools'}>
 								<Code size="16" class="mx-1" />
 							</span>
-							{item.tag}
+							{item.tag.split('-').join(' ')}
 						</span>
 					</div>
 

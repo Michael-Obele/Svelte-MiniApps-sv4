@@ -113,7 +113,7 @@ export const projects = [
 		title: 'GitHub Contribution Tracker',
 		details:
 			'Visualize your GitHub contributions in a clear and engaging way. Track streaks, identify patterns, and stay motivated.',
-		tag: 'developer tools',
+		tag: 'developer-tools',
 		difficulty: 'medium'
 	},
 	{
