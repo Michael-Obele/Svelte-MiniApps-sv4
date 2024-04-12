@@ -15,6 +15,8 @@
     "@sveltejs/adapter-auto": "^3.0.0",
     "@sveltejs/kit": "^2.0.0",
     "@sveltejs/vite-plugin-svelte": "^3.0.0",
+    "@types/bcrypt": "^5.0.2",
+    "@types/bcryptjs": "^2.4.6",
     "@types/eslint": "^8.56.0",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
@@ -37,6 +39,7 @@
   "type": "module",
   "dependencies": {
     "@prisma/client": "latest",
+    "bcryptjs": "^2.4.3",
     "bits-ui": "^0.21.1",
     "clsx": "^2.1.0",
     "formsnap": "^1.0.0",

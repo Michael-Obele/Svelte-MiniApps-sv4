@@ -77,10 +77,10 @@
 		</button>
 	</div>
 
-	<h4 class="m-6 text-center text-2xl">Choose another Password</h4>
+	<h4 class="m-6 mt-12 text-center text-2xl">Choose another Password</h4>
 	<div class="mx-auto flex w-[80vw] flex-col items-center">
-		<h3 class="text-lg font-bold">Edit length:</h3>
 		<div class="mx-3 flex w-fit flex-col items-center space-x-5 md:flex-row">
+			<label class="text-lg font-bold" for="length">Edit length:</label>
 			<input
 				type="number"
 				name="length"
