@@ -15,6 +15,7 @@
 	import { toggleMode } from 'mode-watcher';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { stringify } from 'postcss';
 </script>
 
 <svelte:head>
@@ -26,11 +27,16 @@
 <!-- Nav Bar -->
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
 	<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+		<!-- Logo -->
 		<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-			<span class="flex self-center whitespace-nowrap text-2xl font-semibold dark:text-white">
-				<Svelte classes="w-6 h-6 m-1" /> MiniApps</span
-			>
+			<div class="flex text-2xl font-semibold dark:text-white">
+				<span class="m-1 h-6 w-6 self-center whitespace-nowrap">
+					<Svelte />
+				</span>
+				MiniApps
+			</div>
 		</a>
+		<!-- End of Logo -->
 		<!-- Toggle Theme -->
 		<Button on:click={toggleMode} variant="outline" class="-my-2 md:hidden" size="icon">
 			<Sun
@@ -42,6 +48,33 @@
 			<span class="sr-only">Toggle theme</span>
 		</Button>
 		<!-- End of Toggle Theme -->
+
+		{#if !$page.data.user}
+			<a
+				href="/Login"
+				class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400">Login</a
+			>
+			<a
+				href="/Register"
+				class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
+				>Register</a
+			>
+		{/if}
+
+		{#if $page.data.user}
+			<a
+				href="/Admin"
+				class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400">Admin</a
+			>
+
+			<form action="?/logout" method="POST">
+				<button
+					type="submit"
+					class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800"
+					>Log out</button
+				>
+			</form>
+		{/if}
 
 		<button
 			data-collapse-toggle="navbar-default"
@@ -205,6 +238,10 @@
 </nav>
 
 <!-- End of Nav Bar -->
+
+<!-- <h1 class="text-center text-gray-900 dark:text-white">
+	{JSON.stringify($page.data.user)}
+</h1> -->
 
 <div class="text-gray-900 dark:text-white">
 	<slot />

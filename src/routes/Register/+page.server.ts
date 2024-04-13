@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcryptjs';
 
@@ -37,6 +37,12 @@ const register: Action = async ({ request }) => {
 			await db.roles.create({
 				data: { name: Roles.USER }
 			});
+		} else {
+			// Username exist
+			error(
+				400,
+				'Registration failed. Username already exists. You can try logging in if you have an account, or choose a different username.'
+			);
 		}
 
 		// Now, create the user with the role

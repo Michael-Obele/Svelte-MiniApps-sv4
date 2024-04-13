@@ -3,9 +3,9 @@
 
 	// export let data: PageData;
 
-	// import type { ActionData } from './$types';
+	import type { ActionData } from './$types';
 
-	// export let form: ActionData;
+	export let form: ActionData;
 </script>
 
 <div
@@ -22,6 +22,7 @@
 					<input
 						id="username"
 						name="username"
+                         value={form?.username ?? ''}
 						type="text"
 						required
 						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 sm:text-sm"
@@ -40,7 +41,17 @@
 					/>
 				</div>
 			</div>
+			{#if form?.invalid}
+				<p class="mt-2 text-sm text-red-500 dark:text-red-400">
+					Username and password is required.
+				</p>
+			{/if}
 
+			{#if form?.credentials}
+				<p class="mt-2 text-sm text-red-500 dark:text-red-400">
+					You have entered the wrong credentials.
+				</p>
+			{/if}
 			<div>
 				<button
 					type="submit"

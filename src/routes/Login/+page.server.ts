@@ -23,16 +23,16 @@ const login: Action = async ({ cookies, request }) => {
 	const user = await db.user.findUnique({ where: { username } });
 
 	if (!user) {
-		return fail(400, { credentials: true });
+		return fail(400, { username, credentials: true });
 	}
 
 	if (user.passwordHash) {
 		const userPassword = bcrypt.compareSync(password, user.passwordHash);
 		if (!userPassword) {
-			return fail(400, { credentials: true });
+			return fail(400, { username, credentials: true });
 		}
 	} else {
-		return fail(400, { credentials: true });
+		return fail(400, { username, credentials: true });
 	}
 
 	const authenticatedUser = await db.user.update({
@@ -48,7 +48,7 @@ const login: Action = async ({ cookies, request }) => {
 		maxAge: 60 * 60 * 24 * 30
 	});
 
-	// redirect(302, '/');
+	redirect(302, '/');
 };
 
 export const actions: Actions = { login };

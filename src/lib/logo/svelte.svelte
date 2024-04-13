@@ -1,11 +1,6 @@
-<script lang="ts">
-	export var classes: string;
-</script>
-
 <svg
-	width="800px"
-	height="800px"
-	class={classes}
+	width="100%"
+	height="100%"
 	viewBox="-26 0 308 308"
 	version="1.1"
 	xmlns="http://www.w3.org/2000/svg"
