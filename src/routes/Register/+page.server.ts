@@ -23,7 +23,7 @@ const register: Action = async ({ request }) => {
 	password?.toString();
 
 	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
-		throw new Error('Username and Password must be a string');
+		error(400, 'Username and Password must be a string');
 	}
 
 	if (username && password) {
