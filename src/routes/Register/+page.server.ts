@@ -31,18 +31,18 @@ const register: Action = async ({ request }) => {
 		const role = await db.roles.findUnique({
 			where: { name: Roles.USER }
 		});
-
+		const user = await db.user.findUnique({
+			where: { username }
+		});
+		console.log(role);
+		if (user) {
+			return fail(400, { user: true });
+		}
 		// If the role doesn't exist, create it
 		if (!role) {
 			await db.roles.create({
 				data: { name: Roles.USER }
 			});
-		} else {
-			// Username exist
-			error(
-				400,
-				'Registration failed. Username already exists. You can try logging in if you have an account, or choose a different username.'
-			);
 		}
 
 		// Now, create the user with the role

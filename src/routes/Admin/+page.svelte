@@ -1,5 +1,15 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
-	export let data: PageData;
+	import { page } from '$app/stores';
 </script>
+
+<h1>Admin</h1>
+
+{#if $page.data.user}
+	<p>Welcome {$page.data.user.username}!</p>
+{/if}
+
+{#if $page.data.user.role === 'ADMIN'}
+	<form action="/logout" method="POST">
+		<button type="submit">Log out</button>
+	</form>
+{/if}

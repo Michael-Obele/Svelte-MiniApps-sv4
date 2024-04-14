@@ -1,16 +1,5 @@
 // src/routes/Apps/Random-Password-Generator/+page.ts
 
-// Function to generate a random password
-// function generatePassword(length: number): string {
-// 	const characters =
-// 		'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-={}[]|?/><';
-// 	let result = '';
-// 	for (let i = 0; i < length; i++) {
-// 		result += characters.charAt(Math.floor(Math.random() * characters.length));
-// 	}
-// 	return result;
-// }
-
 export function _generatePassword(
 	length: number,
 	includeUppercase: boolean,
@@ -43,8 +32,3 @@ export function _copyToClipboard(text: string) {
 		}
 	);
 }
-
-// This function can be called from the client side to generate a password
-// export function _generateClientPassword(length: number): string {
-// 	return generatePassword(length);
-// }
