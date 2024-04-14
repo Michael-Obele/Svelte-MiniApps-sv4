@@ -73,3 +73,6 @@ Here are some guidelines for contributing:
 * **Write clean and maintainable code:** Follow Svelte best practices and keep your code organized for future enhancements.
 
 **Let's build a collection of valuable Svelte tools together!**
+
+
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://app.netlify.com/sites/svelte-mini-apps/deploys)
