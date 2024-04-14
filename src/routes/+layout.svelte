@@ -15,7 +15,6 @@
 	import { toggleMode } from 'mode-watcher';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { stringify } from 'postcss';
 </script>
 
 <svelte:head>
