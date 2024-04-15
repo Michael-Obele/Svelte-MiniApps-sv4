@@ -230,9 +230,3 @@
 <div class="text-gray-900 dark:text-white">
 	<slot />
 </div>
-
-<style>
-	.highlight {
-		@apply bg-green-100;
-	}
-</style>
