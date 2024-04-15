@@ -15,6 +15,7 @@
 	import { toggleMode } from 'mode-watcher';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { Menu } from 'lucide-svelte';
 </script>
 
 <svelte:head>
@@ -47,33 +48,41 @@
 			<span class="sr-only">Toggle theme</span>
 		</Button>
 		<!-- End of Toggle Theme -->
-
-		{#if !$page.data.user}
-			<a
-				href="/Login"
-				class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400">Login</a
-			>
-			<a
-				href="/Register"
-				class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
-				>Register</a
-			>
-		{/if}
-
-		{#if $page.data.user}
-			<a
-				href="/Admin"
-				class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400">Admin</a
-			>
-
-			<form action="?/logout" method="POST">
-				<button
-					type="submit"
-					class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800"
-					>Log out</button
+		<div class="flex place-items-center space-x-5">
+			{#if !$page.data.user}
+				<a
+					href="/Login"
+					class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
+					>Login</a
 				>
-			</form>
-		{/if}
+				<a
+					href="/Register"
+					class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
+					>Register</a
+				>
+			{/if}
+
+			{#if $page.data.user}
+				<a
+					href="/Admin"
+					class:bg-red-700={$page.route.id === '/Admin'}
+					class:bg-transparent={$page.route.id === '/Admin'}
+					class:text-red-700={$page.route.id === '/Admin'}
+					class:dark:text-red-600={$page.route.id === '/Admin'}
+					aria-current={$page.route.id === '/Admin' ? 'page' : undefined}
+					class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-red-500"
+					>Profile</a
+				>
+
+				<form action="?/logout" method="POST">
+					<button
+						type="submit"
+						class="rounded bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800"
+						>Log out</button
+					>
+				</form>
+			{/if}
+		</div>
 
 		<button
 			data-collapse-toggle="navbar-default"
@@ -83,21 +92,7 @@
 			aria-expanded="false"
 		>
 			<span class="sr-only">Open main menu</span>
-			<svg
-				class="h-5 w-5"
-				aria-hidden="true"
-				xmlns="http://www.w3.org/2000/svg"
-				fill="none"
-				viewBox="0 0 17 14"
-			>
-				<path
-					stroke="currentColor"
-					stroke-linecap="round"
-					stroke-linejoin="round"
-					stroke-width="2"
-					d="M1 1h15M1 7h15M1 13h15"
-				/>
-			</svg>
+			<Menu size={30} />
 		</button>
 
 		<!-- Side Bar -->
@@ -151,21 +146,15 @@
 			<div class="overflow-y-auto py-4">
 				<ul class="space-y-2 font-medium">
 					<li>
-						{#if $page.route.id === '/'}
-							<a
-								href="/"
-								class="group flex items-center rounded-lg bg-red-700 p-2 px-3 py-2 text-white dark:text-white dark:hover:bg-gray-700 md:bg-transparent md:p-0"
-								aria-current="page"
-							>
-								<span class="ms-3 flex-1 whitespace-nowrap">Home</span>
-							</a>
-						{:else}
-							<a
-								href="/"
-								class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-								>Home</a
-							>
-						{/if}
+						<a
+							href="/"
+							class:bg-red-700={$page.route.id === '/'}
+							class:dark:text-red-400={$page.route.id === '/'}
+							class:text-red-700={$page.route.id === '/'}
+							aria-current={$page.route.id === '/' ? 'page' : undefined}
+							class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
+							>Home</a
+						>
 					</li>
 
 					{#each ['Apps', 'About'] as item}
@@ -174,7 +163,7 @@
 								href={'/' + item}
 								class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
 								class:bg-red-700={isActive(item)}
-								class:dark:text-red-500={isActive(item)}
+								class:dark:text-red-400={isActive(item)}
 								class:text-red-700={isActive(item)}
 								aria-current={isActive(item) ? 'page' : undefined}
 							>
@@ -192,19 +181,15 @@
 				class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900 rtl:space-x-reverse"
 			>
 				<li>
-					{#if $page.route.id === '/'}
-						<a
-							href="/"
-							class="block rounded bg-red-700 px-3 py-2 text-white dark:text-white md:bg-transparent md:p-0 md:text-red-700 md:dark:text-red-500"
-							aria-current="page">Home</a
-						>
-					{:else}
-						<a
-							href="/"
-							class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500"
-							>Home</a
-						>
-					{/if}
+					<a
+						href="/"
+						class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500"
+						class:bg-red-700={$page.route.id === '/'}
+						class:md:bg-transparent={$page.route.id === '/'}
+						class:md:dark:text-red-500={$page.route.id === '/'}
+						class:md:text-red-700={$page.route.id === '/'}
+						aria-current={$page.route.id === '/' ? 'page' : undefined}>Home</a
+					>
 				</li>
 
 				{#each ['Apps', 'About'] as item}
@@ -245,3 +230,9 @@
 <div class="text-gray-900 dark:text-white">
 	<slot />
 </div>
+
+<style>
+	.highlight {
+		@apply bg-green-100;
+	}
+</style>
