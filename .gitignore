@@ -38,3 +38,6 @@ coverage/
 
 # Temporary files created by Bun (if using Bun)
 __bun_temp/
+
+# Local Netlify folder
+.netlify
