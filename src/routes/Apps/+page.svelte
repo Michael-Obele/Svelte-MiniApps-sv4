@@ -54,33 +54,33 @@
 					<span
 						class={`mb-2 inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium text-green-800 ${item.tag}`}
 					>
-						<span class:hidden={item.tag !== 'utility'}>
+						{#if item.tag === 'utility'}
 							<Box size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'security'}>
+						{/if}
+						{#if item.tag === 'security'}
 							<Lock size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'design'}>
+						{/if}
+						{#if item.tag === 'design'}
 							<Pen size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'productivity'}>
+						{/if}
+						{#if item.tag === 'productivity'}
 							<CheckSquare size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'education'}>
+						{/if}
+						{#if item.tag === 'education'}
 							<Book size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'finance'}>
+						{/if}
+						{#if item.tag === 'finance'}
 							<PiggyBank size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'health'}>
+						{/if}
+						{#if item.tag === 'health'}
 							<Heart size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'multimedia'}>
+						{/if}
+						{#if item.tag === 'multimedia'}
 							<Speaker size="16" class="mx-1" />
-						</span>
-						<span class:hidden={item.tag !== 'developer-tools'}>
+						{/if}
+						{#if item.tag === 'developer-tools'}
 							<Code size="16" class="mx-1" />
-						</span>
+						{/if}
 						{item.tag.split('-').join(' ')}
 					</span>
 				</div>
@@ -141,53 +141,53 @@
 						<span
 							class={`mb-2 inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium text-green-800 ${item.tag}`}
 						>
-							<span class:hidden={item.tag !== 'utility'}>
+							{#if item.tag === 'utility'}
 								<Box size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'security'}>
+							{/if}
+							{#if item.tag === 'security'}
 								<Lock size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'design'}>
+							{/if}
+							{#if item.tag === 'design'}
 								<Pen size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'productivity'}>
+							{/if}
+							{#if item.tag === 'productivity'}
 								<CheckSquare size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'education'}>
+							{/if}
+							{#if item.tag === 'education'}
 								<Book size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'finance'}>
+							{/if}
+							{#if item.tag === 'finance'}
 								<PiggyBank size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'health'}>
+							{/if}
+							{#if item.tag === 'health'}
 								<Heart size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'multimedia'}>
+							{/if}
+							{#if item.tag === 'multimedia'}
 								<Speaker size="16" class="mx-1" />
-							</span>
-							<span class:hidden={item.tag !== 'developer-tools'}>
+							{/if}
+							{#if item.tag === 'developer-tools'}
 								<Code size="16" class="mx-1" />
-							</span>
+							{/if}
 							{item.tag.split('-').join(' ')}
 						</span>
-					</div>
 
-					<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
-						{item.title}
-					</h2>
-					<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
-						{item.details}
-					</p>
-					{#if done.includes(item.title)}
-						<a
-							href={'/Apps/' + item.title.replace(/\s+/g, '-')}
-							class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
-							>Try now
-							<ArrowRight size="22" class="mx-1" />
-						</a>
-					{/if}
-				</div>
-			</a>
+						<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
+							{item.title}
+						</h2>
+						<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+							{item.details}
+						</p>
+						{#if done.includes(item.title)}
+							<a
+								href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+								class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
+								>Try now
+								<ArrowRight size="22" class="mx-1" />
+							</a>
+						{/if}
+					</div>
+				</div></a
+			>
 		{/if}
 	{/each}
 </div>
