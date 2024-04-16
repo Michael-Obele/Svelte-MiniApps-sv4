@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
@@ -24,7 +24,7 @@ model User {
 }
 
 model Roles {
-  id   Int    @id @default(sequence())
+  id   Int    @unique @default(1)
   name String @unique
   User User[]
 }

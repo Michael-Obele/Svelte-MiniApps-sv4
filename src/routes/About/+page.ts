@@ -3,18 +3,17 @@ import type { PageLoad } from './$types';
 const features = [
 	{
 		title: 'Simple and Focused',
-		description:
-			'Each mini-app is dedicated to a single functionality, providing a clear and clutter-free user experience.'
+		description: 'Each mini-app has a clear purpose, providing a clutter-free user experience.'
 	},
 	{
 		title: 'Standalone and Web-Based',
 		description:
-			'Unlike traditional libraries or frameworks, Svelte MiniApps are self-contained applications that can be accessed and used directly on the web.'
+			'Unlike libraries or frameworks, Svelte MiniApps are self-contained web applications. Access and use them directly on the web.'
 	},
 	{
 		title: 'Lightning Fast',
 		description:
-			'Built with SvelteKit, these mini-apps offer exceptional performance and load times, ensuring a smooth and responsive experience.'
+			'Built with SvelteKit, these mini-apps offer exceptional performance and load times for a smooth experience.'
 	}
 ];
 
@@ -36,9 +35,67 @@ const reasons = [
 	}
 ];
 
+const future = [
+	{
+		title: 'Building the Ultimate Toolkit:',
+		description:
+			'We want a diverse collection of mini-apps for any situation. What tools do you wish you had?'
+	},
+	{
+		title: 'Community Power:',
+		description:
+			'Imagine a community of Svelte MiniApp creators! We could share ideas, collaborate on tools, and make development even more fun.'
+	},
+	{
+		title: 'Supercharged Mini-Apps:',
+		description:
+			'Exploring features like state management and user authentication could unlock even more powerful mini-apps.'
+	}
+];
+
+const next = [
+	{
+		title: 'Expanding the Mini-App Collection',
+		description:
+			'We aim to continuously grow the library with diverse mini-apps. User suggestions and contributions are highly encouraged!'
+	},
+	{
+		title: 'Community Collaboration',
+		description:
+			'Fostering a community around Svelte MiniApps could be a great way to share knowledge, collaborate on new tools, and accelerate development.'
+	},
+	{
+		title: 'Advanced Features',
+		description:
+			'Exploring advanced features like state management and user authentication could further expand capabilities.'
+	}
+];
+
 export const load: PageLoad = async () => {
 	return {
 		features,
-		reasons
+		reasons,
+		future,
+		next
 	};
 };
+
+// Function to split the description into an array of strings, each containing a maximum number of words
+export function _splitDescription(description: string, maxWords: number): string[] {
+	const words = description.split(' ');
+	const result = [];
+	let currentLine = '';
+
+	words.forEach((word) => {
+		if ((currentLine + word).split(' ').length <= maxWords) {
+			currentLine += ` ${word}`;
+		} else {
+			result.push(currentLine.trim());
+			currentLine = word;
+		}
+	});
+
+	result.push(currentLine.trim()); // Push the last line
+
+	return result;
+}
