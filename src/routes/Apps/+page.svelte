@@ -20,7 +20,7 @@
 	>
 </div>
 
-<div class:hidden={$filter} class="mx-12 my-8 grid h-fit grid-cols-2 gap-5">
+<div class:hidden={$filter} class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 	{#each projects as item}
 		<a
 			class:pointer-events-none={!done.includes(item.title)}
@@ -106,7 +106,7 @@
 
 <!-- Filtered List -->
 
-<div class:hidden={!$filter} class="mx-12 my-8 grid h-fit grid-cols-2 gap-5">
+<div class:hidden={!$filter} class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 	{#each projects as item}
 		{#if done.includes(item.title)}
 			<a
@@ -170,22 +170,21 @@
 							{/if}
 							{item.tag.split('-').join(' ')}
 						</span>
-
-						<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
-							{item.title}
-						</h2>
-						<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
-							{item.details}
-						</p>
-						{#if done.includes(item.title)}
-							<a
-								href={'/Apps/' + item.title.replace(/\s+/g, '-')}
-								class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
-								>Try now
-								<ArrowRight size="22" class="mx-1" />
-							</a>
-						{/if}
 					</div>
+					<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
+						{item.title}
+					</h2>
+					<p class="mb-4 text-lg font-normal text-gray-500 dark:text-gray-400">
+						{item.details}
+					</p>
+					{#if done.includes(item.title)}
+						<a
+							href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+							class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
+							>Try now
+							<ArrowRight size="22" class="mx-1" />
+						</a>
+					{/if}
 				</div></a
 			>
 		{/if}
