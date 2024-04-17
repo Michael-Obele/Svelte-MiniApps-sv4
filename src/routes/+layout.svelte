@@ -9,6 +9,8 @@
 	};
 
 	$: show = false;
+	$: home = $page.route.id === '/';
+
 	import { ModeWatcher } from 'mode-watcher';
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
@@ -65,14 +67,13 @@
 			{#if $page.data.user}
 				<a
 					href="/Admin"
-					class:bg-red-700={$page.route.id === '/Admin'}
-					class:bg-transparent={$page.route.id === '/Admin'}
-					class:text-red-700={$page.route.id === '/Admin'}
-					class:dark:text-red-600={$page.route.id === '/Admin'}
-					aria-current={$page.route.id === '/Admin' ? 'page' : undefined}
-					class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-red-500"
-					>Profile</a
+					class=" hover:text-gray-600 dark:hover:text-red-500 {isActive('Admin')
+						? 'text-red-500 dark:text-red-500'
+						: 'text-gray-800 dark:text-white'}"
+					aria-current={isActive('Admin') ? 'page' : false}
 				>
+					Profile
+				</a>
 
 				<form action="?/logout" method="POST">
 					<button
@@ -137,28 +138,21 @@
 					<li>
 						<a
 							href="/"
-							class:bg-red-700={$page.route.id === '/'}
-							class:dark:text-red-400={$page.route.id === '/'}
-							class:dark:hover:bg-red-700={$page.route.id === '/'}
-							class:hover:bg-red-700={$page.route.id === '/'}
-							aria-current={$page.route.id === '/' ? 'page' : undefined}
-							class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-							>Home</a
+							class={`group flex items-center rounded-lg p-2 text-gray-900  dark:text-white  ${home ? 'bg-red-700 dark:bg-red-700' : ''} ${home ? 'hover:bg-red-700 hover:dark:bg-red-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} ${home ? 'text-red-400 dark:text-red-400' : ''}`}
+							aria-current={home ? 'page' : false}
 						>
+							Home
+						</a>
 					</li>
 
-					{#each ['Apps', 'About'] as item}
+					{#each ['Apps', 'About'] as routeName}
 						<li>
 							<a
-								href={'/' + item}
-								class="group flex items-center rounded-lg p-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
-								class:bg-red-700={isActive(item)}
-								class:dark:hover:bg-red-700={isActive(item)}
-								class:hover:bg-red-700={isActive(item)}
-								class:dark:text-red-400={isActive(item)}
-								aria-current={isActive(item) ? 'page' : undefined}
+								href="/{routeName}"
+								class={`group flex items-center rounded-lg p-2 text-gray-900  dark:text-white ${isActive(routeName) ? 'bg-red-700 dark:bg-red-700' : ''} ${isActive(routeName) ? 'hover:bg-red-700 hover:dark:bg-red-700' : 'hover:bg-gray-100 dark:hover:bg-gray-700'} ${isActive(routeName) ? 'text-red-400 dark:text-red-400' : ''}`}
+								aria-current={isActive(routeName) ? 'page' : false}
 							>
-								{item}
+								{routeName}
 							</a>
 						</li>
 					{/each}
