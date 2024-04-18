@@ -43,10 +43,7 @@
 					<!-- End of Done check -->
 					<div class="flex w-fit flex-col">
 						<span
-							class:easy={item.difficulty === 'easy'}
-							class:medium={item.difficulty === 'medium'}
-							class:hard={item.difficulty === 'hard'}
-							class="mb-2 inline-flex w-fit items-center rounded-md px-2.5 py-0.5 text-sm font-medium"
+							class={`mb-2 inline-flex w-fit items-center rounded-md px-2.5 py-0.5 text-sm font-medium ${item.difficulty}`}
 						>
 							<HardHat size="16" class="mx-1" />
 							{item.difficulty}
@@ -116,11 +113,7 @@
 						class="group relative h-full rounded-lg border border-gray-200 bg-gray-50 p-8 dark:border-gray-700 dark:bg-gray-800 md:p-12"
 					>
 						<!-- Done check -->
-						<span
-							class:opacity-100={done.includes(item.title)}
-							class:opacity-20={!done.includes(item.title)}
-							class="absolute right-5 top-5"
-						>
+						<span class="absolute right-5 top-5 opacity-100">
 							<BadgeCheck class="h-20 w-20 text-green-800 dark:text-green-400" />
 						</span>
 
