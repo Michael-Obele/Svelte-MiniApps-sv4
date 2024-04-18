@@ -73,4 +73,4 @@ export let contributions = writable([
 ]);
 
 // A writable store that represents a filter state, initially set to false
-export let filter = writable(false);
+export let filter = writable('done');
