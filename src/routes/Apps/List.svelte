@@ -166,7 +166,11 @@
 	<div class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 		{#each projects as item}
 			{#if item.difficulty === filteredBy}
-				<a href={'/Apps/' + item.title.replace(/\s+/g, '-')} class="">
+				<a
+					class:pointer-events-none={!done.includes(item.title)}
+					href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+					class=""
+				>
 					<div
 						class="group relative h-full rounded-lg border border-gray-200 bg-gray-50 p-8 dark:border-gray-700 dark:bg-gray-800 md:p-12"
 					>
@@ -228,12 +232,14 @@
 							{item.details}
 						</p>
 
-						<a
-							href={'/Apps/' + item.title.replace(/\s+/g, '-')}
-							class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
-							>Try now
-							<ArrowRight size="22" class="mx-1" />
-						</a>
+						{#if done.includes(item.title)}
+							<a
+								href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+								class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
+								>Try now
+								<ArrowRight size="22" class="mx-1" />
+							</a>
+						{/if}
 					</div></a
 				>
 			{/if}
