@@ -23,9 +23,17 @@
 	<p class="mx-8 mb-8 text-center text-lg text-gray-600 dark:text-gray-400">
 		{#if $page.error?.message}
 			{#if $page.status === 404}
-				<span class="">Page</span>
+				<span class="font-bold text-red-500">Page</span>
 			{/if}
 			{$page.error?.message}
+			{#if $page.status === 405}
+				<span class="mt-3 font-semibold text-blue-500">
+					<br />
+					"It looks like you're trying to do something that isn't allowed here.
+					<br />
+					Let's head back home, shall we?"
+				</span>
+			{/if}
 		{:else}
 			We're having some trouble at the moment. Please try again later.
 		{/if}
