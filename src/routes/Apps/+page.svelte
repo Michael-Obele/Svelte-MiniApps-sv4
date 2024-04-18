@@ -131,10 +131,7 @@
 						<!-- End of Done check -->
 						<div class="flex w-fit flex-col">
 							<span
-								class:easy={item.difficulty === 'easy'}
-								class:medium={item.difficulty === 'medium'}
-								class:hard={item.difficulty === 'hard'}
-								class="mb-2 inline-flex w-fit items-center rounded-md px-2.5 py-0.5 text-sm font-medium"
+								class={`mb-2 inline-flex w-fit items-center rounded-md px-2.5 py-0.5 text-sm font-medium ${item.difficulty}`}
 							>
 								<HardHat size="16" class="mx-1" />
 								{item.difficulty}
