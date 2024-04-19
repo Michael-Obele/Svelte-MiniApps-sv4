@@ -1,5 +1,14 @@
 <script lang="ts">
-	import { Check, FileSearch, Lightbulb, CodeSquare, Blocks, Drill, Unplug } from 'lucide-svelte';
+	import {
+		Check,
+		FileSearch,
+		Lightbulb,
+		CodeSquare,
+		Blocks,
+		Drill,
+		Unplug,
+		ChevronsRight
+	} from 'lucide-svelte';
 	interface Feature {
 		title: string;
 		description: string;
@@ -7,15 +16,93 @@
 	export var data: { features: any; reasons: any; future: any; next: any };
 
 	import { _splitDescription } from './+page';
+	import { onMount } from 'svelte';
+
+	const h3Ids = [
+		'SvelteMiniApps',
+		'introduction',
+		'tools',
+		'inspiration',
+		'spark',
+		'toolkit',
+		'future',
+		'next'
+	];
+	let activeId: string[] = [];
+	onMount(() => {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const currentIndex = h3Ids.indexOf(entry.target.id);
+						activeId = h3Ids.slice(0, currentIndex + 1);
+					} else {
+						const indexToRemove = activeId.indexOf(entry.target.id);
+						if (indexToRemove !== -1) {
+							activeId.splice(indexToRemove, 1);
+						}
+					}
+					console.log(activeId);
+				});
+			},
+			{
+				rootMargin: '0px',
+				threshold: 0.7
+			}
+		);
+
+		h3Ids.forEach((id) => {
+			const el = document.getElementById(id);
+
+			if (el) {
+				observer.observe(el);
+			}
+		});
+
+		return () => {
+			h3Ids.forEach((id) => {
+				const el = document.getElementById(id);
+
+				if (el) {
+					observer.unobserve(el);
+				}
+			});
+		};
+	});
 </script>
 
 <section class="m-2 px-2 py-3 lg:px-10">
 	<h3
+		id="SvelteMiniApps"
 		class="mb-10 mt-5 text-center text-3xl text-gray-900 underline decoration-green-400 decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
 	>
 		Svelte MiniApps: Powerful Tiny Tools Built with
 		<span class="text-red-500 dark:text-red-700"> SvelteKit </span>
 	</h3>
+
+	<!-- Stepper -->
+
+	<ol
+		class="sticky top-1 mx-auto flex w-full max-w-fit content-center items-center space-x-2 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:p-4 sm:text-base rtl:space-x-reverse"
+	>
+		{#each h3Ids as id, i}
+			<a
+				href="#{id}"
+				class={`flex items-center capitalize ${activeId.includes(id) ? 'text-blue-600 dark:text-blue-500' : ''}`}
+			>
+				<span
+					class={`me-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs  ${activeId.includes(id) ? 'border-blue-600 dark:border-blue-500' : 'border-gray-500  dark:border-gray-400'}`}
+				>
+					{i + 1}
+				</span>
+				{id}
+				<ChevronsRight />
+			</a>
+		{/each}
+	</ol>
+
+	<!-- End of Stepper -->
+
 	<div class="mx-auto grid max-w-[1024px]">
 		<div class="mb-5 mt-5 block max-w-md rounded-lg p-6">
 			<p class="justify-start text-left text-lg text-gray-900 dark:text-white">
@@ -39,7 +126,9 @@
 		</div>
 	</div>
 	<div class="px-16">
-		<h3 class="bold mx-auto my-5 w-fit cursor-pointer text-2xl">Why Choose Svelte MiniApps?</h3>
+		<h3 id="introduction" class="bold mx-auto my-5 w-fit cursor-pointer text-2xl">
+			Why Choose Svelte MiniApps?
+		</h3>
 		<div class="mx-auto my-5 w-fit max-w-[80%]">
 			<ul class="space-y-4 text-left">
 				{#each data.features as feature, i}
@@ -58,7 +147,7 @@
 			</ul>
 		</div>
 		<div class="">
-			<h3 class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
+			<h3 id="tools" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
 				Explore a Range of Tools:
 			</h3>
 			<p class="mx-auto my-8 text-center leading-8 tracking-wide md:w-[50vw]">
@@ -85,6 +174,9 @@
 			The <span class="font-semibold text-green-500 dark:text-green-400"> "Aha Moment" </span>
 			Behind Svelte MiniApps:
 		</h3>
+		<h3 id="inspiration" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
+			The "Aha Moment" Behind Svelte MiniApps:
+		</h3>
 		<p class="mx-auto my-8 text-center leading-8 tracking-wide md:w-[50vw]">
 			We've all been there
 			<span class="font-semibold text-green-500 dark:text-green-400">
@@ -98,7 +190,7 @@
 			</span>
 			on getting the job done, just like that trusty screwdriver you use all the time.
 		</p>
-		<h3 class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
+		<h3 id="spark" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
 			Here's what sparked this project:
 		</h3>
 
@@ -120,7 +212,7 @@
 				<!-- (Consider showcasing some mini-apps in action with before/after GIFs or screenshots! [Add Mini-App Examples]) -->
 			</ul>
 		</div>
-		<h3 class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
+		<h3 id="toolkit" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
 			Svelte MiniApps: Your Pocket-Sized Toolkit
 		</h3>
 		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw]">
@@ -135,7 +227,7 @@
 				<span class="text-lg text-white"> specialty tools here. </span>
 			</span>
 		</p>
-		<h3 class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-center text-2xl">
+		<h3 id="future" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-center text-2xl">
 			The Future of Svelte MiniApps: Your Development Playground
 		</h3>
 		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw]">
@@ -176,7 +268,9 @@
 				{/each}
 			</ul>
 		</div>
-		<h3 class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-center text-2xl">What's Next?</h3>
+		<h3 id="next" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-center text-2xl">
+			What's Next?
+		</h3>
 		<div class="mx-auto my-5 w-fit max-w-[90%]">
 			<ul class="space-y-4 text-left">
 				{#each data.next as item, i}
@@ -236,3 +330,9 @@ While Svelte MiniApps can be valuable for collaborative projects, their true pot
 
 
 -->
+
+<style>
+	h3 {
+		padding-top: 9.333vh;
+	}
+</style>
