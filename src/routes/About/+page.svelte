@@ -170,13 +170,11 @@
 				</li>
 			</ul>
 		</div>
-		<h3 class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
+		<h3 id="inspiration" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
 			The <span class="font-semibold text-green-500 dark:text-green-400"> "Aha Moment" </span>
 			Behind Svelte MiniApps:
 		</h3>
-		<h3 id="inspiration" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
-			The "Aha Moment" Behind Svelte MiniApps:
-		</h3>
+
 		<p class="mx-auto my-8 text-center leading-8 tracking-wide md:w-[50vw]">
 			We've all been there
 			<span class="font-semibold text-green-500 dark:text-green-400">
