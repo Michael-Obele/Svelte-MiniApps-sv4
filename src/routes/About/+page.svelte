@@ -42,7 +42,6 @@
 							activeId.splice(indexToRemove, 1);
 						}
 					}
-					console.log(activeId);
 				});
 			},
 			{
