@@ -24,7 +24,7 @@ model User {
 }
 
 model Roles {
-  id      Int     @id @default(autoincrement())
+  id      Int     @id @default(1)
   name    String  @unique
   isAdmin Boolean @default(false)
   users   User[]
