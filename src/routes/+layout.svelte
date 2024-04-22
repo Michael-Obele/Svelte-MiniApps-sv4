@@ -235,6 +235,7 @@
 	<form
 		action="https://formspree.io/f/xyyrldpl"
 		method="POST"
+		target="_blank"
 		class="mx-auto mb-4 flex w-full items-center justify-center sm:w-full md:mb-0"
 	>
 		<input
