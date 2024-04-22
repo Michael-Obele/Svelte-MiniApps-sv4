@@ -3,11 +3,14 @@
 		Check,
 		FileSearch,
 		Lightbulb,
+		Expand,
 		CodeSquare,
 		Blocks,
 		Drill,
 		Unplug,
-		ChevronsRight
+		ChevronsRight,
+		Brain,
+		Handshake
 	} from 'lucide-svelte';
 	interface Feature {
 		title: string;
@@ -19,7 +22,7 @@
 	import { onMount } from 'svelte';
 
 	const h3Ids = [
-		'SvelteMiniApps',
+		'MiniApps',
 		'introduction',
 		'tools',
 		'inspiration',
@@ -30,6 +33,8 @@
 	];
 	let activeId: string[] = [];
 	onMount(() => {
+		const stepperHeight = document.getElementById('stepper')?.offsetHeight ?? 0;
+
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -72,7 +77,7 @@
 
 <section class="m-2 px-2 py-3 lg:px-10">
 	<h3
-		id="SvelteMiniApps"
+		id="MiniApps"
 		class="mb-10 mt-5 text-center text-3xl text-gray-900 underline decoration-green-400 decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
 	>
 		Svelte MiniApps: Powerful Tiny Tools Built with
@@ -82,19 +87,31 @@
 	<!-- Stepper -->
 
 	<ol
-		class="sticky top-1 mx-auto flex w-full max-w-fit content-center items-center space-x-2 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:p-4 sm:text-base rtl:space-x-reverse"
+		id="stepper"
+		class="sticky top-1 mx-auto flex w-full max-w-fit flex-wrap content-center items-center justify-center space-x-2 space-y-5 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:p-4 sm:text-base md:space-y-0 lg:p-3 rtl:space-x-reverse"
 	>
 		{#each h3Ids as id, i}
 			<a
 				href="#{id}"
-				class={`flex items-center capitalize ${activeId.includes(id) ? 'text-blue-600 dark:text-blue-500' : ''}`}
+				class={`mt-5 flex items-center capitalize md:mt-0 ${activeId.includes(id) ? 'text-blue-600 dark:text-blue-500' : ''}`}
+				on:click={(event) => {
+					event.preventDefault(); // Prevent the default jump behavior
+					const targetElement = document.getElementById(id);
+					if (targetElement) {
+						const stepperHeight = document.getElementById('stepper')?.offsetHeight ?? 0;
+						const scrollOffset = targetElement.offsetTop - stepperHeight;
+						window.scrollTo({ top: scrollOffset, behavior: 'smooth' });
+					}
+				}}
 			>
 				<span
-					class={`me-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs  ${activeId.includes(id) ? 'border-blue-600 dark:border-blue-500' : 'border-gray-500  dark:border-gray-400'}`}
+					class={`me-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${activeId.includes(id) ? 'border-blue-600 dark:border-blue-500' : 'border-gray-500 dark:border-gray-400'}`}
 				>
 					{i + 1}
 				</span>
-				{id}
+				<span class="hidden xl:block">
+					{id}
+				</span>
 				<ChevronsRight />
 			</a>
 		{/each}
@@ -244,11 +261,9 @@
 					<li class="flex items-center">
 						{#if i == 0}
 							<Blocks size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
-						{/if}
-						{#if i == 2}
+						{:else if i == 2}
 							<Drill size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
-						{/if}
-						{#if i == 1}
+						{:else if i == 1}
 							<Unplug size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
 						{/if}
 
@@ -273,13 +288,14 @@
 				{#each data.next as item, i}
 					<li class="flex items-center">
 						{#if i == 0}
-							<Blocks size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
-						{/if}
-						{#if i == 2}
-							<Drill size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
-						{/if}
-						{#if i == 1}
-							<Unplug size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+							<Expand size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+						{:else if i == 1}
+							<Handshake
+								size="30"
+								class="mr-5 hidden text-green-500 dark:text-green-400 md:block"
+							/>
+						{:else if i == 2}
+							<Brain size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
 						{/if}
 
 						<span class="felx flex-col font-semibold">
@@ -330,6 +346,6 @@ While Svelte MiniApps can be valuable for collaborative projects, their true pot
 
 <style>
 	h3 {
-		padding-top: 9.333vh;
+		padding-top: 3rem;
 	}
 </style>
