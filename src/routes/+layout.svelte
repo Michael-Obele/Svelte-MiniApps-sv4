@@ -2,9 +2,6 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 
 	import '../app.pcss';
-	import { page } from '$app/stores';
-
-	$: home = $page.route.id === '/';
 
 	import { ModeWatcher } from 'mode-watcher';
 
