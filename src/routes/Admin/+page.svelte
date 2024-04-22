@@ -18,7 +18,11 @@
 					<div class="rounded-lg bg-green-400 p-3 dark:bg-green-900">
 						<div class="mb-4">
 							<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
-								{$page.data.user.username} is a {$page.data.user.role.name}
+								{#if $page.data.user.role.name == 'ADMIN'}
+									{$page.data.user.username} is an {$page.data.user.role.name}
+								{:else}
+									{$page.data.user.username} is a {$page.data.user.role.name}
+								{/if}
 							</h2>
 						</div>
 						<div class="mb-4">
@@ -39,4 +43,4 @@
 	</form>
 {/if} -->
 
-<h1>{JSON.stringify($page)}</h1>
+<!-- <h1>{JSON.stringify($page)}</h1> -->
