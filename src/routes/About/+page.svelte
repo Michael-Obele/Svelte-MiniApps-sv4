@@ -93,7 +93,7 @@
 		{#each h3Ids as id, i}
 			<a
 				href="#{id}"
-				class={`mt-5 flex items-center capitalize md:mt-0 ${activeId.includes(id) ? 'text-blue-600 dark:text-blue-500' : ''}`}
+				class={`mt-5 flex items-center capitalize md:mt-0 ${activeId.includes(id) ? 'text-green-600 dark:text-green-500' : ''}`}
 				on:click={(event) => {
 					event.preventDefault(); // Prevent the default jump behavior
 					const targetElement = document.getElementById(id);
@@ -105,7 +105,7 @@
 				}}
 			>
 				<span
-					class={`me-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${activeId.includes(id) ? 'border-blue-600 dark:border-blue-500' : 'border-gray-500 dark:border-gray-400'}`}
+					class={`me-2 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border text-xs ${activeId.includes(id) ? 'border-green-600 dark:border-green-500' : 'border-gray-500 dark:border-gray-400'}`}
 				>
 					{i + 1}
 				</span>
@@ -322,7 +322,7 @@
 		<a
 			href="https://github.com/Michael-Obele/Svelte-MiniApps"
 			target="_blank"
-			class="rounded-md px-4 py-2 font-bold text-blue-500 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-500"
+			class="rounded-md px-4 py-2 font-bold text-green-500 hover:text-green-700 dark:text-green-300 dark:hover:text-green-500"
 			aria-label="Support us on GitHub"
 		>
 			Support Us on GitHub
@@ -339,13 +339,13 @@
 		<input
 			type="text"
 			name="message"
-			class="mr-2 w-3/4 rounded-md border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+			class="mr-2 w-3/4 rounded-md border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
 			placeholder="Share your thoughts..."
 			aria-label="Share your thoughts"
 		/>
 		<button
 			type="submit"
-			class="rounded-md bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800"
+			class="rounded-md bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-800"
 			aria-label="Submit your thoughts"
 		>
 			Submit
