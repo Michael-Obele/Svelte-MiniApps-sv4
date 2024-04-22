@@ -69,7 +69,7 @@
 			Here's Your Secure Password
 		</h3>
 		<div
-			class="flex w-full max-w-[85vw] items-center justify-center rounded-lg bg-slate-400 px-4 py-4 shadow-md"
+			class="flex w-1/2 max-w-[85vw] items-center justify-center rounded-lg bg-slate-400 px-4 py-4 shadow-md"
 		>
 			<p class="flex-grow overflow-hidden text-ellipsis text-lg font-semibold">{password}</p>
 			<button

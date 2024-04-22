@@ -10,8 +10,10 @@
 		Unplug,
 		ChevronsRight,
 		Brain,
-		Handshake
+		Handshake,
+		Github
 	} from 'lucide-svelte';
+
 	interface Feature {
 		title: string;
 		description: string;
@@ -318,7 +320,7 @@
 <footer
 	class="flex flex-col items-center justify-between bg-gray-800 px-4 py-8 text-white md:flex-row"
 >
-	<div class="mb-4 flex flex-col items-center md:mb-0">
+	<div class="group mb-4 flex flex-col items-center md:mb-0">
 		<a
 			href="https://github.com/Michael-Obele/Svelte-MiniApps"
 			target="_blank"
@@ -326,8 +328,11 @@
 			aria-label="Support us on GitHub"
 		>
 			Support Us on GitHub
+			<Github />
 		</a>
-		<span class="ml-2 text-xs">Consider supporting our open-source project.</span>
+		<span class="ml-2 text-xs opacity-40 group-hover:opacity-85"
+			>Consider supporting our open-source project.</span
+		>
 	</div>
 
 	<form

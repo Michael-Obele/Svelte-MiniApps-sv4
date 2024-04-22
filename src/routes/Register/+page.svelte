@@ -37,6 +37,17 @@
 						placeholder="Password"
 					/>
 				</div>
+				<div class="flex items-center pt-5">
+					<input
+						type="checkbox"
+						name="admin"
+						id="admin"
+						class="form-checkbox h-5 w-5 text-green-600 dark:text-green-400"
+					/>
+					<label for="admin" class="ml-2 text-sm text-gray-700 dark:text-gray-200"
+						>Check if you're an admin</label
+					>
+				</div>
 			</div>
 
 			{#if form?.user}

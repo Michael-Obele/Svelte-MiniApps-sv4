@@ -39,4 +39,4 @@
 	</form>
 {/if} -->
 
-<h1>{JSON.stringify($page.route.id)}</h1>
+<h1>{JSON.stringify($page)}</h1>
