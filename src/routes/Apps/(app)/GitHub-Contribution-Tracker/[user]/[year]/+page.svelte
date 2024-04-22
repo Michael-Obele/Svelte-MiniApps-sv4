@@ -3,6 +3,7 @@
 	import { ChevronLeft } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { contributions } from '$lib/utils';
+	import * as Accordion from '$lib/components/ui/accordion';
 
 	export let data;
 	const year: string = data.props.year;
@@ -65,37 +66,41 @@
 	{/each}
 </div>
 
-<div class="inline-flex w-full items-center justify-center">
-	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
-	<span
-		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
-		>or</span
-	>
-</div>
+<!-- More Stats -->
 
-{#each Object.keys(data.page_data.sortedContributions) as month, i}
-	<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
-		<h2>{month}</h2>
-		<ul>
-			{#each Object.keys(data.page_data.sortedContributions[month]) as day}
-				<li>
-					{day} : {data.page_data.sortedContributions[month][day]}
-					{data.page_data.sortedContributions[month][day] === 1 ? 'contribution' : 'contributions'}
-				</li>
+<Accordion.Root class="mx-auto w-1/6 text-xl">
+	<Accordion.Item value="item-1">
+		<Accordion.Trigger>More Details</Accordion.Trigger>
+		<Accordion.Content>
+			{#each Object.keys(data.page_data.sortedContributions) as month, i}
+				<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
+					<h2>{month}</h2>
+					<ul>
+						{#each Object.keys(data.page_data.sortedContributions[month]) as day}
+							<li>
+								{day} : {data.page_data.sortedContributions[month][day]}
+								{data.page_data.sortedContributions[month][day] === 1
+									? 'contribution'
+									: 'contributions'}
+							</li>
+						{/each}
+					</ul>
+				</div>
+				<div
+					class:hidden={i + 1 == Object.keys(data.page_data.sortedContributions).length}
+					class="inline-flex w-full items-center justify-center"
+				>
+					<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
+					<span
+						class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
+						>and</span
+					>
+				</div>
 			{/each}
-		</ul>
-	</div>
-	<div
-		class:hidden={i + 1 == Object.keys(data.page_data.sortedContributions).length}
-		class="inline-flex w-full items-center justify-center"
-	>
-		<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
-		<span
-			class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
-			>and</span
-		>
-	</div>
-{/each}
+		</Accordion.Content>
+	</Accordion.Item>
+</Accordion.Root>
+<!-- End of More Stats -->
 
 <div class="inline-flex w-full items-center justify-center">
 	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
