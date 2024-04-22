@@ -232,9 +232,14 @@
 		<span class="ml-2 text-xs">Consider supporting our open-source project.</span>
 	</div>
 
-	<form class="mx-auto mb-4 flex w-full items-center justify-center sm:w-full md:mb-0">
+	<form
+		action="https://formspree.io/f/xyyrldpl"
+		method="POST"
+		class="mx-auto mb-4 flex w-full items-center justify-center sm:w-full md:mb-0"
+	>
 		<input
 			type="text"
+			name="message"
 			class="mr-2 w-3/4 rounded-md border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
 			placeholder="Share your thoughts..."
 			aria-label="Share your thoughts"
