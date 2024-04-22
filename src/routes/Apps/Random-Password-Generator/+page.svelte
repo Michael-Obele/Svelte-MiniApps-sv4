@@ -62,19 +62,31 @@
 	<meta name="twitter:image" content={websiteImage} />
 </svelte:head>
 
-<section class="container">
-	<h3 class="m-4 text-center text-3xl font-bold underline decoration-green-400">Hi</h3>
-	<h3 class="m-6 text-center text-2xl">Your Proposed password is</h3>
-	<div
-		class="mx-auto flex h-fit w-fit max-w-[85vw] space-x-4 rounded-lg bg-slate-400 px-2 py-4 text-center"
-	>
-		<p class="mx-5 w-full overflow-hidden text-ellipsis">{password}</p>
-		<button on:click={() => _copyToClipboard(password)}>
-			<Clipboard />
-		</button>
-		<button on:click={generateNewPassword}>
-			<RefreshCcw />
-		</button>
+<main class="container">
+	<div class="flex flex-col items-center justify-center space-y-4">
+		<h3 class="text-center text-4xl font-bold text-green-500">Welcome!</h3>
+		<h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">
+			Here's Your Secure Password
+		</h3>
+		<div
+			class="flex w-full max-w-[85vw] items-center justify-center rounded-lg bg-slate-400 px-4 py-4 shadow-md"
+		>
+			<p class="flex-grow overflow-hidden text-ellipsis text-lg font-semibold">{password}</p>
+			<button
+				on:click={() => _copyToClipboard(password)}
+				class="rounded-md bg-green-500 p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+				aria-label="Copy password to clipboard"
+			>
+				<Clipboard class="h-6 w-6" />
+			</button>
+			<button
+				on:click={generateNewPassword}
+				class="ml-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+				aria-label="Generate a new password"
+			>
+				<RefreshCcw class="h-6 w-6" />
+			</button>
+		</div>
 	</div>
 
 	<h4 class="m-6 mt-12 text-center text-2xl">Choose another Password</h4>
@@ -173,10 +185,4 @@
 			</ul>
 		</div>
 	</div>
-</section>
-
-<!-- <style>
-	* {
-		border: 1px solid red;
-	}
-</style> -->
+</main>
