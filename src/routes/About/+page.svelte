@@ -314,6 +314,56 @@
 	</div>
 </section>
 
+<!-- Footer -->
+<footer
+	class="flex flex-col items-center justify-between bg-gray-800 px-4 py-8 text-white md:flex-row"
+>
+	<div class="mb-4 flex flex-col items-center md:mb-0">
+		<a
+			href="https://github.com/Michael-Obele/Svelte-MiniApps"
+			target="_blank"
+			class="rounded-md px-4 py-2 font-bold text-blue-500 hover:text-blue-700 dark:text-blue-300 dark:hover:text-blue-500"
+			aria-label="Support us on GitHub"
+		>
+			Support Us on GitHub
+		</a>
+		<span class="ml-2 text-xs">Consider supporting our open-source project.</span>
+	</div>
+
+	<form
+		action="https://formspree.io/f/xyyrldpl"
+		method="POST"
+		target="_blank"
+		class="mx-auto mb-4 flex w-full items-center justify-center sm:w-full md:mb-0"
+	>
+		<input
+			type="text"
+			name="message"
+			class="mr-2 w-3/4 rounded-md border border-gray-700 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+			placeholder="Share your thoughts..."
+			aria-label="Share your thoughts"
+		/>
+		<button
+			type="submit"
+			class="rounded-md bg-blue-500 px-4 py-2 font-bold text-white hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-800"
+			aria-label="Submit your thoughts"
+		>
+			Submit
+		</button>
+	</form>
+
+	<div class="md:text-left">
+		<h3 class="mb-2 text-center text-lg font-semibold">What's Next?</h3>
+		<ul class="ml-10 list-disc">
+			<li>Enhanced personalization features (based on your suggestions)</li>
+			<li>Offline functionality for increased accessibility</li>
+			<li>New integrations to streamline your workflow</li>
+		</ul>
+	</div>
+</footer>
+
+<!-- End of Footer -->
+
 <!-- 
 ## Enhanced About Page for Svelte MiniApps
 
