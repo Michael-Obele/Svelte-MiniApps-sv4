@@ -18,6 +18,27 @@
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { Menu, X } from 'lucide-svelte';
+	import { onMount } from 'svelte';
+
+	async function detectSWUpdate() {
+		const registration = await navigator.serviceWorker.ready;
+
+		registration.addEventListener('updatefound', () => {
+			const newSW = registration.installing;
+			newSW?.addEventListener('statechange', () => {
+				if (newSW.state === 'installed') {
+					if (confirm('New update available! Reload to update')) {
+						newSW.postMessage({ type: 'skipWaiting' });
+						window.location.reload();
+					}
+				}
+			});
+		});
+	}
+
+	onMount(() => {
+		detectSWUpdate();
+	});
 </script>
 
 <svelte:head>

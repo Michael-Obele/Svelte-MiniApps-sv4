@@ -34,7 +34,7 @@ const register: Action = async ({ request }) => {
 		const user = await db.user.findUnique({
 			where: { username }
 		});
-		console.log(role);
+		//console.log(role);
 		if (user) {
 			return fail(400, { user: true });
 		}
@@ -54,7 +54,7 @@ const register: Action = async ({ request }) => {
 				role: { connect: { name: Roles.USER } }
 			}
 		});
-		console.log('User created successfully');
+		//console.log('User created successfully');
 	}
 
 	redirect(303, '/Login');
