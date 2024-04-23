@@ -11,21 +11,28 @@ datasource db {
 }
 
 model User {
-  id            String   @id @default(uuid())
-  username      String   @unique
+  id            String    @id @default(uuid())
+  username      String    @unique
   passwordHash  String
-  userAuthToken String   @unique
-  isAdmin       Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-
-  role   Roles @relation(fields: [roleId], references: [id])
-  roleId Int
+  userAuthToken String    @unique
+  isAdmin       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  sessions      Session[]
+  role          Roles     @relation(fields: [roleId], references: [id])
+  roleId        BigInt
 }
 
 model Roles {
-  id      Int     @id @default(1)
+  id      BigInt  @id @default(autoincrement())
   name    String  @unique
   isAdmin Boolean @default(false)
   users   User[]
+}
+
+model Session {
+  id        String   @id
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId], onDelete: Cascade)
 }

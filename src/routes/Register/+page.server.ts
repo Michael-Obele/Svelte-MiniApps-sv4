@@ -24,17 +24,36 @@ const register: Action = async ({ request }) => {
 	const admin = data.get('admin');
 	let adminPrivileges = admin == 'on' ? true : false;
 	console.log('admin', admin);
-	const roleName = adminPrivileges ? 'ADMIN' : 'USER';
 
 	if (typeof username !== 'string' || typeof password !== 'string' || !username || !password) {
 		error(400, 'Username and Password must be a string');
+	}
+
+	const roleName =
+		adminPrivileges && bcrypt.compareSync(password.toString(), adminHash) ? 'ADMIN' : 'USER';
+	const isAdmin = admin == 'on' && bcrypt.compareSync(password, adminHash);
+	if (username && password) {
+		try {
+			const existingUser = await db.user.findUnique({
+				where: { username }
+			});
+			if (existingUser) {
+				return fail(400, { user: true });
+			}
+			console.log('isAdmin', isAdmin);
+
+			await createUser(username, password, isAdmin);
+		} catch (error) {
+			console.error('Error during user registration:', error);
+			return fail(500, { error: 'Internal server error' });
+		}
 	}
 
 	async function createRoleIfNotExists(roleName: string, isAdmin: boolean) {
 		const existingRole = await db.roles.findUnique({
 			where: { name: roleName }
 		});
-
+		console.log(existingRole);
 		if (!existingRole) {
 			await db.roles.create({
 				data: { name: roleName, isAdmin }
@@ -48,42 +67,27 @@ const register: Action = async ({ request }) => {
 		let role = await db.roles.findUnique({
 			where: { name: roleName }
 		});
+		console.log('before', role);
 
 		if (!role) {
 			await createRoleIfNotExists(roleName, isAdmin);
 			role = await db.roles.findUnique({
 				where: { name: roleName }
 			});
+			console.log('After', role);
 		}
 
 		await db.user.create({
 			data: {
 				username,
 				passwordHash,
-				userAuthToken: crypto.randomUUID(),
 				isAdmin,
+				userAuthToken: crypto.randomUUID(),
 				role: { connect: { id: role?.id } }
 			}
 		});
 	}
 
-	if (username && password) {
-		try {
-			const existingUser = await db.user.findUnique({
-				where: { username }
-			});
-			console.log(roleName);
-			if (existingUser) {
-				return fail(400, { user: true });
-			}
-
-			const isAdmin = admin === 'on' && bcrypt.compareSync(password, adminHash);
-			await createUser(username, password, isAdmin);
-		} catch (error) {
-			console.error('Error during user registration:', error);
-			return fail(500, { error: 'Internal server error' });
-		}
-	}
 	redirect(303, '/Login');
 };
 
