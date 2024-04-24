@@ -28,7 +28,13 @@
 					<div class="rounded-lg bg-green-400 p-3 dark:bg-green-900">
 						<div class="mb-4">
 							<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
-								{$page.data.user.username} is a {$page.data.user.role.name}
+								{$page.data.user.username} is
+								{#if $page.data.user.role.name === 'ADMIN'}
+									an
+								{:else}
+									a
+								{/if}
+								{$page.data.user.role.name}
 							</h2>
 							{#if $page.data.user.isAdmin}
 								<h3 class="text-center text-lg font-semibold text-green-700 dark:text-green-300">

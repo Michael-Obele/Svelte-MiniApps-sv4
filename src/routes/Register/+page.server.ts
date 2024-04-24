@@ -2,6 +2,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcryptjs';
 import { db } from '$lib/database';
+import { Admin_PW } from '$env/static/private';
 
 enum Roles {
 	ADMIN = 'ADMIN',
@@ -15,8 +16,7 @@ export const load: PageServerLoad = async (session) => {
 	}
 	return {};
 };
-
-const adminHash = '$2y$10$.oEQNqr4lcgoTO5X53FsZeiSxzTlY0yFh3pCIs.qrCdnDWr6ot4a.';
+const adminHash = Admin_PW;
 
 const register: Action = async ({ request }) => {
 	const data = await request.formData();
