@@ -10,7 +10,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 	interface User {
 		username: string;
 		role: {
-			id: number;
+			id: bigint;
 			name: string;
 		};
 	}
