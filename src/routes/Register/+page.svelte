@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
 	export let form: ActionData;
+	let showPassword = false;
+	$: password = showPassword ? 'text' : 'password';
 </script>
 
 <div
@@ -30,11 +32,25 @@
 					<input
 						id="password"
 						name="password"
-						type="password"
+						type={password}
 						required
 						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 sm:text-sm"
 						placeholder="Password"
 					/>
+				</div>
+				<div class="flex items-center py-5">
+					<input
+						type="checkbox"
+						bind:checked={showPassword}
+						name="showPassword"
+						id="showPassword"
+						class="form-checkbox h-5 w-5 text-indigo-600"
+					/>
+					<label
+						for="showPassword"
+						class="ml-2 text-sm text-gray-700 hover:cursor-pointer dark:text-gray-200"
+						>Show Password</label
+					>
 				</div>
 				<div class="flex items-center pt-5">
 					<input

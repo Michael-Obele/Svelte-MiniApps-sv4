@@ -45,13 +45,15 @@
 			{#if !$page.data.user}
 				<a
 					href="/Login"
-					class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
-					>Login</a
+					class=" hover:text-gray-600 dark:hover:text-red-500 {isActive('Login')
+						? 'text-red-500 dark:text-red-500'
+						: 'text-gray-800 dark:text-white'}">Login</a
 				>
 				<a
 					href="/Register"
-					class="text-gray-800 hover:text-gray-600 dark:text-white dark:hover:text-gray-400"
-					>Register</a
+					class=" hover:text-gray-600 dark:hover:text-red-500 {isActive('Register')
+						? 'text-red-500 dark:text-red-500'
+						: 'text-gray-800 dark:text-white'}">Register</a
 				>
 			{/if}
 

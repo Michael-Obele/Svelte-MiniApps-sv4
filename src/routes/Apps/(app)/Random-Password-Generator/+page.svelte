@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { Clipboard, RefreshCcw } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
+	import logo from '$lib/logo/svelte-black.png';
 
 	let passwordOptions = {
 		length: 12,
@@ -34,7 +35,7 @@
 	}
 
 	let appData = {
-		title: 'Random Password Generator',
+		title: 'Password Generator',
 		details: 'Generates random passwords with configurable length and complexity.',
 		tag: 'security',
 		difficulty: 'easy'
@@ -42,8 +43,8 @@
 
 	let websiteTitle = `Svelte MiniApps - ${appData.title}`;
 	let websiteDescription = appData.details;
-	let websiteUrl = `https://svelte-mini-apps.netlify.app/apps/${appData.title.toLowerCase().replace(/\s/g, '-')}`; // Replace with actual URL structure
-	let websiteImage = 'https://svelte-mini-apps.netlify.app/apps/password-generator.png'; // Replace with an image of the app
+	let websiteUrl = `https://svelte-mini-apps.netlify.app/apps/${appData.title.toLowerCase().replace(/\s/g, '-')}`;
+	let websiteImage = logo;
 
 	let twitterTitle = `${websiteTitle} - Secure Your Accounts`;
 	let twitterDescription = `Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator.`;
@@ -57,8 +58,8 @@
 	<meta property="og:url" content={websiteUrl} />
 	<meta property="og:image" content={websiteImage} />
 
-	<meta name="twitter:title" content={websiteTitle} />
-	<meta name="twitter:description" content={websiteDescription} />
+	<meta name="twitter:title" content={twitterTitle} />
+	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="twitter:image" content={websiteImage} />
 </svelte:head>
 

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import logo from '$lib/logo/svelte-black.png';
 	let appData = {
 		title: 'GitHub Contribution Tracker',
 		details:
@@ -10,7 +11,7 @@
 	let websiteTitle = `Svelte MiniApps - ${appData.title}`;
 	let websiteDescription = appData.details;
 	let websiteUrl = `https://svelte-mini-apps.netlify.app/apps/${appData.title.toLowerCase().replace(/\s/g, '-')}`; // Replace with actual URL structure
-	let websiteImage = 'https://svelte-mini-apps.netlify.app/apps/github-contribution-tracker.png'; // Replace with an image of the app
+	let websiteImage = logo;
 
 	let twitterTitle = `${websiteTitle} - Track Your GitHub Journey`;
 	let twitterDescription = `Gain insights into your GitHub activity with the Svelte MiniApps Contribution Tracker. Visualize progress and stay engaged!`;
@@ -24,8 +25,8 @@
 	<meta property="og:url" content={websiteUrl} />
 	<meta property="og:image" content={websiteImage} />
 
-	<meta name="twitter:title" content={websiteTitle} />
-	<meta name="twitter:description" content={websiteDescription} />
+	<meta name="twitter:title" content={twitterTitle} />
+	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="twitter:image" content={websiteImage} />
 </svelte:head>
 
