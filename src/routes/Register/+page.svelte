@@ -1,6 +1,5 @@
 <script lang="ts">
 	import type { ActionData } from './$types';
-	import { enhance } from '$app/forms';
 	export let form: ActionData;
 </script>
 
@@ -13,7 +12,7 @@
 				Register
 			</h2>
 		</div>
-		<form use:enhance method="post" class="mt-8 space-y-6">
+		<form action="?/register" method="POST" class="mt-8 space-y-6">
 			<div class="-space-y-px rounded-md shadow-sm">
 				<div>
 					<label for="username" class="sr-only">Username</label>

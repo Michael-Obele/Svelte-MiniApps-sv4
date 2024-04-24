@@ -1,5 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { stringify } from 'postcss';
+
+	function stringifyWithBigInt(obj: any) {
+		return JSON.stringify(obj, (key, value) => {
+			if (typeof value === 'bigint') {
+				return value.toString(); // Convert bigint to string
+			}
+			return value; // Return other values as is
+		});
+	}
 </script>
 
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -18,16 +28,26 @@
 					<div class="rounded-lg bg-green-400 p-3 dark:bg-green-900">
 						<div class="mb-4">
 							<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
-								{#if $page.data.user.role.name == 'ADMIN'}
-									{$page.data.user.username} is an {$page.data.user.role.name}
-								{:else}
-									{$page.data.user.username} is a {$page.data.user.role.name}
-								{/if}
+								{$page.data.user.username} is a {$page.data.user.role.name}
 							</h2>
+							{#if $page.data.user.isAdmin}
+								<h3 class="text-center text-lg font-semibold text-green-700 dark:text-green-300">
+									You are an Admin
+								</h3>
+							{:else}
+								<h3 class="text-center text-lg font-semibold text-red-700 dark:text-red-300">
+									You are not an Admin
+								</h3>
+							{/if}
 						</div>
 						<div class="mb-4">
 							<p class="text-center text-gray-700 dark:text-gray-300">
 								This is a description about the user.
+							</p>
+						</div>
+						<div class="mb-4">
+							<p class="text-center text-gray-700 dark:text-gray-300">
+								Joined on: {$page.data.user.createdAt}
 							</p>
 						</div>
 					</div>
@@ -37,10 +57,4 @@
 	</div>
 </div>
 
-<!-- {#if $page.data.user.role === 'ADMIN'}
-	<form action="/logout" method="POST">
-		<button type="submit">Log out</button>
-	</form>
-{/if} -->
-
-<!-- <h1>{JSON.stringify($page)}</h1> -->
+<!-- <h1>{stringifyWithBigInt($page.data)}</h1> -->

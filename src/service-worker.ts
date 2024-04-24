@@ -86,8 +86,6 @@ self.addEventListener('fetch', (event) => {
 	event.respondWith(respond());
 });
 
-//console.log('Hi');
-
 self.addEventListener('message', (event) => {
 	if (event.data && event.data.type == 'skipWaiting') {
 		self.skipWaiting();

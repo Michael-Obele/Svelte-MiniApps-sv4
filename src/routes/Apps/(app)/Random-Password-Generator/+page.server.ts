@@ -30,6 +30,5 @@ export const actions: Actions = {
 		const data = Object.fromEntries(formData);
 		// do whatever you want
 		length = Number(data.length);
-		//console.log(data.length)
 	}
 };

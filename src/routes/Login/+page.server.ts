@@ -4,8 +4,12 @@ import type { Action, Actions, PageServerLoad } from './$types';
 
 import { db } from '$lib/database';
 
-export const load: PageServerLoad = async () => {
-	// todo
+export const load: PageServerLoad = async (session) => {
+	var sessionData = session.cookies.get('session');
+	if (sessionData) {
+		return redirect(303, '/Admin');
+	}
+	return {};
 };
 
 const login: Action = async ({ cookies, request }) => {

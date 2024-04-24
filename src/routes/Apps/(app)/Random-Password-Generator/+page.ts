@@ -24,9 +24,7 @@ export function _generatePassword(
 // Function to copy text to clipboard
 export function _copyToClipboard(text: string) {
 	navigator.clipboard.writeText(text).then(
-		function () {
-			//console.log('Copying to clipboard was successful!');
-		},
+		function () {},
 		function (err) {
 			console.error('Could not copy text: ', err);
 		}

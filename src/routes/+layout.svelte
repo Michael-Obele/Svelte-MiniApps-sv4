@@ -14,10 +14,8 @@
 			const newSW = registration.installing;
 			newSW?.addEventListener('statechange', () => {
 				if (newSW.state === 'installed') {
-					if (confirm('New update available! Reload to update')) {
-						newSW.postMessage({ type: 'skipWaiting' });
-						window.location.reload();
-					}
+					newSW.postMessage({ type: 'skipWaiting' });
+					window.location.reload();
 				}
 			});
 		});

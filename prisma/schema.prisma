@@ -24,10 +24,9 @@ model User {
 }
 
 model Roles {
-  id      BigInt  @id @default(autoincrement())
-  name    String  @unique
-  isAdmin Boolean @default(false)
-  users   User[]
+  id    BigInt @id @default(autoincrement())
+  name  String @unique
+  users User[]
 }
 
 model Session {

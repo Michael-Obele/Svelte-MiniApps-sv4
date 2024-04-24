@@ -103,8 +103,6 @@ interface OutputEntry {
 
 const sortedContributions = sortContributionsByMonth(contributionsByMonth);
 
-//console.log( sortedContributions);
-
 export const load: PageLoad = async ({ parent, data }) => {
 	await parent();
 	let { props, contributionsInfo, streakStats } = data;

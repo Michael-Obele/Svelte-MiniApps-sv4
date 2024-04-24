@@ -20,7 +20,7 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 	if (session) {
 		const user = await db.user.findUnique({
 			where: { userAuthToken: session },
-			select: { username: true, role: true }
+			select: { username: true, isAdmin: true, createdAt: true, role: true }
 		});
 		data = user;
 	}
