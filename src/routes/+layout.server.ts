@@ -1,7 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { db } from '$lib/database';
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad, Actions } from './$types';
 
 // get `locals.user` and pass it to the `page` store
 export const load: LayoutServerLoad = async ({ cookies }) => {

@@ -1,5 +1,9 @@
 // place files you want to import through the `$lib` alias in this folder.
-export const done = ['Random Password Generator', 'GitHub Contribution Tracker'];
+export const done = [
+	'Random Password Generator',
+	'GitHub Contribution Tracker',
+	'QR Code Generator'
+];
 export const projects = [
 	{
 		title: 'Unit Converter',
