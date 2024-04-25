@@ -2,6 +2,7 @@
 	import { Clipboard, RefreshCcw } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 	import logo from '$lib/logo/svelte-black.png';
+	import { page } from '$app/stores';
 
 	let passwordOptions = {
 		length: 12,
@@ -65,7 +66,14 @@
 
 <main class="container">
 	<div class="mt-10 flex flex-col items-center justify-center space-y-4">
-		<h3 class="text-center text-4xl font-bold text-green-500">Welcome!</h3>
+		<h3 class="text-center text-4xl font-bold text-green-500">
+			Welcome
+			{#if $page.data.user}
+				{$page.data.user.username}
+			{/if}
+			!
+		</h3>
+
 		<h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">
 			Here's Your Secure Password
 		</h3>

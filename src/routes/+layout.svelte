@@ -2,7 +2,6 @@
 	import Navbar from '$lib/components/Navbar.svelte';
 
 	import '../app.pcss';
-
 	import { ModeWatcher } from 'mode-watcher';
 
 	import { onMount } from 'svelte';

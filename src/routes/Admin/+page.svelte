@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { stringify } from 'postcss';
 
 	function stringifyWithBigInt(obj: any) {
 		return JSON.stringify(obj, (key, value) => {
