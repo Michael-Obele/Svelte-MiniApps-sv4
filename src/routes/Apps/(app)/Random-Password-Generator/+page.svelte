@@ -58,10 +58,15 @@
 	<meta property="og:description" content={websiteDescription} />
 	<meta property="og:url" content={websiteUrl} />
 	<meta property="og:image" content={websiteImage} />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
 
+	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content={twitterTitle} />
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="twitter:image" content={websiteImage} />
+
+	<link rel="canonical" href={websiteUrl} />
 </svelte:head>
 
 <main class="container">
