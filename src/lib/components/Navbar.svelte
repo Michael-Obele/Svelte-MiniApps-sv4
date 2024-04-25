@@ -3,12 +3,12 @@
 
 	// Reactive statement to determine if the current route matches the item
 	$: isActive = (item: string) => {
-		const routeId = $page.route.id;
+		const routeId = $page.url.pathname;
 		return routeId && (`/${item}` === routeId || routeId.includes(item));
 	};
 
 	$: show = false;
-	$: home = $page.route.id === '/';
+	$: home = $page.url.pathname === '/';
 
 	import Sun from 'lucide-svelte/icons/sun';
 	import Moon from 'lucide-svelte/icons/moon';
@@ -161,29 +161,19 @@
 				<li>
 					<a
 						href="/"
-						class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500"
-						class:bg-red-700={$page.route.id === '/'}
-						class:md:bg-transparent={$page.route.id === '/'}
-						class:md:dark:text-red-500={$page.route.id === '/'}
-						class:md:text-red-700={$page.route.id === '/'}
-						aria-current={$page.route.id === '/' ? 'page' : undefined}>Home</a
+						class={`block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500 ${$page.url.pathname === '/' ? 'bg-red-700 md:bg-transparent md:text-red-700 md:dark:text-red-500' : ''}`}
+						aria-current={$page.url.pathname === '/' ? 'page' : undefined}>Home</a
 					>
 				</li>
 
 				{#each ['Apps', 'About'] as item}
-					<li>
-						<a
-							href={'/' + item}
-							class="block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500"
-							class:bg-red-700={isActive(item)}
-							class:md:bg-transparent={isActive(item)}
-							class:md:dark:text-red-500={isActive(item)}
-							class:md:text-red-700={isActive(item)}
-							aria-current={isActive(item) ? 'page' : undefined}
-						>
-							{item}
-						</a>
-					</li>
+					<a
+						href={'/' + item}
+						class={`block rounded px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:border-0 md:p-0 md:hover:bg-transparent md:hover:text-red-700 md:dark:hover:bg-transparent md:dark:hover:text-red-500 ${isActive(item) ? 'bg-red-700 md:bg-transparent md:text-red-700 md:dark:text-red-500' : ''}`}
+						aria-current={isActive(item) ? 'page' : undefined}
+					>
+						{item}
+					</a>
 				{/each}
 				<Button on:click={toggleMode} variant="outline" class="-my-2" size="icon">
 					<Sun
