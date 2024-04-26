@@ -128,12 +128,6 @@ export const projects = [
 		difficulty: 'hard'
 	},
 	{
-		title: 'Wikipedia Article Explorer',
-		details: 'Search Wikipedia and explore interlinking articles visually.',
-		tag: 'education',
-		difficulty: 'hard'
-	},
-	{
 		title: 'English Dictionary App',
 		details:
 			'Build a web app that retrieves word definitions, pronunciation, and audio using an API. Implement loading effects, error handling, and Web Speech API for audio playback.',
