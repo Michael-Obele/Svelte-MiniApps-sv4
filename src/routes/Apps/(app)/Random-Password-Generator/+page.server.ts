@@ -28,7 +28,6 @@ export const actions: Actions = {
 	generate: async ({ request }) => {
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
-		// do whatever you want
 		length = Number(data.length);
 	}
 };

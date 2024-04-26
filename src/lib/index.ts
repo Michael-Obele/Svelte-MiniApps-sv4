@@ -126,5 +126,57 @@ export const projects = [
 			'Write, save, and organize your markdown files with ease. Perfect for quick notes, to-do lists, or even creative writing projects.',
 		tag: 'utility',
 		difficulty: 'hard'
+	},
+	{
+		title: 'Wikipedia Article Explorer',
+		details: 'Search Wikipedia and explore interlinking articles visually.',
+		tag: 'education',
+		difficulty: 'hard'
+	},
+	{
+		title: 'English Dictionary App',
+		details:
+			'Build a web app that retrieves word definitions, pronunciation, and audio using an API. Implement loading effects, error handling, and Web Speech API for audio playback.',
+		tag: 'intermediate',
+		difficulty: 'medium' // Adjusted difficulty based on complexity
+	},
+	{
+		title: 'Pomodoro Timer',
+		details:
+			'Create a timer with a countdown clock and customizable work/break intervals using audio notifications.',
+		tag: 'productivity',
+		difficulty: 'easy'
+	},
+	{
+		title: 'Random Emoji Generator',
+		details: 'Generate random emojis with a single click.',
+		tag: 'fun',
+		difficulty: 'easy'
+	},
+	{
+		title: 'Age Calculator',
+		details: 'Develop a web app to calculate age based on a user-provided date of birth.',
+		tag: 'math',
+		difficulty: 'easy'
+	},
+	{
+		title: 'Rock Paper Scissors Game',
+		details:
+			'Create a classic rock, paper, scissors game against the computer with outcomes displayed.',
+		tag: 'game',
+		difficulty: 'easy'
+	},
+	{
+		title: 'Dice Roll Simulator',
+		details: 'Simulate rolling dice with a visual representation of the result.',
+		tag: 'game',
+		difficulty: 'easy'
+	},
+	{
+		title: 'Recipe Book Organizer',
+		details:
+			'Develop a recipe organizer app to manage your recipes and potentially convert them to instructions.',
+		tag: 'productivity',
+		difficulty: 'medium' // Adjusted difficulty based on complexity
 	}
 ];
