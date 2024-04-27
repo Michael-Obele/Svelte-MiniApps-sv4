@@ -131,7 +131,7 @@ export const projects = [
 		title: 'English Dictionary App',
 		details:
 			'Build a web app that retrieves word definitions, pronunciation, and audio using an API. Implement loading effects, error handling, and Web Speech API for audio playback.',
-		tag: 'intermediate',
+		tag: 'productivity',
 		difficulty: 'medium' // Adjusted difficulty based on complexity
 	},
 	{

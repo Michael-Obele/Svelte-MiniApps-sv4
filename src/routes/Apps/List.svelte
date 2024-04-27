@@ -1,9 +1,9 @@
 <script lang="ts">
+	import Tags from './Tags.svelte';
+
 	import { done } from '$lib/index';
 	import { projects } from '$lib/index';
 	import { BadgeCheck, HardHat, ArrowRight } from 'lucide-svelte';
-	import { PiggyBank, Heart, Speaker, Code } from 'lucide-svelte';
-	import { Box, Lock, Pen, CheckSquare, Book } from 'lucide-svelte';
 
 	export let filteredBy: string;
 
@@ -40,38 +40,7 @@
 							{item.difficulty}
 						</span>
 
-						<span
-							class={`mb-2 inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium text-green-800 ${item.tag}`}
-						>
-							{#if item.tag === 'utility'}
-								<Box size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'security'}
-								<Lock size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'design'}
-								<Pen size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'productivity'}
-								<CheckSquare size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'education'}
-								<Book size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'finance'}
-								<PiggyBank size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'health'}
-								<Heart size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'multimedia'}
-								<Speaker size="16" class="mx-1" />
-							{/if}
-							{#if item.tag === 'developer-tools'}
-								<Code size="16" class="mx-1" />
-							{/if}
-							{item.tag.split('-').join(' ')}
-						</span>
+						<Tags {item} />
 					</div>
 
 					<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
@@ -114,38 +83,7 @@
 								{item.difficulty}
 							</span>
 
-							<span
-								class={`mb-2 inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium text-green-800 ${item.tag}`}
-							>
-								{#if item.tag === 'utility'}
-									<Box size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'security'}
-									<Lock size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'design'}
-									<Pen size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'productivity'}
-									<CheckSquare size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'education'}
-									<Book size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'finance'}
-									<PiggyBank size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'health'}
-									<Heart size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'multimedia'}
-									<Speaker size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'developer-tools'}
-									<Code size="16" class="mx-1" />
-								{/if}
-								{item.tag.split('-').join(' ')}
-							</span>
+							<Tags {item} />
 						</div>
 						<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
 							{item.title}
@@ -195,38 +133,7 @@
 								{item.difficulty}
 							</span>
 
-							<span
-								class={`mb-2 inline-flex items-center rounded-md px-2.5 py-0.5 text-sm font-medium text-green-800 ${item.tag}`}
-							>
-								{#if item.tag === 'utility'}
-									<Box size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'security'}
-									<Lock size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'design'}
-									<Pen size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'productivity'}
-									<CheckSquare size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'education'}
-									<Book size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'finance'}
-									<PiggyBank size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'health'}
-									<Heart size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'multimedia'}
-									<Speaker size="16" class="mx-1" />
-								{/if}
-								{#if item.tag === 'developer-tools'}
-									<Code size="16" class="mx-1" />
-								{/if}
-								{item.tag.split('-').join(' ')}
-							</span>
+							<Tags {item} />
 						</div>
 						<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white">
 							{item.title}
