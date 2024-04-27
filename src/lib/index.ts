@@ -2,36 +2,37 @@
 export const done = [
 	'Random Password Generator',
 	'GitHub Contribution Tracker',
-	'QR Code Generator'
+	'QR Code Generator',
+	'English Dictionary App'
 ];
 export const projects = [
 	{
 		title: 'Unit Converter',
-		details: 'Simple tool to convert between various units (length, temperature, volume, etc).',
+		details: 'Converts between various units (length, temperature, volume, etc.)',
 		tag: 'utility',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Random Password Generator',
-		details: 'Generates random passwords with configurable length and complexity.',
+		details: 'Generates secure passwords with customizable length and complexity.',
 		tag: 'security',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Color Picker',
-		details: 'Allows choosing a color and displays its HEX code or RGB values.',
+		details: 'Lets you choose a color and shows its HEX code or RGB values.',
 		tag: 'design',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Checklist Maker',
-		details: 'Create checklists with options to mark items complete.',
+		details: 'Allows you to create checklists and mark items as completed.',
 		tag: 'productivity',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Text Summarizer',
-		details: 'Summarizes a block of text using a word limit.',
+		details: 'Creates a shorter version of a text by keeping within a word limit.',
 		tag: 'utility',
 		difficulty: 'easy'
 	},
@@ -43,134 +44,134 @@ export const projects = [
 	},
 	{
 		title: 'Countdown Timer',
-		details: 'Customizable countdown timer with visual progress bar.',
+		details: 'Sets a timer with a countdown and shows progress visually.',
 		tag: 'productivity',
 		difficulty: 'medium'
 	},
 	{
 		title: 'Currency Converter',
-		details: 'Retrieves live exchange rates and converts between currencies.',
+		details: 'Gets live exchange rates and converts between different currencies.',
 		tag: 'finance',
 		difficulty: 'medium'
 	},
 	{
 		title: 'BMI Calculator',
-		details: 'Calculates Body Mass Index based on user input.',
+		details: 'Calculates your Body Mass Index based on your height and weight.',
 		tag: 'health',
 		difficulty: 'medium'
 	},
 	{
 		title: 'Music Player',
-		details: 'Simple music player that allows browsing and playing local audio files.',
+		details: 'Plays audio files stored on your device and lets you browse them.',
 		tag: 'multimedia',
 		difficulty: 'medium'
 	},
 	{
 		title: 'QR Code Generator',
-		details: 'Generates QR codes for URLs, text, or vCards.',
+		details: 'Creates QR codes that contain URLs, text, or vCards.',
 		tag: 'utility',
 		difficulty: 'medium'
 	},
 	{
 		title: 'To-Do List with Persistence',
-		details: 'Create and manage to-do items with local storage for persistence.',
+		details: 'Lets you create and manage to-do items, and saves them for later use.',
 		tag: 'productivity',
 		difficulty: 'medium'
 	},
 	{
 		title: 'Habit Tracker',
-		details: 'Track daily habits and visualize progress over time.',
+		details: 'Tracks your daily habits and shows your progress over time.',
 		tag: 'productivity',
 		difficulty: 'hard'
 	},
 	{
 		title: 'Photo Editor',
-		details: 'Basic photo editing tools like cropping, resizing, and applying filters.',
+		details: 'Provides basic tools like cropping, resizing, and applying filters to edit photos.',
 		tag: 'design',
 		difficulty: 'hard'
 	},
 	{
 		title: 'Wikipedia Article Explorer',
-		details: 'Search Wikipedia and explore interlinking articles visually.',
+		details: 'Lets you search Wikipedia and explore linked articles visually.',
 		tag: 'education',
 		difficulty: 'hard'
 	},
 	{
 		title: 'Math Equation Solver',
-		details: 'Solve simple mathematical equations with step-by-step explanations.',
+		details: 'Solves simple math equations and shows the steps to get the answer.',
 		tag: 'education',
 		difficulty: 'hard'
 	},
 	{
 		title: 'Budget Tracker',
-		details: 'Track income and expenses to manage personal finances.',
+		details: 'Helps you track your income and expenses to manage your finances.',
 		tag: 'finance',
 		difficulty: 'hard'
 	},
 	{
 		title: 'Simple Drawing App',
-		details: 'Create basic drawings using lines, shapes, and colors.',
+		details: 'Lets you create basic drawings using lines, shapes, and colors.',
 		tag: 'design',
 		difficulty: 'hard'
 	},
 	{
 		title: 'GitHub Contribution Tracker',
 		details:
-			'Visualize your GitHub contributions in a clear and engaging way. Track streaks, identify patterns, and stay motivated.',
+			'Visualizes your GitHub contributions in a way that is easy to understand and engaging. It helps you track streaks, find patterns, and stay motivated.',
 		tag: 'developer-tools',
 		difficulty: 'medium'
 	},
 	{
 		title: 'Markdown Store',
 		details:
-			'Write, save, and organize your markdown files with ease. Perfect for quick notes, to-do lists, or even creative writing projects.',
+			'Lets you write, save, and organize your markdown files easily. Great for quick notes, to-do lists, or even creative writing projects.',
 		tag: 'utility',
 		difficulty: 'hard'
 	},
 	{
 		title: 'English Dictionary App',
 		details:
-			'Build a web app that retrieves word definitions, pronunciation, and audio using an API. Implement loading effects, error handling, and Web Speech API for audio playback.',
+			'Web app that retrieves word definitions, pronunciation, and audio using an API. It also implements loading effects, error handling, and Web Speech API for audio playback.',
 		tag: 'productivity',
-		difficulty: 'medium' // Adjusted difficulty based on complexity
+		difficulty: 'hard'
 	},
 	{
 		title: 'Pomodoro Timer',
 		details:
-			'Create a timer with a countdown clock and customizable work/break intervals using audio notifications.',
+			'Creates a timer with a countdown and lets you set customizable work/break intervals. It also uses audio notifications to alert you.',
 		tag: 'productivity',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Random Emoji Generator',
-		details: 'Generate random emojis with a single click.',
+		details: 'Generates a random emoji with a single click.',
 		tag: 'fun',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Age Calculator',
-		details: 'Develop a web app to calculate age based on a user-provided date of birth.',
+		details: 'Calculates your age based on the date you were born.',
 		tag: 'math',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Rock Paper Scissors Game',
 		details:
-			'Create a classic rock, paper, scissors game against the computer with outcomes displayed.',
+			'Lets you play the classic rock, paper, scissors game against the computer and shows the outcome.',
 		tag: 'game',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Dice Roll Simulator',
-		details: 'Simulate rolling dice with a visual representation of the result.',
+		details: 'Simulates rolling dice and visually shows the result.',
 		tag: 'game',
 		difficulty: 'easy'
 	},
 	{
 		title: 'Recipe Book Organizer',
 		details:
-			'Develop a recipe organizer app to manage your recipes and potentially convert them to instructions.',
+			'Helps you manage your recipes by letting you create, organize, and potentially convert them into instructions.',
 		tag: 'productivity',
-		difficulty: 'medium' // Adjusted difficulty based on complexity
+		difficulty: 'medium'
 	}
 ];

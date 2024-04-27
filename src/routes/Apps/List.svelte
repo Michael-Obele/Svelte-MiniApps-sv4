@@ -73,7 +73,6 @@
 						<span class="absolute right-5 top-5 opacity-100">
 							<BadgeCheck class="h-20 w-20 text-green-800 dark:text-green-400" />
 						</span>
-
 						<!-- End of Done check -->
 						<div class="flex w-fit flex-col">
 							<span
