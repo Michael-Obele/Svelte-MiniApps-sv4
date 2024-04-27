@@ -21,7 +21,7 @@
 	};
 </script>
 
-<div class="mx-auto flex max-w-md flex-col justify-center">
+<form on:submit|preventDefault={fetchMeaning} class="mx-auto flex max-w-md flex-col justify-center">
 	<span class="my-5 ms-3 flex-1 whitespace-nowrap text-center text-xl">
 		Welcome,
 		{#if $page.data.user}
@@ -41,12 +41,13 @@
 	/>
 
 	<Button
+		type="submit"
 		on:click={fetchMeaning}
 		class="mt-4 w-full rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
 	>
 		Find Meaning
 	</Button>
-</div>
+</form>
 
 <section class="mx-auto my-10 flex max-w-3xl flex-col justify-center">
 	{#if typeof currentMeaning === 'object' && 'title' in currentMeaning}
