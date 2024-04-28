@@ -74,3 +74,12 @@ export let contributions = writable([
 
 // A writable store that represents a filter state, initially set to false
 export let filter = writable('all');
+
+export function stringifyWithBigInt(obj: any) {
+	return JSON.stringify(obj, (key, value) => {
+		if (typeof value === 'bigint') {
+			return value.toString(); // Convert bigint to string
+		}
+		return value; // Return other values as is
+	});
+}

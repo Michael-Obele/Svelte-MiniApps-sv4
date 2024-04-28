@@ -59,7 +59,7 @@
 
 			{#if $page.data.user}
 				<a
-					href="/Admin"
+					href="/Profile"
 					class=" hover:text-gray-600 dark:hover:text-red-500 {isActive('Admin')
 						? 'text-red-500 dark:text-red-500'
 						: 'text-gray-800 dark:text-white'}"

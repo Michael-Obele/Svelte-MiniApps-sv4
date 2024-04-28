@@ -90,12 +90,12 @@
 
 	<ol
 		id="stepper"
-		class="sticky top-1 mx-auto flex w-full max-w-fit flex-wrap content-center items-center justify-center space-x-2 space-y-5 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:p-4 sm:text-base md:space-y-0 lg:p-3 rtl:space-x-reverse"
+		class="sticky top-1 mx-auto flex w-full max-w-fit flex-row flex-wrap content-center items-center justify-center space-x-2 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:space-y-0 sm:p-4 sm:text-base lg:p-3 rtl:space-x-reverse"
 	>
 		{#each h3Ids as id, i}
 			<a
 				href="#{id}"
-				class={`mt-5 flex items-center capitalize md:mt-0 ${activeId.includes(id) ? 'text-green-600 dark:text-green-500' : ''}`}
+				class={`my-1 flex items-center capitalize ${activeId.includes(id) ? 'text-green-600 dark:text-green-500' : ''}`}
 				on:click={(event) => {
 					event.preventDefault(); // Prevent the default jump behavior
 					const targetElement = document.getElementById(id);
@@ -121,7 +121,7 @@
 
 	<!-- End of Stepper -->
 
-	<div class="mx-auto grid max-w-[1024px]">
+	<div class="mx-auto grid min-h-[80vh] max-w-[1024px]">
 		<div class="mb-5 mt-5 block max-w-md rounded-lg p-6">
 			<p class="justify-start text-left text-lg text-gray-900 dark:text-white">
 				Svelte MiniApps is a collection of <span
@@ -403,4 +403,7 @@ While Svelte MiniApps can be valuable for collaborative projects, their true pot
 	h3 {
 		padding-top: 3rem;
 	}
+	/* * {
+		border: 1px red solid;
+	} */
 </style>

@@ -1,14 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-
-	function stringifyWithBigInt(obj: any) {
-		return JSON.stringify(obj, (key, value) => {
-			if (typeof value === 'bigint') {
-				return value.toString(); // Convert bigint to string
-			}
-			return value; // Return other values as is
-		});
-	}
 </script>
 
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
