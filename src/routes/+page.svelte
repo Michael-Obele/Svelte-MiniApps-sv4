@@ -47,7 +47,7 @@
 		<section class="mx-auto mt-10 max-w-screen-xl bg-white px-4 py-12 dark:bg-gray-900 lg:py-16">
 			<h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">Projects Include:</h2>
 			<ul
-				class="grid w-full list-inside grid-cols-2 gap-6 space-y-1 text-gray-900 dark:text-gray-400 md:grid-cols-4"
+				class="grid w-full list-inside grid-cols-1 gap-6 space-y-1 text-gray-900 dark:text-gray-400 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
 			>
 				{#each projects as item}
 					{#if done.includes(item.title)}
