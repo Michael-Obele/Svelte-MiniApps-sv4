@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import Input from '$lib/components/ui/input/input.svelte';
-	import { _errors, _fetchDictionaryEntry, type DictionaryEntry, type ApiError } from './+page';
+	import { _fetchDictionaryEntry, type DictionaryEntry, type ApiError } from './+page';
 	import { AudioLines } from 'lucide-svelte';
 	import NoWord from '$lib/logo/not-found.svelte';
 

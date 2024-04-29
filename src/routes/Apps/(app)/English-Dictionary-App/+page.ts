@@ -2,8 +2,6 @@ import { error } from '@sveltejs/kit';
 import { page } from '$app/stores';
 import type { PageLoad } from './$types';
 
-export let _errors: any;
-
 export interface ApiError {
 	title: string;
 	message: string;

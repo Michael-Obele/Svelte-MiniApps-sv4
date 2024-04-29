@@ -3,7 +3,8 @@ export const done = [
 	'Random Password Generator',
 	'GitHub Contribution Tracker',
 	'QR Code Generator',
-	'English Dictionary App'
+	'English Dictionary App',
+	'Random Emoji Generator'
 ];
 export const projects = [
 	{
