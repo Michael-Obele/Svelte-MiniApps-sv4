@@ -68,7 +68,7 @@
 
 <!-- More Stats -->
 
-<Accordion.Root class="mx-auto w-1/6 text-xl">
+<Accordion.Root class="px-10 text-xl">
 	<Accordion.Item value="item-1">
 		<Accordion.Trigger>More Details</Accordion.Trigger>
 		<Accordion.Content>

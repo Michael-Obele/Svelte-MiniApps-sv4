@@ -21,5 +21,6 @@
 		</Breadcrumb.List>
 	</Breadcrumb.Root>
 </div>
-
-<slot />
+<div class="pb-5">
+	<slot />
+</div>

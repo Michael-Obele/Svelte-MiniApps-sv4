@@ -23,7 +23,7 @@
 	<meta name="twitter:image" content={websiteImage} />
 </svelte:head>
 
-<div class="xl:px-10">
+<div class="pb-5 xl:px-10">
 	<section class="w-full py-12 md:py-24 lg:py-32">
 		<div class="container px-4 md:px-6">
 			<div class="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
@@ -32,8 +32,8 @@
 						<h1
 							class="my-3 text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
 						>
-							Welcome, <span class="text-green-700 dark:text-green-300">
-								{$page.data.user ? `${$page.data.user.username}!` : ''}
+							Welcome <span class="capitalize text-green-700 dark:text-green-300">
+								{$page.data.user ? `Back, ${$page.data.user.username}!` : ''}
 							</span> to...
 						</h1>
 						<h1
@@ -47,7 +47,7 @@
 						</p>
 					</header>
 					<a
-						class="inline-flex h-10 items-center justify-center rounded-md bg-red-700 px-5 py-2.5 text-center text-base font-medium text-white shadow transition-colors hover:bg-gray-900/90 hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-red-900 dark:focus-visible:ring-gray-300"
+						class="inline-flex h-10 items-center justify-center rounded-md bg-red-700 px-5 py-2.5 text-center text-base font-medium text-white shadow transition-colors hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus-visible:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:opacity-50 dark:focus:ring-red-900"
 						href="/Apps"
 					>
 						Explore Apps
