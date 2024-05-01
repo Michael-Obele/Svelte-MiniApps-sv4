@@ -56,9 +56,12 @@
 						<ArrowRight class="ml-2 hidden h-5 w-5 lg:grid" />
 					</a>
 				</div>
-				<div class="flex h-[60%] w-[60%] flex-row items-center md:w-full lg:h-full">
+				<div class="flex h-[60%] w-[60%] flex-row items-center justify-center md:w-full lg:h-full">
 					<Svelte />
-					<span class="-indent-[8vw] text-5xl sm:-indent-[12vw] md:hidden">velte </span>
+					<span
+						class="shadow12 hidden -indent-[8vw] text-5xl min-[320px]:block sm:-indent-[12vw] md:hidden"
+						>velte
+					</span>
 				</div>
 			</div>
 		</div>
@@ -177,3 +180,18 @@
 		</div>
 	</footer> -->
 </div>
+
+<style>
+	.shadow12 {
+		color: rgba(255, 255, 255, 1);
+		text-shadow:
+			2px 2px 0px rgb(161, 35, 129),
+			2px -2px 0px rgb(161, 35, 129),
+			-2px 2px 0px rgb(161, 35, 129),
+			-2px -2px 0px rgb(161, 35, 129),
+			2px 0px 0px rgb(161, 35, 129),
+			0px 2px 0px rgb(161, 35, 129),
+			-2px 0px 0px rgb(161, 35, 129),
+			0px -2px 0px rgb(161, 35, 129);
+	}
+</style>
