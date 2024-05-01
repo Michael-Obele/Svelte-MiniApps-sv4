@@ -6,10 +6,8 @@
 		Expand,
 		CodeSquare,
 		Blocks,
-		Drill,
 		Unplug,
 		ChevronsRight,
-		Brain,
 		Handshake,
 		Github
 	} from 'lucide-svelte';
@@ -121,25 +119,26 @@
 
 	<!-- End of Stepper -->
 
-	<div class="mx-auto grid min-h-[80vh] max-w-[1024px]">
-		<div class="mb-5 mt-5 block max-w-md rounded-lg p-6">
-			<p class="justify-start text-left text-lg text-gray-900 dark:text-white">
+	<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
+		<div class="block max-w-md rounded-lg p-6">
+			<p class="justify-start text-left text-gray-900 dark:text-white">
 				Svelte MiniApps is a collection of <span
-					class="bold text-xl text-green-800 dark:text-green-400"
+					class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
 					>focused, single-purpose applications
 				</span>
 				built with the speed and flexibility of
-				<span class="text-red-500 dark:text-red-700"> SvelteKit. </span> These mini-apps empower you
-				to tackle everyday tasks efficiently.
+				<span class="text-xl text-red-500 dark:text-red-700 lg:text-3xl"> SvelteKit. </span> These mini-apps
+				empower you to tackle everyday tasks efficiently.
 			</p>
 		</div>
-		<div class="mb-5 mt-5 block max-w-md justify-self-end rounded-lg p-6">
-			<p class="text-right text-lg text-gray-900 dark:text-white">
-				These mini-apps offer a <span class="bold text-xl text-green-800 dark:text-green-400"
+		<div class="block max-w-md justify-self-end rounded-lg p-6">
+			<p class="text-right text-gray-900 dark:text-white">
+				These mini-apps offer a <span
+					class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
 					>focused and efficient way to tackle everyday tasks,</span
 				>
 				leveraging the speed and flexibility of
-				<span class="text-red-500 dark:text-red-700"> SvelteKit. </span>
+				<span class="text-xl text-red-500 dark:text-red-700 lg:text-3xl"> SvelteKit. </span>
 			</p>
 		</div>
 	</div>
@@ -193,15 +192,15 @@
 			Behind Svelte MiniApps:
 		</h3>
 
-		<p class="mx-auto my-8 text-center leading-8 tracking-wide md:w-[50vw]">
+		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw] lg:text-2xl">
 			We've all been there
-			<span class="font-semibold text-green-500 dark:text-green-400">
+			<span class="text-xl font-semibold text-green-500 dark:text-green-400 lg:text-3xl">
 				- wrestling with a complex framework for a simple task.
 			</span> <br />
 			Svelte MiniApps were born from the frustration of heavyweight solutions for lightweight problems.
 			<br />
 			We wanted something
-			<span class="font-semibold text-green-500 dark:text-green-400">
+			<span class="text-xl font-semibold text-green-500 dark:text-green-400 lg:text-3xl">
 				modular, efficient, and focused
 			</span>
 			on getting the job done, just like that trusty screwdriver you use all the time.
@@ -231,27 +230,29 @@
 		<h3 id="toolkit" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-2xl">
 			Svelte MiniApps: Your Pocket-Sized Toolkit
 		</h3>
-		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw]">
+		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw] lg:text-2xl">
 			Imagine your development workflow as a cluttered toolbox. Svelte MiniApps are the <span
-				class="bold text-xl text-green-800 dark:text-green-400"
+				class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
 			>
 				handy, bite-sized tools
-				<span class="text-lg text-white"> you grab for specific tasks. </span>
+				<span class="text-lg text-white lg:text-2xl"> you grab for specific tasks. </span>
 				No bulky all-in-ones
-				<span class="text-lg text-white"> or</span>
+				<span class="text-lg text-white lg:text-2xl"> or</span>
 				dusty
-				<span class="text-lg text-white"> specialty tools here. </span>
+				<span class="text-lg text-white lg:text-2xl"> specialty tools here. </span>
 			</span>
 		</p>
 		<h3 id="future" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-center text-2xl">
 			The Future of Svelte MiniApps: Your Development Playground
 		</h3>
-		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw]">
-			Svelte MiniApps is an <span class="bold text-xl text-green-800 dark:text-green-400">
+		<p class="mx-auto my-8 text-center text-lg leading-8 tracking-wide md:w-[50vw] lg:text-2xl">
+			Svelte MiniApps is an <span
+				class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
+			>
 				ever-evolving project,
-				<span class="text-lg text-white">
+				<span class="text-lg text-white lg:text-2xl">
 					and
-					<span class="bold text-xl text-green-800 dark:text-green-400"> you </span>
+					<span class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"> you </span>
 
 					hold the reins!
 				</span>
@@ -263,8 +264,6 @@
 					<li class="flex items-center">
 						{#if i == 0}
 							<Blocks size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
-						{:else if i == 2}
-							<Drill size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
 						{:else if i == 1}
 							<Unplug size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
 						{/if}
@@ -296,8 +295,6 @@
 								size="30"
 								class="mr-5 hidden text-green-500 dark:text-green-400 md:block"
 							/>
-						{:else if i == 2}
-							<Brain size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
 						{/if}
 
 						<span class="felx flex-col font-semibold">
@@ -361,7 +358,6 @@
 		<h3 class="mb-2 text-center text-lg font-semibold">What's Next?</h3>
 		<ul class="ml-10 list-disc">
 			<li>Enhanced personalization features (based on your suggestions)</li>
-			<li>Offline functionality for increased accessibility</li>
 			<li>New integrations to streamline your workflow</li>
 		</ul>
 	</div>
@@ -395,6 +391,70 @@ While Svelte MiniApps can be valuable for collaborative projects, their true pot
 * **Expanding the Mini-App Collection:** We aim to continuously grow the library with diverse mini-apps. User suggestions and contributions are highly encouraged! (Consider a user suggestion form!)
 * **Community Collaboration:** Fostering a community around Svelte MiniApps could be a great way to share knowledge, collaborate on new tools, and accelerate development. (Consider outlining a potential roadmap for future community involvement!)
 * **Advanced Features:** Exploring advanced features like state management and user authentication could further expand capabilities. (Discuss potential future features!)
+
+
+Edited text:
+
+**Svelte MiniApps: Powerful Tools in a Tiny Package**
+
+Discover a collection of small, but powerful **web applications** built with SvelteKit.  These **installable** mini-apps showcase the versatility and simplicity of this modern JavaScript framework. They can even work **offline** and offer **authentication** for secure access. 
+
+Svelte MiniApps empower you to tackle everyday tasks efficiently. 
+
+**Focused and Efficient:**
+
+- Each mini-app has a clear purpose, providing a clutter-free user experience. 
+- Leverage the speed and flexibility of SvelteKit for exceptional performance.
+
+**Standalone and Empowering:**
+
+- Unlike libraries or frameworks, Svelte MiniApps are self-contained web applications. Access and use them directly on the web, or install them for offline use.
+
+**Your Pocket-Sized Toolkit:**
+
+Imagine your development workflow as a cluttered toolbox. Svelte MiniApps are the handy, bite-sized tools you grab for specific tasks. No bulky all-in-ones or dusty specialty tools here.
+
+**The "Aha Moment" Behind Svelte MiniApps**
+
+We've all been there - wrestling with a complex framework for a simple task. Svelte MiniApps were born from the frustration of heavyweight solutions for lightweight problems. We wanted something modular, efficient, and focused on getting the job done, just like that trusty screwdriver you use all the time.
+
+Here's what sparked this project:
+
+**SvelteKit's Superpowers:**
+
+We loved SvelteKit's speed, ease of use, and ability to create standalone apps with features like offline functionality and authentication. It was the perfect platform for building these mini powerhouses.
+
+**Simplicity is Key:**
+
+We believe in clear, focused functionality. No overwhelming interfaces, just the tools you need to tackle your task quickly.
+
+**Learning by Doing:**
+
+Each mini-app is a mini-lesson in SvelteKit. Beginners can learn by example, while experienced devs can pick up new tricks.
+
+**The Future of Svelte MiniApps: Your Development Playground**
+
+Svelte MiniApps is an ever-evolving project, and you hold the reins!
+
+**Building the Ultimate Toolkit:**
+
+We want a diverse collection of mini-apps for any situation. What tools do you wish you had?
+
+**Community Power:**
+
+Imagine a community of Svelte MiniApp creators! We could share ideas, collaborate on tools, and make development even more fun.
+
+**Supercharged Mini-Apps:**
+
+Exploring features like advanced state management and user authentication could unlock even more powerful mini-apps.
+
+**What's Next?**
+
+- Expanding the Mini-App Collection: We aim to continuously grow the library with diverse mini-apps. User suggestions and contributions are highly encouraged!
+- Community Collaboration: Fostering a community around Svelte MiniApps could be a great way to share knowledge, collaborate on new tools, and accelerate development.
+- Advanced Features: Exploring advanced features like state management and user authentication could further expand capabilities.
+
+**Discover the power of focused functionality with Svelte MiniApps!**
 
 
 -->

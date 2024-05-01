@@ -45,11 +45,6 @@ const future = [
 		title: 'Community Power:',
 		description:
 			'Imagine a community of Svelte MiniApp creators! We could share ideas, collaborate on tools, and make development even more fun.'
-	},
-	{
-		title: 'Supercharged Mini-Apps:',
-		description:
-			'Exploring features like state management and user authentication could unlock even more powerful mini-apps.'
 	}
 ];
 
@@ -63,11 +58,6 @@ const next = [
 		title: 'Community Collaboration',
 		description:
 			'Fostering a community around Svelte MiniApps could be a great way to share knowledge, collaborate on new tools, and accelerate development.'
-	},
-	{
-		title: 'Advanced Features',
-		description:
-			'Exploring advanced features like state management and user authentication could further expand capabilities.'
 	}
 ];
 
