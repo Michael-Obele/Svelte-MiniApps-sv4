@@ -3,12 +3,14 @@
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2 } from 'lucide-svelte';
+	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
 	let websiteUrl = 'https://svelte-mini-apps.netlify.app/'; // Replace with your actual website URL
 	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
+	let value = 64;
 </script>
 
 <svelte:head>
@@ -24,7 +26,7 @@
 </svelte:head>
 
 <div class="pb-5 xl:px-10">
-	<section class="w-full py-12 md:py-24 lg:py-32">
+	<section class="w-full py-8 md:py-14 lg:py-24">
 		<div class="container px-4 md:px-6">
 			<div class="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
 				<div class="flex flex-col justify-center space-y-4">
@@ -54,14 +56,17 @@
 						<ArrowRight class="ml-2 hidden h-5 w-5 lg:grid" />
 					</a>
 				</div>
-				<Svelte />
+				<div class="flex h-[60%] w-[60%] flex-row items-center md:w-full lg:h-full">
+					<Svelte />
+					<span class="-indent-[8vw] text-5xl sm:-indent-[12vw] md:hidden">velte </span>
+				</div>
 			</div>
 		</div>
 	</section>
-	<main class="w-full py-12 md:py-24 lg:py-32">
+	<main class="w-full py-5 md:py-8 lg:py-10">
 		<div class="container px-4 md:px-6">
 			<section
-				class="mx-auto my-12 max-w-screen-xl justify-center bg-white px-4 py-8 dark:bg-gray-900 lg:py-16 xl:rounded-lg"
+				class="mx-auto max-w-screen-xl justify-center bg-white px-4 py-8 dark:bg-gray-900 lg:py-16 xl:rounded-lg"
 			>
 				<div class="flex flex-col items-center justify-center space-y-4 text-center">
 					<div class="space-y-2">
@@ -157,6 +162,7 @@
 			</div>
 		</div>
 	</section>
+
 	<!-- <footer class="w-full py-12 text-center md:py-24 lg:py-32">
 		<div class="container px-4 md:px-6">
 			<p class="text-gray-500 dark:text-gray-400">

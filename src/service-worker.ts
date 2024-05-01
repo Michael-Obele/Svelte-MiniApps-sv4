@@ -91,3 +91,8 @@ self.addEventListener('message', (event) => {
 		self.skipWaiting();
 	}
 });
+
+self.addEventListener('install', (event) => {
+	// forces a service worker to activate immediately
+	self.skipWaiting();
+});
