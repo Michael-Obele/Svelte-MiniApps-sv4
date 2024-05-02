@@ -80,7 +80,7 @@
 		id="MiniApps"
 		class="mb-10 mt-5 text-center text-3xl text-gray-900 underline decoration-green-400 decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
 	>
-		Svelte MiniApps: Powerful Tiny Tools Built with
+		<span>Svelte</span> MiniApps: Powerful Tiny Tools Built with
 		<span class="text-red-500 dark:text-red-700"> SvelteKit </span>
 	</h3>
 
@@ -122,25 +122,31 @@
 	<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
 		<div class="block max-w-md rounded-lg p-6">
 			<p class="justify-start text-left text-gray-900 dark:text-white">
-				Svelte MiniApps is a collection of <span
-					class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
-					>focused, single-purpose applications
+				<span class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
+					>Supercharge your workflow!
 				</span>
-				built with the speed and flexibility of
-				<span class="text-xl text-red-500 dark:text-red-700 lg:text-3xl"> SvelteKit. </span> These mini-apps
-				empower you to tackle everyday tasks efficiently.
+				Svelte MiniApps are tiny, focused tools built with
+				<span class="text-xl text-red-500 dark:text-red-700 lg:text-3xl"> SvelteKit</span> for lightning
+				speed. Conquer everyday tasks with ease.
 			</p>
 		</div>
+
 		<div class="block max-w-md justify-self-end rounded-lg p-6">
 			<p class="text-right text-gray-900 dark:text-white">
-				These mini-apps offer a <span
-					class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
-					>focused and efficient way to tackle everyday tasks,</span
+				<span class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
+					>Work anytime, anywhere!</span
 				>
-				leveraging the speed and flexibility of
-				<span class="text-xl text-red-500 dark:text-red-700 lg:text-3xl"> SvelteKit. </span>
+				These tiny web apps, built with
+				<span class="text-xl text-red-500 dark:text-red-700 lg:text-3xl">SvelteKit</span>, let you
+				install them for seamless offline access. Conquer your daily challenges, even without an
+				internet connection.
 			</p>
 		</div>
+		<!-- 
+		
+**Supercharge your workflow!** Svelte MiniApps are tiny, focused tools built with SvelteKit for lightning speed. Conquer everyday tasks with ease. 
+
+		 -->
 	</div>
 	<div class="px-16">
 		<h3 id="introduction" class="bold mx-auto my-5 w-fit cursor-pointer text-2xl">
