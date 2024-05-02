@@ -54,18 +54,3 @@
 		</button>
 	</div>
 </section>
-
-<style>
-	.shadow12 {
-		color: rgba(255, 255, 255, 1);
-		text-shadow:
-			2px 2px 0px rgb(161, 35, 129),
-			2px -2px 0px rgb(161, 35, 129),
-			-2px 2px 0px rgb(161, 35, 129),
-			-2px -2px 0px rgb(161, 35, 129),
-			2px 0px 0px rgb(161, 35, 129),
-			0px 2px 0px rgb(161, 35, 129),
-			-2px 0px 0px rgb(161, 35, 129),
-			0px -2px 0px rgb(161, 35, 129);
-	}
-</style>
