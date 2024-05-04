@@ -7,5 +7,6 @@ const prisma = new PrismaClient();
 
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	adapter: PrismaAdapter(prisma),
+	trustHost: true,
 	providers: [GitHub]
 });
