@@ -41,3 +41,6 @@ __bun_temp/
 
 # Local Netlify folder
 .netlify
+
+# Sentry Config File
+.sentryclirc
