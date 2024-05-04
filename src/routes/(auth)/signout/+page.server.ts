@@ -1,4 +1,4 @@
-// import { signOut } from '$lib/auth';
-// import type { Actions } from './$types';
+import { signOut } from '$lib/auth';
+import type { Actions } from './$types';
 
-// export const actions = { default: signOut } satisfies Actions;
+export const actions = { default: signOut } satisfies Actions;

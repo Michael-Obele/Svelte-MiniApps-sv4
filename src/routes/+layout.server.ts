@@ -27,7 +27,7 @@ export const load: LayoutServerLoad = async (event) => {
 	// console.log('event.cookies:', event.cookies);
 
 	return {
-		// session: await event.locals.getSession(),
+		session: await event.locals.getSession(),
 		user: data
 	};
 };
