@@ -6,7 +6,7 @@ import { Admin_PW } from '$env/static/private';
 
 enum Roles {
 	ADMIN = 'ADMIN',
-	USER = 'USER'
+	USERDB = 'USERDB'
 }
 
 export const load: PageServerLoad = async (session) => {
@@ -32,7 +32,7 @@ const register: Action = async ({ request }) => {
 	const isAdmin = admin === 'on' && bcrypt.compareSync(password.toString(), adminHash);
 
 	try {
-		const existingUser = await db.user.findUnique({
+		const existingUser = await db.userDB.findUnique({
 			where: { username }
 		});
 
@@ -70,7 +70,7 @@ async function createRoleIfNotExists(roleName: string) {
 
 async function createUser(username: string, password: string, isAdmin: boolean) {
 	const passwordHash = isAdmin ? adminHash : await bcrypt.hash(password, 10);
-	const roleName = isAdmin ? Roles.ADMIN : Roles.USER;
+	const roleName = isAdmin ? Roles.ADMIN : Roles.USERDB;
 
 	let role = await db.roles.findUnique({
 		where: { name: roleName }
@@ -83,7 +83,7 @@ async function createUser(username: string, password: string, isAdmin: boolean) 
 		});
 	}
 
-	await db.user.create({
+	await db.userDB.create({
 		data: {
 			username,
 			passwordHash,

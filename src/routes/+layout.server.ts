@@ -3,11 +3,11 @@ import { db } from '$lib/database';
 import { redirect } from '@sveltejs/kit';
 
 // get `locals.user` and pass it to the `page` store
-export const load: LayoutServerLoad = async ({ cookies }) => {
-	const session = cookies.get('session');
+export const load: LayoutServerLoad = async (event) => {
+	const sessionID = event.cookies.get('session');
 	// Assuming the user object has a structure like { username: string; role: { id: number; name: string; }; }
 	interface User {
-		username: string;
+		username: string | null;
 		role: {
 			id: bigint;
 			name: string;
@@ -16,15 +16,18 @@ export const load: LayoutServerLoad = async ({ cookies }) => {
 
 	// Initialize data with the correct type
 	let data: User | null = null;
-	if (session) {
-		const user = await db.user.findUnique({
-			where: { userAuthToken: session },
+	if (sessionID) {
+		const user = await db.userDB.findUnique({
+			where: { userAuthToken: sessionID },
 			select: { username: true, isAdmin: true, createdAt: true, role: true }
 		});
 		data = user;
 	}
+	// console.log('event.locals:', event.locals.getSession());
+	// console.log('event.cookies:', event.cookies);
 
 	return {
+		session: await event.locals.getSession(),
 		user: data
 	};
 };

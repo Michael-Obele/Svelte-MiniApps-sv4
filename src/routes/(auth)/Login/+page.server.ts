@@ -21,10 +21,7 @@ const login: Action = async ({ cookies, request }) => {
 		return fail(400, { invalid: true });
 	}
 
-	username?.toString();
-	password?.toString();
-
-	const user = await db.user.findUnique({ where: { username } });
+	const user = await db.userDB.findUnique({ where: { username } });
 
 	if (!user) {
 		return fail(400, { username, credentials: true });
@@ -39,7 +36,7 @@ const login: Action = async ({ cookies, request }) => {
 		return fail(400, { username, credentials: true });
 	}
 
-	const authenticatedUser = await db.user.update({
+	const authenticatedUser = await db.userDB.update({
 		where: { username: user.username },
 		data: { userAuthToken: crypto.randomUUID() }
 	});

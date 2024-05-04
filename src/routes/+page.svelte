@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { SignIn, SignOut } from '@auth/sveltekit/components';
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2 } from 'lucide-svelte';
 	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
+	// import * as CurrencyConverter from 'currency-converter-lt';
+	import { stringifyWithBigInt } from '$lib/utils';
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
 	let websiteUrl = 'https://svelte-mini-apps.netlify.app/'; // Replace with your actual website URL
@@ -24,6 +27,22 @@
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="twitter:image" content={websiteImage} />
 </svelte:head>
+
+{stringifyWithBigInt($page.data)}
+
+{#if $page.data.session}
+	<span class="signedInText">
+		{$page.data.session.user?.email ?? $page.data.session.user?.name}
+	</span>
+	<SignOut>
+		<div slot="submitButton" class="buttonPrimary">Sign out</div>
+	</SignOut>
+{:else}
+	<span class="notSignedInText">You are not signed in</span>
+	<SignIn>
+		<div slot="submitButton" class="buttonPrimary">Sign in</div>
+	</SignIn>
+{/if}
 
 <div class="pb-5 xl:px-10">
 	<section class="w-full py-8 md:py-14 lg:py-24">
