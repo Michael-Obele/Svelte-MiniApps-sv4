@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { stringifyWithBigInt } from '$lib/utils';
 </script>
 
 <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -20,11 +21,10 @@
 							<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
 								{$page.data.user.username} is
 								{#if $page.data.user.role.name === 'ADMIN'}
-									an
+									an Admin
 								{:else}
-									a
+									<span class="text-base text-gray-400">just</span> a User
 								{/if}
-								{$page.data.user.role.name}
 							</h2>
 							{#if $page.data.user.isAdmin}
 								<h3 class="text-center text-lg font-semibold text-green-700 dark:text-green-300">
@@ -38,7 +38,19 @@
 						</div>
 						<div class="mb-4">
 							<p class="text-center text-gray-700 dark:text-gray-300">
-								This is a description about the user.
+								You registered with
+								{#if $page.data.user.username}
+									username
+								{:else}
+									OAuth
+								{/if}
+								method
+								{#if $page.data.session?.user?.email}
+									and your email is: {$page.data.session.user.email}.
+								{:else}
+									You don't have an email associated with this account. And you can't recover you're
+									password if you forget it.
+								{/if}
 							</p>
 						</div>
 						<div class="mb-4">
@@ -53,4 +65,4 @@
 	</div>
 </div>
 
-<!-- <h1>{stringifyWithBigInt($page.data)}</h1> -->
+<h1>{stringifyWithBigInt($page)}</h1>

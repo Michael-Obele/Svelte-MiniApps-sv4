@@ -72,10 +72,12 @@
 						href="/Apps"
 					>
 						Explore Apps
-						<ArrowRight class="ml-2 hidden h-5 w-5 lg:grid" />
+						<ArrowRight class="ml-2 hidden h-5 w-5 md:grid" />
 					</a>
 				</div>
-				<div class="flex h-[60%] w-[60%] flex-row items-center justify-center md:w-full lg:h-full">
+				<div
+					class="mx-auto flex h-[60%] w-[60%] flex-row items-center justify-center md:w-full lg:h-full"
+				>
 					<Svelte />
 					<span
 						class="shadow12 hidden -indent-[8vw] text-5xl min-[320px]:block sm:-indent-[12vw] md:hidden"
