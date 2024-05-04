@@ -30,7 +30,7 @@
 
 {stringifyWithBigInt($page.data)}
 
-{#if $page.data.session}
+<!-- {#if $page.data.session}
 	<span class="signedInText">
 		{$page.data.session.user?.email ?? $page.data.session.user?.name}
 	</span>
@@ -42,7 +42,7 @@
 	<SignIn>
 		<div slot="submitButton" class="buttonPrimary">Sign in</div>
 	</SignIn>
-{/if}
+{/if} -->
 
 <div class="pb-5 xl:px-10">
 	<section class="w-full py-8 md:py-14 lg:py-24">

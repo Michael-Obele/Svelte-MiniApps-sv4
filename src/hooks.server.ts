@@ -6,6 +6,6 @@ Sentry.init({
 	tracesSampleRate: 1
 });
 
-export { handle } from '$lib/auth';
+// export { handle } from '$lib/auth';
 export const handleError = Sentry.handleErrorWithSentry();
 export const sentryHandle = sequence(Sentry.sentryHandle());

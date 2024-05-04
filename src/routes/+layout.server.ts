@@ -7,7 +7,7 @@ export const load: LayoutServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 	// Assuming the user object has a structure like { username: string; role: { id: number; name: string; }; }
 	interface User {
-		username: string | null;
+		username: string;
 		role: {
 			id: bigint;
 			name: string;
@@ -27,7 +27,7 @@ export const load: LayoutServerLoad = async (event) => {
 	// console.log('event.cookies:', event.cookies);
 
 	return {
-		session: await event.locals.getSession(),
+		// session: await event.locals.getSession(),
 		user: data
 	};
 };
