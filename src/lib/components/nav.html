@@ -1,23 +1,3 @@
-<script lang="ts">
-	import { page } from '$app/stores';
-
-	// Reactive statement to determine if the current route matches the item
-	$: isActive = (item: string) => {
-		const routeId = $page.url.pathname;
-		return routeId && (`/${item}` === routeId || routeId.includes(item));
-	};
-
-	$: show = false;
-	$: home = $page.url.pathname === '/';
-
-	import Sun from 'lucide-svelte/icons/sun';
-	import Moon from 'lucide-svelte/icons/moon';
-	import { toggleMode } from 'mode-watcher';
-	import Svelte from '$lib/logo/svelte.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Menu, X } from 'lucide-svelte';
-</script>
-
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
 	<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
 		<!-- Logo -->
@@ -30,7 +10,7 @@
 			</div>
 		</a>
 		<!-- End of Logo -->
-		<!-- Toggle Theme -->
+		<!-- Toggle Theme & Github -->
 		<Button on:click={toggleMode} variant="outline" class="-my-2 md:hidden" size="icon">
 			<Sun
 				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
@@ -40,9 +20,14 @@
 			/>
 			<span class="sr-only">Toggle theme</span>
 		</Button>
-		<!-- End of Toggle Theme -->
+		<Button variant="outline" class="-my-2 md:hidden" size="icon">
+			<a href="https://github.com/Michael-Obele/Svelte-MiniApps">
+				<Github />
+			</a>
+		</Button>
+		<!-- End of Toggle Theme & Github -->
 		<div class="flex place-items-center space-x-5">
-			{#if !$page.data.user}
+			{#if !$page.data.user && !$page.data.session}
 				<a
 					href="/Login"
 					class=" hover:text-gray-600 dark:hover:text-red-500 {isActive('Login')
@@ -55,9 +40,7 @@
 						? 'text-red-500 dark:text-red-500'
 						: 'text-gray-800 dark:text-white'}">Register</a
 				>
-			{/if}
-
-			{#if $page.data.user}
+			{:else}
 				<a
 					href="/Profile"
 					class=" hover:text-gray-600 dark:hover:text-red-500 {isActive('Admin')
@@ -152,8 +135,8 @@
 				</ul>
 			</div>
 		</div>
-
 		<!-- End of Side Bar -->
+		<!-- Navbar -->
 		<div class="hidden w-full md:block md:w-auto" id="navbar-default">
 			<ul
 				class="mt-4 flex flex-col rounded-lg border border-gray-100 bg-gray-50 p-4 font-medium dark:border-gray-700 dark:bg-gray-800 md:mt-0 md:flex-row md:space-x-8 md:border-0 md:bg-white md:p-0 md:dark:bg-gray-900 rtl:space-x-reverse"
@@ -184,7 +167,11 @@
 					/>
 					<span class="sr-only">Toggle theme</span>
 				</Button>
+				<Button variant="outline" class="-my-2" size="icon">
+					<Github />
+				</Button>
 			</ul>
 		</div>
+		<!-- End of Navbar -->
 	</div>
 </nav>

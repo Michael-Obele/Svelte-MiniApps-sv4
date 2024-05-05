@@ -6,26 +6,33 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model UserDB {
-  id            String   @id @default(uuid())
-  username      String   @unique
+  id            String    @id @default(uuid())
+  username      String    @unique
   passwordHash  String
-  userAuthToken String   @unique
-  isAdmin       Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  role          Roles    @relation(fields: [roleId], references: [id])
+  userAuthToken String    @unique
+  isAdmin       Boolean   @default(false)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  role          Roles     @relation(fields: [roleId], references: [id])
   roleId        BigInt
+  data          String?
 }
 
 model Roles {
   id    BigInt   @id @default(autoincrement())
   name  String   @unique
   users UserDB[]
+}
+
+model GlobalConfig {
+  id    BigInt @id @default(autoincrement())
+  key   String @unique
+  value String
 }
 
 model User {
@@ -58,7 +65,9 @@ model Account {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  userDBId String?
 
   @@unique([provider, providerAccountId])
 }
@@ -72,6 +81,7 @@ model Session {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  userDBId  String?
 }
 
 model VerificationToken {

@@ -82,7 +82,9 @@ async function createUser(username: string, password: string, isAdmin: boolean) 
 			where: { name: roleName }
 		});
 	}
-
+   if (!role || !role.id) {
+			throw new Error('Role not found or does not have an ID');
+		}
 	await db.userDB.create({
 		data: {
 			username,

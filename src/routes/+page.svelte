@@ -27,8 +27,9 @@
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="twitter:image" content={websiteImage} />
 </svelte:head>
-
-{stringifyWithBigInt($page.data)}
+<h2 class="overflow-x-clip overflow-ellipsis">
+	{stringifyWithBigInt($page.data)}
+</h2>
 
 {#if $page.data.session}
 	<span class="signedInText">
@@ -53,9 +54,17 @@
 						<h1
 							class="my-3 text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
 						>
-							Welcome <span class="capitalize text-green-700 dark:text-green-300">
-								{$page.data.user ? `Back, ${$page.data.user.username}!` : ''}
-							</span> to...
+							Welcome
+							{#if $page.data.user.data || $page.data.user.session}
+								<!-- content here -->
+								Back,
+								<span class="capitalize text-green-700 dark:text-green-300">
+									{$page.data.user.session
+										? `${$page.data.user.session.user.name}`
+										: `${$page.data.user.data.username}`}!
+								</span>
+							{/if}
+							to...
 						</h1>
 						<h1
 							class="text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
