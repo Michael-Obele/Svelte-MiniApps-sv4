@@ -4,7 +4,7 @@
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { contributions } from '$lib/utils';
 	import * as Accordion from '$lib/components/ui/accordion';
-
+	import { Button } from '$lib/components/ui/button/index.js';
 	export let data;
 	const year: string = data.props.year;
 	const user: string = data.props.user;
@@ -199,7 +199,7 @@
 </div>
 
 <div class="mx-auto w-fit">
-	<button
+	<Button
 		class="group mb-2 me-2 flex justify-center rounded-lg border border-green-700 px-2 py-2.5 pr-7 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
 		on:click={() => goto('/Apps/GitHub-Contribution-Tracker')}
 	>
@@ -207,5 +207,5 @@
 			<ChevronLeft />
 		</span>
 		<span class="mt-1"> Go Back </span>
-	</button>
+	</Button>
 </div>

@@ -11,7 +11,7 @@
 		Handshake,
 		Github
 	} from 'lucide-svelte';
-
+	import { Button } from '$lib/components/ui/button/index.js';
 	interface Feature {
 		title: string;
 		description: string;
@@ -351,13 +351,13 @@
 			placeholder="Share your thoughts..."
 			aria-label="Share your thoughts"
 		/>
-		<button
+		<Button
 			type="submit"
 			class="rounded-md bg-green-500 px-4 py-2 font-bold text-white hover:bg-green-700 dark:bg-green-600 dark:hover:bg-green-800"
 			aria-label="Submit your thoughts"
 		>
 			Submit
-		</button>
+		</Button>
 	</form>
 
 	<div class="md:text-left">

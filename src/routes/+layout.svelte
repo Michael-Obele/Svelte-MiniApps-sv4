@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import Navbar from '$lib/components/navbar.svelte';
-
+	import { Toaster } from '$lib/components/ui/sonner';
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
 
@@ -33,5 +33,7 @@
 <ModeWatcher />
 
 <Navbar />
+
+<Toaster />
 
 <slot class="text-gray-900 dark:text-white" />

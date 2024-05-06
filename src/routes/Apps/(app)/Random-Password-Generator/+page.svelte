@@ -3,7 +3,7 @@
 	import { _generatePassword, _copyToClipboard } from './+page';
 	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
-
+	import { Button } from '$lib/components/ui/button/index.js';
 	let passwordOptions = {
 		length: 12,
 		lowercaseLetters: true,
@@ -86,20 +86,20 @@
 			class="flex w-1/2 max-w-[85vw] items-center justify-center rounded-lg bg-slate-400 px-4 py-4 shadow-md"
 		>
 			<p class="flex-grow overflow-hidden text-ellipsis text-lg font-semibold">{password}</p>
-			<button
+			<Button
 				on:click={() => _copyToClipboard(password)}
 				class="rounded-md bg-green-500 p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
 				aria-label="Copy password to clipboard"
 			>
 				<Clipboard class="h-6 w-6" />
-			</button>
-			<button
+			</Button>
+			<Button
 				on:click={generateNewPassword}
 				class="ml-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
 				aria-label="Generate a new password"
 			>
 				<RefreshCcw class="h-6 w-6" />
-			</button>
+			</Button>
 		</div>
 	</div>
 

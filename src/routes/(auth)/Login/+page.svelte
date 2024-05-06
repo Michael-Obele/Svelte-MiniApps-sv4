@@ -3,80 +3,11 @@
 	import type { ActionData } from './$types';
 	import Svelte from '$lib/logo/svelte.svelte';
 	export let form: ActionData;
-
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { signIn } from '@auth/sveltekit/client';
 	let showPassword = false;
 	$: password = showPassword ? 'text' : 'password';
 </script>
-
-<!-- <div
-	class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-800 sm:px-6 lg:px-8"
->
-	<div class="w-full max-w-md space-y-8">
-		<div>
-			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">Login</h2>
-		</div>
-		<form action="?/login" method="POST" class="mt-8 space-y-6">
-			<div class="-space-y-px rounded-md shadow-sm">
-				<div>
-					<label for="username" class="sr-only">Username</label>
-					<input
-						id="username"
-						name="username"
-						value={form?.username ?? ''}
-						type="text"
-						required
-						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 sm:text-sm"
-						placeholder="Username"
-					/>
-				</div>
-				<div>
-					<label for="password" class="sr-only">Password</label>
-					<input
-						id="password"
-						name="password"
-						type={password}
-						required
-						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 sm:text-sm"
-						placeholder="Password"
-					/>
-				</div>
-				<div class="flex items-center py-5">
-					<input
-						type="checkbox"
-						bind:checked={showPassword}
-						name="showPassword"
-						id="showPassword"
-						class="form-checkbox h-5 w-5 text-indigo-600"
-					/>
-					<label
-						for="showPassword"
-						class="ml-2 text-sm text-gray-700 hover:cursor-pointer dark:text-gray-200"
-						>Show Password</label
-					>
-				</div>
-			</div>
-			{#if form?.invalid}
-				<p class="mt-2 text-sm text-red-500 dark:text-red-400">
-					Username and password is required.
-				</p>
-			{/if}
-
-			{#if form?.credentials}
-				<p class="mt-2 text-sm text-red-500 dark:text-red-400">
-					You have entered the wrong credentials.
-				</p>
-			{/if}
-			<div>
-				<button
-					type="submit"
-					class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus:ring-indigo-700"
-				>
-					Log in
-				</button>
-			</div>
-		</form>
-	</div>
-</div> -->
 
 <section class="min-h-screen bg-gray-50 dark:bg-gray-900">
 	<div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
@@ -154,17 +85,17 @@
 							>Show Password</label
 						>
 					</div>
-					<button
-						type="submit"
+					<Button
+						on:click={() => signIn()}
 						class="mx-auto mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
 					>
 						<Github class="mx-2" />
 						Sign in with Github
-					</button>
-					<button
+					</Button>
+					<Button
 						type="submit"
 						class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-						>Sign in</button
+						>Sign in</Button
 					>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
 						Don’t have an account yet? <a

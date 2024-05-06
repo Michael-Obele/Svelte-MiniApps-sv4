@@ -2,9 +2,35 @@
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { Github } from 'lucide-svelte';
 	import type { ActionData } from './$types';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { goto } from '$app/navigation';
+	import { signIn } from '@auth/sveltekit/client';
 	export let form: ActionData;
 	let showPassword = false;
+	let isLoading = false;
 	$: password = showPassword ? 'text' : 'password';
+
+	async function handleSubmit(event: any) {
+		isLoading = true;
+		const formData = new FormData(event.target);
+		try {
+			const response = await fetch('/register', {
+				method: 'POST',
+				body: formData
+			});
+			if (response.ok) {
+				// Handle successful registration, e.g., redirect to login page
+				goto('/Login');
+			} else {
+				// Handle error, e.g., show an error message
+				console.error('Registration failed');
+			}
+		} catch (error) {
+			console.error('Error during registration:', error);
+		} finally {
+			isLoading = false;
+		}
+	}
 </script>
 
 <!-- <div
@@ -72,12 +98,12 @@
 			{/if}
 
 			<div>
-				<button
+				<Button
 					type="submit"
 					class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus:ring-indigo-700"
 				>
 					Register
-				</button>
+				</Button>
 			</div>
 		</form>
 	</div>
@@ -104,7 +130,12 @@
 				>
 					Create your Free Account
 				</h1>
-				<form class="space-y-4 md:space-y-6" action="?/register" method="POST">
+				<form
+					class="space-y-4 md:space-y-6"
+					on:submit|preventDefault={handleSubmit}
+					action="?/register"
+					method="POST"
+				>
 					<div>
 						<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>Username</label
@@ -178,17 +209,17 @@
 					{#if form?.user}
 						<p class="mt-2 text-sm text-red-500 dark:text-red-400">Username is taken.</p>
 					{/if}
-					<button
-						type="submit"
+					<Button
+						on:click={() => signIn()}
 						class="mx-auto mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
 					>
 						<Github class="mx-2" />
-						Create an account with Github
-					</button>
-					<button
+						Sign in with Github
+					</Button>
+					<Button
 						type="submit"
 						class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-						>Create an account</button
+						>Create an account</Button
 					>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
 						Already have an account? <a

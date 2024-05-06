@@ -1,5 +1,15 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import * as Avatar from '$lib/components/ui/avatar';
+	import Sun from 'lucide-svelte/icons/sun';
+	import { signOut } from '@auth/sveltekit/client';
+	import Moon from 'lucide-svelte/icons/moon';
+	import { toggleMode } from 'mode-watcher';
+	import Svelte from '$lib/logo/svelte.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
+	import { Menu, X, Github, UserRound } from 'lucide-svelte';
+	import { SignOut } from '@auth/sveltekit/components';
 
 	// Reactive statement to determine if the current route matches the item
 	$: isActive = (item: string) => {
@@ -23,13 +33,8 @@
 		}
 	};
 
-	import Sun from 'lucide-svelte/icons/sun';
-	import Moon from 'lucide-svelte/icons/moon';
-	import { toggleMode } from 'mode-watcher';
-	import Svelte from '$lib/logo/svelte.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Menu, X, Github, UserRound } from 'lucide-svelte';
-	import { SignOut } from '@auth/sveltekit/components';
+	let userData = $page.data.user.data;
+	let gitData = $page.data.user.session;
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
@@ -45,41 +50,61 @@
 		</a>
 		<!-- End of Logo -->
 		<div class="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
-			{#if $page.data.session || $page.data.user}
-				<button
-					type="button"
-					class="flex rounded-full bg-gray-800 text-sm focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 md:me-0"
-					id="user-menu-button"
-					on:click={() => (dropDown = !dropDown)}
-					aria-expanded="false"
-					data-dropdown-toggle="user-dropdown"
-					data-dropdown-placement="bottom"
-				>
-					<span class="sr-only">Open user menu</span>
-					{#if $page.data.user.session}
-						<img class="h-8 w-8 rounded-full" src={$page.data?.user?.session?.user?.image} alt="" />
-					{:else}
-						<UserRound />
-					{/if}
-				</button>
+			{#if gitData || userData}
+				{#if gitData}
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild let:builder>
+							<Button builders={[builder]} size="icon" variant="link" class="hover:no-underline">
+								<Avatar.Root>
+									<Avatar.Image src={gitData.user?.image} alt="profile image" />
+									<Avatar.Fallback>{gitData.user?.name.charAt(0)}</Avatar.Fallback>
+								</Avatar.Root>
+							</Button>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56">
+							<DropdownMenu.Label>My Account</DropdownMenu.Label>
+							<DropdownMenu.Label>{gitData.user?.name}</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Item on:click={() => signOut()}>Log out</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				{:else}
+					<DropdownMenu.Root>
+						<DropdownMenu.Trigger asChild let:builder>
+							<Button builders={[builder]} size="icon" variant="link" class="hover:no-underline">
+								<Avatar.Root>
+									<Avatar.Fallback>{userData.username.charAt(0)}</Avatar.Fallback>
+								</Avatar.Root>
+							</Button>
+						</DropdownMenu.Trigger>
+						<DropdownMenu.Content class="w-56">
+							<DropdownMenu.Label>My Account</DropdownMenu.Label>
+							<DropdownMenu.Label>{userData.username}</DropdownMenu.Label>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
+							<DropdownMenu.Separator />
+							<DropdownMenu.Item href="./Logout">Log out</DropdownMenu.Item>
+						</DropdownMenu.Content>
+					</DropdownMenu.Root>
+				{/if}
 				<!-- Dropdown menu -->
 				<div
 					class={`absolute right-2 top-10 z-50 my-4  list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700 ${dropDown ? 'block' : 'hidden'}`}
 					id="user-dropdown"
 				>
 					<div class="px-4 py-3">
-						{#if $page.data.session}
-							<span class="block text-sm text-gray-900 dark:text-white"
-								>{$page.data.session.user?.name}</span
-							>
+						{#if gitData}
+							<span class="block text-sm text-gray-900 dark:text-white">{gitData.user?.name}</span>
 							<span class="block truncate text-sm text-gray-500 dark:text-gray-400"
-								>{$page.data.session.user?.email}</span
+								>{gitData.user?.email}</span
 							>
 						{:else}
 							<!-- else content here -->
 						{/if}
 					</div>
-					<ul class="py-2" aria-labelledby="user-menu-button">
+					<ul class="py-2" aria-labelledby="user-menu-Button">
 						{#each ['Profile'] as item}
 							<li>
 								<a
@@ -89,7 +114,7 @@
 								>
 							</li>
 						{/each}
-						{#if $page.data.session}
+						{#if gitData}
 							<li
 								class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
 							>
@@ -108,6 +133,7 @@
 						{/if}
 					</ul>
 				</div>
+				<!-- End of Dropdown menu -->
 			{:else}
 				<a
 					href="/Login"
@@ -132,8 +158,9 @@
 					</a>
 				</Button>
 			</div>
-			<button
+			<Button
 				data-collapse-toggle="navbar-user"
+				variant="outline"
 				type="button"
 				class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
 				aria-controls="navbar-user"
@@ -156,7 +183,7 @@
 						d="M1 1h15M1 7h15M1 13h15"
 					/>
 				</svg>
-			</button>
+			</Button>
 		</div>
 		<div
 			class={` w-full items-center justify-between md:order-1 md:flex md:w-auto ${show ? 'block' : 'hidden'}`}

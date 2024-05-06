@@ -3,6 +3,7 @@
 	import * as htmlToImage from 'html-to-image';
 	import { page } from '$app/stores';
 	let inputText = '';
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	async function saveQRCode() {
 		if (!inputText) return;
@@ -74,12 +75,12 @@
 		<aside class="mt-8">
 			<QRCodeImage text={inputText} displayID="qr-code-image" displayClass="h-64 w-64 rounded-md" />
 		</aside>
-		<button
+		<Button
 			on:click={saveQRCode}
 			aria-label="Save QR Code"
 			class="mt-4 rounded-md bg-green-500 p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
 		>
 			Save QR Code
-		</button>
+		</Button>
 	{/if}
 </section>

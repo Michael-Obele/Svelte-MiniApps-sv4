@@ -41,7 +41,6 @@ This project includes a variety of mini-apps, each focusing on a specific task. 
 - **Countdown Timer:** Sets a timer with a countdown and shows progress visually.
 - **Currency Converter:** Gets live exchange rates and converts between different currencies.
 - **BMI Calculator:** Calculates your Body Mass Index based on your height and weight.
-
 - **QR Code Generator:** Creates QR codes that contain URLs, text, or vCards.
 - **To-Do List with Persistence:** Lets you create and manage to-do items, and saves them for later use.
 - **GitHub Contribution Tracker:** Visualizes your GitHub contributions in a way that is easy to understand and engaging. It helps you track streaks, find patterns, and stay motivated.

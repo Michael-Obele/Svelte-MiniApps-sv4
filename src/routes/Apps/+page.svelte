@@ -1,5 +1,6 @@
 <script lang="ts">
 	import List from './List.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
 
 	import { filter } from '$lib/utils';
 
@@ -11,30 +12,30 @@
 </script>
 
 <div class="flex flex-wrap items-center justify-center py-4 md:py-8">
-	<button
-		type="button"
+	<Button
+		type="Button"
 		on:click={setFilterValue('all')}
-		class={$filter === 'all' ? 'active' : 'inactive'}>All</button
+		class={$filter === 'all' ? 'active' : 'inactive'}>All</Button
 	>
-	<button
-		type="button"
+	<Button
+		type="Button"
 		on:click={setFilterValue('easy')}
-		class={$filter === 'easy' ? 'active' : 'inactive'}>Easy</button
+		class={$filter === 'easy' ? 'active' : 'inactive'}>Easy</Button
 	>
-	<button
-		type="button"
+	<Button
+		type="Button"
 		on:click={setFilterValue('medium')}
-		class={$filter === 'medium' ? 'active' : 'inactive'}>Medium</button
+		class={$filter === 'medium' ? 'active' : 'inactive'}>Medium</Button
 	>
-	<button
-		type="button"
+	<Button
+		type="Button"
 		on:click={setFilterValue('hard')}
-		class={$filter === 'hard' ? 'active' : 'inactive'}>Hard</button
+		class={$filter === 'hard' ? 'active' : 'inactive'}>Hard</Button
 	>
-	<button
-		type="button"
+	<Button
+		type="Button"
 		on:click={setFilterValue('done')}
-		class={$filter === 'done' ? 'active' : 'inactive'}>Done</button
+		class={$filter === 'done' ? 'active' : 'inactive'}>Done</Button
 	>
 </div>
 {#if $filter === 'all'}

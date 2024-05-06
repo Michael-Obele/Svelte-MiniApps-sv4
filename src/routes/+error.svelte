@@ -2,6 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Svelte from '$lib/logo/svelte-icon-black.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
 <svelte:head>
@@ -46,11 +47,11 @@
 	</p>
 
 	<div class="flex justify-center">
-		<button
+		<Button
 			class="rounded-md bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-900"
 			on:click={() => goto('/')}
 		>
 			Go home
-		</button>
+		</Button>
 	</div>
 </section>

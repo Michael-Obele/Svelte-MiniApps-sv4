@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import Button from '$lib/components/ui/button/button.svelte';
+	import { Button } from '$lib/components/ui/button/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { _fetchDictionaryEntry, type DictionaryEntry, type ApiError } from './+page';
 	import { AudioLines } from 'lucide-svelte';
