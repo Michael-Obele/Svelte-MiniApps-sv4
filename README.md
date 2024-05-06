@@ -1,6 +1,6 @@
 # Svelte MiniApps
 
-**A Playground of Useful and Engaging Tools Built with SvelteKit**
+**Boost your productivity and creativity with Svelte MiniApps - a collection of bite-sized, user-friendly tools built with SvelteKit!**
 
 Svelte MiniApps is a collection of mini-applications created to demonstrate the power and versatility of SvelteKit. It started as a personal project to learn full-stack development, but has since evolved into a repository of small, single-purpose applications designed to offer a simple and user-friendly experience.
 
@@ -14,7 +14,6 @@ Svelte MiniApps is a collection of mini-applications created to demonstrate the 
 - [Getting Started](#getting-started) 🏁
 - [Contributing to Svelte MiniApps](#contributing-to-svelte-miniapps) 🤝
 - [License](#license) 📄
-
 
 
 ## About
@@ -77,7 +76,17 @@ npm install
 npm run dev  
 ```
 
-This will launch a local server and open all available mini-apps in your browser window. Navigate through the different functionalities and see how they work.
+This will launch a local server and open all the available mini-apps in your browser window. Navigate through the different functionalities and see how they work.
+
+## Installable
+
+You can install Svelte MiniApps as standalone applications on your device for quick access. To install Svelte MiniApps:
+
+1. Open the mini-app in your browser.
+2. Click on the browser's menu (usually represented by three dots) to open the browser menu.
+3. Select "Install" or "Add to Home Screen."
+
+Svelte MiniApps will be added to your device's home screen, allowing you to launch it like any other app.
 
 ## Contributing to Svelte MiniApps
 
