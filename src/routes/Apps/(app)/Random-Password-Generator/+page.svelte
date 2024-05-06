@@ -4,6 +4,7 @@
 	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import Input from '$lib/components/ui/input/input.svelte';
 	let passwordOptions = {
 		length: 12,
 		lowercaseLetters: true,
@@ -85,7 +86,7 @@
 		<div
 			class="flex w-1/2 max-w-[85vw] items-center justify-center rounded-lg bg-slate-400 px-4 py-4 shadow-md"
 		>
-			<p class="flex-grow overflow-hidden text-ellipsis text-lg font-semibold">{password}</p>
+			<p class="mx-2 overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">{password}</p>
 			<Button
 				on:click={() => _copyToClipboard(password)}
 				class="rounded-md bg-green-500 p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
