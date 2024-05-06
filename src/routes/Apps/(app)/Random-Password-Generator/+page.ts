@@ -1,5 +1,7 @@
 // src/routes/Apps/Random-Password-Generator/+page.ts
 
+import { toast } from 'svelte-sonner';
+
 export function _generatePassword(
 	length: number,
 	includeUppercase: boolean,
@@ -24,7 +26,7 @@ export function _generatePassword(
 // Function to copy text to clipboard
 export function _copyToClipboard(text: string) {
 	navigator.clipboard.writeText(text).then(
-		function () {},
+		() => toast.success('Copied'),
 		function (err) {
 			console.error('Could not copy text: ', err);
 		}

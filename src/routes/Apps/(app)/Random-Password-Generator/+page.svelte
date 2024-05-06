@@ -84,23 +84,27 @@
 			Here's Your Secure Password
 		</h3>
 		<div
-			class="flex w-1/2 max-w-[85vw] items-center justify-center rounded-lg bg-slate-400 px-4 py-4 shadow-md"
+			class="relative flex w-1/2 max-w-[85vw] items-center rounded-lg bg-slate-400 py-4 shadow-md sm:pr-[15%]"
 		>
 			<p class="mx-2 overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">{password}</p>
-			<Button
-				on:click={() => _copyToClipboard(password)}
-				class="rounded-md bg-green-500 p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-				aria-label="Copy password to clipboard"
-			>
-				<Clipboard class="h-6 w-6" />
-			</Button>
-			<Button
-				on:click={generateNewPassword}
-				class="ml-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
-				aria-label="Generate a new password"
-			>
-				<RefreshCcw class="h-6 w-6" />
-			</Button>
+			<div class="right-5 sm:absolute">
+				<Button
+					variant="outline"
+					on:click={() => _copyToClipboard(password)}
+					class="rounded-md p-2 text-white focus:outline-none focus:ring-2"
+					aria-label="Copy password to clipboard"
+				>
+					<Clipboard class="h-6 w-6" />
+				</Button>
+				<Button
+					variant="outline"
+					on:click={generateNewPassword}
+					class="ml-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+					aria-label="Generate a new password"
+				>
+					<RefreshCcw class="h-6 w-6" />
+				</Button>
+			</div>
 		</div>
 	</div>
 
