@@ -62,9 +62,13 @@ async function createRoleIfNotExists(roleName: string) {
 	});
 
 	if (!existingRole) {
-		await db.roles.create({
+		const newRole = await db.roles.create({
 			data: { name: roleName }
 		});
+		console.log('Created role:', newRole);
+		if (!newRole.id) {
+			throw new Error('Role ID was not created');
+		}
 	}
 }
 
@@ -78,20 +82,22 @@ async function createUser(username: string, password: string, isAdmin: boolean) 
 
 	if (!role) {
 		await createRoleIfNotExists(roleName);
+		// After creating the role, fetch it again to ensure we have the correct ID
 		role = await db.roles.findUnique({
 			where: { name: roleName }
 		});
-	}
-   if (!role || !role.id) {
-			throw new Error('Role not found or does not have an ID');
+		if (!role) {
+			throw new Error('Failed to create role');
 		}
+	}
+
 	await db.userDB.create({
 		data: {
 			username,
 			passwordHash,
 			isAdmin,
 			userAuthToken: crypto.randomUUID(),
-			role: { connect: { id: role?.id } }
+			role: { connect: { id: role.id } } // Ensure role.id is used here
 		}
 	});
 }
