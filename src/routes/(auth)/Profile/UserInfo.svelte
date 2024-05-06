@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { UserRoundX } from 'lucide-svelte';
+
 	export let userData;
 	export let gitData;
 
@@ -61,8 +63,24 @@
 					<p class="text-center text-gray-700 dark:text-gray-300">
 						Your name is: {gitData.user.name}
 					</p>
-					<p class="text-center text-gray-700 dark:text-gray-300">Your profile image is:</p>
-					<img src={gitData.user.image ?? ''} alt="user img" class="mx-auto w-3/4 rounded-xl" />
+					<div class="space-y-5">
+						<p class="text-center text-lg text-gray-700 dark:text-gray-300">
+							Your profile image is:
+						</p>
+						{#if gitData.user.image}
+							<img
+								src={gitData.user.image}
+								alt="user img"
+								class="mx-auto h-auto w-3/4 rounded-xl blur-sm transition-all duration-300 hover:blur-none"
+							/>
+						{:else}
+							<div
+								class="h-auto min-w-2.5 max-w-lg rounded-lg blur-sm transition-all duration-300 hover:blur-none"
+							>
+								<UserRoundX />
+							</div>
+						{/if}
+					</div>
 				</div>
 			{/if}
 		</div>
