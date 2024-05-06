@@ -20,6 +20,12 @@ export const projects = [
 		difficulty: 'easy'
 	},
 	{
+		title: 'Advanced Emoji Tools',
+		details: 'This mini-app offers advanced features for working with emojis.',
+		tag: 'utility',
+		difficulty: 'medium'
+	},
+	{
 		title: 'Color Picker',
 		details: 'Lets you choose a color and shows its HEX code or RGB values.',
 		tag: 'design',
@@ -123,11 +129,11 @@ export const projects = [
 		difficulty: 'medium'
 	},
 	{
-		title: 'Markdown Store',
+		title: 'Markdown Editor',
 		details:
-			'Lets you write, save, and organize your markdown files easily. Great for quick notes, to-do lists, or even creative writing projects.',
+			'Allows you to edit and view markdown files easily. Great for writing notes, to-do lists, or even creative projects.',
 		tag: 'utility',
-		difficulty: 'hard'
+		difficulty: 'medium'
 	},
 	{
 		title: 'English Dictionary App',
