@@ -28,6 +28,7 @@ export function _copyToClipboard(text: string) {
 	navigator.clipboard.writeText(text).then(
 		() => toast.success('Copied'),
 		function (err) {
+			() => toast.error('Could not copy text: ', err);
 			console.error('Could not copy text: ', err);
 		}
 	);

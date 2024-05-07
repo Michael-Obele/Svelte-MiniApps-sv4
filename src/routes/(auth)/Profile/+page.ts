@@ -15,3 +15,16 @@ export async function _fetchCommitData(owner: string, repo: string, branch: stri
 	}
 	return commitResponse.json();
 }
+
+export async function load({ params }) {
+	const owner = 'Michael-Obele';
+	const repo = 'Svelte-MiniApps';
+	const branch = 'master';
+	const commitData = _fetchCommitData(owner, repo, branch);
+
+	return {
+		props: {
+			commitData
+		}
+	};
+}

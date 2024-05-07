@@ -1,16 +1,11 @@
 <script lang="ts">
 	import UserInfo from './UserInfo.svelte';
-
 	import { CalendarDays, Github } from 'lucide-svelte';
 	import { page } from '$app/stores';
 	import { stringifyWithBigInt } from '$lib/utils';
 	import { _fetchCommitData } from './+page';
+	export let data;
 
-	const owner = 'Michael-Obele';
-	const repo = 'Svelte-MiniApps';
-	const baseUrl = 'https://api.github.com';
-	const branch = 'master';
-	const commitDataPromise = _fetchCommitData(owner, repo, branch);
 	function formatDate(dateString: string | number | Date) {
 		const dateObj = new Date(dateString);
 		const options = {
@@ -23,23 +18,23 @@
 		return `Released on ${dateObj.toLocaleDateString('en-US', options)} at ${dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
 	}
 
-	let userData = $page.data.user.data;
-	let gitData = $page.data.user.session;
+	let userData = $page.data?.user?.data;
+	let gitData = $page.data?.user?.session?.user;
 </script>
 
 <div class="bg-gray-100 dark:bg-gray-900">
-	<div class="container mx-auto px-4">
-		<div class="flex min-h-screen flex-col items-center justify-center">
-			<div class="mb-4">
-				<h1 class="text-center text-3xl font-bold text-gray-900 dark:text-white">Profile Page</h1>
-			</div>
-			<div class="mb-4">
-				<p class="text-center text-3xl text-gray-700 dark:text-gray-300">Welcome!</p>
-			</div>
+	<div class="container mx-auto min-h-screen px-4">
+		<div class="mb-4">
+			<h1 class="text-center text-3xl font-bold text-gray-900 dark:text-white">Profile Page</h1>
+		</div>
+		<div class="mb-4">
+			<p class="text-center text-3xl text-gray-700 dark:text-gray-300">Welcome!</p>
+		</div>
+		<div class="flex flex-col items-center justify-center">
 			<div
 				class="flex w-full flex-col items-center justify-center space-y-6 lg:flex-row lg:space-x-6"
 			>
-				{#await commitDataPromise}
+				{#await data.props.commitData}
 					<p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
 						Loading commit data...
 					</p>
