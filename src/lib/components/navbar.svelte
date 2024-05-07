@@ -85,7 +85,7 @@
 							<DropdownMenu.Separator />
 							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
 							<DropdownMenu.Separator />
-							<DropdownMenu.Item href="./Logout">Log out</DropdownMenu.Item>
+							<DropdownMenu.Item data-sveltekit-reload href="./Logout">Log out</DropdownMenu.Item>
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				{/if}
