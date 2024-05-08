@@ -5,6 +5,17 @@ export interface Role {
 	name: string;
 }
 
+export interface User {
+	name: string;
+	email: string;
+	image: string;
+}
+
+export interface Session {
+	user: User;
+	expires: string;
+}
+
 export interface UserData {
 	username: string;
 	isAdmin: boolean;
@@ -12,7 +23,13 @@ export interface UserData {
 	role: Role;
 }
 
-export interface UserContext {
+export interface UserSessionData {
 	data: UserData;
-	session: null | any;
+	session: Session;
+}
+
+export interface UserContext {
+	currentUser: UserSessionData | null;
+	userUsername: string;
+	sessionUserName: string;
 }

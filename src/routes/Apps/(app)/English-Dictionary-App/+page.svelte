@@ -4,6 +4,10 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { _fetchDictionaryEntry, type DictionaryEntry, type ApiError } from './+page';
 	import { AudioLines } from 'lucide-svelte';
+	import type { UserContext } from '$lib/types';
+	import { getContext } from 'svelte';
+
+	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 	import NoWord from '$lib/logo/not-found.svelte';
 
 	let currentMeaning: DictionaryEntry | ApiError;
@@ -12,7 +16,6 @@
 
 	let fetchMeaning = async () => {
 		let response: any = await _fetchDictionaryEntry(searchTerm);
-		console.log(response);
 		if (response && response.length > 0) {
 			currentMeaning = response[0];
 		} else {
@@ -21,12 +24,32 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Svelte MiniApps - English Dictionary App</title>
+	<meta
+		name="description"
+		content="Look up words and their meanings with our English Dictionary App. Explore definitions, synonyms, antonyms, and more."
+	/>
+	<meta
+		name="keywords"
+		content="English Dictionary, Word Lookup, Definitions, Synonyms, Antonyms"
+	/>
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "WebApplication",
+			"name": "English Dictionary App",
+			"description": "An interactive tool for looking up English words and their meanings, including definitions, synonyms, and antonyms."
+		}
+	</script>
+</svelte:head>
+
 <form on:submit|preventDefault={fetchMeaning} class="mx-auto flex max-w-md flex-col justify-center">
 	<span class="my-5 ms-3 flex-1 whitespace-nowrap text-center text-xl">
 		Welcome,
-		{#if $page.data.user}
+		{#if userUsername || sessionUserName}
 			<span class="font-semibold text-green-600 dark:text-green-400"
-				>{$page.data.user.data.username}</span
+				>{userUsername || sessionUserName}</span
 			>
 		{:else}
 			<span class="font-semibold text-gray-700 dark:text-gray-300">Guest</span>

@@ -7,15 +7,34 @@
 	let year: string;
 
 	async function gitCommit() {
-		goto(`GitHub-Contribution-Tracker/${username}/${year}`);
+		toast.promise(
+			() =>
+				new Promise<void>((resolve) => {
+					setTimeout(() => {
+						goto(`GitHub-Contribution-Tracker/${username}/${year}`);
+						resolve();
+					}, 2000);
+				}),
+			{
+				loading: 'Loading',
+				success: 'Success',
+				error: 'Error'
+			}
+		);
 	}
+
+	import type { UserContext } from '$lib/types';
+	import { getContext } from 'svelte';
+	import { toast } from 'svelte-sonner';
+
+	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 </script>
 
 <main>
 	<div class="text-center">
 		<h1 class="m-3 text-xl">
-			Welcome {#if $page.data.user}
-				<span class="text-green-400">{$page.data.user.data.username}</span>,
+			Welcome {#if userUsername || sessionUserName}
+				<span class="text-green-400">{userUsername || sessionUserName}</span>,
 			{/if} to GitHub Contribution Tracker!
 		</h1>
 		<p class="m-3 text-lg">

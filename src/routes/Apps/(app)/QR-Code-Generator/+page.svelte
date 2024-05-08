@@ -1,9 +1,12 @@
 <script lang="ts">
 	import { QRCodeImage } from 'svelte-qrcode-image';
 	import * as htmlToImage from 'html-to-image';
-	import { page } from '$app/stores';
 	let inputText = '';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import type { UserContext } from '$lib/types';
+	import { getContext } from 'svelte';
+
+	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 
 	async function saveQRCode() {
 		if (!inputText) return;
@@ -44,9 +47,12 @@
 >
 	<header class="mb-4 text-4xl font-bold">
 		<h1>
-			Welcome {#if $page.data.user}
-				<span class="text-green-400">{$page.data.user.data.username}</span>,
-			{/if} to QR Code Generator
+			Welcome
+
+			{#if userUsername || sessionUserName}
+				<span class="text-green-400">{userUsername || sessionUserName}</span>,
+			{/if}
+			<br /> to the QR Code Generator
 		</h1>
 	</header>
 	<article class="px-10">

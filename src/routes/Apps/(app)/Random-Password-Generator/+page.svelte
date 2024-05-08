@@ -1,35 +1,14 @@
 <script lang="ts">
 	import { Clipboard, RefreshCcw } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
-
 	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
+	import type { UserContext } from '$lib/types';
 	import { getContext } from 'svelte';
 
-	interface Role {
-		id: bigint;
-		name: string;
-	}
-
-	interface UserData {
-		username: string;
-		isAdmin: boolean;
-		createdAt: string;
-		role: Role;
-	}
-
-	interface UserContext {
-		data: UserData | null;
-		session: null | any;
-	}
-	interface UserContext {
-		user: any;
-		username: string;
-	}
-
-	const { user, username } = getContext<UserContext>('userContext');
+	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 
 	let passwordOptions = {
 		length: 12,
@@ -61,47 +40,44 @@
 	function generateNewPassword() {
 		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
 	}
-
-	let appData = {
-		title: 'Password Generator',
-		details: 'Generates random passwords with configurable length and complexity.',
-		tag: 'security',
-		difficulty: 'easy'
-	};
-
-	let websiteTitle = `Svelte MiniApps - ${appData.title}`;
-	let websiteDescription = appData.details;
-	let websiteUrl = `https://svelte-mini-apps.netlify.app/apps/${appData.title.toLowerCase().replace(/\s/g, '-')}`;
-	let websiteImage = logo;
-
-	let twitterTitle = `${websiteTitle} - Secure Your Accounts`;
-	let twitterDescription = `Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator.`;
 </script>
 
 <svelte:head>
-	<title>{websiteTitle}</title>
-	<meta name="description" content={websiteDescription} />
-	<meta property="og:title" content={websiteTitle} />
-	<meta property="og:description" content={websiteDescription} />
-	<meta property="og:url" content={websiteUrl} />
-	<meta property="og:image" content={websiteImage} />
+	<title>Svelte MiniApps - Password Generator</title>
+	<meta name="description" content="Generates random passwords with configurable length and complexity. Secure your accounts with ease." />
+	<meta property="og:title" content="Svelte MiniApps - Password Generator" />
+	<meta property="og:description" content="Generates random passwords with configurable length and complexity. Secure your accounts with ease." />
+	<meta property="og:url" content="https://svelte-mini-apps.netlify.app/apps/password-generator" />
+	<meta property="og:image" content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png" />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content={twitterTitle} />
-	<meta name="twitter:description" content={twitterDescription} />
-	<meta name="twitter:image" content={websiteImage} />
+	<meta name="twitter:title" content="Svelte MiniApps - Password Generator - Secure Your Accounts" />
+	<meta name="twitter:description" content="Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator." />
+	<meta name="twitter:image" content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png" />
 
-	<link rel="canonical" href={websiteUrl} />
+	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/apps/password-generator" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<meta name="robots" content="index, follow" />
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "WebApplication",
+			"name": "Svelte MiniApps - Password Generator",
+			"url": "https://svelte-mini-apps.netlify.app/apps/password-generator",
+			"description": "Generates random passwords with configurable length and complexity. Secure your accounts with ease."
+		}
+	</script>
 </svelte:head>
 
 <main class="container">
 	<div class="mt-10 flex flex-col items-center justify-center space-y-4">
 		<h3 class="text-center text-4xl font-bold text-green-500">
 			Welcome
-			{#if user}
-				{$page.data.user.data.username}
+			{#if userUsername || sessionUserName}
+				{userUsername || sessionUserName}
 			{/if}
 			!
 		</h3>

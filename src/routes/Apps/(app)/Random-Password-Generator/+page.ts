@@ -1,5 +1,3 @@
-// src/routes/Apps/Random-Password-Generator/+page.ts
-
 import { toast } from 'svelte-sonner';
 
 export function _generatePassword(
