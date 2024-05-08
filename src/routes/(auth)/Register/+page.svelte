@@ -3,111 +3,13 @@
 	import { Github } from 'lucide-svelte';
 	import type { ActionData } from './$types';
 	import { Button } from '$lib/components/ui/button/index.js';
-	import { goto } from '$app/navigation';
 	import { signIn } from '@auth/sveltekit/client';
+	import { enhance } from '$app/forms';
 	export let form: ActionData;
 	let showPassword = false;
 	let isLoading = false;
 	$: password = showPassword ? 'text' : 'password';
-
-	async function handleSubmit(event: any) {
-		isLoading = true;
-		const formData = new FormData(event.target);
-		try {
-			const response = await fetch('/register', {
-				method: 'POST',
-				body: formData
-			});
-			if (response.ok) {
-				// Handle successful registration, e.g., redirect to login page
-				goto('/Login');
-			} else {
-				// Handle error, e.g., show an error message
-				console.error('Registration failed');
-			}
-		} catch (error) {
-			console.error('Error during registration:', error);
-		} finally {
-			isLoading = false;
-		}
-	}
 </script>
-
-<!-- <div
-	class="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 dark:bg-gray-800 sm:px-6 lg:px-8"
->
-	<div class="w-full max-w-md space-y-8">
-		<div>
-			<h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
-				Register
-			</h2>
-		</div>
-		<form action="?/register" method="POST" class="mt-8 space-y-6">
-			<div class="-space-y-px rounded-md shadow-sm">
-				<div>
-					<label for="username" class="sr-only">Username</label>
-					<input
-						id="username"
-						name="username"
-						type="text"
-						required
-						class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 sm:text-sm"
-						placeholder="Username"
-					/>
-				</div>
-				<div>
-					<label for="password" class="sr-only">Password</label>
-					<input
-						id="password"
-						name="password"
-						type={password}
-						required
-						class="relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300 dark:placeholder-gray-400 sm:text-sm"
-						placeholder="Password"
-					/>
-				</div>
-				<div class="flex items-center py-5">
-					<input
-						type="checkbox"
-						bind:checked={showPassword}
-						name="showPassword"
-						id="showPassword"
-						class="form-checkbox h-5 w-5 text-indigo-600"
-					/>
-					<label
-						for="showPassword"
-						class="ml-2 text-sm text-gray-700 hover:cursor-pointer dark:text-gray-200"
-						>Show Password</label
-					>
-				</div>
-				<div class="flex items-center pt-5">
-					<input
-						type="checkbox"
-						name="admin"
-						id="admin"
-						class="form-checkbox h-5 w-5 text-green-600 dark:text-green-400"
-					/>
-					<label for="admin" class="ml-2 text-sm text-gray-700 dark:text-gray-200"
-						>Check if you're an admin</label
-					>
-				</div>
-			</div>
-
-			{#if form?.user}
-				<p class="error">Username is taken.</p>
-			{/if}
-
-			<div>
-				<Button
-					type="submit"
-					class="group relative flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:bg-indigo-700 dark:hover:bg-indigo-800 dark:focus:ring-indigo-700"
-				>
-					Register
-				</Button>
-			</div>
-		</form>
-	</div>
-</div> -->
 
 <section class="min-h-screen bg-gray-50 dark:bg-gray-900">
 	<div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
@@ -130,12 +32,7 @@
 				>
 					Create your Free Account
 				</h1>
-				<form
-					class="space-y-4 md:space-y-6"
-					on:submit|preventDefault={handleSubmit}
-					action="?/register"
-					method="POST"
-				>
+				<form action="?/register" class="space-y-4 md:space-y-6" use:enhance method="POST">
 					<div>
 						<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>Username</label
@@ -218,9 +115,11 @@
 					</Button>
 					<Button
 						type="submit"
+						disabled={isLoading}
 						class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-						>Create an account</Button
 					>
+						{isLoading ? 'Submitting...' : 'Create an account'}
+					</Button>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
 						Already have an account? <a
 							href="/Login"

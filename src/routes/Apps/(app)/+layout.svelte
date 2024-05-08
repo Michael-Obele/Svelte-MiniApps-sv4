@@ -1,7 +1,15 @@
 <script lang="ts">
+	import { setContext } from 'svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import { page } from '$app/stores';
 	$: routeId = $page.url.pathname?.split('/')[2];
+	let user = $page.data.user;
+	let username = $page.data.user.data.username;
+	interface UserContext {
+		user: any;
+		username: string;
+	}
+	setContext('userContext', { user, username });
 </script>
 
 <div class="mb-5 mt-2 flex place-items-center justify-center">

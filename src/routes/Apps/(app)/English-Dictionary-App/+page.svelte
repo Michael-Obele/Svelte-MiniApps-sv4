@@ -26,7 +26,7 @@
 		Welcome,
 		{#if $page.data.user}
 			<span class="font-semibold text-green-600 dark:text-green-400"
-				>{$page.data.user.username}</span
+				>{$page.data.user.data.username}</span
 			>
 		{:else}
 			<span class="font-semibold text-gray-700 dark:text-gray-300">Guest</span>

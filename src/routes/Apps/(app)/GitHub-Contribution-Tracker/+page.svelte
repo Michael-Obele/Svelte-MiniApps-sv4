@@ -15,7 +15,7 @@
 	<div class="text-center">
 		<h1 class="m-3 text-xl">
 			Welcome {#if $page.data.user}
-				<span class="text-green-400">{$page.data.user.username}</span>,
+				<span class="text-green-400">{$page.data.user.data.username}</span>,
 			{/if} to GitHub Contribution Tracker!
 		</h1>
 		<p class="m-3 text-lg">

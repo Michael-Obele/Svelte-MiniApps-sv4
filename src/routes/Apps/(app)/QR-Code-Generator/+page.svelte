@@ -45,7 +45,7 @@
 	<header class="mb-4 text-4xl font-bold">
 		<h1>
 			Welcome {#if $page.data.user}
-				<span class="text-green-400">{$page.data.user.username}</span>,
+				<span class="text-green-400">{$page.data.user.data.username}</span>,
 			{/if} to QR Code Generator
 		</h1>
 	</header>

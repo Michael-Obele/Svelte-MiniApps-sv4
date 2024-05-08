@@ -12,30 +12,20 @@
 </script>
 
 <div class="flex flex-wrap items-center justify-center py-4 md:py-8">
-	<Button
-		type="Button"
-		on:click={setFilterValue('all')}
-		class={$filter === 'all' ? 'active' : 'inactive'}>All</Button
+	<Button on:click={setFilterValue('all')} class={$filter === 'all' ? 'active' : 'inactive'}
+		>All</Button
 	>
-	<Button
-		type="Button"
-		on:click={setFilterValue('easy')}
-		class={$filter === 'easy' ? 'active' : 'inactive'}>Easy</Button
+	<Button on:click={setFilterValue('easy')} class={$filter === 'easy' ? 'active' : 'inactive'}
+		>Easy</Button
 	>
-	<Button
-		type="Button"
-		on:click={setFilterValue('medium')}
-		class={$filter === 'medium' ? 'active' : 'inactive'}>Medium</Button
+	<Button on:click={setFilterValue('medium')} class={$filter === 'medium' ? 'active' : 'inactive'}
+		>Medium</Button
 	>
-	<Button
-		type="Button"
-		on:click={setFilterValue('hard')}
-		class={$filter === 'hard' ? 'active' : 'inactive'}>Hard</Button
+	<Button on:click={setFilterValue('hard')} class={$filter === 'hard' ? 'active' : 'inactive'}
+		>Hard</Button
 	>
-	<Button
-		type="Button"
-		on:click={setFilterValue('done')}
-		class={$filter === 'done' ? 'active' : 'inactive'}>Done</Button
+	<Button on:click={setFilterValue('done')} class={$filter === 'done' ? 'active' : 'inactive'}
+		>Done</Button
 	>
 </div>
 {#if $filter === 'all'}

@@ -1,10 +1,36 @@
 <script lang="ts">
 	import { Clipboard, RefreshCcw } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
+
 	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
+	import { getContext } from 'svelte';
+
+	interface Role {
+		id: bigint;
+		name: string;
+	}
+
+	interface UserData {
+		username: string;
+		isAdmin: boolean;
+		createdAt: string;
+		role: Role;
+	}
+
+	interface UserContext {
+		data: UserData | null;
+		session: null | any;
+	}
+	interface UserContext {
+		user: any;
+		username: string;
+	}
+
+	const { user, username } = getContext<UserContext>('userContext');
+
 	let passwordOptions = {
 		length: 12,
 		lowercaseLetters: true,
@@ -74,8 +100,8 @@
 	<div class="mt-10 flex flex-col items-center justify-center space-y-4">
 		<h3 class="text-center text-4xl font-bold text-green-500">
 			Welcome
-			{#if $page.data.user}
-				{$page.data.user.username}
+			{#if user}
+				{$page.data.user.data.username}
 			{/if}
 			!
 		</h3>
