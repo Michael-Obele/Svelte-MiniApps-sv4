@@ -5,13 +5,42 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { signIn } from '@auth/sveltekit/client';
 	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
+	import { error } from '@sveltejs/kit';
 	export let form: ActionData;
 	let showPassword = false;
 	let isLoading = false;
 	$: password = showPassword ? 'text' : 'password';
+
+	async function handleSubmit(event: any) {
+		event.preventDefault();
+		isLoading = true;
+		const formData = new FormData(event.target as HTMLFormElement);
+		toast.promise(
+			fetch('?/register', {
+				// Changed from '/login' to '/register'
+				method: 'POST',
+				body: formData
+			}).then(async (response) => {
+				const data = await response.json();
+				console.log(data);
+				if (!response.ok) {
+					throw Error();
+				}
+				return true;
+			}),
+			{
+				loading: 'Submitting...',
+				success: 'Submitted!',
+				error: 'An error occurred during Sign-up'
+			}
+		);
+
+		isLoading = false;
+	}
 </script>
 
-<section class="min-h-screen bg-gray-50 dark:bg-gray-900">
+<section class="min-h-screen bg-gray-50 dark:bg-gray-900" on:submit={handleSubmit}>
 	<div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 		<!-- Logo -->
 		<a href="/" class="my-5 flex items-center space-x-3 rtl:space-x-reverse">
@@ -105,6 +134,9 @@
 					</div>
 					{#if form?.user}
 						<p class="mt-2 text-sm text-red-500 dark:text-red-400">Username is taken.</p>
+					{/if}
+					{#if form?.error}
+						<p class="mt-2 text-sm text-red-500 dark:text-red-400">{form?.error}</p>
 					{/if}
 					<Button
 						on:click={() => signIn()}

@@ -52,7 +52,7 @@ const register: Action = async ({ request }) => {
 	if (shouldRedirect) {
 		return redirect(303, '/Login');
 	}
-
+	// return { success: true };
 	return redirect(303, '/Login');
 };
 

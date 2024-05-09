@@ -5,8 +5,34 @@
 	export let form: ActionData;
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { signIn } from '@auth/sveltekit/client';
+	import { enhance } from '$app/forms';
+	import { toast } from 'svelte-sonner';
 	let showPassword = false;
 	$: password = showPassword ? 'text' : 'password';
+
+	async function handleSubmit(event: any) {
+		event.preventDefault();
+
+		const formData = new FormData(event.target as HTMLFormElement);
+		toast.promise(
+			fetch('?/login', {
+				method: 'POST',
+				body: formData
+			}).then(async (response) => {
+				const data = await response.json();
+				console.log(data);
+				if (!response.ok) {
+					throw Error;
+				}
+				return true;
+			}),
+			{
+				loading: 'Submitting...',
+				success: 'Submitted!',
+				error: 'An error occurred during Sign-up'
+			}
+		);
+	}
 </script>
 
 <section class="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -30,7 +56,7 @@
 				>
 					Sign in to your account
 				</h1>
-				<form action="?/login" method="POST" class="space-y-4 md:space-y-6">
+				<form action="?/login" use:enhance method="POST" class="space-y-4 md:space-y-6">
 					<div>
 						<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>Username</label

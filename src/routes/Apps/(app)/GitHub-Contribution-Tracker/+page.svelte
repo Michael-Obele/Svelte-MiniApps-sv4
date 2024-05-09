@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -6,22 +7,7 @@
 	let username: string;
 	let year: string;
 
-	async function gitCommit() {
-		toast.promise(
-			() =>
-				new Promise<void>((resolve) => {
-					setTimeout(() => {
-						goto(`GitHub-Contribution-Tracker/${username}/${year}`);
-						resolve();
-					}, 2000);
-				}),
-			{
-				loading: 'Loading',
-				success: 'Success',
-				error: 'Error'
-			}
-		);
-	}
+
 
 	import type { UserContext } from '$lib/types';
 	import { getContext } from 'svelte';
@@ -45,7 +31,7 @@
 
 	<div class="mt-5">
 		<h3 class="text-center text-xl">Enter Details</h3>
-		<form on:submit|preventDefault={gitCommit} class="mx-auto mt-5 max-w-sm p-3">
+		<form action="?/commit" use:enhance class="mx-auto mt-5 max-w-sm p-3" method="POST">
 			<div class="mb-5">
 				<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 					>Your GitHub Username</label
@@ -76,6 +62,7 @@
 			</div>
 			<Button
 				type="submit"
+				variant="default"
 				class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
 			>
 				Submit
