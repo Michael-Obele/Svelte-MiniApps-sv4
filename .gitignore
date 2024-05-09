@@ -45,3 +45,4 @@ __bun_temp/
 
 # Sentry Config File
 .sentryclirc
+.vercel
