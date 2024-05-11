@@ -104,7 +104,7 @@
 			Here's Your Secure Password
 		</h3>
 		<div
-			class="min-w-3/4 relative flex max-w-full items-center space-x-10 rounded-lg bg-slate-400 py-4 shadow-md lg:w-1/2 lg:max-w-[85vw]"
+			class="min-w-3/4 relative flex max-w-full items-center space-x-10 rounded-lg bg-slate-400 py-4 shadow-md"
 		>
 			<p class="mx-2 h-fit overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">
 				{password}
