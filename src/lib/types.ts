@@ -1,10 +1,5 @@
 // src/types.ts
 
-export interface Role {
-	id: bigint;
-	name: string;
-}
-
 export interface User {
 	name: string;
 	email: string;
@@ -32,4 +27,22 @@ export interface UserContext {
 	currentUser: UserSessionData | null;
 	userUsername: string;
 	sessionUserName: string;
+}
+
+interface Role {
+	id: BigInt;
+	name?: string;
+}
+
+export interface UserDB {
+	id: string;
+	username: string;
+	passwordHash: string;
+	userAuthToken: string;
+	isAdmin: boolean;
+	createdAt: Date;
+	updatedAt: Date;
+	roleId: BigInt;
+	role?: Role;
+	data?: string | null;
 }
