@@ -22,7 +22,7 @@ model UserDB {
     updatedAt DateTime @updatedAt()
     role Roles @relation(fields: [roleId], references: [id])
     roleId BigInt
-    data String?
+    userExtras Json?
 }
 
 model Roles {
@@ -42,6 +42,7 @@ model User {
     isAdmin Boolean @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
+    userExtras Json?
 }
 
 model Account {

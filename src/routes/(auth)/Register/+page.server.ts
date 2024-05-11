@@ -2,6 +2,7 @@ import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcryptjs';
 import { db } from '$lib/database';
+import { isPrismaClientKnownRequestError, enhance } from '@zenstackhq/runtime';
 import { Admin_PW } from '$env/static/private';
 
 enum Roles {
@@ -45,9 +46,13 @@ const register: Action = async ({ request }) => {
 		if (admin === 'on' && !isAdmin) {
 			shouldRedirect = true;
 		}
-	} catch (error) {
-		console.error('Error during user registration:', error);
-		return fail(500, { error: 'Internal server error' });
+	} catch (err) {
+		if (isPrismaClientKnownRequestError(err) && err.code === 'P2002') {
+			// duplicated Username
+			return fail(400, { username, password, error: 'Username already registered!' });
+		} else {
+			return fail(400, { error: 'Something Unexpected happened!' });
+		}
 	}
 	if (shouldRedirect) {
 		return redirect(303, '/Login');

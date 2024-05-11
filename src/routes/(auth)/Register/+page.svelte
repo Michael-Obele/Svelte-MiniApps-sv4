@@ -11,6 +11,10 @@
 	let showPassword = false;
 	let isLoading = false;
 	$: password = showPassword ? 'text' : 'password';
+	let errorData:
+		| { message: any }
+		| { username: number; password: number; error: number }[]
+		| string;
 
 	async function handleSubmit(event: any) {
 		event.preventDefault();
@@ -18,21 +22,23 @@
 		const formData = new FormData(event.target as HTMLFormElement);
 		toast.promise(
 			fetch('?/register', {
-				// Changed from '/login' to '/register'
 				method: 'POST',
 				body: formData
 			}).then(async (response) => {
 				const data = await response.json();
 				console.log(data);
 				if (!response.ok) {
-					throw Error();
+					const errorData = await response.json();
+					toast.error(`An error occurred: ${errorData.message || 'An unknown error occurred.'}`);
+					isLoading = false;
+					return;
 				}
 				return true;
 			}),
 			{
 				loading: 'Submitting...',
 				success: 'Submitted!',
-				error: 'An error occurred during Sign-up'
+				error: 'An unknown error occurred.'
 			}
 		);
 
