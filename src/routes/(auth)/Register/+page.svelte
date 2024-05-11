@@ -145,13 +145,13 @@
 						<Github class="mx-2" />
 						Sign in with Github
 					</Button>
-					<!-- <Button
+					<Button
 						type="submit"
 						disabled={isLoading}
 						class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
 					>
 						{isLoading ? 'Submitting...' : 'Create an account'}
-					</Button> -->
+					</Button>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
 						Already have an account? <a
 							href="/Login"

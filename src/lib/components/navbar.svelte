@@ -57,7 +57,9 @@
 							<Button builders={[builder]} size="icon" variant="link" class="hover:no-underline">
 								<Avatar.Root>
 									<Avatar.Image src={gitData.user?.image} alt="profile image" />
-									<Avatar.Fallback>{gitData.user?.name.charAt(0)}</Avatar.Fallback>
+									<Avatar.Fallback class="capitalize"
+										>{gitData.user?.name.charAt(0)}</Avatar.Fallback
+									>
 								</Avatar.Root>
 							</Button>
 						</DropdownMenu.Trigger>
@@ -75,7 +77,8 @@
 						<DropdownMenu.Trigger asChild let:builder>
 							<Button builders={[builder]} size="icon" variant="link" class="hover:no-underline">
 								<Avatar.Root>
-									<Avatar.Fallback>{userData.username.charAt(0)}</Avatar.Fallback>
+									<Avatar.Fallback class="capitalize">{userData.username.charAt(0)}</Avatar.Fallback
+									>
 								</Avatar.Root>
 							</Button>
 						</DropdownMenu.Trigger>
