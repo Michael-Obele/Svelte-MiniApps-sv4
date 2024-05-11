@@ -1,8 +1,8 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import type { Actions } from './$types';
 
-// export const load = (async () => {
+// export const load = (async (request) => {
 // 	return {};
 // }) satisfies PageServerLoad;
 
@@ -11,13 +11,6 @@ export const actions = {
 		const data = await request.formData();
 		const user = data.get('user');
 		const year = data.get('year');
-		console.log({ user }, { year });
-
-		// Define headers
-		const responseHeaders = {
-			'Access-Control-Allow-Origin': '*', // allow CORS
-			'Cache-Control': `public, s-maxage=${60 * 60 * 24 * 365}` // one year
-		};
 
 		// Define the date range for contributions
 		const startDate = `${year}-02-01`;
@@ -42,17 +35,8 @@ export const actions = {
 		} else {
 			streakStatsSvgData = await streakStatsResponse.text();
 		}
-		console.log({
-			props: {
-				user,
-				year
-			},
-			contributionsInfo: contributionsHtmlData,
-			streakStats: streakStatsSvgData
-		});
 
 		return {
-			headers: responseHeaders,
 			props: {
 				user,
 				year

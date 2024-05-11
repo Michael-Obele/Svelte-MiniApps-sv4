@@ -9,7 +9,7 @@
 	<title>Oops! Something went wrong.</title>
 </svelte:head>
 
-<section class="flex h-screen flex-col items-center justify-center dark:bg-gray-900">
+<section class="flex h-screen flex-col items-center justify-center">
 	<h3 class="mb-12 animate-pulse text-4xl font-bold text-red-500 dark:text-red-400">
 		Code: {$page.status}
 	</h3>

@@ -6,10 +6,10 @@
 	import Moon from 'lucide-svelte/icons/moon';
 	import { toggleMode } from 'mode-watcher';
 	import Svelte from '$lib/logo/svelte.svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Button } from './ui/button';
+
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { Menu, X, Github, UserRound } from 'lucide-svelte';
-	import { SignOut } from '@auth/sveltekit/components';
+	import { Github } from 'lucide-svelte';
 
 	// Reactive statement to determine if the current route matches the item
 	$: isActive = (item: string) => {
@@ -38,7 +38,7 @@
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
-	<div class="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+	<div class="flex max-w-screen-xl flex-wrap items-center justify-between p-4">
 		<!-- Logo -->
 		<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
 			<div class="flex text-2xl font-semibold dark:text-white">

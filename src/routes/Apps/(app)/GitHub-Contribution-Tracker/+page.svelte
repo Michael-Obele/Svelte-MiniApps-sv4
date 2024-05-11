@@ -3,17 +3,40 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
-
-	let username: string;
-	let year: string;
-
-
-
 	import type { UserContext } from '$lib/types';
+	import { redirect } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
 
 	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+	let username: string;
+	let year: string;
+	$: isLoading = false;
+	async function handleSubmit(event: any) {
+		isLoading = true;
+		event.preventDefault();
+		const formData = new FormData(event.target as HTMLFormElement);
+		toast.promise(
+			fetch(`/Apps/GitHub-Contribution-Tracker/${username}/${year}`, {
+				method: 'POST',
+				body: formData
+			}).then(async (response) => {
+				const data = await response.json();
+				console.log('Data:', data);
+				if (!response.ok) {
+					isLoading = false;
+				} else {
+					goto(`GitHub-Contribution-Tracker/${username}/${year}`);
+					return true;
+				}
+			}),
+			{
+				loading: 'Submitting...',
+				success: 'Submitted!',
+				error: 'An unknown error occurred.'
+			}
+		);
+	}
 </script>
 
 <main>
@@ -31,7 +54,7 @@
 
 	<div class="mt-5">
 		<h3 class="text-center text-xl">Enter Details</h3>
-		<form action="?/commit" use:enhance class="mx-auto mt-5 max-w-sm p-3" method="POST">
+		<form on:submit={handleSubmit} class="mx-auto mt-5 max-w-sm p-3" method="POST">
 			<div class="mb-5">
 				<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 					>Your GitHub Username</label
@@ -51,7 +74,7 @@
 					>Enter Year</label
 				>
 				<input
-					type="text"
+					type="number"
 					name="year"
 					bind:value={year}
 					id="year"
@@ -60,13 +83,13 @@
 					required
 				/>
 			</div>
-			<Button
+			<button
 				type="submit"
-				variant="default"
+				disabled={isLoading}
 				class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:w-auto"
 			>
 				Submit
-			</Button>
+			</button>
 		</form>
 	</div>
 </main>

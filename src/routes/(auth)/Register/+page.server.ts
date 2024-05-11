@@ -49,7 +49,11 @@ const register: Action = async ({ request }) => {
 	} catch (err) {
 		if (isPrismaClientKnownRequestError(err) && err.code === 'P2002') {
 			// duplicated Username
-			return fail(400, { username, password, error: 'Username already registered!' });
+			return fail(400, {
+				username,
+				password,
+				error: 'Username already registered! Try Logging in'
+			});
 		} else {
 			return fail(400, { error: 'Something Unexpected happened!' });
 		}
@@ -57,7 +61,6 @@ const register: Action = async ({ request }) => {
 	if (shouldRedirect) {
 		return redirect(303, '/Login');
 	}
-	// return { success: true };
 	return redirect(303, '/Login');
 };
 

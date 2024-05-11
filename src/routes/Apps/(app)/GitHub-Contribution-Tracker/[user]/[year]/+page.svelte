@@ -198,14 +198,14 @@
 	/>
 </div>
 
-<div class="mx-auto w-fit">
+<div class="mx-auto my-10 w-fit">
 	<Button
-		class="group mb-2 me-2 flex justify-center rounded-lg border border-green-700 px-2 py-2.5 pr-7 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-500 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800"
+		class="group me-2 flex items-center justify-center rounded-lg border border-green-700 bg-green-500 px-2 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-100 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800 md:text-xl"
 		on:click={() => goto('/Apps/GitHub-Contribution-Tracker')}
 	>
 		<span class="opacity-5 transition-all group-hover:opacity-100">
 			<ChevronLeft />
 		</span>
-		<span class="mt-1"> Go Back </span>
+		<span class="pr-7"> Go Back </span>
 	</Button>
 </div>
