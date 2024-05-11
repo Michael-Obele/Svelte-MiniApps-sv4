@@ -49,7 +49,7 @@
 			</div>
 		</a>
 		<!-- End of Logo -->
-		<div class="flex items-center space-x-3 md:order-2 md:space-x-0 rtl:space-x-reverse">
+		<div class="flex items-center space-x-3 md:order-2 md:mx-0 md:space-x-0">
 			{#if gitData || userData}
 				{#if gitData}
 					<DropdownMenu.Root>
@@ -90,51 +90,6 @@
 						</DropdownMenu.Content>
 					</DropdownMenu.Root>
 				{/if}
-				<!-- Dropdown menu -->
-				<div
-					class={`absolute right-2 top-10 z-50 my-4  list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow dark:divide-gray-600 dark:bg-gray-700 ${dropDown ? 'block' : 'hidden'}`}
-					id="user-dropdown"
-				>
-					<div class="px-4 py-3">
-						{#if gitData}
-							<span class="block text-sm text-gray-900 dark:text-white">{gitData.user?.name}</span>
-							<span class="block truncate text-sm text-gray-500 dark:text-gray-400"
-								>{gitData.user?.email}</span
-							>
-						{:else}
-							<!-- else content here -->
-						{/if}
-					</div>
-					<ul class="py-2" aria-labelledby="user-menu-Button">
-						{#each ['Profile'] as item}
-							<li>
-								<a
-									href={item.split(' ').join('')}
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-									>{item}</a
-								>
-							</li>
-						{/each}
-						{#if gitData}
-							<li
-								class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-							>
-								<SignOut>
-									<div slot="submitButton">Sign Out</div>
-								</SignOut>
-							</li>
-						{:else}
-							<li>
-								<a
-									href="/Logout"
-									class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-600 dark:hover:text-white"
-									>Sign Out</a
-								>
-							</li>
-						{/if}
-					</ul>
-				</div>
-				<!-- End of Dropdown menu -->
 			{:else}
 				<a
 					href="/Login"
@@ -143,16 +98,14 @@
 				>
 			{/if}
 			<div class="px-2">
-				<Button on:click={toggleMode} variant="outline" class="-my-2" size="icon">
-					<Sun
-						class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-					/>
+				<Button on:click={toggleMode} type="button" variant="outline" size="icon">
+					<Sun class="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
 					<Moon
-						class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+						class="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
 					/>
 					<span class="sr-only">Toggle theme</span>
 				</Button>
-				<Button variant="outline" class="-my-2" size="icon">
+				<Button variant="outline" type="button" size="icon">
 					<a target="_blank" href="https://github.com/Michael-Obele/Svelte-MiniApps">
 						<span class="sr-only">See GitHub Repo</span>
 						<Github class="h-[1.2rem] w-[1.2rem]" />
@@ -163,7 +116,8 @@
 				data-collapse-toggle="navbar-user"
 				variant="outline"
 				type="button"
-				class="inline-flex h-10 w-10 items-center justify-center rounded-lg p-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
+				size="icon"
+				class="inline-flex h-10 w-10 items-center justify-center rounded-lg px-2 text-sm text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 md:hidden"
 				aria-controls="navbar-user"
 				on:click={() => (show = !show)}
 				aria-expanded="false"
