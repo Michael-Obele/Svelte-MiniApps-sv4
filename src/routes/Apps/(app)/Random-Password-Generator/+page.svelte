@@ -44,18 +44,36 @@
 
 <svelte:head>
 	<title>Svelte MiniApps - Password Generator</title>
-	<meta name="description" content="Generates random passwords with configurable length and complexity. Secure your accounts with ease." />
+	<meta
+		name="description"
+		content="Generates random passwords with configurable length and complexity. Secure your accounts with ease."
+	/>
 	<meta property="og:title" content="Svelte MiniApps - Password Generator" />
-	<meta property="og:description" content="Generates random passwords with configurable length and complexity. Secure your accounts with ease." />
+	<meta
+		property="og:description"
+		content="Generates random passwords with configurable length and complexity. Secure your accounts with ease."
+	/>
 	<meta property="og:url" content="https://svelte-mini-apps.netlify.app/apps/password-generator" />
-	<meta property="og:image" content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png" />
+	<meta
+		property="og:image"
+		content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png"
+	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Svelte MiniApps - Password Generator - Secure Your Accounts" />
-	<meta name="twitter:description" content="Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator." />
-	<meta name="twitter:image" content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png" />
+	<meta
+		name="twitter:title"
+		content="Svelte MiniApps - Password Generator - Secure Your Accounts"
+	/>
+	<meta
+		name="twitter:description"
+		content="Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator."
+	/>
+	<meta
+		name="twitter:image"
+		content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png"
+	/>
 
 	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/apps/password-generator" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -86,22 +104,26 @@
 			Here's Your Secure Password
 		</h3>
 		<div
-			class="relative flex w-1/2 max-w-[85vw] items-center rounded-lg bg-slate-400 py-4 shadow-md sm:pr-[15%]"
+			class="min-w-3/4 relative flex max-w-full items-center space-x-10 rounded-lg bg-slate-400 py-4 shadow-md lg:w-1/2 lg:max-w-[85vw]"
 		>
-			<p class="mx-2 overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">{password}</p>
-			<div class="right-5 sm:absolute">
+			<p class="mx-2 h-fit overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">
+				{password}
+			</p>
+			<div class="flex flex-row px-1">
 				<Button
 					variant="outline"
+					type="button"
 					on:click={() => _copyToClipboard(password)}
-					class="rounded-md p-2 text-white focus:outline-none focus:ring-2"
+					class="rounded-md p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2"
 					aria-label="Copy password to clipboard"
 				>
 					<Clipboard class="h-6 w-6" />
 				</Button>
 				<Button
 					variant="outline"
+					type="button"
 					on:click={generateNewPassword}
-					class="ml-2 rounded-md bg-blue-500 p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+					class="ml-2 rounded-md p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
 					aria-label="Generate a new password"
 				>
 					<RefreshCcw class="h-6 w-6" />

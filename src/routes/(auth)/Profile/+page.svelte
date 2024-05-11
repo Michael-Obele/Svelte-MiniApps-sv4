@@ -28,7 +28,9 @@
 			<h1 class="text-center text-3xl font-bold text-gray-900 dark:text-white">Profile Page</h1>
 		</div>
 		<div class="mb-4">
-			<p class="text-center text-3xl text-gray-700 dark:text-gray-300">Welcome!</p>
+			<p class="text-center text-3xl text-gray-700 dark:text-gray-300">
+				Welcome {gitData?.user?.name || userData?.username}!
+			</p>
 		</div>
 		<div class="flex flex-col items-center justify-center">
 			<div

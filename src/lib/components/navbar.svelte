@@ -64,8 +64,7 @@
 							</Button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content class="w-56">
-							<DropdownMenu.Label>My Account</DropdownMenu.Label>
-							<DropdownMenu.Label>{gitData.user?.name}</DropdownMenu.Label>
+							<DropdownMenu.Label>{gitData?.user?.name}</DropdownMenu.Label>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
 							<DropdownMenu.Separator />
@@ -83,7 +82,6 @@
 							</Button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content class="w-56">
-							<DropdownMenu.Label>My Account</DropdownMenu.Label>
 							<DropdownMenu.Label>{userData.username}</DropdownMenu.Label>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
