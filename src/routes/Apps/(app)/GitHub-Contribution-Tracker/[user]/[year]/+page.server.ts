@@ -21,7 +21,7 @@ export async function load({ params, setHeaders }) {
 		const contributionsApiUrl = `https://github.com/users/${user}/contributions?from=${startDate}&to=${endDate}`;
 		const contributionsResponse = await fetch(contributionsApiUrl);
 		if (!contributionsResponse.ok) {
-			throw new Error(`Failed to fetch GitHub contributions for user ${user}`);
+			console.error(`Failed to fetch GitHub contributions for ${user}`);
 		}
 		const contributionsHtmlData = await contributionsResponse.text(); // Get the SVG data as text
 

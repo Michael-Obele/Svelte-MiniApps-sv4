@@ -4,7 +4,8 @@ export const done = [
 	'GitHub Contribution Tracker',
 	'QR Code Generator',
 	'English Dictionary App',
-	'Random Emoji Generator'
+	'Random Emoji Generator',
+	'Currency Converter'
 ];
 export const projects = [
 	{

@@ -83,8 +83,3 @@ export function stringifyWithBigInt(obj: any) {
 		return value; // Return other values as is
 	});
 }
-
-export let sessionStore = writable({
-	githubContributions: '',
-	streakStats: ''
-});
