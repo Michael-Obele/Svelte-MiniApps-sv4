@@ -75,7 +75,6 @@
 		iconObserver = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
-					console.log('Icon is visible, changing trigger to "loop"');
 					setTimeout(() => {
 						gitIconState = '';
 						gitIconTrigger = 'loop';
@@ -83,7 +82,6 @@
 					// entry.target.setAttribute('trigger', 'morph'); // Uncomment if you have a way to dynamically update the attribute
 				} else {
 					setTimeout(() => {
-						console.log('Icon is not visible, changing trigger to "in"');
 						gitIconState = 'in-reveal';
 						gitIconTrigger = 'in';
 					}, 3500);

@@ -136,8 +136,19 @@
 		<div class="container px-4 md:px-6">
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">
 				<div class="space-y-2">
-					<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
-						Why <span class="text-[#F03E3E]"> Svelte</span>?
+					<h2
+						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
+					>
+						<span> Why </span>
+						<span class="text-[#F03E3E]"> Svelte</span>?
+						<lord-icon
+							target="h2"
+							src="https://cdn.lordicon.com/swcqkzdc.json"
+							colors="primary:red,secondary:green"
+							trigger="hover"
+							class="h-12 w-12"
+						>
+						</lord-icon>
 					</h2>
 					<p
 						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
@@ -149,8 +160,20 @@
 					</p>
 				</div>
 				<div class="space-y-2">
-					<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
-						<span class="text-[#F03E3E]"> Simplicity </span> and Efficiency
+					<h2
+						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
+					>
+						<span class="text-[#F03E3E]"> Simplicity </span>
+						<span> and Efficiency </span>
+
+						<lord-icon
+							target="h2"
+							src="https://cdn.lordicon.com/zguybvqs.json"
+							colors="primary:red,secondary:green"
+							trigger="hover"
+							class="h-16 w-16"
+						>
+						</lord-icon>
 					</h2>
 					<p
 						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
@@ -162,8 +185,19 @@
 					</p>
 				</div>
 				<div class="space-y-2">
-					<h2 class="text-3xl font-bold tracking-tighter sm:text-5xl">
-						Versatility and <span class="text-[#F03E3E]"> Scalability </span>
+					<h2
+						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
+					>
+						<span> Versatility and </span>
+						<span class="text-[#F03E3E]"> Scalability </span>
+						<lord-icon
+							target="h2"
+							src="https://cdn.lordicon.com/yxyampao.json"
+							colors="primary:red,secondary:green"
+							trigger="hover"
+							class="h-16 w-16"
+						>
+						</lord-icon>
 					</h2>
 					<p
 						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
@@ -172,6 +206,31 @@
 						building a wide range of web applications, from small personal projects to large-scale
 						enterprise solutions. Its scalability and performance characteristics ensure that your
 						applications can grow and evolve with your business needs.
+					</p>
+				</div>
+				<div class="space-y-2">
+					<h2
+						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
+					>
+						<span class="text-[#F03E3E]"> Loved </span>
+						<span> by Developers </span>
+
+						<lord-icon
+							target="h2"
+							src="https://cdn.lordicon.com/jjoolpwc.json"
+							colors="primary:red,secondary:green"
+							trigger="hover"
+							class="h-16 w-16"
+						>
+						</lord-icon>
+					</h2>
+					<p
+						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
+					>
+						Svelte is a breath of fresh air for developers. It offers blazing-fast performance,
+						intuitive syntax, and a modular architecture that scales effortlessly. From rapid
+						prototyping to complex applications, Svelte empowers you to build exceptional
+						experiences.
 					</p>
 				</div>
 			</div>
@@ -192,3 +251,7 @@
 		</div>
 	</footer> -->
 </div>
+
+<!-- 
+
+-->
