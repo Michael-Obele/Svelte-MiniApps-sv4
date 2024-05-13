@@ -107,17 +107,28 @@
 <section class="m-2 px-2 py-3 lg:px-10">
 	<h3
 		id="MiniApps"
-		class="mb-10 mt-5 text-center text-3xl text-gray-900 underline decoration-green-400 decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
+		class="mb-10 mt-5 cursor-pointer text-center text-3xl text-gray-900 underline decoration-green-400 decoration-wavy decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
 	>
 		<span>Svelte</span> MiniApps: Powerful Tiny Tools Built with
-		<span class="text-red-500 dark:text-red-700"> SvelteKit </span>
+		<span class="text-nowrap text-red-500 dark:text-red-700">
+			SvelteKit
+
+			<lord-icon
+				target="#MiniApps"
+				colors="primary:red,secondary:green"
+				src="https://cdn.lordicon.com/gqjpawbc.json"
+				trigger="morph"
+				class="h-12 w-12"
+			>
+			</lord-icon>
+		</span>
 	</h3>
 
 	<!-- Stepper -->
 
 	<ol
 		id="stepper"
-		class="sticky top-1 mx-auto flex w-full max-w-fit flex-row flex-wrap content-center items-center justify-center space-x-2 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:space-y-0 sm:p-4 sm:text-base lg:p-3 rtl:space-x-reverse"
+		class="sticky top-1 z-50 mx-auto flex w-full max-w-fit flex-row flex-wrap content-center items-center justify-center space-x-2 self-center justify-self-center rounded-lg border border-gray-200 bg-white p-3 text-center text-sm font-medium text-gray-500 shadow-sm dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 sm:space-x-4 sm:space-y-0 sm:p-4 sm:text-base lg:p-3 rtl:space-x-reverse"
 	>
 		{#each h3Ids as id, i}
 			<a
@@ -181,13 +192,14 @@
 		<h3 id="introduction" class="bold mx-auto my-5 w-fit cursor-pointer text-2xl">
 			Why Choose Svelte MiniApps?
 		</h3>
-		<div class="mx-auto my-5 w-fit max-w-[80%]">
+		<div id="introduction-list" class="mx-auto my-5 w-fit max-w-[80%]">
 			<ul class="space-y-4 text-left">
 				{#each data.features as feature, i}
-					<li class="flex items-center">
+					<li id={feature.title.split(' ').join('-')} class="flex items-center">
 						<lord-icon
+							target="#{feature.title.split(' ').join('-')} "
 							src="https://cdn.lordicon.com/cgzlioyf.json"
-							trigger="loop"
+							trigger="morph"
 							colors="primary:#c71f16,secondary:#109173"
 							class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
 						>
@@ -213,12 +225,13 @@
 				more complex ones like persistent to-do lists.
 			</p>
 			<ul class="mx-auto w-fit space-y-4 text-center">
-				<li class="flex items-center space-x-3 rtl:space-x-reverse">
+				<li id="Browse" class="flex items-center space-x-3 rtl:space-x-reverse">
 					<lord-icon
 						src="https://cdn.lordicon.com/unukghxb.json"
-						trigger="loop"
+						target="#Browse"
+						trigger="morph"
 						colors="primary:#c71f16,secondary:#109173"
-						class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
+						class="mr-5 hidden h-8 w-8 text-green-500 dark:text-green-400 md:block"
 					>
 					</lord-icon>
 					<span class="">
@@ -226,10 +239,11 @@
 					</span>
 				</li>
 
-				<li class="flex items-center space-x-3 rtl:space-x-reverse">
+				<li id="Dive" class="flex items-center space-x-3 rtl:space-x-reverse">
 					<lord-icon
 						src="https://cdn.lordicon.com/uvqdhrsk.json"
-						trigger="loop"
+						target="#Dive"
+						trigger="morph"
 						colors="primary:#c71f16,secondary:#109173"
 						class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
 					>
@@ -320,19 +334,21 @@
 		<div class="mx-auto my-5 w-fit max-w-[90%]">
 			<ul class="space-y-4 text-left">
 				{#each data.future as item, i}
-					<li class="flex items-center">
+					<li id={item.title.split(' ').join('-')} class="flex items-center">
 						{#if i == 0}
 							<lord-icon
+								target="#{item.title.split(' ').join('-')}"
 								src="https://cdn.lordicon.com/jdalicnn.json"
-								trigger="loop"
+								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
 								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
 							>
 							</lord-icon>
 						{:else if i == 1}
 							<lord-icon
+								target="#{item.title.split(' ').join('-')}"
 								src="https://cdn.lordicon.com/wzrwaorf.json"
-								trigger="loop"
+								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
 								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
 							>
@@ -340,7 +356,7 @@
 						{/if}
 
 						<span class="felx flex-col font-semibold">
-							{item.title}
+							{item.title}:
 
 							<span class="ml-10 font-normal md:-indent-2">
 								{#each _splitDescription(item.description, 10) as line, j}
@@ -358,19 +374,21 @@
 		<div class="mx-auto my-5 w-fit max-w-[90%]">
 			<ul class="space-y-4 text-left">
 				{#each data.next as item, i}
-					<li class="flex items-center">
+					<li id={item.title.split(' ').join('-')} class="flex items-center">
 						{#if i == 0}
 							<lord-icon
+								target="#{item.title.split(' ').join('-')} "
 								src="https://cdn.lordicon.com/xpuzvjaf.json"
-								trigger="loop"
+								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
 								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
 							>
 							</lord-icon>
 						{:else if i == 1}
 							<lord-icon
+								target="#{item.title.split(' ').join('-')} "
 								src="https://cdn.lordicon.com/kndkiwmf.json"
-								trigger="loop"
+								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
 								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
 							>

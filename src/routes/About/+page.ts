@@ -37,12 +37,12 @@ const reasons = [
 
 const future = [
 	{
-		title: 'Building the Ultimate Toolkit:',
+		title: 'Building the Ultimate Toolkit',
 		description:
 			'We want a diverse collection of mini-apps for any situation. What tools do you wish you had?'
 	},
 	{
-		title: 'Community Power:',
+		title: 'Community Power',
 		description:
 			'Imagine a community of Svelte MiniApp creators! We could share ideas, collaborate on tools, and make development even more fun.'
 	}

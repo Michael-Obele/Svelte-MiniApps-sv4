@@ -38,7 +38,7 @@
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
-	<div class="flex max-w-screen-xl flex-wrap items-center justify-between p-4">
+	<div class="flex flex-wrap items-center justify-around p-4">
 		<!-- Logo -->
 		<a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
 			<div class="flex text-2xl font-semibold dark:text-white">
