@@ -203,8 +203,9 @@
 
 {#if form?.status === 200}
 	<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
-		Conversion Successful from {selectedCurrencyFromLabel} to {selectedCurrencyToLabel} Your rate is:
-		{form.body.rate}
+		Conversion Successful from <span class="font-semibold">{selectedCurrencyFromLabel}</span> to
+		<span class="font-semibold">{selectedCurrencyToLabel}</span>. Your rate is:
+		<span class="font-semibold">{form.body.rate}</span>.
 	</p>
 {:else if form?.status === 500}
 	<p class="mt-4 text-center text-lg text-red-600 dark:text-red-400">

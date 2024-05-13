@@ -1,16 +1,5 @@
 <script lang="ts">
-	import {
-		Check,
-		FileSearch,
-		Lightbulb,
-		Expand,
-		CodeSquare,
-		Blocks,
-		Unplug,
-		ChevronsRight,
-		Handshake,
-		Github
-	} from 'lucide-svelte';
+	import { ChevronsRight } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	interface Feature {
 		title: string;
@@ -19,7 +8,7 @@
 	export var data: { features: any; reasons: any; future: any; next: any };
 
 	import { _splitDescription } from './+page';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 
 	const h3Ids = [
 		'MiniApps',
@@ -33,8 +22,6 @@
 	];
 	let activeId: string[] = [];
 	onMount(() => {
-		const stepperHeight = document.getElementById('stepper')?.offsetHeight ?? 0;
-
 		const observer = new IntersectionObserver(
 			(entries) => {
 				entries.forEach((entry) => {
@@ -72,6 +59,48 @@
 				}
 			});
 		};
+	});
+
+	let iconObserver: IntersectionObserver;
+	let gitIconTrigger = 'in';
+	let gitIconState = 'in-reveal';
+
+	onMount(() => {
+		const options = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 1
+		};
+
+		iconObserver = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					console.log('Icon is visible, changing trigger to "loop"');
+					setTimeout(() => {
+						gitIconState = '';
+						gitIconTrigger = 'loop';
+					}, 3500);
+					// entry.target.setAttribute('trigger', 'morph'); // Uncomment if you have a way to dynamically update the attribute
+				} else {
+					setTimeout(() => {
+						console.log('Icon is not visible, changing trigger to "in"');
+						gitIconState = 'in-reveal';
+						gitIconTrigger = 'in';
+					}, 3500);
+				}
+			});
+		}, options);
+
+		// Observe the lord-icon component
+		const icon = document.querySelector('#giticon');
+		if (icon) {
+			iconObserver.observe(icon);
+		}
+	});
+
+	onDestroy(() => {
+		// Disconnect the observer when the component is destroyed
+		iconObserver.disconnect();
 	});
 </script>
 
@@ -156,7 +185,13 @@
 			<ul class="space-y-4 text-left">
 				{#each data.features as feature, i}
 					<li class="flex items-center">
-						<Check size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+						<lord-icon
+							src="https://cdn.lordicon.com/cgzlioyf.json"
+							trigger="loop"
+							colors="primary:#c71f16,secondary:#109173"
+							class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
+						>
+						</lord-icon>
 						<span class="felx flex-col font-semibold">
 							{feature.title}:
 							<span class="ml-10 font-normal md:-indent-2">
@@ -179,14 +214,26 @@
 			</p>
 			<ul class="mx-auto w-fit space-y-4 text-center">
 				<li class="flex items-center space-x-3 rtl:space-x-reverse">
-					<FileSearch size="25" class="mr-3 hidden text-green-500 dark:text-green-400 md:block" />
+					<lord-icon
+						src="https://cdn.lordicon.com/unukghxb.json"
+						trigger="loop"
+						colors="primary:#c71f16,secondary:#109173"
+						class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
+					>
+					</lord-icon>
 					<span class="">
 						Browse the available apps and discover ones that can enhance your workflow.
 					</span>
 				</li>
 
 				<li class="flex items-center space-x-3 rtl:space-x-reverse">
-					<CodeSquare size="25" class="mr-3 hidden text-green-500 dark:text-green-400 md:block" />
+					<lord-icon
+						src="https://cdn.lordicon.com/uvqdhrsk.json"
+						trigger="loop"
+						colors="primary:#c71f16,secondary:#109173"
+						class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
+					>
+					</lord-icon>
 					<span class="">
 						Dive into the code and learn from the examples to build your own mini-apps
 					</span>
@@ -219,7 +266,13 @@
 			<ul class="space-y-4 text-left">
 				{#each data.reasons as reason, i}
 					<li class="flex items-center">
-						<Lightbulb size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+						<lord-icon
+							src="https://cdn.lordicon.com/mjyxajfq.json"
+							trigger="loop"
+							colors="primary:#c71f16,secondary:#109173"
+							class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
+						>
+						</lord-icon>
 						<span class="felx flex-col font-semibold">
 							{reason.title}:
 							<span class="ml-10 font-normal md:-indent-2">
@@ -269,9 +322,21 @@
 				{#each data.future as item, i}
 					<li class="flex items-center">
 						{#if i == 0}
-							<Blocks size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+							<lord-icon
+								src="https://cdn.lordicon.com/jdalicnn.json"
+								trigger="loop"
+								colors="primary:#c71f16,secondary:#109173"
+								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
+							>
+							</lord-icon>
 						{:else if i == 1}
-							<Unplug size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+							<lord-icon
+								src="https://cdn.lordicon.com/wzrwaorf.json"
+								trigger="loop"
+								colors="primary:#c71f16,secondary:#109173"
+								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
+							>
+							</lord-icon>
 						{/if}
 
 						<span class="felx flex-col font-semibold">
@@ -295,12 +360,21 @@
 				{#each data.next as item, i}
 					<li class="flex items-center">
 						{#if i == 0}
-							<Expand size="30" class="mr-5 hidden text-green-500 dark:text-green-400 md:block" />
+							<lord-icon
+								src="https://cdn.lordicon.com/xpuzvjaf.json"
+								trigger="loop"
+								colors="primary:#c71f16,secondary:#109173"
+								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
+							>
+							</lord-icon>
 						{:else if i == 1}
-							<Handshake
-								size="30"
-								class="mr-5 hidden text-green-500 dark:text-green-400 md:block"
-							/>
+							<lord-icon
+								src="https://cdn.lordicon.com/kndkiwmf.json"
+								trigger="loop"
+								colors="primary:#c71f16,secondary:#109173"
+								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
+							>
+							</lord-icon>
 						{/if}
 
 						<span class="felx flex-col font-semibold">
@@ -323,20 +397,24 @@
 <footer
 	class="flex flex-col items-center justify-between bg-gray-800 px-4 py-8 text-white md:flex-row"
 >
-	<div class="group mb-4 flex flex-col items-center md:mb-0">
-		<a
-			href="https://github.com/Michael-Obele/Svelte-MiniApps"
-			target="_blank"
-			class="rounded-md px-4 py-2 font-bold text-green-500 hover:text-green-700 dark:text-green-300 dark:hover:text-green-500"
-			aria-label="Support us on GitHub"
+	<a
+		href="https://github.com/Michael-Obele/Svelte-MiniApps"
+		target="_blank"
+		class="group mb-4 flex flex-row items-center rounded-md px-4 py-2 font-bold text-green-500 hover:text-green-700 dark:text-green-300 dark:hover:text-green-500 md:mb-0 md:flex-col"
+		aria-label="Support us on GitHub"
+	>
+		Support Us on GitHub
+		<lord-icon
+			id="giticon"
+			src="https://cdn.lordicon.com/yedgackm.json"
+			trigger={gitIconTrigger}
+			delay="1500"
+			state={gitIconState}
+			class="h-20 w-20"
+			colors="primary:#000000,secondary:#22c55e,tertiary:#ffffff"
 		>
-			Support Us on GitHub
-			<Github />
-		</a>
-		<span class="ml-2 text-xs opacity-40 group-hover:opacity-85"
-			>Consider supporting our open-source project.</span
-		>
-	</div>
+		</lord-icon>
+	</a>
 
 	<form
 		action="https://formspree.io/f/xyyrldpl"
