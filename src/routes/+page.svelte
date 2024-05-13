@@ -91,9 +91,10 @@
 						<p
 							class="mb-6 max-w-[900px] text-lg font-normal text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
 						>
-							Explore a collection of small, but powerful <span class="text-[#F03E3E]">Svelte</span
-							>-based web applications that showcase the versatility and simplicity of this modern
-							JavaScript framework.
+							Explore a collection of small, but powerful <span class="text-[#F03E3E]"
+								>Svelte-based</span
+							> web applications that showcase the versatility and simplicity of this modern JavaScript
+							framework.
 						</p>
 						<a
 							href="/Apps"
@@ -140,10 +141,10 @@
 						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
 					>
 						<span> Why </span>
-						<span class="text-[#F03E3E]"> Svelte</span>?
+						<span class="text-[#F03E3E]"> Svelte</span>
 						<lord-icon
 							target="h2"
-							src="https://cdn.lordicon.com/swcqkzdc.json"
+							src="https://cdn.lordicon.com/axteoudt.json"
 							colors="primary:red,secondary:green"
 							trigger="hover"
 							class="h-12 w-12"
