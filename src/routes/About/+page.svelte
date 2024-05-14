@@ -95,11 +95,6 @@
 			iconObserver.observe(icon);
 		}
 	});
-
-	onDestroy(() => {
-		// Disconnect the observer when the component is destroyed
-		iconObserver.disconnect();
-	});
 </script>
 
 <section class="m-2 px-2 py-3 lg:px-10">
