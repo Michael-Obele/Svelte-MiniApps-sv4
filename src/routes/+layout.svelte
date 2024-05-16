@@ -5,7 +5,7 @@
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
 
-	import { onMount } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
 
 	async function detectSWUpdate() {
 		const registration = await navigator.serviceWorker.ready;
@@ -23,6 +23,30 @@
 
 	onMount(() => {
 		detectSWUpdate();
+	});
+
+	afterUpdate(() => {
+		const url = $page.url.href;
+
+		if (url.includes('reload')) {
+			// Split the URL into base and query string
+			const [baseUrl, queryString] = url.split('?');
+
+			// Split the query string into individual parameters
+			const queryParams = queryString.split('&');
+
+			// Filter out the 'reload' parameter
+			const filteredParams = queryParams.filter((param) => !param.startsWith('reload'));
+
+			// Reconstruct the query string without the 'reload' parameter
+			const newQueryString = filteredParams.join('&');
+
+			// Construct a new URL without the 'reload' parameter
+			const newUrl = baseUrl + newQueryString;
+
+			// Reload the page without the 'reload' parameter
+			window.location.replace(newUrl);
+		}
 	});
 </script>
 

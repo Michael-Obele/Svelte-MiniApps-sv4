@@ -1,9 +1,12 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcryptjs';
-import { db } from '$lib/database';
+import { getDbInstance } from '$lib/database';
+
 import { isPrismaClientKnownRequestError, enhance } from '@zenstackhq/runtime';
 import { Admin_PW } from '$env/static/private';
+
+const db = getDbInstance(); // Get the Prisma client instance
 
 enum Roles {
 	ADMIN = 'ADMIN',

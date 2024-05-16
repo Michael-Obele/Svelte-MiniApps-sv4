@@ -1,6 +1,8 @@
 import type { LayoutServerLoad } from './$types';
-import { db } from '$lib/database';
+import { getDbInstance } from '$lib/database';
+
 import { redirect } from '@sveltejs/kit';
+const db = getDbInstance(); // Get the Prisma client instance
 
 // get `locals.user` and pass it to the `page` store
 export const load: LayoutServerLoad = async (event) => {

@@ -2,7 +2,9 @@ import { fail, redirect } from '@sveltejs/kit';
 import bcrypt from 'bcryptjs';
 import type { Action, Actions, PageServerLoad } from './$types';
 
-import { db } from '$lib/database';
+import { getDbInstance } from '$lib/database';
+
+const db = getDbInstance(); // Get the Prisma client instance
 
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
@@ -50,7 +52,7 @@ const login: Action = async ({ cookies, request }) => {
 		maxAge: 60 * 60 * 24 * 30
 	});
 
-	redirect(302, '/');
+	return redirect(302, '/?reload=true');
 };
 
 export const actions: Actions = { login };
