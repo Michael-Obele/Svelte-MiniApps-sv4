@@ -2,6 +2,7 @@
 	import UserInfo from './UserInfo.svelte';
 	import { CalendarDays, Github } from 'lucide-svelte';
 	import { page } from '$app/stores';
+	import date from 'date-and-time';
 	import { stringifyWithBigInt } from '$lib/utils';
 	import { _fetchCommitData } from './+page';
 	export let data;
@@ -20,6 +21,9 @@
 
 	let userData = $page.data?.user?.data;
 	let gitData = $page.data?.user?.session?.user;
+
+	const pattern = date.compile('ddd, MMM DD YYYY');
+	const timePattern = date.compile('hh:mm A');
 </script>
 
 <div class="bg-gray-100 py-4 dark:bg-gray-900">
@@ -59,7 +63,8 @@
 								</h3>
 								<time
 									class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
-									>{formatDate(commitData.commit.committer.date)}</time
+									>Released on {date.format(new Date(commitData.commit.committer.date), pattern)} at
+									{date.format(new Date(commitData.commit.committer.date), timePattern)}</time
 								>
 								<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
 									{commitData.commit.message}
