@@ -6,21 +6,22 @@ generator client {
 }
 
 datasource db {
-  provider = "cockroachdb"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model UserDB {
-  id            String   @id @default(uuid())
-  username      String   @unique
+  id            String       @id @default(uuid())
+  username      String       @unique
   passwordHash  String
-  userAuthToken String   @unique
-  isAdmin       Boolean  @default(false)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  role          Roles    @relation(fields: [roleId], references: [id])
+  userAuthToken String       @unique
+  isAdmin       Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  role          Roles        @relation(fields: [roleId], references: [id])
   roleId        BigInt
-  userExtras    Json?
+
+  userExtras    UserExtras[]
 }
 
 model Roles {
@@ -30,17 +31,35 @@ model Roles {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String       @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?      @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  isAdmin       Boolean   @default(false)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  userExtras    Json?
+  isAdmin       Boolean      @default(false)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+
+  userExtras    UserExtras[]
+}
+
+model UserExtras {
+  id                String  @id @default(cuid())
+  userId            String?
+  userDbId          String?
+  themePreference   String?  // Preferred theme (light, dark, etc.)
+  languageSetting   String?
+  privacyLevel      Int? // Privacy level (public, private, friends-only)
+  bio               String?  // Short bio or description
+  profilePictureUrl String? // URL of the user's profile picture
+
+  user              User?   @relation(fields: [userId], references: [id])
+  userDb            UserDB? @relation(fields: [userDbId], references: [id])
+
+  @@unique([userId])
+  @@unique([userDbId])
 }
 
 model Account {

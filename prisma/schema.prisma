@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 datasource db {
-    provider = "cockroachdb"
+    provider = "sqlite"
     url = env("DATABASE_URL")
 }
 
@@ -22,7 +22,7 @@ model UserDB {
     updatedAt DateTime @updatedAt()
     role Roles @relation(fields: [roleId], references: [id])
     roleId BigInt
-    userExtras Json?
+    userExtras UserExtras[]
 }
 
 model Roles {
@@ -42,7 +42,23 @@ model User {
     isAdmin Boolean @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    userExtras Json?
+    userExtras UserExtras[]
+}
+
+model UserExtras {
+    id String @id() @default(cuid())
+    userId String?
+    userDbId String?
+    themePreference String?
+    languageSetting String?
+    privacyLevel Int?
+    bio String?
+    profilePictureUrl String?
+    user User? @relation(fields: [userId], references: [id])
+    userDb UserDB? @relation(fields: [userDbId], references: [id])
+
+    @@unique([userId])
+    @@unique([userDbId])
 }
 
 model Account {

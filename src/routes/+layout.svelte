@@ -4,6 +4,7 @@
 	import { Toaster } from '$lib/components/ui/sonner';
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
+	import { partytownSnippet } from '@builder.io/partytown/integration';
 
 	import { afterUpdate, onMount } from 'svelte';
 
@@ -52,6 +53,8 @@
 
 <svelte:head>
 	<title>Svelte MiniApps</title>
+	{@html '<script>' + partytownSnippet() + '</script>'}
+	<script src="https://cdn.lordicon.com/lordicon.js" type="text/partytown"></script>
 </svelte:head>
 
 <ModeWatcher />
