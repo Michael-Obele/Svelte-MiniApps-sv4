@@ -1,6 +1,6 @@
 {
 	"name": "Svelte Mini Apps",
-	"short_name": "SvelteMiniApps",
+	"short_name": "Svelte-Apps",
 	"description": "A collection of useful and engaging tools built with Svelte.",
 	"start_url": "/",
 	"display": "standalone",
