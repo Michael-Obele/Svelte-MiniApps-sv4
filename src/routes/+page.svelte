@@ -5,7 +5,6 @@
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2 } from 'lucide-svelte';
 	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
-	// import * as CurrencyConverter from 'currency-converter-lt';
 	import { stringifyWithBigInt } from '$lib/utils';
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -66,7 +65,7 @@
 						<ArrowRight class="ml-2 hidden h-5 w-5 md:grid" />
 					</a>
 				</div>
-				<div
+				<!-- <div
 					class="mx-auto flex h-[60%] w-[60%] flex-row items-center justify-center md:w-full lg:h-full"
 				>
 					<Svelte />
@@ -74,7 +73,7 @@
 						class="shadow12 hidden -indent-[8vw] text-5xl min-[320px]:block sm:-indent-[12vw] md:hidden"
 						>velte
 					</span>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</section>
@@ -113,7 +112,7 @@
 						Projects Include:
 					</h2>
 					<ul
-						class="grid w-full list-inside grid-cols-1 gap-6 space-y-1 text-gray-900 dark:text-gray-400 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
+						class="mt-10 grid w-full list-inside grid-cols-1 gap-6 space-y-1 text-gray-900 dark:text-gray-400 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4"
 					>
 						{#each projects as project}
 							{#if done.includes(project.title)}
