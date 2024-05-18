@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
-	export let form: ActionData;
 	import Check from 'lucide-svelte/icons/check';
 	import ChevronsUpDown from 'lucide-svelte/icons/chevrons-up-down';
 	import { tick } from 'svelte';
@@ -13,6 +12,16 @@
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import { Separator } from '$lib/components/ui/breadcrumb';
 	import Input from '$lib/components/ui/input/input.svelte';
+
+	export let form: ActionData & FormActionData;
+
+	interface FormActionData {
+		status?: number;
+		body?: {
+			error?: string;
+			rate?: string;
+		};
+	}
 
 	let amount = '';
 
@@ -203,12 +212,12 @@
 
 {#if form?.status === 200}
 	<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
-		Conversion Successful from <span class="font-semibold">{selectedCurrencyFromLabel}</span> to
-		<span class="font-semibold">{selectedCurrencyToLabel}</span>. Your rate is:
-		<span class="font-semibold">{form.body.rate}</span>.
+		Conversion Successful from <span class="font-semibold">{selectedCurrencyFromValue}</span> to
+		<span class="font-semibold">{selectedCurrencyToValue}</span>. Your rate is:
+		<span class="font-semibold">{form?.body?.rate}</span>
 	</p>
 {:else if form?.status === 500}
 	<p class="mt-4 text-center text-lg text-red-600 dark:text-red-400">
-		An error occurred: {form?.body.error}
+		An error occurred: {form?.body?.error}
 	</p>
 {/if}

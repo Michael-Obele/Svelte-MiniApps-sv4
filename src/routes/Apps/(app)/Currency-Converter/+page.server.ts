@@ -100,10 +100,12 @@ export const actions: Actions = {
 			}
 
 			let rates = rateText;
+
+			const splitRates = rates.split(' ');
+
 			console.log({ rates });
 
-			// Convert the string to a number and format it with two decimal places
-			let rateAsNumber = parseFloat(rates);
+			let rateAsNumber = splitRates[0];
 
 			console.log(rateAsNumber);
 
