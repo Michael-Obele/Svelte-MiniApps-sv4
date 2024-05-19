@@ -54,7 +54,6 @@
 <svelte:head>
 	<title>Svelte MiniApps</title>
 	{@html '<script>' + partytownSnippet() + '</script>'}
-	<script src="https://cdn.lordicon.com/lordicon.js"></script>
 </svelte:head>
 
 <ModeWatcher />
