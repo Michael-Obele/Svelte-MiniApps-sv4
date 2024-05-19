@@ -52,7 +52,6 @@
 		"cheerio": "^1.0.0-rc.12",
 		"clsx": "^2.1.0",
 		"cmdk-sv": "^0.0.17",
-		"currency-converter-lt": "^2.0.1",
 		"d3-array": "^3.2.4",
 		"d3-scale": "^4.0.2",
 		"date-and-time": "^3.2.0",

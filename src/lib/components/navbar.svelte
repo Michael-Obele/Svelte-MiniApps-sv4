@@ -9,7 +9,7 @@
 	import { Button } from './ui/button';
 
 	import * as DropdownMenu from '$lib/components/ui/dropdown-menu';
-	import { Github } from 'lucide-svelte';
+	import { Github, Menu } from 'lucide-svelte';
 
 	// Reactive statement to determine if the current route matches the item
 	$: isActive = (item: string) => {
@@ -123,21 +123,8 @@
 				aria-expanded="false"
 			>
 				<span class="sr-only">Open main menu</span>
-				<svg
-					class="h-5 w-5"
-					aria-hidden="true"
-					xmlns="http://www.w3.org/2000/svg"
-					fill="none"
-					viewBox="0 0 17 14"
-				>
-					<path
-						stroke="currentColor"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						stroke-width="2"
-						d="M1 1h15M1 7h15M1 13h15"
-					/>
-				</svg>
+
+				<Menu aria-hidden="true" />
 			</Button>
 		</div>
 		<div
