@@ -1,11 +1,12 @@
 import { handleErrorWithSentry, replayIntegration } from '@sentry/sveltekit';
 import * as Sentry from '@sentry/sveltekit';
+import { PUBLIC_SENTRY_DSN } from '$env/static/public';
 
 // Use import.meta.env.DEV to determine the environment
 const isProduction = !import.meta.env.DEV;
 
 Sentry.init({
-	dsn: 'https://08ab6118216e73fe2743866a40174b41@o4507196497854464.ingest.de.sentry.io/4507196654944336',
+	dsn: PUBLIC_SENTRY_DSN,
 	tracesSampleRate: 1.0,
 	environment: isProduction ? 'production' : 'development',
 
