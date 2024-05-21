@@ -7,7 +7,8 @@ const db = getDbInstance(); // Get the Prisma client instance
 // get `locals.user` and pass it to the `page` store
 export const load: LayoutServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
-	// Assuming the user object has a structure like { username: string; role: { id: number; name: string; }; }
+	const hasSeenCookieNotification = event.cookies.get('seenCookieNotification');
+
 	interface User {
 		username: string;
 		role: {
@@ -28,6 +29,7 @@ export const load: LayoutServerLoad = async (event) => {
 
 	return {
 		session: await event.locals.getSession(),
-		user: { data, session: await event.locals.getSession() }
+		user: { data, session: await event.locals.getSession() },
+		hasSeenCookieNotification: hasSeenCookieNotification
 	};
 };

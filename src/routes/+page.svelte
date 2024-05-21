@@ -1,17 +1,30 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { SignIn, SignOut } from '@auth/sveltekit/components';
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
-	import { ArrowRight, CheckCircle2 } from 'lucide-svelte';
+	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
 	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
-	import { stringifyWithBigInt } from '$lib/utils';
+	import { toast } from 'svelte-sonner';
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
 	let websiteUrl = 'https://svelte-mini-apps.netlify.app/'; // Replace with your actual website URL
 	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
+
+	let hasSeenCookieNotification = $page.data.hasSeenCookieNotification;
+
+	let showCookieNotification = !hasSeenCookieNotification;
+
+	toast(' This website uses session cookies... ', {
+		action: {
+			label: 'OK',
+			onClick: () => (showCookieNotification = false)
+		},
+		duration: Number.POSITIVE_INFINITY,
+		class: 'bg-green-700 text-white dark:bg-green-300 dark:text-gray-900',
+		icon: Cookie
+	});
 </script>
 
 <svelte:head>
@@ -24,6 +37,9 @@
 	<meta name="twitter:title" content={twitterTitle} />
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="twitter:image" content={websiteImage} />
+	<meta name="robots" content="index, follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="canonical" href={websiteUrl} />
 </svelte:head>
 
 <div class="pb-5 xl:px-10">
@@ -334,3 +350,23 @@
 <!-- 
 
 -->
+<style>
+	.bg-green-700 {
+		--tw-bg-opacity: 1;
+		background-color: rgb(21 128 61 / var(--tw-bg-opacity));
+	}
+	.text-white {
+		--tw-text-opacity: 1;
+		color: rgb(255 255 255 / var(--tw-text-opacity));
+	}
+	@media (prefers-color-scheme: dark) {
+		.dark\:bg-green-300 {
+			--tw-bg-opacity: 1;
+			background-color: rgb(134 239 172 / var(--tw-bg-opacity));
+		}
+		.dark\:text-gray-900 {
+			--tw-text-opacity: 1;
+			color: rgb(17 24 39 / var(--tw-text-opacity));
+		}
+	}
+</style>
