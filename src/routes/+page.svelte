@@ -346,27 +346,3 @@
 		</div>
 	</footer> -->
 </div>
-
-<!-- 
-
--->
-<style>
-	.bg-green-700 {
-		--tw-bg-opacity: 1;
-		background-color: rgb(21 128 61 / var(--tw-bg-opacity));
-	}
-	.text-white {
-		--tw-text-opacity: 1;
-		color: rgb(255 255 255 / var(--tw-text-opacity));
-	}
-	@media (prefers-color-scheme: dark) {
-		.dark\:bg-green-300 {
-			--tw-bg-opacity: 1;
-			background-color: rgb(134 239 172 / var(--tw-bg-opacity));
-		}
-		.dark\:text-gray-900 {
-			--tw-text-opacity: 1;
-			color: rgb(17 24 39 / var(--tw-text-opacity));
-		}
-	}
-</style>
