@@ -48,6 +48,7 @@
 	<meta property="og:image" content={websiteImage} />
 	<meta name="twitter:title" content={twitterTitle} />
 	<meta name="twitter:description" content={twitterDescription} />
+	<meta name="google-site-verification" content="10ATAx6uImjU99YXvI91DB-E9h-MAgI6jsUkLfJlRwY" />
 	<meta name="twitter:image" content={websiteImage} />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
