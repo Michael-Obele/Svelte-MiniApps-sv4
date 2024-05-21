@@ -2,9 +2,10 @@
 	import { page } from '$app/stores';
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
-	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
+	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
 	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
 	import { toast } from 'svelte-sonner';
+	import { showCookieNotification } from '$lib/utils';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -16,18 +17,15 @@
 
 	let hasSeenCookieNotification = $page.data.hasSeenCookieNotification;
 
-	let showCookieNotification = !hasSeenCookieNotification;
-	console.log(showCookieNotification);
-
 	console.log($page.data.hasSeenCookieNotification);
 
-	if (showCookieNotification) {
+	if ($showCookieNotification) {
 		console.log('Cookie notification is visible');
 
 		toast(' This website uses session cookies... ', {
 			action: {
 				label: 'OK',
-				onClick: () => (showCookieNotification = false)
+				onClick: () => showCookieNotification.set(false)
 			},
 			duration: Number.POSITIVE_INFINITY,
 			class: 'bg-green-700 text-white dark:bg-green-300 dark:text-gray-900',
@@ -87,7 +85,16 @@
 				"@type": "Answer",
 				"text": "Yes, Svelte MiniApps is open source. You can view and contribute to the source code on our GitHub repository."
 			}
-		}, {
+		},
+		{
+    "@type": "Question",
+    "name": "Is the web app installable and how can I install it?",
+    "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the web app is installable as it's a Progressive Web App (PWA). On Chrome, click on the three-dot menu in the top-right corner, then click on 'Install App'. On Safari, tap the Share button, then tap 'Add to Home Screen'."
+    }
+},
+ {
         "@type": "Question",
         "name": "Where can I learn more about Svelte?",
         "acceptedAnswer": {
@@ -389,30 +396,30 @@
 		</div>
 	</section>
 </div>
-<footer class="w-full bg-gray-800 py-5 text-center text-white md:py-10">
+<footer class="w-full bg-black py-5 text-center text-white md:py-10">
 	<div class="container px-4 md:px-6">
 		<!-- Existing Scroll to Top Button -->
 		<button
-			class="mt-4 text-gray-500 underline hover:no-underline dark:text-gray-400"
+			class="mt-2 text-red-500 underline hover:no-underline dark:text-green-500"
 			on:click={scrollToTop}
 		>
 			Back to top
 		</button>
 		<!-- New Content: Made with Love and Installable Message -->
-		<div class="mt-4 flex flex-wrap justify-center gap-4">
+		<div class="mt-2 flex flex-wrap items-center justify-center gap-4">
 			<a
-				href="https://github.com/yourusername/your-repo-name"
+				href="https://github.com/Michael-Obele/Svelte-MiniApps"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="text-gray-400 hover:text-gray-300"
+				class="flex flex-row items-center justify-between text-green-400 hover:text-green-300"
 			>
-				Made with ❤️ by Your Name
+				Made with
+				<Heart size="20" class="mx-2 text-red-500" fill="red" />
+				by Michael-Obele
 			</a>
-			<p>This app is <span class="font-semibold">installable</span>.</p>
-		</div>
-		<!-- Copyright Notice -->
-		<div class="mt-2 text-sm">
-			&copy; {new Date().getFullYear()} Your Company or Personal Name. All rights reserved.
+			<p class="text-sm text-gray-500">
+				FYI: This app is <span class="font-semibold text-red-500">installable</span>.
+			</p>
 		</div>
 	</div>
 </footer>
