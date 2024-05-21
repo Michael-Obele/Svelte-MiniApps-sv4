@@ -5,26 +5,40 @@
 	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
 	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
 	import { toast } from 'svelte-sonner';
+	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
-	let websiteUrl = 'https://svelte-mini-apps.netlify.app/'; // Replace with your actual website URL
+	let websiteUrl = 'https://svelte-mini-apps.netlify.app/';
 	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
+	//
 
 	let hasSeenCookieNotification = $page.data.hasSeenCookieNotification;
 
 	let showCookieNotification = !hasSeenCookieNotification;
+	console.log(showCookieNotification);
 
-	toast(' This website uses session cookies... ', {
-		action: {
-			label: 'OK',
-			onClick: () => (showCookieNotification = false)
-		},
-		duration: Number.POSITIVE_INFINITY,
-		class: 'bg-green-700 text-white dark:bg-green-300 dark:text-gray-900',
-		icon: Cookie
-	});
+	console.log($page.data.hasSeenCookieNotification);
+
+	if (showCookieNotification) {
+		console.log('Cookie notification is visible');
+
+		toast(' This website uses session cookies... ', {
+			action: {
+				label: 'OK',
+				onClick: () => (showCookieNotification = false)
+			},
+			duration: Number.POSITIVE_INFINITY,
+			class: 'bg-green-700 text-white dark:bg-green-300 dark:text-gray-900',
+			icon: Cookie
+		});
+	}
+
+	// Function to scroll smoothly to the top of the page
+	function scrollToTop() {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	}
 </script>
 
 <svelte:head>
@@ -40,6 +54,49 @@
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="canonical" href={websiteUrl} />
+
+	<script type="application/ld+json">
+	{{
+		"@context": "https://schema.org",
+		"@type": "FAQPage",
+		"mainEntity": [{
+			"@type": "Question",
+			"name": "What is Svelte MiniApps?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Svelte MiniApps is a collection of useful and engaging tools built with Svelte."
+			}
+		}, {
+			"@type": "Question",
+			"name": "How can I use Svelte MiniApps?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "You can use Svelte MiniApps by visiting our website and choosing the tool you want to use."
+			}
+		}, {
+			"@type": "Question",
+			"name": "Is Svelte MiniApps installable?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Yes, Svelte MiniApps is a Progressive Web App (PWA) and can be installed on your device for offline use."
+			}
+		}, {
+			"@type": "Question",
+			"name": "Is Svelte MiniApps open source?",
+			"acceptedAnswer": {
+				"@type": "Answer",
+				"text": "Yes, Svelte MiniApps is open source. You can view and contribute to the source code on our GitHub repository."
+			}
+		}, {
+        "@type": "Question",
+        "name": "Where can I learn more about Svelte?",
+        "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can learn more about Svelte by visiting the official Svelte website at https://svelte.dev/. They have a comprehensive guide and tutorial that can help you get started with Svelte."
+        }
+    }]
+	}}
+	</script>
 </svelte:head>
 
 <div class="pb-5 xl:px-10">
@@ -331,18 +388,31 @@
 			</div>
 		</div>
 	</section>
-
-	<!-- <footer class="w-full py-12 text-center md:py-24 lg:py-32">
-		<div class="container px-4 md:px-6">
-			<p class="text-gray-500 dark:text-gray-400">
-				Support me on <a
-					href="https://github.com/yourusername"
-					class="text-green-700 hover:text-green-800">GitHub</a
-				>.
-			</p>
-			<p class="text-gray-500 dark:text-gray-400">
-				This app is a Progressive Web App (PWA), and some apps can work completely offline.
-			</p>
-		</div>
-	</footer> -->
 </div>
+<footer class="w-full bg-gray-800 py-5 text-center text-white md:py-10">
+	<div class="container px-4 md:px-6">
+		<!-- Existing Scroll to Top Button -->
+		<button
+			class="mt-4 text-gray-500 underline hover:no-underline dark:text-gray-400"
+			on:click={scrollToTop}
+		>
+			Back to top
+		</button>
+		<!-- New Content: Made with Love and Installable Message -->
+		<div class="mt-4 flex flex-wrap justify-center gap-4">
+			<a
+				href="https://github.com/yourusername/your-repo-name"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-gray-400 hover:text-gray-300"
+			>
+				Made with ❤️ by Your Name
+			</a>
+			<p>This app is <span class="font-semibold">installable</span>.</p>
+		</div>
+		<!-- Copyright Notice -->
+		<div class="mt-2 text-sm">
+			&copy; {new Date().getFullYear()} Your Company or Personal Name. All rights reserved.
+		</div>
+	</div>
+</footer>

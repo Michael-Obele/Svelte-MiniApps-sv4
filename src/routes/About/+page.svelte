@@ -97,6 +97,33 @@
 	});
 </script>
 
+<svelte:head>
+	<title>About Page | Svelte MiniApps</title>
+	<meta
+		name="description"
+		content="Discover more about Svelte MiniApps on our About page. Learn about our innovative tools, unique Svelte applications, and how we're revolutionizing the Svelte ecosystem."
+	/>
+	<meta
+		name="keywords"
+		content="Svelte, MiniApps, About, Tools, Applications, Ecosystem, Innovative, Unique"
+	/>
+	<meta property="og:title" content="About Page | Svelte MiniApps" />
+	<meta
+		property="og:description"
+		content="Discover more about Svelte MiniApps on our About page. Learn about our innovative tools, unique Svelte applications, and how we're revolutionizing the Svelte ecosystem."
+	/>
+	<meta property="og:image" content="%sveltekit.assets%/svelte-badge.png" />
+	<meta property="og:url" content="https://svelte-mini-apps.netlify.app" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="About Page | Svelte MiniApps" />
+	<meta
+		name="twitter:description"
+		content="Discover more about Svelte MiniApps on our About page. Learn about our innovative tools, unique Svelte applications, and how we're revolutionizing the Svelte ecosystem."
+	/>
+	<meta name="twitter:image" content="%sveltekit.assets%/svelte-badge.png" />
+	<link rel="canonical" href="https://svelte-mini-apps.netlify.app" />
+</svelte:head>
+
 <section class="m-2 px-2 py-3 lg:px-10">
 	<h3
 		id="MiniApps"
