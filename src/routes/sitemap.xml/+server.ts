@@ -1,4 +1,3 @@
-import { type RequestHandler } from '@sveltejs/kit';
 import { done } from '$lib';
 
 // Your domain
