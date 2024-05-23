@@ -212,7 +212,7 @@
 				{#each data.features as feature, i}
 					<li id={feature.title.split(' ').join('-')} class="flex items-center">
 						<lord-icon
-							target="#{feature.title.split(' ').join('-')} "
+							target="li"
 							src="https://cdn.lordicon.com/cgzlioyf.json"
 							trigger="morph"
 							colors="primary:#c71f16,secondary:#109173"
@@ -243,7 +243,7 @@
 				<li id="Browse" class="flex items-center space-x-3 rtl:space-x-reverse">
 					<lord-icon
 						src="https://cdn.lordicon.com/unukghxb.json"
-						target="#Browse"
+						target="li"
 						trigger="morph"
 						colors="primary:#c71f16,secondary:#109173"
 						class="mr-5 hidden h-8 w-8 text-green-500 dark:text-green-400 md:block"
@@ -257,7 +257,7 @@
 				<li id="Dive" class="flex items-center space-x-3 rtl:space-x-reverse">
 					<lord-icon
 						src="https://cdn.lordicon.com/uvqdhrsk.json"
-						target="#Dive"
+						target="li"
 						trigger="morph"
 						colors="primary:#c71f16,secondary:#109173"
 						class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
@@ -352,7 +352,7 @@
 					<li id={item.title.split(' ').join('-')} class="flex items-center">
 						{#if i == 0}
 							<lord-icon
-								target="#{item.title.split(' ').join('-')}"
+								target="li"
 								src="https://cdn.lordicon.com/jdalicnn.json"
 								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
@@ -361,7 +361,7 @@
 							</lord-icon>
 						{:else if i == 1}
 							<lord-icon
-								target="#{item.title.split(' ').join('-')}"
+								target="li"
 								src="https://cdn.lordicon.com/wzrwaorf.json"
 								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
@@ -392,7 +392,7 @@
 					<li id={item.title.split(' ').join('-')} class="flex items-center">
 						{#if i == 0}
 							<lord-icon
-								target="#{item.title.split(' ').join('-')} "
+								target="li"
 								src="https://cdn.lordicon.com/xpuzvjaf.json"
 								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
@@ -401,7 +401,7 @@
 							</lord-icon>
 						{:else if i == 1}
 							<lord-icon
-								target="#{item.title.split(' ').join('-')} "
+								target="li"
 								src="https://cdn.lordicon.com/kndkiwmf.json"
 								trigger="morph"
 								colors="primary:#c71f16,secondary:#109173"
@@ -433,12 +433,13 @@
 	<a
 		href="https://github.com/Michael-Obele/Svelte-MiniApps"
 		target="_blank"
-		class="group mb-4 flex flex-row items-center rounded-md px-4 py-2 font-bold text-green-500 hover:text-green-700 dark:text-green-300 dark:hover:text-green-500 md:mb-0 md:flex-col"
+		class="group mb-4 flex flex-row items-center justify-center rounded-md px-4 py-2 font-bold text-green-500 hover:text-green-700 dark:text-green-300 dark:hover:text-green-500 md:mb-0 md:flex-col"
 		aria-label="Support us on GitHub"
 	>
 		Support Us on GitHub
 		<lord-icon
 			id="giticon"
+			target="a"
 			src="https://cdn.lordicon.com/yedgackm.json"
 			trigger={gitIconTrigger}
 			delay="1500"
