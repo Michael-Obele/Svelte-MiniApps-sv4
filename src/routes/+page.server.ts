@@ -16,7 +16,7 @@ export const actions = {
 	logout: () => {
 		redirect(302, '/Logout');
 	},
-	seen: () => {
-		setCookieNotification(event);
+	seen: ({ cookies }) => {
+		cookies.set('seenCookieNotification', 'true', { path: '/' });
 	}
 } satisfies Actions;

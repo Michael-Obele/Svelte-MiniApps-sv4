@@ -9,7 +9,7 @@
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
-	let websiteUrl = 'https://svelte-mini-apps.netlify.app/';
+	let websiteUrl = 'https://svelte-miniapps.netlify.app/';
 	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;

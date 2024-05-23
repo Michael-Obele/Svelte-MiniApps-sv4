@@ -53,10 +53,10 @@
 		property="og:description"
 		content="Generates random passwords with configurable length and complexity. Secure your accounts with ease."
 	/>
-	<meta property="og:url" content="https://svelte-mini-apps.netlify.app/apps/password-generator" />
+	<meta property="og:url" content="https://svelte-miniapps.netlify.app/apps/password-generator" />
 	<meta
 		property="og:image"
-		content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png"
+		content="https://svelte-miniapps.netlify.app/static/images/password-generator.png"
 	/>
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
@@ -72,10 +72,10 @@
 	/>
 	<meta
 		name="twitter:image"
-		content="https://svelte-mini-apps.netlify.app/static/images/password-generator.png"
+		content="https://svelte-miniapps.netlify.app/static/images/password-generator.png"
 	/>
 
-	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/apps/password-generator" />
+	<link rel="canonical" href="https://svelte-miniapps.netlify.app/apps/password-generator" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
 	<meta name="robots" content="index, follow" />
@@ -84,7 +84,7 @@
 			"@context": "http://schema.org",
 			"@type": "WebApplication",
 			"name": "Svelte MiniApps - Password Generator",
-			"url": "https://svelte-mini-apps.netlify.app/apps/password-generator",
+			"url": "https://svelte-miniapps.netlify.app/apps/password-generator",
 			"description": "Generates random passwords with configurable length and complexity. Secure your accounts with ease."
 		}
 	</script>
