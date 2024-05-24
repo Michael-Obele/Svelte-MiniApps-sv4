@@ -1,5 +1,5 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageServerLoad, Actions } from './$types';
+import type { PageServerLoad, Actions, RequestEvent } from './$types';
 
 const setCookieNotification = (event: any) => {
 	const hasSeenCookieNotification = event.cookies.get('seenCookieNotification');
@@ -20,7 +20,3 @@ export const actions = {
 		cookies.set('seenCookieNotification', 'true', { path: '/' });
 	}
 } satisfies Actions;
-
-export let _setCookieNotification = ({ cookies }: any) => {
-	cookies.set('seenCookieNotification', 'true', { path: '/' });
-};

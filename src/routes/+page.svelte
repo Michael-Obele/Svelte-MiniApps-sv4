@@ -4,7 +4,7 @@
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
-	import { showCookieNotification } from '$lib/utils';
+	import { goto } from '$app/navigation';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -14,20 +14,17 @@
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
 
-	let hasSeenCookieNotification = $page.data.hasSeenCookieNotification;
+	let seenCookieNotification = $page.data.hasSeenCookieNotification;
 
-	console.log($page.data.hasSeenCookieNotification);
-
-	if ($showCookieNotification) {
+	if (!seenCookieNotification) {
 		console.log('Cookie notification is visible');
 
 		toast(' This website uses session cookies... ', {
 			action: {
 				label: 'OK',
-				onClick: () => showCookieNotification.set(false)
+				onClick: () => goto('/cookies')
 			},
 			duration: Number.POSITIVE_INFINITY,
-			class: 'bg-green-700 text-white dark:bg-green-300 dark:text-gray-900',
 			icon: Cookie
 		});
 	}
