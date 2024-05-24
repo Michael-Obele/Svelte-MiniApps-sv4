@@ -35,16 +35,13 @@
 	/>
 	<meta
 		property="og:url"
-		content="https://https://svelte-mini-apps.netlify.app/apps/random-emoji-generator"
+		content="https://svelte-mini-apps.netlify.app/apps/random-emoji-generator"
 	/>
 	<meta
 		property="og:image"
-		content="https://https://svelte-mini-apps.netlify.app/static/images/random-emoji-generator.png"
+		content="https://svelte-mini-apps.netlify.app/static/images/random-emoji-generator.png"
 	/>
-	<link
-		rel="canonical"
-		href="https://https://svelte-mini-apps.netlify.app/apps/random-emoji-generator"
-	/>
+	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/apps/random-emoji-generator" />
 	<meta name="twitter:title" content="Random Emoji Generator - Svelte MiniApps" />
 	<meta name="keywords" content="Random Emoji, Emoji Generator, Fun, Productivity, Svelte Apps" />
 	<meta name="twitter:card" content="summary_large_image" />
@@ -54,7 +51,7 @@
 	/>
 	<meta
 		name="twitter:image"
-		content="https://https://svelte-mini-apps.netlify.app/static/images/random-emoji-generator.png"
+		content="https://svelte-mini-apps.netlify.app/static/images/random-emoji-generator.png"
 	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
@@ -64,7 +61,7 @@
 			"@context": "http://schema.org",
 			"@type": "WebApplication",
 			"name": "Random Emoji Generator",
-			"url": "https://https://svelte-mini-apps.netlify.app/apps/random-emoji-generator",
+			"url": "https://svelte-mini-apps.netlify.app/apps/random-emoji-generator",
 			"description": "Generate random emojis with our Random Emoji Generator. Click the button to get a new emoji. Perfect for fun and productivity."
 		}
 	</script>
