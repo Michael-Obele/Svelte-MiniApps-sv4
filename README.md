@@ -115,4 +115,4 @@ Here's a brief summary of the MIT License:
 
 The full license text can be found in the [`LICENSE`](LICENSE) file included in this repository.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://app.netlify.com/sites/svelte-miniapps/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://app.netlify.com/sites/svelte-mini-apps/deploys)
