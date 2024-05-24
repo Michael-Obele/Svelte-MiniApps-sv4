@@ -408,7 +408,7 @@
 		<!-- New Content: Made with Love and Installable Message -->
 		<div class="mt-2 flex flex-wrap items-center justify-center gap-4">
 			<a
-				href="https://github.com/Michael-Obele/Svelte-MiniApps"
+				href="https://github.com/Michael-Obele"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="flex flex-row items-center justify-between text-green-400 hover:text-green-300"
