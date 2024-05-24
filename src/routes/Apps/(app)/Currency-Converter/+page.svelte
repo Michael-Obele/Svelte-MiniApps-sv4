@@ -10,7 +10,6 @@
 	import { cn } from '$lib/utils.js';
 	import { _currencies } from './+page';
 	import { ScrollArea } from '$lib/components/ui/scroll-area';
-	import { Separator } from '$lib/components/ui/breadcrumb';
 	import Input from '$lib/components/ui/input/input.svelte';
 
 	export let form: ActionData & FormActionData;
@@ -144,7 +143,7 @@
 		/>
 
 		<div class="mx-5 h-fit">
-			<Popover.Root bind:open2 let:ids>
+			<Popover.Root bind:open let:ids>
 				<Popover.Trigger asChild let:builder>
 					<Button
 						builders={[builder]}

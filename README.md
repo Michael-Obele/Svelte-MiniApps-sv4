@@ -77,7 +77,7 @@ npm run dev
 
 This will launch a local server and open all the available mini-apps in your browser window. Navigate through the different functionalities and see how they work.
 
-## Installable
+### Installable
 
 You can install Svelte MiniApps as standalone applications on your device for quick access. To install Svelte MiniApps:
 
@@ -86,6 +86,10 @@ You can install Svelte MiniApps as standalone applications on your device for qu
 3. Select "Install" or "Add to Home Screen."
 
 Svelte MiniApps will be added to your device's home screen, allowing you to launch it like any other app.
+
+### Live Version
+You can also access a live version of the Svelte MiniApps project on our website: [Svelte MiniApps](https://svelte-mini-apps.netlify.app/)
+
 
 ## Contributing to Svelte MiniApps
 
@@ -111,4 +115,4 @@ Here's a brief summary of the MIT License:
 
 The full license text can be found in the [`LICENSE`](LICENSE) file included in this repository.
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://app.netlify.com/sites/svelte-mini-apps/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://app.netlify.com/sites/svelte-miniapps/deploys)

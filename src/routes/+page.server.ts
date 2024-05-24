@@ -20,3 +20,7 @@ export const actions = {
 		cookies.set('seenCookieNotification', 'true', { path: '/' });
 	}
 } satisfies Actions;
+
+export let _setCookieNotification = ({ cookies }: any) => {
+	cookies.set('seenCookieNotification', 'true', { path: '/' });
+};

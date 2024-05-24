@@ -3,13 +3,12 @@
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
-	import { Chart, Svg, Text, Axis, Bars, Group, LinearGradient, Arc } from 'layerchart';
 	import { toast } from 'svelte-sonner';
 	import { showCookieNotification } from '$lib/utils';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
-	let websiteUrl = 'https://svelte-miniapps.netlify.app/';
+	let websiteUrl = 'https://https://svelte-mini-apps.netlify.app//';
 	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
