@@ -50,7 +50,7 @@
     "bcryptjs": "^2.4.3",
     "bits-ui": "^0.21.9",
     "cheerio": "^1.0.0-rc.12",
-    "clsx": "^2.1.0",
+    "clsx": "^2.1.1",
     "cmdk-sv": "^0.0.17",
     "d3-array": "^3.2.4",
     "d3-scale": "^4.0.2",
@@ -66,11 +66,12 @@
     "node-emoji": "^2.1.3",
     "pg": "^8.11.5",
     "svelte-heatmap": "^1.0.2",
+    "svelte-motion": "^0.12.2",
     "svelte-qrcode-image": "^1.0.0-rc.2",
     "svelte-radix": "^1.1.0",
     "svelte-sonner": "^0.3.22",
     "sveltekit-superforms": "^2.12.2",
-    "tailwind-merge": "^2.2.2",
+    "tailwind-merge": "^2.3.0",
     "tailwind-variants": "^0.2.1",
     "zod": "^3.22.4"
   }
