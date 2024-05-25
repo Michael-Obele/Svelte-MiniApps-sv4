@@ -1,4 +1,4 @@
-import { error, type Actions } from '@sveltejs/kit';
+import { error, fail, type Actions } from '@sveltejs/kit';
 
 import * as cheerio from 'cheerio';
 
@@ -89,14 +89,14 @@ export const actions: Actions = {
 				{}
 			);
 			if (!(response as Response).ok) {
-				error(302, 'Network response was not ok');
+				error(402, 'Network response was not ok');
 			}
 			const body = await (response as Response).text();
 			const $ = cheerio.load(body);
 
 			const rateText = $('.iBp4i').text();
 			if (!rateText) {
-				throw new Error('Rate text not found');
+				error(408, 'Rate text not found');
 			}
 
 			let rates = rateText;
@@ -111,6 +111,8 @@ export const actions: Actions = {
 
 			// Return a Response object
 			return {
+				currencyFrom,
+				currencyTo,
 				status: 200,
 				body: {
 					rate: rateAsNumber
@@ -119,12 +121,7 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error('Error fetching rates:', error);
 			// Return a Response object with an error status
-			return {
-				status: 500,
-				body: {
-					error: 'Failed to fetch currency rates'
-				}
-			};
+			return fail(500, { currencyFrom, currencyTo, error: 'Failed to fetch currency rates' });
 		}
 	}
 };

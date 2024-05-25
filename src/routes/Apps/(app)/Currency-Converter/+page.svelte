@@ -71,6 +71,7 @@
 	<div class="flex flex-row flex-wrap items-center justify-center space-y-3 sm:space-y-0">
 		<Input
 			type="text"
+			list="currency-from"
 			name="currencyFrom"
 			id="currencyFrom"
 			bind:value={selectedCurrencyFromValue}
@@ -79,51 +80,11 @@
 			class="mt-1 h-fit w-fit max-w-fit border border-gray-300 p-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-gray-100 dark:focus:border-green-500 dark:focus:ring-green-500"
 		/>
 
-		<div class="mx-5 h-fit">
-			<Popover.Root bind:open let:ids>
-				<Popover.Trigger asChild let:builder>
-					<Button
-						builders={[builder]}
-						variant="outline"
-						role="combobox"
-						aria-expanded={open}
-						class="w-[200px] justify-between"
-					>
-						{selectedCurrencyFromLabel}
-						<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-					</Button>
-				</Popover.Trigger>
-				<Popover.Content class="w-[200px] p-0">
-					<Command.Root>
-						<Command.Input placeholder="Search currency..." />
-						<Command.Empty>No currency found.</Command.Empty>
-						<ScrollArea class="h-72 w-48 rounded-md border">
-							<Command.Group>
-								<div class="p-4">
-									{#each currencyList as currency}
-										<Command.Item
-											value={currency.value}
-											onSelect={(currentValue) => {
-												selectedCurrencyFrom = currentValue;
-												closeAndFocusTrigger(ids.trigger);
-											}}
-										>
-											<Check
-												class={cn(
-													'mr-2 h-4 w-4',
-													selectedCurrencyFrom !== currency.value && 'text-transparent'
-												)}
-											/>
-											{currency.label}
-										</Command.Item>
-									{/each}
-								</div>
-							</Command.Group>
-						</ScrollArea>
-					</Command.Root>
-				</Popover.Content>
-			</Popover.Root>
-		</div>
+		<datalist id="currency-from">
+			{#each currencyList as currency}
+				<option label={currency.label} value={currency.value}></option>
+			{/each}
+		</datalist>
 	</div>
 
 	<label
@@ -134,6 +95,7 @@
 	<div class="flex flex-row flex-wrap items-center justify-center space-y-3 sm:space-y-0">
 		<Input
 			type="text"
+			list="currency-to"
 			id="currencyTo"
 			name="currencyTo"
 			required
@@ -142,51 +104,11 @@
 			class="mt-1 h-fit w-fit max-w-fit border border-gray-300 p-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-gray-100 dark:focus:border-green-500 dark:focus:ring-green-500"
 		/>
 
-		<div class="mx-5 h-fit">
-			<Popover.Root bind:open let:ids>
-				<Popover.Trigger asChild let:builder>
-					<Button
-						builders={[builder]}
-						variant="outline"
-						role="combobox"
-						aria-expanded={open2}
-						class="w-[200px] justify-between"
-					>
-						{selectedCurrencyToLabel}
-						<ChevronsUpDown class="ml-2 h-4 w-4 shrink-0 opacity-50" />
-					</Button>
-				</Popover.Trigger>
-				<Popover.Content class="w-[200px] p-0">
-					<Command.Root>
-						<Command.Input placeholder="Search currency..." />
-						<Command.Empty>No currency found.</Command.Empty>
-						<ScrollArea class="h-72 w-48 rounded-md border">
-							<Command.Group>
-								<div class="p-4">
-									{#each currencyList as currency}
-										<Command.Item
-											value={currency.value}
-											onSelect={(currentValue) => {
-												selectedCurrencyTo = currentValue;
-												closeAndFocusTriggerTo(ids.trigger);
-											}}
-										>
-											<Check
-												class={cn(
-													'mr-2 h-4 w-4',
-													selectedCurrencyTo !== currency.value && 'text-transparent'
-												)}
-											/>
-											{currency.label}
-										</Command.Item>
-									{/each}
-								</div>
-							</Command.Group>
-						</ScrollArea>
-					</Command.Root>
-				</Popover.Content>
-			</Popover.Root>
-		</div>
+		<datalist id="currency-to">
+			{#each currencyList as currency}
+				<option label={currency.label} value={currency.value}></option>
+			{/each}
+		</datalist>
 	</div>
 	<div class="flex flex-col items-center justify-center">
 		<label for="currencyAmount" class="block text-sm font-medium text-gray-700 dark:text-gray-300"
