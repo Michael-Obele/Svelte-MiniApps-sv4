@@ -1,15 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import type { ActionData } from './$types';
-	import Check from 'lucide-svelte/icons/check';
-	import ChevronsUpDown from 'lucide-svelte/icons/chevrons-up-down';
-	import { tick } from 'svelte';
-	import * as Command from '$lib/components/ui/command/index.js';
-	import * as Popover from '$lib/components/ui/popover/index.js';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { cn } from '$lib/utils.js';
 	import { _currencies } from './+page';
-	import { ScrollArea } from '$lib/components/ui/scroll-area';
 	import Input from '$lib/components/ui/input/input.svelte';
 
 	export let form: ActionData & FormActionData;
@@ -21,46 +13,18 @@
 			rate?: string;
 		};
 	}
-
-	let amount = '';
-
 	let currencyList = _currencies;
-
-	let open = false;
-	let selectedCurrencyFrom = '';
-
-	let open2 = false;
-	let selectedCurrencyTo = '';
-
-	$: selectedCurrencyFromValue =
-		currencyList.find((f) => f.value === selectedCurrencyFrom)?.value ?? '';
-
-	$: selectedCurrencyFromLabel =
-		currencyList.find((f) => f.value === selectedCurrencyFrom)?.label ?? 'Select a currency...';
-
-	$: selectedCurrencyToValue =
-		currencyList.find((f) => f.value === selectedCurrencyTo)?.value ?? '';
-	$: selectedCurrencyToLabel =
-		currencyList.find((f) => f.value === selectedCurrencyTo)?.label ?? 'Select a currency...';
-
-	function closeAndFocusTrigger(triggerId: string) {
-		open = false;
-
-		tick().then(() => {
-			document.getElementById(triggerId)?.focus();
-		});
-	}
-
-	function closeAndFocusTriggerTo(triggerId: string) {
-		open2 = false;
-
-		tick().then(() => {
-			document.getElementById(triggerId)?.focus();
-		});
-	}
 </script>
 
-<h1 class="mb-4 text-4xl font-bold text-gray-800 dark:text-gray-200">Currency Converter</h1>
+<section class="my-8 px-4 text-center">
+	<h1 class="mb-4 text-4xl font-bold text-gray-800 dark:text-gray-200">
+		Welcome to Currency Converter
+	</h1>
+	<p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
+		Convert currencies effortlessly. Just input the amount and currencies, and get your results
+		instantly.
+	</p>
+</section>
 
 <form use:enhance method="POST" class="space-y-4">
 	<label
@@ -74,7 +38,7 @@
 			list="currency-from"
 			name="currencyFrom"
 			id="currencyFrom"
-			bind:value={selectedCurrencyFromValue}
+			value={form?.currencyFrom ?? ''}
 			required
 			placeholder="Enter currency code (e.g., USD)"
 			class="mt-1 h-fit w-fit max-w-fit border border-gray-300 p-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-gray-100 dark:focus:border-green-500 dark:focus:ring-green-500"
@@ -99,7 +63,7 @@
 			id="currencyTo"
 			name="currencyTo"
 			required
-			bind:value={selectedCurrencyToValue}
+			value={form?.currencyTo ?? ''}
 			placeholder="Enter currency code (e.g., EUR)"
 			class="mt-1 h-fit w-fit max-w-fit border border-gray-300 p-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-gray-100 dark:focus:border-green-500 dark:focus:ring-green-500"
 		/>
@@ -118,7 +82,7 @@
 			type="number"
 			id="currencyAmount"
 			name="currencyAmount"
-			bind:value={amount}
+			value={''}
 			placeholder="Enter amount"
 			required
 			class="mt-1 block h-fit w-fit max-w-fit border border-gray-300 p-2 text-gray-900 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 dark:text-gray-100 dark:focus:border-green-500 dark:focus:ring-green-500"
@@ -133,9 +97,10 @@
 
 {#if form?.status === 200}
 	<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
-		Conversion Successful from <span class="font-semibold">{selectedCurrencyFromValue}</span> to
-		<span class="font-semibold">{selectedCurrencyToValue}</span>. Your rate is:
-		<span class="font-semibold">{form?.body?.rate}</span>
+		Conversion successful from <strong>{form?.currencyFrom}</strong> to
+		<strong>{form?.currencyTo}</strong>. Amount: <strong>{form?.currencyAmount}</strong><br />
+		Your exchange rate is <strong>{form?.body?.rate}</strong>
+		{currencyList.find((f) => f.value === form?.currencyTo)?.label}.
 	</p>
 {:else if form?.status === 500}
 	<p class="mt-4 text-center text-lg text-red-600 dark:text-red-400">

@@ -5,7 +5,7 @@ import * as cheerio from 'cheerio';
 async function fetchWithTimeout(
 	url: string | URL | Request,
 	options: RequestInit | undefined,
-	timeout = 5000
+	timeout = 7000
 ) {
 	return Promise.race([
 		fetch(url, options),
@@ -61,7 +61,7 @@ export const actions: Actions = {
 		let currencyFrom = data.get('currencyFrom');
 		let currencyTo = data.get('currencyTo');
 		let currencyAmount: any = data.get('currencyAmount');
-		let isDecimalComma = data.get('isDecimalComma') === 'true';
+		let isDecimalComma = true;
 
 		// Check if currencyFrom is provided
 		if (!currencyFrom) {
@@ -74,6 +74,10 @@ export const actions: Actions = {
 		}
 
 		// Check if currencyAmount is provided and is a valid number
+		if (!currencyAmount) {
+			error(422, 'currencyAmount is required');
+		}
+
 		if (isNaN(currencyAmount)) {
 			Number(currencyAmount);
 		}
@@ -89,6 +93,7 @@ export const actions: Actions = {
 				{}
 			);
 			if (!(response as Response).ok) {
+				console.error(response);
 				error(402, 'Network response was not ok');
 			}
 			const body = await (response as Response).text();
@@ -113,6 +118,7 @@ export const actions: Actions = {
 			return {
 				currencyFrom,
 				currencyTo,
+				currencyAmount,
 				status: 200,
 				body: {
 					rate: rateAsNumber

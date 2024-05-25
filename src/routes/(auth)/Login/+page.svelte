@@ -56,7 +56,13 @@
 				>
 					Sign in to your account
 				</h1>
-				<form action="?/login" use:enhance method="POST" class="space-y-4 md:space-y-6">
+				<form
+					action="?/login"
+					use:enhance
+					on:submit={handleSubmit}
+					method="POST"
+					class="space-y-4 md:space-y-6"
+				>
 					<div>
 						<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>Username</label
