@@ -70,9 +70,9 @@ The Svelte MiniApps project showcases a collection of pre-built mini-apps. You c
 
 ```bash
 git clone https://github.com/Michael-Obele/Svelte-MiniApps.git
-cd svelte-mini-apps
-npm install  
-npm run dev  
+cd Svelte-MiniApps
+bun install  
+bun run dev  
 ```
 
 This will launch a local server and open all the available mini-apps in your browser window. Navigate through the different functionalities and see how they work.

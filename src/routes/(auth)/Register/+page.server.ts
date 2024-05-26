@@ -8,11 +8,6 @@ import { Admin_PW } from '$env/static/private';
 
 const db = getDbInstance(); // Get the Prisma client instance
 
-enum Roles {
-	ADMIN = 'ADMIN',
-	USERDB = 'USERDB'
-}
-
 export const load: PageServerLoad = async (session) => {
 	var sessionData = session.cookies.get('session');
 	if (sessionData) {
@@ -54,10 +49,11 @@ const register: Action = async ({ request }) => {
 			// duplicated Username
 			return fail(400, {
 				username,
-				password,
+
 				error: 'Username already registered! Try Logging in'
 			});
 		} else {
+			console.error('Error:', err);
 			return fail(400, { error: 'Something Unexpected happened!' });
 		}
 	}
@@ -67,48 +63,15 @@ const register: Action = async ({ request }) => {
 	return redirect(303, '/Login');
 };
 
-async function createRoleIfNotExists(roleName: string) {
-	const existingRole = await db.roles.findUnique({
-		where: { name: roleName }
-	});
-
-	if (!existingRole) {
-		const newRole = await db.roles.create({
-			data: { name: roleName }
-		});
-		console.log('Created role:', newRole);
-		if (!newRole.id) {
-			throw new Error('Role ID was not created');
-		}
-	}
-}
-
 async function createUser(username: string, password: string, isAdmin: boolean) {
 	const passwordHash = isAdmin ? adminHash : await bcrypt.hash(password, 10);
-	const roleName = isAdmin ? Roles.ADMIN : Roles.USERDB;
-
-	let role = await db.roles.findUnique({
-		where: { name: roleName }
-	});
-
-	if (!role) {
-		await createRoleIfNotExists(roleName);
-		// After creating the role, fetch it again to ensure we have the correct ID
-		role = await db.roles.findUnique({
-			where: { name: roleName }
-		});
-		if (!role) {
-			throw new Error('Failed to create role');
-		}
-	}
 
 	await db.userDB.create({
 		data: {
 			username,
 			passwordHash,
 			isAdmin,
-			userAuthToken: crypto.randomUUID(),
-			role: { connect: { id: role.id } } // Ensure role.id is used here
+			userAuthToken: crypto.randomUUID()
 		}
 	});
 }

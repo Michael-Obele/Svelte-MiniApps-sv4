@@ -20,15 +20,7 @@ model UserDB {
     isAdmin Boolean @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    role Roles @relation(fields: [roleId], references: [id])
-    roleId BigInt
     userExtras UserExtras[]
-}
-
-model Roles {
-    id BigInt @id() @default(autoincrement())
-    name String @unique()
-    users UserDB[]
 }
 
 model User {

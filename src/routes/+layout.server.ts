@@ -14,10 +14,6 @@ export const load: LayoutServerLoad = async (event) => {
 
 	interface User {
 		username: string;
-		role: {
-			id: bigint;
-			name: string;
-		};
 	}
 
 	// Initialize data with the correct type
@@ -25,7 +21,7 @@ export const load: LayoutServerLoad = async (event) => {
 	if (sessionID) {
 		const user = await db.userDB.findUnique({
 			where: { userAuthToken: sessionID },
-			select: { username: true, isAdmin: true, createdAt: true, role: true }
+			select: { username: true, isAdmin: true, createdAt: true }
 		});
 		data = user;
 	}

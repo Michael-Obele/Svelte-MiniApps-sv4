@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { toast } from 'svelte-sonner';
+	import { Cookie, Heart } from 'lucide-svelte';
 	import Navbar from '$lib/components/navbar.svelte';
 	import { Toaster } from '$lib/components/ui/sonner';
 	import '../app.pcss';
@@ -7,6 +9,7 @@
 	import { partytownSnippet } from '@builder.io/partytown/integration';
 
 	import { afterUpdate, onMount } from 'svelte';
+	import { goto, invalidate, invalidateAll, replaceState } from '$app/navigation';
 
 	async function detectSWUpdate() {
 		const registration = await navigator.serviceWorker.ready;
@@ -24,6 +27,7 @@
 
 	onMount(() => {
 		detectSWUpdate();
+		invalidate('/');
 	});
 
 	afterUpdate(() => {
@@ -45,8 +49,7 @@
 			// Construct a new URL without the 'reload' parameter
 			const newUrl = baseUrl + newQueryString;
 
-			// Reload the page without the 'reload' parameter
-			window.location.replace(newUrl);
+			goto(newUrl, { replaceState: true });
 		}
 	});
 </script>

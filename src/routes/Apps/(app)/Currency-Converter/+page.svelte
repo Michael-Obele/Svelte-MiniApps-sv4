@@ -3,6 +3,7 @@
 	import type { ActionData } from './$types';
 	import { _currencies } from './+page';
 	import Input from '$lib/components/ui/input/input.svelte';
+	import { Motion } from 'svelte-motion';
 
 	export let form: ActionData & FormActionData;
 
@@ -107,3 +108,13 @@
 		An error occurred: {form?.body?.error}
 	</p>
 {/if}
+
+<Motion
+	let:motion
+	initial={{ width: '0%%' }}
+	animate={{ width: '100%' }}
+	transition={{ duration: 2, ease: 'linear', delay: 0.5 }}
+>
+	<span class="text-center">This is the text to underline.</span>
+	<div use:motion class="h-px w-0 bg-blue-500 underline"></div>
+</Motion>

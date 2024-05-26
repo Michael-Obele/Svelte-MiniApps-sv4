@@ -22,8 +22,6 @@
 	};
 
 	$: show = false;
-	$: dropDown = false;
-	$: home = $page.url.pathname === '/';
 
 	let href = (item: string) => {
 		if (item === 'Home') {
@@ -33,8 +31,8 @@
 		}
 	};
 
-	let userData = $page.data.user.data;
-	let gitData = $page.data.user.session;
+	$: userData = $page.data.user.data;
+	$: gitData = $page.data.user.session;
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">

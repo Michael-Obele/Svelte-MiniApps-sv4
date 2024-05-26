@@ -4,7 +4,8 @@
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
-	import { goto } from '$app/navigation';
+	import { goto, invalidate, invalidateAll } from '$app/navigation';
+	import { afterUpdate, onMount } from 'svelte';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -14,11 +15,8 @@
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
 
-	let seenCookieNotification = $page.data.hasSeenCookieNotification;
-
-	if (!seenCookieNotification) {
-		console.log('Cookie notification is visible');
-
+	$: seenCookieNotification = $page.data.hasSeenCookieNotification;
+	$: if (!seenCookieNotification) {
 		toast(' This website uses session cookies... ', {
 			action: {
 				label: 'OK',
@@ -27,12 +25,21 @@
 			duration: Number.POSITIVE_INFINITY,
 			icon: Cookie
 		});
+		console.log('Cookie notification is visible');
 	}
+	afterUpdate(() => {
+		console.log(seenCookieNotification);
+		console.log($page.data.hasSeenCookieNotification);
+	});
 
 	// Function to scroll smoothly to the top of the page
 	function scrollToTop() {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
+
+	onMount(() => {
+		invalidateAll();
+	});
 </script>
 
 <svelte:head>
