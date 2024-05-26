@@ -52,7 +52,7 @@ const login: Action = async ({ cookies, request }) => {
 		maxAge: 60 * 60 * 24 * 30
 	});
 
-	return redirect(302, '/Profile');
+	return redirect(302, '/');
 };
 
 export const actions: Actions = { login };
