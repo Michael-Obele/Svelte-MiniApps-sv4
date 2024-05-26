@@ -109,12 +109,51 @@
 	</p>
 {/if}
 
-<Motion
+<!-- <Motion
 	let:motion
-	initial={{ width: '0%%' }}
-	animate={{ width: '100%' }}
+	initial={{ backgroundSize: '0% 2px', backgroundPosition: 'bottom center' }}
+	animate={{ backgroundSize: '100% 2px', backgroundPosition: 'bottom center' }}
 	transition={{ duration: 2, ease: 'linear', delay: 0.5 }}
 >
-	<span class="text-center">This is the text to underline.</span>
-	<div use:motion class="h-px w-0 bg-blue-500 underline"></div>
+	<span use:motion class="underline1">This is the text to underline.</span>
 </Motion>
+<div class="mt-12">
+	This is a <span class="underline1">sentence</span>. I would like
+	<span class="underline1">some words to have</span>
+	longer <span class="left underline1">underline1s</span> than others. I would
+	<span class="big center-close underline1">also like</span>
+	to be able to change the <span class="small right underline1">position</span> of the
+	<span class="big underline1">underline1</span>(to
+	<span class="far underline1">be centered under the word, for example</span>)
+</div> -->
+
+<style>
+	.underline1 {
+		background-image: linear-gradient(#5fca66 0 0);
+		background-position: bottom center; /*Adjust the background-position to move the line*/
+		background-size: 50% 2px; /*Adjust the background size to control length and height*/
+		background-repeat: no-repeat;
+		padding-bottom: 2px; /* this can also control the position */
+	}
+
+	.small {
+		background-size: 50% 1px;
+	}
+
+	.left {
+		background-position: bottom left;
+	}
+
+	.center-close {
+		background-position: bottom 5px center;
+		background-image: linear-gradient(red 0 0);
+	}
+
+	.right {
+		background-position: bottom right;
+	}
+
+	.big {
+		background-size: 100% 3px;
+	}
+</style>

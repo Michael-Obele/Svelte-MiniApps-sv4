@@ -8,7 +8,13 @@
 	}
 	function copyToClipboard(text: string) {
 		navigator.clipboard.writeText(text).then(
-			() => toast.success('Copied'),
+			() =>
+				toast.success('Copied', {
+					action: {
+						label: 'OK',
+						onClick: () => toast.dismiss()
+					}
+				}),
 			function (err) {
 				() => toast.error('Could not copy text: ', err);
 				console.error('Could not copy text: ', err);
@@ -68,7 +74,7 @@
 </svelte:head>
 
 <div class="min-h-screen">
-	<h1 class="py-10 text-4xl font-bold text-white dark:text-green-300">
+	<h1 class="px-5 py-10 text-4xl font-bold text-white dark:text-green-300">
 		Welcome <br />
 		{#if userUsername || sessionUserName}
 			{userUsername || sessionUserName}

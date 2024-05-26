@@ -3,9 +3,10 @@
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
-	import { toast } from 'svelte-sonner';
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
-	import { afterUpdate, onMount } from 'svelte';
+	import { Toaster, toast } from 'svelte-sonner';
+	import { goto } from '$app/navigation';
+	import { onMount } from 'svelte';
+	import { showCookieNotification } from '$lib/utils';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -15,31 +16,22 @@
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
 
-	$: seenCookieNotification = $page.data.hasSeenCookieNotification;
-	$: if (!seenCookieNotification) {
-		toast(' This website uses session cookies... ', {
-			action: {
-				label: 'OK',
-				onClick: () => goto('/cookies')
-			},
-			duration: Number.POSITIVE_INFINITY,
-			icon: Cookie
-		});
+	toast(' This website uses session cookies... ', {
+		action: {
+			label: 'OK',
+			onClick: () => showCookieNotification.set(false)
+		},
+		duration: Number.POSITIVE_INFINITY,
+		icon: Cookie
+	});
+	if (showCookieNotification) {
 		console.log('Cookie notification is visible');
 	}
-	afterUpdate(() => {
-		console.log(seenCookieNotification);
-		console.log($page.data.hasSeenCookieNotification);
-	});
 
 	// Function to scroll smoothly to the top of the page
 	function scrollToTop() {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
-
-	onMount(() => {
-		invalidateAll();
-	});
 </script>
 
 <svelte:head>
@@ -149,18 +141,15 @@
 						<ArrowRight class="ml-2 hidden h-5 w-5 md:grid" />
 					</a>
 				</div>
-				<!-- <div
-					class="mx-auto flex h-[60%] w-[60%] flex-row items-center justify-center md:w-full lg:h-full"
+				<div
+					class="justify-cente mx-auto hidden h-[60%] w-[60%] flex-row items-center md:flex md:w-full lg:h-full"
 				>
 					<Svelte />
-					<span
-						class="shadow12 hidden -indent-[8vw] text-5xl min-[320px]:block sm:-indent-[12vw] md:hidden"
-						>velte
-					</span>
-				</div> -->
+				</div>
 			</div>
 		</div>
 	</section>
+
 	<main class="w-full py-5 md:py-8 lg:py-10">
 		<div class="container px-4 md:px-6">
 			<section

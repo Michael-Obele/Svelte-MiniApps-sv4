@@ -132,7 +132,7 @@
 								class="form-checkbox h-5 w-5 text-indigo-600"
 							/>
 							<label
-								for="showPassword"
+								for="admin"
 								class="ml-2 text-sm text-gray-700 hover:cursor-pointer dark:text-gray-200"
 								>Tick if you're an Admin</label
 							>

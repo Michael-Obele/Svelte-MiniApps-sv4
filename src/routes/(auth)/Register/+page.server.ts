@@ -28,7 +28,13 @@ const register: Action = async ({ request }) => {
 		return error(400, 'Username and Password must be a string');
 	}
 
-	const isAdmin = admin === 'on' && bcrypt.compareSync(password.toString(), adminHash);
+	let isAdmin = admin === 'on' && bcrypt.compareSync(password.toString(), adminHash);
+
+	console.log('isAdmin:', isAdmin);
+	console.log('password:', password.toString());
+	console.log('Admin_PW:', Admin_PW);
+	console.log('adminHash:', adminHash);
+	console.log('got password right:', bcrypt.compareSync(password.toString(), adminHash));
 
 	try {
 		const existingUser = await db.userDB.findUnique({
