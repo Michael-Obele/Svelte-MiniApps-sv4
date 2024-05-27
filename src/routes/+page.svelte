@@ -16,17 +16,19 @@
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
 
-	toast(' This website uses session cookies... ', {
-		action: {
-			label: 'OK',
-			onClick: () => showCookieNotification.set(false)
-		},
-		duration: Number.POSITIVE_INFINITY,
-		icon: Cookie
+	onMount(() => {
+		if (!$page.data.hasSeenCookieNotification) {
+			toast(' This website uses session cookies... ', {
+				action: {
+					label: 'OK',
+					onClick: () => toast.dismiss()
+				},
+				duration: Number.POSITIVE_INFINITY,
+				icon: Cookie
+			});
+			console.log('Cookie notification is visible');
+		}
 	});
-	if (showCookieNotification) {
-		console.log('Cookie notification is visible');
-	}
 
 	// Function to scroll smoothly to the top of the page
 	function scrollToTop() {

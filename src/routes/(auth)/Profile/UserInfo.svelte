@@ -4,9 +4,10 @@
 	export let userData;
 	export let gitData;
 
-	// Function to determine if the user is an admin
-	function isAdmin(user: { role: { name: string } }) {
-		return user?.role?.name === 'ADMIN';
+	// Adjusted function to check if the user or git data indicates admin status
+	function isAdmin(userOrGit: { isAdmin?: boolean }) {
+		// Checks if userOrGit has a truthy isAdmin property, returns boolean.
+		return !!userOrGit?.isAdmin;
 	}
 
 	// Function to format the registration method
@@ -17,8 +18,8 @@
 	}
 
 	// Function to format the user's role
-	function userRole(user: { role: { name: string } }) {
-		if (isAdmin(user)) return 'an Admin';
+	function userRole(userOrGit: { isAdmin?: boolean }) {
+		if (isAdmin(userOrGit)) return 'an Admin';
 		return 'just a User';
 	}
 </script>
@@ -28,17 +29,17 @@
 		<div class="rounded-lg bg-green-400 p-3 dark:bg-green-900">
 			<div class="mb-4">
 				<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
-					{userData?.username || gitData?.name} is {userRole(userData)}
+					{userData?.username || gitData?.name} is
+					{#if isAdmin(userData)}
+						<span class="text-center text-lg font-semibold text-green-700 dark:text-green-300">
+							an Admin
+						</span>
+					{:else}
+						<span class="text-center text-lg font-semibold text-red-700 dark:text-red-300">
+							not an Admin
+						</span>
+					{/if}
 				</h2>
-				{#if isAdmin(userData)}
-					<h3 class="text-center text-lg font-semibold text-green-700 dark:text-green-300">
-						You are an Admin
-					</h3>
-				{:else}
-					<h3 class="text-center text-lg font-semibold text-red-700 dark:text-red-300">
-						You are not an Admin
-					</h3>
-				{/if}
 			</div>
 			<div class="mb-4">
 				<p class="text-center text-gray-700 dark:text-gray-300">

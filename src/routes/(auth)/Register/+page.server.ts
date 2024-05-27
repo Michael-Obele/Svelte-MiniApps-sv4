@@ -31,9 +31,6 @@ const register: Action = async ({ request }) => {
 	let isAdmin = admin === 'on' && bcrypt.compareSync(password.toString(), adminHash);
 
 	console.log('isAdmin:', isAdmin);
-	console.log('password:', password.toString());
-	console.log('Admin_PW:', Admin_PW);
-	console.log('adminHash:', adminHash);
 	console.log('got password right:', bcrypt.compareSync(password.toString(), adminHash));
 
 	try {
@@ -71,12 +68,14 @@ const register: Action = async ({ request }) => {
 
 async function createUser(username: string, password: string, isAdmin: boolean) {
 	const passwordHash = isAdmin ? adminHash : await bcrypt.hash(password, 10);
+	console.log('passwordHash', passwordHash);
+	console.log('isAdmin:', isAdmin);
 
 	await db.userDB.create({
 		data: {
 			username,
 			passwordHash,
-			isAdmin,
+			isAdmin: isAdmin,
 			userAuthToken: crypto.randomUUID()
 		}
 	});

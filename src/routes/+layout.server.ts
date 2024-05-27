@@ -29,6 +29,6 @@ export const load: LayoutServerLoad = async (event) => {
 	return {
 		session: await event.locals.getSession(),
 		user: { data, session: await event.locals.getSession() },
-		hasSeenCookieNotification: hasSeenCookieNotification
+		hasSeenCookieNotification
 	};
 };
