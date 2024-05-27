@@ -3,7 +3,7 @@
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
-	import { Toaster, toast } from 'svelte-sonner';
+	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { showCookieNotification } from '$lib/utils';
@@ -18,10 +18,10 @@
 
 	onMount(() => {
 		if (!$page.data.hasSeenCookieNotification) {
-			toast(' This website uses session cookies... ', {
+			toast("Session cookies at work here. Chill, it's all cool!", {
 				action: {
 					label: 'OK',
-					onClick: () => toast.dismiss()
+					onClick: () => goto('/cookies')
 				},
 				duration: Number.POSITIVE_INFINITY,
 				icon: Cookie

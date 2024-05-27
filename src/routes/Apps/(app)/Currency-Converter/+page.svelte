@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
+	import type { ActionData, SubmitFunction } from './$types';
 	import { _currencies } from './+page';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { Motion } from 'svelte-motion';
+	import { toast } from 'svelte-sonner';
 
 	export let form: ActionData & FormActionData;
-
+	let isLoading = false;
 	interface FormActionData {
 		status?: number;
 		body?: {
@@ -15,6 +16,35 @@
 		};
 	}
 	let currencyList = _currencies;
+
+	// Start form submission process.
+	const handleSubmit: SubmitFunction = () => {
+		isLoading = true; // Indicate submission is in progress.
+		toast.loading('Submitting...'); // Show loading toast.
+
+		return async ({ update, result }) => {
+			if (result.type === 'failure') {
+				toast.dismiss(); // Dismiss all toasts.
+				toast.error('Error'); // Show error toast.
+			} else {
+				toast.dismiss(); // Dismiss all toasts.
+				toast.success('Success', {
+					action: {
+						label: 'OK',
+						onClick: () => toast.dismiss()
+					}
+				}); // Show success toast.
+			}
+
+			await update(); // Wait for update to finish.
+			isLoading = false; // Submission process ends.
+		};
+	};
+
+	function getCurrencyLabel(currencyTo: string) {
+		const foundCurrency = currencyList.find((f) => f.value === currencyTo);
+		return foundCurrency ? foundCurrency.label : currencyTo; // Return label if found, else return the currency code
+	}
 </script>
 
 <section class="my-8 px-4 text-center">
@@ -27,7 +57,7 @@
 	</p>
 </section>
 
-<form use:enhance method="POST" class="space-y-4">
+<form use:enhance={handleSubmit} method="POST" class="space-y-4">
 	<label
 		for="currencyFrom"
 		class="block text-center text-sm font-medium text-gray-700 dark:text-gray-300"
@@ -92,7 +122,8 @@
 	<button
 		type="submit"
 		class="mx-auto mt-4 flex w-fit max-w-md items-center justify-center rounded-md border border-transparent bg-green-500 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:border-red-600 dark:focus:ring-red-500"
-		>Convert Currency</button
+	>
+		{isLoading ? 'Converting...' : 'Convert Currency'}</button
 	>
 </form>
 
@@ -101,7 +132,7 @@
 		Conversion successful from <strong>{form?.currencyFrom}</strong> to
 		<strong>{form?.currencyTo}</strong>. Amount: <strong>{form?.currencyAmount}</strong><br />
 		Your exchange rate is <strong>{form?.body?.rate}</strong>
-		{currencyList.find((f) => f.value === form?.currencyTo)?.label}.
+		{getCurrencyLabel(form?.currencyTo)}.
 	</p>
 {:else if form?.status === 500}
 	<p class="mt-4 text-center text-lg text-red-600 dark:text-red-400">
@@ -116,8 +147,8 @@
 	transition={{ duration: 2, ease: 'linear', delay: 0.5 }}
 >
 	<span use:motion class="underline1">This is the text to underline.</span>
-</Motion>
-<div class="mt-12">
+</Motion> -->
+<!-- <div class="mt-12">
 	This is a <span class="underline1">sentence</span>. I would like
 	<span class="underline1">some words to have</span>
 	longer <span class="left underline1">underline1s</span> than others. I would

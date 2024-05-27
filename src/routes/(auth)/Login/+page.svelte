@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Github } from 'lucide-svelte';
-	import type { ActionData } from './$types';
+	import type { ActionData, SubmitFunction } from './$types';
 	import Svelte from '$lib/logo/svelte.svelte';
 	export let form: ActionData;
 	import { Button } from '$lib/components/ui/button/index.js';
@@ -10,29 +10,31 @@
 	let showPassword = false;
 	$: password = showPassword ? 'text' : 'password';
 
-	async function handleSubmit(event: any) {
-		event.preventDefault();
+	let isLoading = false;
 
-		const formData = new FormData(event.target as HTMLFormElement);
-		toast.promise(
-			fetch('?/login', {
-				method: 'POST',
-				body: formData
-			}).then(async (response) => {
-				const data = await response.json();
-				console.log(data);
-				if (!response.ok) {
-					throw Error;
-				}
-				return true;
-			}),
-			{
-				loading: 'Submitting...',
-				success: 'Submitted!',
-				error: 'An error occurred during Sign-up'
+	// Start form submission process.
+	const handleSubmit: SubmitFunction = () => {
+		isLoading = true; // Indicate submission is in progress.
+		toast.loading('Submitting...'); // Show loading toast.
+
+		return async ({ update, result }) => {
+			if (result.type === 'failure') {
+				toast.dismiss(); // Dismiss all toasts.
+				toast.error('Error'); // Show error toast.
+			} else {
+				toast.dismiss(); // Dismiss all toasts.
+				toast.success('Success', {
+					action: {
+						label: 'OK',
+						onClick: () => toast.dismiss()
+					}
+				}); // Show success toast.
 			}
-		);
-	}
+
+			await update(); // Wait for update to finish.
+			isLoading = false; // Submission process ends.
+		};
+	};
 </script>
 
 <section class="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -58,8 +60,7 @@
 				</h1>
 				<form
 					action="?/login"
-					use:enhance
-					on:submit={handleSubmit}
+					use:enhance={handleSubmit}
 					method="POST"
 					class="space-y-4 md:space-y-6"
 				>
@@ -118,6 +119,7 @@
 						>
 					</div>
 					<Button
+						disabled={isLoading}
 						on:click={() => signIn()}
 						class="mx-auto mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
 					>
@@ -125,9 +127,11 @@
 						Sign in with Github
 					</Button>
 					<Button
+						disabled={isLoading}
 						type="submit"
 						class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-						>Sign in</Button
+					>
+						{isLoading ? 'Submitting...' : 'Sign in'}</Button
 					>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
 						Don’t have an account yet? <a

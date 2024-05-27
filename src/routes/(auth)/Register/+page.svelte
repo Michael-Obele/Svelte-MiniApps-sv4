@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { Github } from 'lucide-svelte';
-	import type { ActionData } from './$types';
+	import type { ActionData, SubmitFunction } from './$types';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { signIn } from '@auth/sveltekit/client';
 	import { enhance } from '$app/forms';
@@ -16,37 +16,32 @@
 		| { username: number; password: number; error: number }[]
 		| string;
 
-	async function handleSubmit(event: any) {
-		event.preventDefault();
-		isLoading = true;
-		const formData = new FormData(event.target as HTMLFormElement);
-		toast.promise(
-			fetch('?/register', {
-				method: 'POST',
-				body: formData
-			}).then(async (response) => {
-				const data = await response.json();
-				console.log(data);
-				if (!response.ok) {
-					const errorData = await response.json();
-					toast.error(`An error occurred: ${errorData.message || 'An unknown error occurred.'}`);
-					isLoading = false;
-					return;
-				}
-				return true;
-			}),
-			{
-				loading: 'Submitting...',
-				success: 'Submitted!',
-				error: 'An unknown error occurred.'
-			}
-		);
+	// Start form submission process.
+	const handleSubmit: SubmitFunction = () => {
+		isLoading = true; // Indicate submission is in progress.
+		toast.loading('Submitting...'); // Show loading toast.
 
-		isLoading = false;
-	}
+		return async ({ update, result }) => {
+			if (result.type === 'failure') {
+				toast.dismiss(); // Dismiss all toasts.
+				toast.error('Error'); // Show error toast.
+			} else {
+				toast.dismiss(); // Dismiss all toasts.
+				toast.success('Success', {
+					action: {
+						label: 'OK',
+						onClick: () => toast.dismiss()
+					}
+				}); // Show success toast.
+			}
+
+			await update(); // Wait for update to finish.
+			isLoading = false; // Submission process ends.
+		};
+	};
 </script>
 
-<section class="min-h-screen bg-gray-50 dark:bg-gray-900" on:submit={handleSubmit}>
+<section class="min-h-screen bg-gray-50 dark:bg-gray-900">
 	<div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 		<!-- Logo -->
 		<a href="/" class="my-5 flex items-center space-x-3 rtl:space-x-reverse">
@@ -67,7 +62,12 @@
 				>
 					Create your Free Account
 				</h1>
-				<form action="?/register" class="space-y-4 md:space-y-6" use:enhance method="POST">
+				<form
+					action="?/register"
+					class="space-y-4 md:space-y-6"
+					use:enhance={handleSubmit}
+					method="POST"
+				>
 					<div>
 						<label for="email" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 							>Username</label
@@ -76,6 +76,7 @@
 							id="username"
 							name="username"
 							type="text"
+							value={form?.username ?? ''}
 							required
 							class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 focus:border-green-600 focus:ring-green-600 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-green-500 dark:focus:ring-green-500 sm:text-sm"
 							placeholder="John Doe"
@@ -146,6 +147,7 @@
 					{/if}
 					<Button
 						on:click={() => signIn()}
+						disabled={isLoading}
 						class="mx-auto mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
 					>
 						<Github class="mx-2" />

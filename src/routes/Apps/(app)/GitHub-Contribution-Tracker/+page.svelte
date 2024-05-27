@@ -4,7 +4,7 @@
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { UserContext } from '$lib/types';
-	import { redirect } from '@sveltejs/kit';
+	import { redirect, type SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
 
@@ -12,6 +12,7 @@
 	let username: string;
 	let year: string;
 	$: isLoading = false;
+
 	async function handleSubmit(event: any) {
 		isLoading = true;
 		event.preventDefault();
@@ -37,6 +38,30 @@
 			}
 		);
 	}
+
+	// Start form submission process.
+	// const handleSubmit: SubmitFunction = ({ formData }) => {
+	// 	isLoading = true; // Indicate submission is in progress.
+	// 	toast.loading('Submitting...'); // Show loading toast.
+	// 	fetch(`/Apps/GitHub-Contribution-Tracker/${username}/${year}`, {
+	// 		method: 'POST',
+	// 		body: formData
+	// 	}).then(async (response) => {
+	// 		if (!response.ok) {
+	// 			toast.dismiss(); // Dismiss all toasts.
+	// 			toast.error('Error'); // Show error toast.
+	// 		} else {
+	// 			toast.dismiss(); // Dismiss all toasts.
+	// 			toast.success('Success', {
+	// 				action: {
+	// 					label: 'OK',
+	// 					onClick: () => toast.dismiss()
+	// 				}
+	// 			}); // Show success toast.
+	// 		}
+	// 		isLoading = false; // Submission process ends.
+	// 	});
+	// };
 </script>
 
 <main>

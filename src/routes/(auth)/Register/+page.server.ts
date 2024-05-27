@@ -30,16 +30,13 @@ const register: Action = async ({ request }) => {
 
 	let isAdmin = admin === 'on' && bcrypt.compareSync(password.toString(), adminHash);
 
-	console.log('isAdmin:', isAdmin);
-	console.log('got password right:', bcrypt.compareSync(password.toString(), adminHash));
-
 	try {
 		const existingUser = await db.userDB.findUnique({
 			where: { username }
 		});
 
 		if (existingUser) {
-			return fail(400, { user: true });
+			return fail(400, { username, user: true });
 		}
 
 		await createUser(username, password, isAdmin);

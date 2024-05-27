@@ -1,8 +1,10 @@
 <script lang="ts">
-	import { setContext } from 'svelte';
+	import { afterUpdate, setContext } from 'svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import { page } from '$app/stores';
-	$: routeId = $page.url.pathname?.split('/')[2];
+	$: route = $page.url.pathname.split('/');
+	$: routeId = route[2];
+	$: currentRoute = route[route.length - 1];
 
 	let userUsername = $page.data.user.data?.username;
 	let sessionUserName = $page.data.user.session?.user?.name;
@@ -17,7 +19,7 @@
 	/>
 	<meta
 		name="keywords"
-		content="Svelte, MiniApps, Apps, Tools, Applications, Ecosystem, Innovative, Unique"
+		content="Svelte, MiniApps, Mini Apps, Apps, Tools, Applications, Ecosystem, Innovative, Unique"
 	/>
 	<meta property="og:title" content="Apps Page | Svelte MiniApps" />
 	<meta
@@ -48,9 +50,15 @@
 				<Breadcrumb.Link href="/Apps">Apps</Breadcrumb.Link>
 			</Breadcrumb.Item>
 			<Breadcrumb.Separator />
-			<Breadcrumb.Item>
-				<Breadcrumb.Page>{routeId}</Breadcrumb.Page>
-			</Breadcrumb.Item>
+			{#if routeId == currentRoute}
+				<Breadcrumb.Item>
+					<Breadcrumb.Page>{routeId}</Breadcrumb.Page>
+				</Breadcrumb.Item>
+			{:else}
+				<Breadcrumb.Item>
+					<Breadcrumb.Link href="/Apps/{routeId}">{routeId}</Breadcrumb.Link>
+				</Breadcrumb.Item>
+			{/if}
 		</Breadcrumb.List>
 	</Breadcrumb.Root>
 </div>

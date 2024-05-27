@@ -28,6 +28,7 @@
 	onMount(() => {
 		detectSWUpdate();
 		invalidate('/');
+		invalidate((url) => url.pathname === '/');
 	});
 
 	afterUpdate(() => {

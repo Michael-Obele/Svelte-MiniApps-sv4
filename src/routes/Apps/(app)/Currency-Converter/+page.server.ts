@@ -58,9 +58,9 @@ export async function _rates(
 export const actions: Actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
-		let currencyFrom = data.get('currencyFrom');
-		let currencyTo = data.get('currencyTo');
-		let currencyAmount: any = data.get('currencyAmount');
+		let currencyFrom: string = String(data.get('currencyFrom'));
+		let currencyTo: string = String(data.get('currencyTo'));
+		let currencyAmount: number = Number(data.get('currencyAmount'));
 		let isDecimalComma = true;
 
 		// Check if currencyFrom is provided
@@ -78,14 +78,13 @@ export const actions: Actions = {
 			error(422, 'currencyAmount is required');
 		}
 
-		if (isNaN(currencyAmount)) {
-			Number(currencyAmount);
-		}
-
 		// Check if isDecimalComma is provided and is a boolean
 		if (typeof isDecimalComma !== 'boolean') {
 			error(422, 'isDecimalComma is required and must be a boolean');
 		}
+
+		currencyFrom = currencyFrom.trim();
+		currencyTo = currencyTo.trim();
 
 		try {
 			const response = await fetchWithTimeout(
