@@ -12,11 +12,11 @@ export const load: PageServerLoad = async (event) => {
 	const hasSeenCookieNotification = event.cookies.get('seenCookieNotification');
 };
 
-export const actions = {
+export const actions: Actions = {
 	logout: () => {
 		redirect(302, '/Logout');
 	},
 	seen: ({ cookies }) => {
 		cookies.set('seenCookieNotification', 'true', { path: '/' });
 	}
-} satisfies Actions;
+};

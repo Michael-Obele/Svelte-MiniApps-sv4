@@ -2,11 +2,13 @@
 	import { Github } from 'lucide-svelte';
 	import type { ActionData, SubmitFunction } from './$types';
 	import Svelte from '$lib/logo/svelte.svelte';
-	export let form: ActionData;
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { signIn } from '@auth/sveltekit/client';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
+	//
+
+	export let form: ActionData;
 	let showPassword = false;
 	$: password = showPassword ? 'text' : 'password';
 

@@ -127,18 +127,20 @@
 	>
 </form>
 
-{#if form?.status === 200}
-	<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
-		Conversion successful from <strong>{form?.currencyFrom}</strong> to
-		<strong>{form?.currencyTo}</strong>. Amount: <strong>{form?.currencyAmount}</strong><br />
-		Your exchange rate is <strong>{form?.body?.rate}</strong>
-		{getCurrencyLabel(form?.currencyTo)}.
-	</p>
-{:else if form?.status === 500}
-	<p class="mt-4 text-center text-lg text-red-600 dark:text-red-400">
-		An error occurred: {form?.body?.error}
-	</p>
-{/if}
+<div class:hidden={isLoading}>
+	{#if form?.status === 200}
+		<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
+			Conversion successful from <strong>{form?.currencyFrom}</strong> to
+			<strong>{form?.currencyTo}</strong>. Amount: <strong>{form?.currencyAmount}</strong><br />
+			Your exchange rate is <strong>{form?.body?.rate}</strong>
+			{getCurrencyLabel(form?.currencyTo)}.
+		</p>
+	{:else if form?.status === 500}
+		<p class="mt-4 text-center text-lg text-red-600 dark:text-red-400">
+			An error occurred: {form?.body?.error}
+		</p>
+	{/if}
+</div>
 
 <!-- <Motion
 	let:motion
