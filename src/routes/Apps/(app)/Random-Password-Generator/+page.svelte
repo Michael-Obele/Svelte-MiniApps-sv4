@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Clipboard, RefreshCcw } from 'lucide-svelte';
+	import { Clipboard, RefreshCcw, Star } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
@@ -123,11 +123,22 @@
 					variant="outline"
 					type="button"
 					on:click={generateNewPassword}
-					class="ml-2 rounded-md p-2 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+					class="ml-2 rounded-md p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
 					aria-label="Generate a new password"
 				>
 					<RefreshCcw class="h-6 w-6" />
 				</Button>
+				<form action="">
+					<Button
+						variant="outline"
+						type="button"
+						on:click={generateNewPassword}
+						class="ml-2 rounded-md p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+						aria-label="Generate a new password"
+					>
+						<Star fill="" class="h-6 w-6" />
+					</Button>
+				</form>
 			</div>
 		</div>
 	</div>

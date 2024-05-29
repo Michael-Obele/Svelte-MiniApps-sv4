@@ -1,4 +1,8 @@
 import type { Actions, PageServerLoad } from './$types';
+import { getDbInstance } from '$lib/database';
+import { page } from '$app/stores';
+
+const db = getDbInstance();
 
 let length = 12;
 
@@ -15,9 +19,19 @@ function generatePassword(length: number): string {
 	return result;
 }
 
-export const load: PageServerLoad = async () => {
+// export async function savePassword(password: string): Promise<void> {
+// 	// Save the password to the database
+// 	await db.savePassword(password);
+// }
+
+export const load: PageServerLoad = async ({ parent }) => {
 	// Generate a random password
 	const password = generatePassword(length);
+	const { user } = await parent();
+
+	if (user?.data === null) {
+		console.log('user?.data = ', user?.data);
+	}
 
 	return {
 		password: password
@@ -29,5 +43,12 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData);
 		length = Number(data.length);
+	},
+	save: async ({ request }) => {
+		const formData = await request.formData();
+		const data = Object.fromEntries(formData);
+		length = Number(data.length);
+
+		// Save random password
 	}
 };
