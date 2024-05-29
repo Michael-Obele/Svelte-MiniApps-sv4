@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 datasource db {
-    provider = "sqlite"
+    provider = "cockroachdb"
     url      = env("DATABASE_URL")
 }
 
@@ -13,40 +13,41 @@ generator client {
 }
 
 model UserDB {
-    id            String   @id() @default(uuid())
-    username      String   @unique()
+    id            String         @id() @default(uuid())
+    username      String         @unique()
     passwordHash  String
-    userAuthToken String   @unique()
-    isAdmin       Boolean  @default(false)
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt()
-
-    savedPassword SavePassword[]
+    userAuthToken String         @unique()
+    isAdmin       Boolean        @default(false)
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt()
+    SavePassword  SavePassword[]
 }
 
 model User {
-    id            String         @id() @default(cuid())
+    id            String    @id() @default(cuid())
     name          String?
-    email         String?        @unique()
+    email         String?   @unique()
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    isAdmin       Boolean        @default(false)
-    createdAt     DateTime       @default(now())
-    updatedAt     DateTime       @updatedAt()
-    saves         SavePassword[]
+    isAdmin       Boolean   @default(false)
+    createdAt     DateTime  @default(now())
+    updatedAt     DateTime  @updatedAt()
+
+    SavePassword SavePassword[]
 }
 
 model SavePassword {
     id          String   @id @default(cuid())
     userId      String?
+    userExtraId String?
     password    String
     details     String? // Optional field for additional information
     createdAt   DateTime @default(now())
-    userExtraId String
-    user        User?    @relation(fields: [userId], references: [id], map: "UserRelation")
-    userDB      UserDB?  @relation(fields: [userId], references: [id], map: "UserDBRelation")
+
+    User   User?   @relation(fields: [userId], references: [id])
+    UserDB UserDB? @relation(fields: [userExtraId], references: [id])
 
     @@unique([userId, password])
 }
