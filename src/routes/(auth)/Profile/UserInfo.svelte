@@ -16,12 +16,6 @@
 		if (git?.name) return 'OAuth';
 		return '';
 	}
-
-	// Function to format the user's role
-	function userRole(userOrGit: { isAdmin?: boolean }) {
-		if (isAdmin(userOrGit)) return 'an Admin';
-		return 'just a User';
-	}
 </script>
 
 <div>
