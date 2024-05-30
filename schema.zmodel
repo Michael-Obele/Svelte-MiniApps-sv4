@@ -10,53 +10,39 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model UserDB {
-  id            String       @id @default(uuid())
-  username      String       @unique
-  passwordHash  String
-  userAuthToken String       @unique
-  isAdmin       Boolean      @default(false)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-
-  userExtras    UserExtras[]
-}
-
 
 model User {
-  id            String       @id @default(cuid())
+  id            String         @id() @default(cuid())
+  username      String?        @unique()
+  passwordHash  String?
+  userAuthToken String?        @unique()
   name          String?
-  email         String?      @unique
+  email         String?        @unique()
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  isAdmin       Boolean      @default(false)
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-
-  userExtras    UserExtras[]
+  isAdmin       Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt()
+  SavePassword  SavePassword[]
 }
 
-model UserExtras {
-  id                String  @id @default(cuid())
-  userId            String?
-  userDbId          String?
-  themePreference   String?  // Preferred theme (light, dark, etc.)
-  languageSetting   String?
-  privacyLevel      Int? // Privacy level (public, private, friends-only)
-  bio               String?  // Short bio or description
-  profilePictureUrl String? // URL of the user's profile picture
+model SavePassword {
+  id          String   @id @default(cuid())
+  userId      String?
+  userExtraId String?
+  password    String
+  details     String? // Optional field for additional information
+  createdAt   DateTime @default(now())
 
-  user              User?   @relation(fields: [userId], references: [id])
-  userDb            UserDB? @relation(fields: [userDbId], references: [id])
+  User        User?    @relation(fields: [userId], references: [id])
 
-  @@unique([userId])
-  @@unique([userDbId])
+  @@unique([userId, password])
 }
 
 model Account {
-  id                String   @id @default(cuid())
+  id                String   @id() @default(cuid())
   userId            String
   type              String
   provider          String
@@ -68,26 +54,22 @@ model Account {
   scope             String?
   id_token          String?
   session_state     String?
-
   createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-
+  updatedAt         DateTime @updatedAt()
   user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   userDBId          String?
 
   @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
-  sessionToken String   @unique
+  id           String   @id() @default(cuid())
+  sessionToken String   @unique()
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
   createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  updatedAt    DateTime @updatedAt()
   userDBId     String?
 }
 

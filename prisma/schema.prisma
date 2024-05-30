@@ -4,7 +4,7 @@
 //////////////////////////////////////////////////////////////////////////////////////////////
 
 datasource db {
-    provider = "cockroachdb"
+    provider = "sqlite"
     url      = env("DATABASE_URL")
 }
 
@@ -12,30 +12,47 @@ generator client {
     provider = "prisma-client-js"
 }
 
-model UserDB {
-    id            String         @id() @default(uuid())
-    username      String         @unique()
-    passwordHash  String
-    userAuthToken String         @unique()
-    isAdmin       Boolean        @default(false)
-    createdAt     DateTime       @default(now())
-    updatedAt     DateTime       @updatedAt()
-    SavePassword  SavePassword[]
-}
+// model UserDB {
+//     id            String         @id() @default(uuid())
+//     username      String         @unique()
+//     passwordHash  String
+//     userAuthToken String         @unique()
+//     isAdmin       Boolean        @default(false)
+//     createdAt     DateTime       @default(now())
+//     updatedAt     DateTime       @updatedAt()
+//     SavePassword  SavePassword[]
+// }
+
+// model User {
+//     id            String    @id() @default(cuid())
+//     name          String?
+//     email         String?   @unique()
+//     emailVerified DateTime?
+//     image         String?
+//     accounts      Account[]
+//     sessions      Session[]
+//     isAdmin       Boolean   @default(false)
+//     createdAt     DateTime  @default(now())
+//     updatedAt     DateTime  @updatedAt()
+
+//     SavePassword SavePassword[]
+// }
 
 model User {
-    id            String    @id() @default(cuid())
+    id            String         @id() @default(cuid())
+    username      String?        @unique()
+    passwordHash  String?
+    userAuthToken String?        @unique()
     name          String?
-    email         String?   @unique()
+    email         String?        @unique()
     emailVerified DateTime?
     image         String?
     accounts      Account[]
     sessions      Session[]
-    isAdmin       Boolean   @default(false)
-    createdAt     DateTime  @default(now())
-    updatedAt     DateTime  @updatedAt()
-
-    SavePassword SavePassword[]
+    isAdmin       Boolean        @default(false)
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt()
+    SavePassword  SavePassword[]
 }
 
 model SavePassword {
@@ -46,8 +63,7 @@ model SavePassword {
     details     String? // Optional field for additional information
     createdAt   DateTime @default(now())
 
-    User   User?   @relation(fields: [userId], references: [id])
-    UserDB UserDB? @relation(fields: [userExtraId], references: [id])
+    User User? @relation(fields: [userId], references: [id])
 
     @@unique([userId, password])
 }

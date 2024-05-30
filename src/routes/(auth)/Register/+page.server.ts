@@ -31,7 +31,7 @@ const register: Action = async ({ request }) => {
 	let isAdmin = admin === 'on' && bcrypt.compareSync(password.toString(), adminHash);
 
 	try {
-		const existingUser = await db.userDB.findUnique({
+		const existingUser = await db.user.findUnique({
 			where: { username }
 		});
 
@@ -65,10 +65,9 @@ const register: Action = async ({ request }) => {
 
 async function createUser(username: string, password: string, isAdmin: boolean) {
 	const passwordHash = isAdmin ? adminHash : await bcrypt.hash(password, 10);
-	console.log('passwordHash', passwordHash);
 	console.log('isAdmin:', isAdmin);
 
-	await db.userDB.create({
+	await db.user.create({
 		data: {
 			username,
 			passwordHash,
