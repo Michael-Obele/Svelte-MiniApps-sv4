@@ -32,7 +32,7 @@
 	};
 
 	$: userData = $page.data.user.data;
-	$: gitData = $page.data.user.session;
+	$: gitData = $page.data?.user?.session?.user;
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
@@ -54,15 +54,13 @@
 						<DropdownMenu.Trigger asChild let:builder>
 							<Button builders={[builder]} size="icon" variant="link" class="hover:no-underline">
 								<Avatar.Root>
-									<Avatar.Image src={gitData.user?.image} alt="profile image" />
-									<Avatar.Fallback class="capitalize"
-										>{gitData.user?.name.charAt(0)}</Avatar.Fallback
-									>
+									<Avatar.Image src={gitData.image} alt="profile image" />
+									<Avatar.Fallback class="capitalize">{gitData.name.charAt(0)}</Avatar.Fallback>
 								</Avatar.Root>
 							</Button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content class="w-56">
-							<DropdownMenu.Label>{gitData?.user?.name}</DropdownMenu.Label>
+							<DropdownMenu.Label>{gitData?.name}</DropdownMenu.Label>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
 							<DropdownMenu.Separator />

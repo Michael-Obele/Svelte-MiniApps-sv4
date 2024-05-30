@@ -1,7 +1,6 @@
 import type { LayoutServerLoad } from './$types';
 import { getDbInstance } from '$lib/database';
 
-import { redirect } from '@sveltejs/kit';
 const db = getDbInstance(); // Get the Prisma client instance
 
 // get `locals.user` and pass it to the `page` store
@@ -29,7 +28,6 @@ export const load: LayoutServerLoad = async (event) => {
 	}
 
 	return {
-		session: await event.locals.getSession(),
 		user: { data, session: await event.locals.getSession() },
 		hasSeenCookieNotification
 	};

@@ -3,7 +3,6 @@
 	import { CalendarDays, Github } from 'lucide-svelte';
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
-	import { stringifyWithBigInt } from '$lib/utils';
 	import { _fetchCommitData } from './+page';
 	export let data;
 
@@ -33,7 +32,7 @@
 		</div>
 		<div class="mb-4">
 			<p class="text-center text-3xl text-gray-700 dark:text-gray-300">
-				Welcome {gitData?.user?.name || userData?.username}!
+				Welcome {gitData?.name || userData?.username}!
 			</p>
 		</div>
 		<div class="flex flex-col items-center justify-center">

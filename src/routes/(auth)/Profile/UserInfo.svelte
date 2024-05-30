@@ -79,11 +79,11 @@
 							<img
 								src={gitData?.image}
 								alt="user img"
-								class="mx-auto h-auto w-3/4 rounded-xl blur-sm transition-all duration-300 hover:blur-none"
+								class="mx-auto h-auto w-3/4 rounded-xl transition-all duration-300 hover:blur-none md:blur-sm"
 							/>
 						{:else}
 							<div
-								class="h-auto min-w-2.5 max-w-lg rounded-lg blur-sm transition-all duration-300 hover:blur-none"
+								class="h-auto min-w-2.5 max-w-lg rounded-lg transition-all duration-300 hover:blur-none md:blur-sm"
 							>
 								<UserRoundX />
 							</div>

@@ -12,6 +12,8 @@ bun.*
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
+diff_file.txt
+
 dev.db
 
 #In House Test Code
