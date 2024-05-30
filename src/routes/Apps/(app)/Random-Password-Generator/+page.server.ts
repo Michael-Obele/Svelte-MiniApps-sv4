@@ -30,8 +30,8 @@ export const load: PageServerLoad = async ({ parent }) => {
 	const password = generatePassword(length);
 	const { user } = await parent();
 
-	if (user?.data === null) {
-		console.log('user?.data = ', user?.data);
+	if (user?.userData === null) {
+		console.log('user?.userData = ', user?.userData);
 	}
 
 	return {
@@ -61,5 +61,28 @@ export const actions: Actions = {
 		});
 		console.log('savePassword = ', savePassword);
 		return { saved: true };
+	},
+	viewPasswords: async ({ request }) => {
+		const data = await request.formData();
+		let id = String(data.get('id'));
+		// Ensure id is a string or undefined, not null
+
+		const user = await db.user.findUnique({ where: { id } });
+		if (!user) {
+			return fail(404, { invalid: true });
+		}
+
+		const displayPassword = await db.savePassword.findMany({
+			where: { userId: user.id },
+			select: { password: true, createdAt: true },
+			orderBy: {
+				createdAt: 'desc'
+			}
+		});
+		console.log('displayPassword = ', displayPassword);
+		return { displayPassword };
+	},
+	hidePasswords: async ({ request }) => {
+		return { displayPassword: [] };
 	}
 };

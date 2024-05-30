@@ -31,7 +31,7 @@
 		}
 	};
 
-	$: userData = $page.data.user.data;
+	$: userData = $page.data.user.userData;
 	$: gitData = $page.data?.user?.session?.user;
 </script>
 

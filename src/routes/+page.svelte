@@ -6,7 +6,6 @@
 	import { toast } from 'svelte-sonner';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
-	import { showCookieNotification } from '$lib/utils';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -34,6 +33,8 @@
 	function scrollToTop() {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
+	let userData = $page.data.user.userData;
+	let gitUser = $page.data.user.session;
 </script>
 
 <svelte:head>
@@ -114,13 +115,11 @@
 							class="my-3 text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
 						>
 							Welcome
-							{#if $page.data.user.data || $page.data.user.session}
+							{#if userData || gitUser}
 								<!-- content here -->
 								Back,
 								<span class="capitalize text-green-700 dark:text-green-300">
-									{$page.data.user.session
-										? `${$page.data.user.session.user.name}`
-										: `${$page.data.user.data.username}`}!
+									{gitUser ? `${gitUser.user.name}` : `${userData.username}`}!
 								</span>
 							{/if}
 							to...

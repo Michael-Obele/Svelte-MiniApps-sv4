@@ -6,7 +6,7 @@
 	$: routeId = route[2];
 	$: currentRoute = route[route.length - 1];
 
-	let userUsername = $page.data.user.data?.username;
+	let userUsername = $page.data.user.userData?.username;
 	let sessionUserName = $page.data.user.session?.user?.name;
 	setContext('userContext', { userUsername, sessionUserName });
 </script>
