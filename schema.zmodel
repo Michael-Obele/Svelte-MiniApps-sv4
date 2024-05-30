@@ -30,13 +30,13 @@ model User {
 
 model SavePassword {
   id          String   @id @default(cuid())
-  userId      String?
+  userId      String
   userExtraId String?
   password    String
   details     String? // Optional field for additional information
   createdAt   DateTime @default(now())
 
-  User        User?    @relation(fields: [userId], references: [id])
+  User        User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, password])
 }
@@ -70,7 +70,6 @@ model Session {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt()
-  userDBId     String?
 }
 
 model VerificationToken {

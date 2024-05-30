@@ -1,6 +1,7 @@
 import type { Actions, PageServerLoad } from './$types';
 import { getDbInstance } from '$lib/database';
 import { page } from '$app/stores';
+import { fail } from '@sveltejs/kit';
 
 const db = getDbInstance();
 
@@ -39,16 +40,26 @@ export const load: PageServerLoad = async ({ parent }) => {
 };
 
 export const actions: Actions = {
-	generate: async ({ request }) => {
-		const formData = await request.formData();
-		const data = Object.fromEntries(formData);
-		length = Number(data.length);
-	},
 	save: async ({ request }) => {
-		const formData = await request.formData();
-		const data = Object.fromEntries(formData);
-		length = Number(data.length);
+		const data = await request.formData();
+		const password = String(data.get('password'));
+		let id = String(data.get('id'));
+		// Ensure id is a string or undefined, not null
 
+		console.log(password);
 		// Save random password
+		const user = await db.user.findUnique({ where: { id } });
+		if (!user) {
+			return fail(404, { invalid: true });
+		}
+
+		const savePassword = await db.savePassword.create({
+			data: {
+				password: password,
+				userId: user.id
+			}
+		});
+		console.log('savePassword = ', savePassword);
+		return { saved: true };
 	}
 };

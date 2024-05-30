@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { Clipboard, RefreshCcw, Star } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
+	import type { ActionData } from './$types';
 	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
 	import type { UserContext } from '$lib/types';
 	import { getContext } from 'svelte';
+	import { enhance } from '$app/forms';
+
+	export let form: ActionData;
 
 	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 
@@ -17,6 +21,10 @@
 		symbols: true,
 		uppercaseLetters: true
 	};
+
+	console.log('$page.data.user.data.id = ', $page.data.user.data.id);
+
+	const userId = $page.data.user.data.id;
 
 	// Destructuring passwordOptions
 	let { length, lowercaseLetters, number, symbols, uppercaseLetters } = passwordOptions;
@@ -39,6 +47,9 @@
 
 	function generateNewPassword() {
 		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
+		if (form) {
+			form.saved = false;
+		}
 	}
 </script>
 
@@ -114,7 +125,7 @@
 					variant="outline"
 					type="button"
 					on:click={() => _copyToClipboard(password)}
-					class="rounded-md p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2"
+					class="rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 dark:text-white"
 					aria-label="Copy password to clipboard"
 				>
 					<Clipboard class="h-6 w-6" />
@@ -123,22 +134,30 @@
 					variant="outline"
 					type="button"
 					on:click={generateNewPassword}
-					class="ml-2 rounded-md p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
+					class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
 					aria-label="Generate a new password"
 				>
 					<RefreshCcw class="h-6 w-6" />
 				</Button>
-				<form action="">
-					<Button
-						variant="outline"
-						type="button"
-						on:click={generateNewPassword}
-						class="ml-2 rounded-md p-2 text-white hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400"
-						aria-label="Generate a new password"
-					>
-						<Star fill="" class="h-6 w-6" />
-					</Button>
-				</form>
+				{#if $page.data.user}
+					<!-- content here -->
+					<form action="?/save" use:enhance method="POST">
+						<input type="hidden" name="password" bind:value={password} />
+						<input type="hidden" name="id" value={userId} />
+						<Button
+							variant="outline"
+							type="submit"
+							class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
+							aria-label="Generate a new password"
+						>
+							{#if form?.saved}
+								<Star class="h-6 w-6 fill-green-300" />
+							{:else}
+								<Star class="h-6 w-6 fill-white dark:fill-black" />
+							{/if}
+						</Button>
+					</form>
+				{/if}
 			</div>
 		</div>
 	</div>

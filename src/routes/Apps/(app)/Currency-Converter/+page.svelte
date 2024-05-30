@@ -21,6 +21,9 @@
 	const handleSubmit: SubmitFunction = () => {
 		isLoading = true; // Indicate submission is in progress.
 		toast.loading('Submitting...'); // Show loading toast.
+		if (form) {
+			form.status = 0;
+		}
 
 		return async ({ update, result }) => {
 			if (result.type === 'failure') {
