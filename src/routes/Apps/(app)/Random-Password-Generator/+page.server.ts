@@ -30,10 +30,6 @@ export const load: PageServerLoad = async ({ parent }) => {
 	const password = generatePassword(length);
 	const { user } = await parent();
 
-	if (user?.userData === null) {
-		console.log('user?.userData = ', user?.userData);
-	}
-
 	return {
 		password: password
 	};
@@ -53,14 +49,19 @@ export const actions: Actions = {
 			return fail(404, { invalid: true });
 		}
 
-		const savePassword = await db.savePassword.create({
-			data: {
-				password: password,
-				userId: user.id
-			}
-		});
-		console.log('savePassword = ', savePassword);
-		return { saved: true };
+		try {
+			const savePassword = await db.savePassword.create({
+				data: {
+					password: password,
+					userId: user.id
+				}
+			});
+			console.log('savePassword = ', savePassword);
+			return { saved: true };
+		} catch (err) {
+			console.error('Error:', err);
+			return fail(400, { error: 'Something Unexpected happened!' });
+		}
 	},
 	viewPasswords: async ({ request }) => {
 		const data = await request.formData();
@@ -72,15 +73,19 @@ export const actions: Actions = {
 			return fail(404, { invalid: true });
 		}
 
-		const displayPassword = await db.savePassword.findMany({
-			where: { userId: user.id },
-			select: { password: true, createdAt: true },
-			orderBy: {
-				createdAt: 'desc'
-			}
-		});
-		console.log('displayPassword = ', displayPassword);
-		return { displayPassword };
+		try {
+			const displayPassword = await db.savePassword.findMany({
+				where: { userId: user.id },
+				select: { password: true, createdAt: true },
+				orderBy: {
+					createdAt: 'desc'
+				}
+			});
+			console.log('displayPassword = ', displayPassword);
+			return { displayPassword };
+		} catch (error) {
+			return fail(400, { error: 'No passwords' });
+		}
 	},
 	hidePasswords: async ({ request }) => {
 		return { displayPassword: [] };

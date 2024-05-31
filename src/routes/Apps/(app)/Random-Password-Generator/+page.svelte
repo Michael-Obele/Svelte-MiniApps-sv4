@@ -14,6 +14,8 @@
 
 	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 
+	$: saved = form?.saved;
+
 	let passwordOptions = {
 		length: 12,
 		lowercaseLetters: true,
@@ -23,8 +25,6 @@
 	};
 
 	let userData = $page.data.user?.userData;
-
-	const userId = $page.data.user.userData.id;
 
 	// Destructuring passwordOptions
 	let { length, lowercaseLetters, number, symbols, uppercaseLetters } = passwordOptions;
@@ -139,18 +139,17 @@
 				>
 					<RefreshCcw class="h-6 w-6" />
 				</Button>
-				{#if $page.data.user}
-					<!-- content here -->
+				{#if userData}
 					<form action="?/save" use:enhance method="POST">
 						<input type="hidden" name="password" bind:value={password} />
-						<input type="hidden" name="id" value={userId} />
+						<input type="hidden" name="id" value={userData?.id} />
 						<Button
 							variant="outline"
 							type="submit"
 							class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
 							aria-label="Generate a new password"
 						>
-							{#if form?.saved}
+							{#if saved}
 								<Star class="h-6 w-6 fill-green-300" />
 							{:else}
 								<Star class="h-6 w-6 fill-white dark:fill-black" />
@@ -260,11 +259,11 @@
 	</div>
 </main>
 
-{#if userData.SavePassword}
+{#if userData?.SavePassword}
 	<section class="mx-auto my-12 w-3/4 max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
-		<p class="mb-2 text-center text-green-500 dark:text-green-400">You have saved passwords.</p>
+		<p class="mb-2 text-center text-green-500 dark:text-green-400">You can have saved passwords.</p>
 		<form use:enhance action="?/viewPasswords" method="POST" class="space-y-4">
-			<input type="hidden" name="id" value={userId} />
+			<input type="hidden" name="id" value={userData?.id} />
 			{#if form?.displayPassword && form?.displayPassword.length > 0}
 				{#if form?.displayPassword.length > 0}
 					<p class="text-center text-gray-700 dark:text-gray-300">
@@ -284,6 +283,13 @@
 				>
 					View Saved Passwords
 				</button>
+			{/if}
+			{#if form?.error}
+				<p
+					class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
+				>
+					{form?.error}
+				</p>
 			{/if}
 
 			{#if form?.displayPassword}
