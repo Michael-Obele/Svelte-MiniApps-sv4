@@ -4,11 +4,15 @@
 	import { done } from '$lib/index';
 	import { projects } from '$lib/index';
 	import { BadgeCheck, HardHat, ArrowRight } from 'lucide-svelte';
+	import { afterUpdate } from 'svelte';
 
 	export let filteredBy: string;
 
 	// Sort projects alphabetically by title
 	let sortedProjects = projects.sort((a, b) => a.title.localeCompare(b.title));
+	afterUpdate(() => {
+		console.log('filteredBy = ', filteredBy);
+	});
 </script>
 
 {#if filteredBy === 'all'}
@@ -105,7 +109,11 @@
 {:else}
 	<div class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 		{#each projects as item}
-			{#if item.difficulty === filteredBy}
+			{#if filteredBy
+				.split('')
+				.every((letter) => item.title.toLowerCase().includes(letter.toLowerCase())) || item.title
+					.toLowerCase()
+					.includes(filteredBy.toLowerCase())}
 				<a
 					class:pointer-events-none={!done.includes(item.title)}
 					href={'/Apps/' + item.title.replace(/\s+/g, '-')}
