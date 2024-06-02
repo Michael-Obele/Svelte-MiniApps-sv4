@@ -34,24 +34,12 @@
 		>Done</Button
 	>
 </div>
+<!-- Filtered List -->
 {#if app}
 	<List filteredBy={app} />
-	<!-- Filtered List Done -->
 {:else if $filter === 'all'}
 	<List filteredBy="all" />
 {:else if $filter === 'done'}
 	<List filteredBy="done" />
-{/if}
-<!-- Filtered List Easy -->
-{#if $filter === 'easy'}
-	<List filteredBy="easy" />
-{/if}
-<!-- Filtered List Medium -->
-{#if $filter === 'medium'}
-	<List filteredBy="medium" />
-{/if}
-<!-- Filtered List Hard -->
-{#if $filter === 'hard'}
-	<List filteredBy="hard" />
 {/if}
 <!-- End of Filtered List -->
