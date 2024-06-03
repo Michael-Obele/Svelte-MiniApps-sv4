@@ -1,12 +1,14 @@
 <script lang="ts">
 	import { QRCodeImage } from 'svelte-qrcode-image';
 	import * as htmlToImage from 'html-to-image';
-	let inputText = '';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import type { UserContext } from '$lib/types';
 	import { getContext } from 'svelte';
+	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 
 	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+
+	let inputText = '';
 
 	async function saveQRCode() {
 		if (!inputText) return;
@@ -43,7 +45,7 @@
 </svelte:head>
 
 <section
-	class="flex max-h-screen flex-col items-center justify-center text-green-900 dark:text-green-100"
+	class="flex max-h-fit flex-col items-center justify-center text-green-900 dark:text-green-100"
 >
 	<header class="mb-4 text-4xl font-bold">
 		<h1>
@@ -52,14 +54,14 @@
 			<br /> to the QR Code Generator
 		</h1>
 	</header>
-	<article class="px-10">
+	<article class="max-w-3xl px-10">
 		<p class="mb-4 text-lg">
 			QR codes let you share information quickly. Use them for links, contact info, or any data you
 			want to embed.
 		</p>
 		<p class="mb-8 text-lg">
-			Enter the text you want to encode into a QR code below. Once generated, you can save and share
-			the QR code to allow others to scan and access the information instantly.
+			Enter the text you want to encode into a QR code below. Once generated, you can tap the QR
+			code to view it in an alert and save it for sharing.
 		</p>
 	</article>
 
@@ -75,9 +77,35 @@
 		</form>
 	</main>
 	{#if inputText}
-		<aside class="mt-8">
-			<QRCodeImage text={inputText} displayID="qr-code-image" displayClass="h-64 w-64 rounded-md" />
-		</aside>
+		<AlertDialog.Root>
+			<AlertDialog.Trigger>
+				<aside class="mt-8 flex">
+					<QRCodeImage
+						text={inputText}
+						displayID="qr-code-image"
+						displayClass="h-64 w-64 rounded-md"
+					/>
+				</aside>
+			</AlertDialog.Trigger>
+			<AlertDialog.Content>
+				<AlertDialog.Header>
+					<AlertDialog.Title class="text-center">Your QR Code</AlertDialog.Title>
+					<AlertDialog.Description>
+						<aside class="mt-8 flex justify-center">
+							<QRCodeImage
+								text={inputText}
+								displayID="qr-code-image"
+								displayClass="h-64 w-64 rounded-md"
+							/>
+						</aside>
+					</AlertDialog.Description>
+				</AlertDialog.Header>
+				<AlertDialog.Footer>
+					<AlertDialog.Cancel>Close</AlertDialog.Cancel>
+				</AlertDialog.Footer>
+			</AlertDialog.Content>
+		</AlertDialog.Root>
+
 		<Button
 			on:click={saveQRCode}
 			aria-label="Save QR Code"
