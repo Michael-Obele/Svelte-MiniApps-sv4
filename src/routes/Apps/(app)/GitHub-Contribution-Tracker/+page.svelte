@@ -3,6 +3,7 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
+	import { Input } from '$lib/components/ui/input';
 	import type { UserContext } from '$lib/types';
 	import { redirect, type SubmitFunction } from '@sveltejs/kit';
 	import { getContext } from 'svelte';
@@ -83,7 +84,7 @@
 				<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 					>Your GitHub Username</label
 				>
-				<input
+				<Input
 					type="text"
 					name="user"
 					bind:value={username}
@@ -97,7 +98,7 @@
 				<label for="year" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 					>Enter Year</label
 				>
-				<input
+				<Input
 					type="number"
 					name="year"
 					bind:value={year}

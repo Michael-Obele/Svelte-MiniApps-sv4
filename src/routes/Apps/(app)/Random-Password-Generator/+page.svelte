@@ -105,10 +105,7 @@
 	<div class="mt-10 flex flex-col items-center justify-center space-y-4">
 		<h3 class="text-center text-4xl font-bold text-green-500">
 			Welcome
-			{#if userUsername || sessionUserName}
-				{userUsername || sessionUserName}
-			{/if}
-			!
+			{userUsername || sessionUserName || 'Guest'}!
 		</h3>
 
 		<h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">
