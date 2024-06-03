@@ -67,9 +67,8 @@
 <main>
 	<div class="text-center">
 		<h1 class="m-3 text-xl">
-			Welcome {#if userUsername || sessionUserName}
-				<span class="text-green-400">{userUsername || sessionUserName}</span>,
-			{/if} to GitHub Contribution Tracker!
+			Welcome, <span class="text-green-400">{userUsername || sessionUserName || ''}</span> to GitHub
+			Contribution Tracker!
 		</h1>
 		<p class="m-3 text-lg">
 			Track your GitHub contributions by entering your username and the year you're interested in.

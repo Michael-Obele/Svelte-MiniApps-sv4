@@ -47,11 +47,8 @@
 >
 	<header class="mb-4 text-4xl font-bold">
 		<h1>
-			Welcome
-
-			{#if userUsername || sessionUserName}
-				<span class="text-green-400">{userUsername || sessionUserName}</span>,
-			{/if}
+			Welcome,
+			<span class="text-green-400">{userUsername || sessionUserName || ''}</span>
 			<br /> to the QR Code Generator
 		</h1>
 	</header>
@@ -61,8 +58,8 @@
 			want to embed.
 		</p>
 		<p class="mb-8 text-lg">
-			Enter the text you want to encode into a QR code below. Once generated, share the QR code to
-			let others scan and access the information instantly.
+			Enter the text you want to encode into a QR code below. Once generated, you can save and share
+			the QR code to allow others to scan and access the information instantly.
 		</p>
 	</article>
 

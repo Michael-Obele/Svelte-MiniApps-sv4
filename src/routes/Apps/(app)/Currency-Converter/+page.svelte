@@ -5,6 +5,10 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import { Motion } from 'svelte-motion';
 	import { toast } from 'svelte-sonner';
+	import { page } from '$app/stores';
+
+	let userData = $page.data.user?.userData;
+	let gitData = $page.data.user?.session?.user;
 
 	export let form: ActionData & FormActionData;
 	let isLoading = false;
@@ -52,7 +56,11 @@
 
 <section class="my-8 px-4 text-center">
 	<h1 class="mb-4 text-4xl font-bold text-gray-800 dark:text-gray-200">
-		Welcome to Currency Converter
+		Welcome
+		<span class="text-green-600 dark:text-green-500">
+			{gitData?.name || userData?.username || ''}
+		</span>
+		to the Currency Converter
 	</h1>
 	<p class="mb-4 text-lg text-gray-700 dark:text-gray-300">
 		Convert currencies effortlessly. Just input the amount and currencies, and get your results

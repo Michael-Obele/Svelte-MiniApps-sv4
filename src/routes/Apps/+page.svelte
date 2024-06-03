@@ -28,7 +28,7 @@
 		name="app"
 		bind:value={app}
 		placeholder="Find App..."
-		class="mx-5 mb-2 w-fit rounded-md border border-gray-300 px-3 py-2 placeholder-gray-500 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+		class="mx-5 mb-2 w-fit rounded-md border border-blue-300 px-3 py-2 placeholder-blue-500 focus:border-green-500 focus:outline-none focus:ring-green-500 sm:text-sm"
 	/>
 	<Button on:click={setFilterValue('done')} class={$filter === 'done' ? 'active' : 'inactive'}
 		>Done</Button
