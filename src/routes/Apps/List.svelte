@@ -109,11 +109,7 @@
 {:else}
 	<div class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 		{#each projects as item}
-			{#if filteredBy
-				.split('')
-				.every((letter) => item.title.toLowerCase().includes(letter.toLowerCase())) || item.title
-					.toLowerCase()
-					.includes(filteredBy.toLowerCase())}
+			{#if item.title.toLowerCase().includes(filteredBy.toLowerCase())}
 				<a
 					class:pointer-events-none={!done.includes(item.title)}
 					href={'/Apps/' + item.title.replace(/\s+/g, '-')}

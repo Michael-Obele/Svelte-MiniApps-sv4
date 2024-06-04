@@ -13,10 +13,6 @@
 	}
 
 	$: app = '';
-
-	afterUpdate(() => {
-		console.log('app = ', app);
-	});
 </script>
 
 <div class="flex flex-wrap items-center justify-center py-4 md:py-8">
