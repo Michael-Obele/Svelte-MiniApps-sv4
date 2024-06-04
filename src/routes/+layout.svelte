@@ -27,8 +27,6 @@
 
 	onMount(() => {
 		detectSWUpdate();
-		invalidate('/');
-		invalidate((url) => url.pathname === '/');
 	});
 
 	afterUpdate(() => {
@@ -57,8 +55,6 @@
 
 <svelte:head>
 	<title>Svelte MiniApps</title>
-	{@html '<script>' + partytownSnippet() + '</script>'}
-	<meta name="google-site-verification" content="10ATAx6uImjU99YXvI91DB-E9h-MAgI6jsUkLfJlRwY" />
 </svelte:head>
 
 <ModeWatcher />
