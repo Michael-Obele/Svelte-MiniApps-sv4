@@ -10,9 +10,6 @@
 
 	// Sort projects alphabetically by title
 	let sortedProjects = projects.sort((a, b) => a.title.localeCompare(b.title));
-	afterUpdate(() => {
-		console.log('filteredBy = ', filteredBy);
-	});
 </script>
 
 {#if filteredBy === 'all'}
