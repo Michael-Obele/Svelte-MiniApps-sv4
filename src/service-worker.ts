@@ -96,6 +96,7 @@ self.addEventListener('message', (event) => {
 self.addEventListener('install', (event) => {
 	// forces a service worker to activate immediately
 	self.skipWaiting();
+	self.clients.claim();
 });
 
 Sentry.init({

@@ -5,7 +5,8 @@ export const done = [
 	'QR Code Generator',
 	'English Dictionary App',
 	'Random Emoji Generator',
-	'Currency Converter'
+	'Currency Converter',
+	'Advanced Emoji Tools'
 ];
 export const projects = [
 	{
