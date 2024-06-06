@@ -112,7 +112,7 @@
 		property="og:description"
 		content="Discover more about Svelte MiniApps on our About page. Learn about our innovative tools, unique Svelte applications, and how we're revolutionizing the Svelte ecosystem."
 	/>
-	<meta property="og:image" content="%sveltekit.assets%/svelte-badge.png" />
+	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<meta property="og:url" content="https://svelte-mini-apps.netlify.app/About" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="About Page | Svelte MiniApps" />
@@ -120,7 +120,7 @@
 		name="twitter:description"
 		content="Discover more about Svelte MiniApps on our About page. Learn about our innovative tools, unique Svelte applications, and how we're revolutionizing the Svelte ecosystem."
 	/>
-	<meta name="twitter:image" content="%sveltekit.assets%/svelte-badge.png" />
+	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/About" />
 </svelte:head>
 

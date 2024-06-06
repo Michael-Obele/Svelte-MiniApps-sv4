@@ -1,5 +1,4 @@
 <script lang="ts">
-
 </script>
 
 <svelte:head>
@@ -17,7 +16,7 @@
 		property="og:description"
 		content="Explore our collection of unique Svelte MiniApps. Discover new tools, innovative applications, and see how we're enhancing the Svelte ecosystem."
 	/>
-	<meta property="og:image" content="%sveltekit.assets%/svelte-badge.png" />
+	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<meta property="og:url" content="https://svelte-mini-apps.netlify.app/Apps" />
 	<meta property="og:url" content="https://svelte-mini-apps.netlify.app/Apps" />
 	<meta name="twitter:card" content="summary_large_image" />
@@ -26,9 +25,8 @@
 		name="twitter:description"
 		content="Explore our collection of unique Svelte MiniApps. Discover new tools, innovative applications, and see how we're enhancing the Svelte ecosystem."
 	/>
-	<meta name="twitter:image" content="%sveltekit.assets%/svelte-badge.png" />
+	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/Apps" />
 </svelte:head>
-
 
 <slot />

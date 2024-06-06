@@ -10,7 +10,7 @@
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
 	let websiteUrl = 'https://svelte-mini-apps.netlify.app/';
-	let websiteImage = '%sveltekit.assets%/svelte-badge.png';
+	let websiteImage = 'https://i.ibb.co/ZhhhnCz/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
@@ -43,66 +43,14 @@
 	<meta property="og:title" content={websiteTitle} />
 	<meta property="og:description" content={websiteDescription} />
 	<meta property="og:url" content={websiteUrl} />
-	<meta property="og:image" content={websiteImage} />
+	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<meta name="twitter:title" content={twitterTitle} />
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="google-site-verification" content="10ATAx6uImjU99YXvI91DB-E9h-MAgI6jsUkLfJlRwY" />
-	<meta name="twitter:image" content={websiteImage} />
+	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="canonical" href={websiteUrl} />
-
-	<script type="application/ld+json">
-	{{
-		"@context": "https://schema.org",
-		"@type": "FAQPage",
-		"mainEntity": [{
-			"@type": "Question",
-			"name": "What is Svelte MiniApps?",
-			"acceptedAnswer": {
-				"@type": "Answer",
-				"text": "Svelte MiniApps is a collection of useful and engaging tools built with Svelte."
-			}
-		}, {
-			"@type": "Question",
-			"name": "How can I use Svelte MiniApps?",
-			"acceptedAnswer": {
-				"@type": "Answer",
-				"text": "You can use Svelte MiniApps by visiting our website and choosing the tool you want to use."
-			}
-		}, {
-			"@type": "Question",
-			"name": "Is Svelte MiniApps installable?",
-			"acceptedAnswer": {
-				"@type": "Answer",
-				"text": "Yes, Svelte MiniApps is a Progressive Web App (PWA) and can be installed on your device for offline use."
-			}
-		}, {
-			"@type": "Question",
-			"name": "Is Svelte MiniApps open source?",
-			"acceptedAnswer": {
-				"@type": "Answer",
-				"text": "Yes, Svelte MiniApps is open source. You can view and contribute to the source code on our GitHub repository."
-			}
-		},
-		{
-    "@type": "Question",
-    "name": "Is the web app installable and how can I install it?",
-    "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, the web app is installable as it's a Progressive Web App (PWA). On Chrome, click on the three-dot menu in the top-right corner, then click on 'Install App'. On Safari, tap the Share button, then tap 'Add to Home Screen'."
-    }
-},
- {
-        "@type": "Question",
-        "name": "Where can I learn more about Svelte?",
-        "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You can learn more about Svelte by visiting the official Svelte website at https://svelte.dev/. They have a comprehensive guide and tutorial that can help you get started with Svelte."
-        }
-    }]
-	}}
-	</script>
 </svelte:head>
 
 <div class="pb-5 xl:px-10">

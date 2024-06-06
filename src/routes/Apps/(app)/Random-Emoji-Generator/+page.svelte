@@ -43,10 +43,7 @@
 		property="og:url"
 		content="https://svelte-mini-apps.netlify.app/apps/random-emoji-generator"
 	/>
-	<meta
-		property="og:image"
-		content="https://svelte-mini-apps.netlify.app/static/images/random-emoji-generator.png"
-	/>
+	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<link rel="canonical" href="https://svelte-mini-apps.netlify.app/apps/random-emoji-generator" />
 	<meta name="twitter:title" content="Random Emoji Generator - Svelte MiniApps" />
 	<meta name="keywords" content="Random Emoji, Emoji Generator, Fun, Productivity, Svelte Apps" />
@@ -55,10 +52,7 @@
 		name="twitter:description"
 		content="Generate random emojis with our Random Emoji Generator. Click the button to get a new emoji. Perfect for fun and productivity."
 	/>
-	<meta
-		name="twitter:image"
-		content="https://svelte-mini-apps.netlify.app/static/images/random-emoji-generator.png"
-	/>
+	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
 	<meta name="robots" content="index, follow" />
