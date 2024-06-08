@@ -9,18 +9,12 @@
 		property="og:description"
 		content="Visualize your GitHub contributions in a clear and engaging way. Track streaks, identify patterns, and stay motivated."
 	/>
-	<meta
-		property="og:url"
-		content="https://svelte-mini-apps.netlify.app/apps/github-contribution-tracker"
-	/>
+	<meta property="og:url" content="https://svelte-apps.me/apps/github-contribution-tracker" />
 	<meta
 		property="og:image"
-		content="https://svelte-mini-apps.netlify.app/static/images/github-contribution-tracker.png"
+		content="https://svelte-apps.me/static/images/github-contribution-tracker.png"
 	/>
-	<link
-		rel="canonical"
-		href="https://svelte-mini-apps.netlify.app/apps/github-contribution-tracker"
-	/>
+	<link rel="canonical" href="https://svelte-apps.me/apps/github-contribution-tracker" />
 	<meta
 		name="twitter:title"
 		content="Svelte MiniApps - GitHub Contribution Tracker - Track Your GitHub Journey"
@@ -33,7 +27,7 @@
 	/>
 	<meta
 		name="twitter:image"
-		content="https://svelte-mini-apps.netlify.app/static/images/github-contribution-tracker.png"
+		content="https://svelte-apps.me/static/images/github-contribution-tracker.png"
 	/>
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
@@ -43,7 +37,7 @@
 			"@context": "http://schema.org",
 			"@type": "WebSite",
 			"name": "Svelte MiniApps - GitHub Contribution Tracker",
-			"url": "https://svelte-mini-apps.netlify.app/apps/github-contribution-tracker",
+			"url": "https://svelte-apps.me/apps/github-contribution-tracker",
 			"description": "Visualize your GitHub contributions in a clear and engaging way. Track streaks, identify patterns, and stay motivated."
 		}
 	</script>

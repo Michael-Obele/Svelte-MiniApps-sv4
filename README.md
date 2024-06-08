@@ -88,7 +88,7 @@ You can install Svelte MiniApps as standalone applications on your device for qu
 Svelte MiniApps will be added to your device's home screen, allowing you to launch it like any other app.
 
 ### Live Version
-You can also access a live version of the Svelte MiniApps project on our website: [Svelte MiniApps](https://svelte-mini-apps.netlify.app/)
+You can also access a live version of the Svelte MiniApps project on our website: [Svelte MiniApps](https://svelte-apps.me/)
 
 
 ## Contributing to Svelte MiniApps
