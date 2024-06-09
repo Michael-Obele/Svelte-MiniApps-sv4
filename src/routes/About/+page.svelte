@@ -129,8 +129,8 @@
 		id="MiniApps"
 		class="mb-10 mt-5 cursor-pointer text-center text-3xl font-medium leading-loose text-gray-900 underline decoration-green-400 decoration-wavy decoration-4 underline-offset-8 transition-all dark:text-white dark:decoration-green-600"
 	>
-		<strong>Svelte</strong> MiniApps: Powerful Tiny Tools Built with
-		<strong class="text-nowrap text-red-500 dark:text-red-700">
+		Svelte MiniApps: Powerful Tiny Tools Built with
+		<span class="text-nowrap text-red-500 dark:text-red-700">
 			SvelteKit
 
 			<lord-icon
@@ -141,7 +141,7 @@
 				class="h-12 w-12"
 			>
 			</lord-icon>
-		</strong>
+		</span>
 	</h3>
 
 	<!-- Stepper -->

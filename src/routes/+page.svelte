@@ -1,4 +1,8 @@
 <script lang="ts">
+	import InfoBlock from './InfoBlock.svelte';
+
+	import ContentBlock from './ContentBlock.svelte';
+
 	import { page } from '$app/stores';
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
@@ -157,104 +161,62 @@
 	<section class="w-full md:py-24 lg:py-32">
 		<div class="container px-4 md:px-6">
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">
-				<div class="space-y-2">
-					<h2
-						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
-					>
-						<span> Why </span>
-						<strong class="text-[#F03E3E]"> Svelte</strong>
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/axteoudt.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="h-12 w-12"
-						>
-						</lord-icon>
-					</h2>
-					<p
-						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-					>
-						Svelte is a modern, component-based JavaScript framework that offers a unique approach
-						to building user interfaces. Unlike traditional frameworks that rely on a virtual DOM,
-						Svelte compiles your components into highly-optimized JavaScript code that updates the
-						DOM directly, resulting in lightning-fast performance and a smooth user experience.
-					</p>
-				</div>
-				<div class="space-y-2">
-					<h2
-						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
-					>
-						<strong class="text-[#F03E3E]"> Simplicity </strong>
-						<span> and Efficiency </span>
+				<ContentBlock iconId={''}>
+					<div slot="header" class="flex items-center justify-center space-x-2">
+						<strong class="text-[#F03E3E]">Svelte</strong>
+						<span>MiniApps</span>
+					</div>
 
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/zguybvqs.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="h-16 w-16"
-						>
-						</lord-icon>
-					</h2>
-					<p
-						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-					>
-						Svelte's syntax is intuitive and easy to learn, making it a great choice for both
-						experienced developers and those new to the world of web development. Its focus on
-						simplicity and efficiency means that you can build complex applications with less code,
-						resulting in faster development times and easier maintenance.
-					</p>
-				</div>
-				<div class="space-y-2">
-					<h2
-						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
-					>
-						<span> Versatility and </span>
-						<strong class="text-[#F03E3E]"> Scalability </strong>
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/yxyampao.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="h-16 w-16"
-						>
-						</lord-icon>
-					</h2>
-					<p
-						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-					>
-						Svelte's modular architecture and powerful tooling make it a versatile choice for
-						building a wide range of web applications, from small personal projects to large-scale
-						enterprise solutions. Its scalability and performance characteristics ensure that your
-						applications can grow and evolve with your business needs.
-					</p>
-				</div>
-				<div class="space-y-2">
-					<h2
-						class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
-					>
-						<strong class="text-[#F03E3E]"> Loved </strong>
-						<span> by Developers </span>
+					<span slot="paragraph">
+						Svelte MiniApps are tiny, focused tools built with SvelteKit for lightning speed. These
+						mini applications are designed to conquer everyday tasks with ease, providing a powerful
+						yet lightweight solution for your daily needs. Whether you're managing tasks, tracking
+						habits, or calculating quick figures, Svelte MiniApps can handle it all efficiently.
+					</span>
+				</ContentBlock>
 
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/jjoolpwc.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="h-16 w-16"
-						>
-						</lord-icon>
-					</h2>
-					<p
-						class="max-w-[900px] text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-					>
-						Svelte is a breath of fresh air for developers. It offers blazing-fast performance,
-						intuitive syntax, and a modular architecture that scales effortlessly. From rapid
-						prototyping to complex applications, Svelte empowers you to build exceptional
-						experiences.
-					</p>
-				</div>
+				<ContentBlock iconId={'axteoudt'}>
+					<div slot="header" class="flex items-center justify-center space-x-2">
+						<span>Why</span>
+						<strong class="text-[#F03E3E]">Svelte MiniApps</strong>
+					</div>
+
+					<span slot="paragraph">
+						Svelte MiniApps leverage the power of Svelte, a modern, component-based JavaScript
+						framework that offers a unique approach to building user interfaces. Unlike traditional
+						frameworks that rely on a virtual DOM, Svelte compiles your components into
+						highly-optimized JavaScript code that updates the DOM directly, resulting in
+						lightning-fast performance and a smooth user experience.
+					</span>
+				</ContentBlock>
+
+				<ContentBlock iconId={'zguybvqs'}>
+					<div slot="header">
+						<strong class="text-[#F03E3E]"> Simple </strong>
+						<span> and Efficient </span>
+					</div>
+
+					<span slot="paragraph">
+						Svelte MiniApps inherit Svelte's intuitive and efficient syntax, making them accessible
+						to developers of all levels. Svelte provides the foundation and tools for building
+						MiniApps, emphasizing simplicity and efficiency to create sophisticated tools with
+						minimal code, streamlining development and maintenance.
+					</span>
+				</ContentBlock>
+
+				<ContentBlock iconId={'yxyampao'}>
+					<div slot="header">
+						<span> Versatile and </span>
+						<strong class="text-[#F03E3E]"> Scalable </strong>
+					</div>
+
+					<span slot="paragraph">
+						Harnessing Svelte's modular architecture and robust tooling, Svelte MiniApps are
+						customized to fulfill various web tool needs, from personal projects to enterprise-level
+						solutions. Their versatility and performance ensure smooth operation, making them ideal
+						for a wide range of tasks, from everyday utilities to more complex applications.
+					</span>
+				</ContentBlock>
 			</div>
 		</div>
 	</section>
@@ -264,33 +226,23 @@
 			class="mx-auto max-w-screen-xl justify-center bg-white px-4 py-8 dark:bg-gray-900 lg:py-16 xl:rounded-lg"
 		>
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">
-				<div class="space-y-2">
-					<h2 class="mb-2 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl">
+				<ContentBlock iconId={'xyboiuok'}>
+					<div slot="header">
 						<strong class="text-[#F03E3E]"> Love </strong> this app?
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/xyboiuok.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							delay="800"
-							state="morph-heart"
-							class="h-14 w-14 py-2"
-						>
-						</lord-icon>
-					</h2>
-					<p
-						class="mb-6 max-w-[900px] text-lg font-normal text-gray-500 dark:text-gray-400 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed"
-					>
+					</div>
+
+					<span slot="paragraph">
 						We're thrilled you're enjoying your Svelte MiniApp experience! Here are some ways to
 						stay connected and help us grow:
-					</p>
-				</div>
+					</span>
+				</ContentBlock>
 			</div>
 
 			<div class="container mx-auto space-y-10 px-4 py-8 text-center">
 				<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
-					<div class="block max-w-md rounded-lg p-6">
+					<InfoBlock>
 						<lord-icon
+							slot="icon"
 							target="div"
 							src="https://cdn.lordicon.com/ercyvufy.json"
 							colors="primary:red,secondary:green"
@@ -298,20 +250,20 @@
 							class="float-right m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
 						>
 						</lord-icon>
-						<h2 class="mb-4 text-2xl font-bold dark:text-gray-300">Share the app:</h2>
-						<p class="mb-4 justify-start text-left text-lg dark:text-gray-400">
+						<span slot="header">Share the app:</span>
+						<span slot="paragraph">
 							<b class="dark:text-gray-200">Spread the word</b> Casually mention the awesome Svelte MiniApp
 							you discovered to your friends and colleagues. Share it on social media (Twitter, TikTok,
 							etc.) or bring it up in conversation. Is there a specific task this Svelte MiniApp helped
 							you with? Describe how it streamlined your workflow and how it might benefit others. The
 							more people who know about this valuable tool, the bigger the Svelte MiniApp community
 							can become!
-						</p>
-					</div>
+						</span>
+					</InfoBlock>
 
-					<div class="block max-w-md justify-self-end rounded-lg p-6">
-						<h2 class="mb-4 text-2xl font-bold dark:text-gray-300">Report a bug:</h2>
+					<InfoBlock>
 						<lord-icon
+							slot="icon"
 							target="div"
 							src="https://cdn.lordicon.com/rpgflpkp.json"
 							colors="primary:red,secondary:green"
@@ -319,7 +271,8 @@
 							class="float-left m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
 						>
 						</lord-icon>
-						<p class="mb-4 justify-start text-right text-lg dark:text-gray-400">
+						<span slot="header">Report a bug:</span>
+						<span slot="paragraph">
 							We're committed to making your Svelte MiniApp experience the best it can be. If you
 							encounter any issues, please help us fix them by contributing to the project on
 							GitHub. This could involve creating a new issue to report the bug, or even fixing the
@@ -327,8 +280,9 @@
 							be a valuable asset by simply describing the bug you encountered in a GitHub issue.
 							The more details you provide (steps to reproduce, screenshots, etc.), the easier it
 							will be for developers to identify and fix the problem.
-						</p>
-					</div>
+						</span>
+					</InfoBlock>
+
 					<p class="mt-4 text-lg text-gray-800 dark:text-gray-200">
 						By sharing the app and reporting bugs, you're actively contributing to its growth and
 						development. We appreciate your help!
