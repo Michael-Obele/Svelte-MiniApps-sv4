@@ -284,8 +284,10 @@
 					</InfoBlock>
 
 					<p class="mt-4 text-lg text-gray-800 dark:text-gray-200">
-						By sharing the app and reporting bugs, you're actively contributing to its growth and
-						development. We appreciate your help!
+						Your contribution to our app's growth and development is invaluable. By sharing the app
+						and reporting any bugs you encounter, you're actively helping us improve. For more
+						information about our mission and how you can get involved, visit our
+						<a class="text-[#F03E3E] underline" href="/About"> About page! </a>
 					</p>
 				</div>
 			</div>
