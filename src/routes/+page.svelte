@@ -161,7 +161,7 @@
 	<section class="w-full md:py-24 lg:py-32">
 		<div class="container px-4 md:px-6">
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">
-				<ContentBlock iconId={''}>
+				<ContentBlock>
 					<div slot="header" class="flex items-center justify-center space-x-2">
 						<strong class="text-[#F03E3E]">Svelte</strong>
 						<span>MiniApps</span>
@@ -240,7 +240,7 @@
 
 			<div class="container mx-auto space-y-10 px-4 py-8 text-center">
 				<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
-					<InfoBlock>
+					<InfoBlock direction="left">
 						<lord-icon
 							slot="icon"
 							target="div"
@@ -261,7 +261,7 @@
 						</span>
 					</InfoBlock>
 
-					<InfoBlock>
+					<InfoBlock direction="right">
 						<lord-icon
 							slot="icon"
 							target="div"
@@ -321,3 +321,48 @@
 		</div>
 	</div>
 </footer>
+
+<!-- Path: src/routes/InfoBlock.svelte -->
+<!-- 
+	<div class="block max-w-md rounded-lg p-6">
+						<lord-icon
+							target="div"
+							src="https://cdn.lordicon.com/ercyvufy.json"
+							colors="primary:red,secondary:green"
+							trigger="loop-on-hover"
+							class="float-right m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
+						>
+						</lord-icon>
+						<h2 class="mb-4 text-2xl font-bold dark:text-gray-300">Share the app:</h2>
+						<p class="mb-4 justify-start text-left text-lg dark:text-gray-400">
+							<b class="dark:text-gray-200">Spread the word</b> Casually mention the awesome Svelte MiniApp
+							you discovered to your friends and colleagues. Share it on social media (Twitter, TikTok,
+							etc.) or bring it up in conversation. Is there a specific task this Svelte MiniApp helped
+							you with? Describe how it streamlined your workflow and how it might benefit others. The
+							more people who know about this valuable tool, the bigger the Svelte MiniApp community
+							can become!
+						</p>
+					</div>
+
+					<div class="block max-w-md justify-self-end rounded-lg p-6">
+						<h2 class="mb-4 text-2xl font-bold dark:text-gray-300">Report a bug:</h2>
+						<lord-icon
+							target="div"
+							src="https://cdn.lordicon.com/rpgflpkp.json"
+							colors="primary:red,secondary:green"
+							trigger="loop-on-hover"
+							class="float-left m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
+						>
+						</lord-icon>
+						<p class="mb-4 justify-start text-right text-lg dark:text-gray-400">
+							We're committed to making your Svelte MiniApp experience the best it can be. If you
+							encounter any issues, please help us fix them by contributing to the project on
+							GitHub. This could involve creating a new issue to report the bug, or even fixing the
+							bug yourself and submitting a pull request. Not a coding pro? No worries You can still
+							be a valuable asset by simply describing the bug you encountered in a GitHub issue.
+							The more details you provide (steps to reproduce, screenshots, etc.), the easier it
+							will be for developers to identify and fix the problem.
+						</p>
+					</div>
+
+ -->

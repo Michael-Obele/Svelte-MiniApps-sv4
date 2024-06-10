@@ -1,10 +1,10 @@
-<script>
-	// Component logic (if necessary)
-	export let iconId;
+<script lang="ts">
+	export let iconId: string = '';
 </script>
 
 <div class="space-y-2">
 	<h2
+		class:cursor-pointer={iconId !== ''}
 		class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
 	>
 		<slot name="header" />
