@@ -39,6 +39,10 @@
 	}
 	let userData = $page.data.user.userData;
 	let gitUser = $page.data.user.session;
+
+	console.log('$page.data.user', $page.data.user);
+	console.log({ gitUser });
+	console.log({ userData });
 </script>
 
 <svelte:head>
@@ -67,11 +71,10 @@
 							class="my-3 text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
 						>
 							Welcome
-							{#if userData || gitUser}
-								<!-- content here -->
+							{#if userData}
 								Back,
 								<span class="capitalize text-green-700 dark:text-green-300">
-									{gitUser ? `${gitUser.user.name}` : `${userData.username}`}!
+									{userData.username}!
 								</span>
 							{/if}
 							to...

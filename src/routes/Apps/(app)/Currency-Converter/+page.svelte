@@ -6,9 +6,12 @@
 	import { Motion } from 'svelte-motion';
 	import { toast } from 'svelte-sonner';
 	import { page } from '$app/stores';
+	import type { UserContext } from '$lib/types';
+	import { getContext } from 'svelte';
 
 	let userData = $page.data.user?.userData;
-	let gitData = $page.data.user?.session?.user;
+
+	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
 
 	export let form: ActionData & FormActionData;
 	let isLoading = false;
@@ -58,7 +61,7 @@
 	<h1 class="mb-4 text-4xl font-bold text-gray-800 dark:text-gray-200">
 		Welcome
 		<span class="text-green-600 dark:text-green-500">
-			{gitData?.name || userData?.username || ''}
+			{userUsername || ''}
 		</span>
 		to the Currency Converter
 	</h1>

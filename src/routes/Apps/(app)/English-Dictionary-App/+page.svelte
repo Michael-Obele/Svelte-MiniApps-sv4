@@ -102,10 +102,8 @@
 >
 	<span class="my-5 ms-3 flex-1 whitespace-nowrap text-center text-xl">
 		Welcome,
-		{#if userUsername || sessionUserName}
-			<span class="font-semibold text-green-600 dark:text-green-400"
-				>{userUsername || sessionUserName}</span
-			>
+		{#if userUsername}
+			<span class="font-semibold text-green-600 dark:text-green-400"> {userUsername}</span>
 		{:else}
 			<span class="font-semibold text-gray-700 dark:text-gray-300">Guest</span>
 		{/if}!
