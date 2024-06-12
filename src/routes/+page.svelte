@@ -29,7 +29,6 @@
 				duration: Number.POSITIVE_INFINITY,
 				icon: Cookie
 			});
-			console.log('Cookie notification is visible');
 		}
 	});
 
@@ -39,10 +38,6 @@
 	}
 	let userData = $page.data.user.userData;
 	let gitUser = $page.data.user.session;
-
-	console.log('$page.data.user', $page.data.user);
-	console.log({ gitUser });
-	console.log({ userData });
 </script>
 
 <svelte:head>
