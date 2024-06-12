@@ -73,11 +73,12 @@
 								</span>
 							{/if}
 							to...
-						</h1>
-						<h1
-							class="text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
-						>
-							Svelte Mini Apps
+							<br />
+							<span
+								class="text-3xl font-bold tracking-tighter text-red-700 dark:text-white sm:text-5xl xl:text-6xl/none"
+							>
+								Svelte Mini Apps
+							</span>
 						</h1>
 						<p class="max-w-[600px] text-gray-500 dark:text-gray-400 md:text-xl">
 							Discover a collection of small, but powerful Svelte-based web applications that
