@@ -5,10 +5,11 @@
 <div class="space-y-2">
 	<h2
 		class:cursor-pointer={iconId !== ''}
-		class="flex items-center justify-center space-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
+		class="flex items-center justify-center Tspace-x-2 text-3xl font-bold tracking-tighter sm:text-5xl"
 	>
 		<slot name="header" />
 		<lord-icon
+	
 			target="div"
 			src="https://cdn.lordicon.com/{iconId}.json"
 			colors="primary:red,secondary:green"

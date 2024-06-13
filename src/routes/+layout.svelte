@@ -55,6 +55,7 @@
 
 <svelte:head>
 	<title>Svelte MiniApps</title>
+	<script src="$lib/lordicon.js"></script>
 
 	<script type="application/ld+json">
 	{{
