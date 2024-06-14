@@ -39,9 +39,9 @@
 	}
 
 	if (updateAvailable) {
-		toast('New version available!!', {
+		toast('New App version available!!', {
 			action: {
-				label: 'OK',
+				label: 'Update now',
 				onClick: () => updateApp()
 			},
 			duration: Number.POSITIVE_INFINITY,
