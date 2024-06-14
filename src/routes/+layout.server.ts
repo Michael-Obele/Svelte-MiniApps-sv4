@@ -25,18 +25,12 @@ export const load: LayoutServerLoad = async (event) => {
 	}
 
 	let userData: User | null = null;
-
 	/**
-	 * Retrieves user data based on the session ID. If the session ID is present, it fetches the user data
-	 * directly using the session ID. If the session ID is not present, it attempts to retrieve the user
-	 * data from the session object available in `event.locals`. If the user is found in the session,
-	 * a simplified user data object is constructed with available information.
+	 * Retrieves user data from the session ID or session object.
 	 *
-	 * @param {string | undefined} sessionID - The session ID used to identify the user. It can be undefined.
-	 * @param {any} event - The event object that may contain the user's session information.
-	 * @returns {Promise<any>} A promise that resolves to the user data object. The structure of the object
-	 * varies depending on whether the user was found using the session ID or the session object. If the user
-	 * is not found, `userData` remains undefined.
+	 * @param {string | undefined} sessionID - The session ID used to identify the user.
+	 * @param {any} event - The event object containing the user's session information.
+	 * @returns {Promise<User | null>} A promise that resolves to the user data object.
 	 */
 	if (sessionID) {
 		userData = await getUserBySessionID(sessionID);
@@ -62,16 +56,10 @@ export const load: LayoutServerLoad = async (event) => {
 };
 
 /**
- * Retrieves a user from the database based on a given session ID.
+ * Fetches a user by session ID.
  *
- * This function searches the database for a unique user whose `userAuthToken` matches
- * the provided `sessionID`. If a match is found, it returns a simplified user object
- * containing the user's id, username, isAdmin status, creation date, SavePassword status,
- * name, image, and email. If no user is found matching the session ID, it returns null.
- *
- * @param {string} sessionID - The session ID used to identify the user in the database.
- * @returns {Promise<User | null>} A promise that resolves to a user object if a user with
- * the given session ID is found, or null if no such user exists.
+ * @param {string} sessionID - User's session ID.
+ * @return {Promise<User | null>} User object if found, null otherwise.
  */
 async function getUserBySessionID(sessionID: string): Promise<User | null> {
 	return await db.user.findUnique({
