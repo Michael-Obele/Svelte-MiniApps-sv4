@@ -18,19 +18,17 @@
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
-
-	onMount(() => {
-		if (!$page.data.hasSeenCookieNotification) {
-			toast("Session cookies at work here. Chill, it's all cool!", {
-				action: {
-					label: 'OK',
-					onClick: () => goto('/cookies')
-				},
-				duration: Number.POSITIVE_INFINITY,
-				icon: Cookie
-			});
-		}
-	});
+	let seenCookie = $page.data.hasSeenCookieNotification;
+	if (seenCookie == false) {
+		toast("Session cookies at work here. Chill, it's all cool!", {
+			action: {
+				label: 'OK',
+				onClick: () => goto(`${websiteUrl}/cookies`)
+			},
+			duration: Number.POSITIVE_INFINITY,
+			icon: Cookie
+		});
+	}
 
 	// Function to scroll smoothly to the top of the page
 	function scrollToTop() {
@@ -46,11 +44,11 @@
 	<meta property="og:title" content={websiteTitle} />
 	<meta property="og:description" content={websiteDescription} />
 	<meta property="og:url" content={websiteUrl} />
-	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
+	<meta property="og:image" content={websiteImage} />
 	<meta name="twitter:title" content={twitterTitle} />
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="google-site-verification" content="10ATAx6uImjU99YXvI91DB-E9h-MAgI6jsUkLfJlRwY" />
-	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
+	<meta name="twitter:image" content={websiteImage} />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="canonical" href={websiteUrl} />
