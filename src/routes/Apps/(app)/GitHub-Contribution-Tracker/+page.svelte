@@ -9,7 +9,7 @@
 	import { getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
 
-	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+	const { userUsername } = getContext<UserContext>('userContext');
 	let username: string;
 	let year: string;
 	$: isLoading = false;
@@ -68,8 +68,7 @@
 <main>
 	<div class="text-center">
 		<h1 class="m-3 text-xl">
-			Welcome, <span class="text-green-400">{userUsername || sessionUserName || ''}</span> to GitHub
-			Contribution Tracker!
+			Welcome, <span class="text-green-400">{userUsername || ''}</span> to GitHub Contribution Tracker!
 		</h1>
 		<p class="m-3 text-lg">
 			Track your GitHub contributions by entering your username and the year you're interested in.

@@ -5,6 +5,34 @@
 	console.log({ data });
 </script>
 
+<svelte:head>
+	<title>Advanced Emoji Tools</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta
+		name="description"
+		content="An advanced toolset for working with emojis. Convert text to emojis, search for emojis, and more."
+	/>
+
+	<!-- Social Media Meta Tags -->
+	<meta property="og:title" content="Advanced Emoji Tools" />
+	<meta property="og:description" content="Convert text to emojis, search for emojis, and more." />
+
+	<!-- Google + Meta Tags -->
+	<meta itemprop="name" content="Advanced Emoji Tools" />
+	<meta itemprop="description" content="Convert text to emojis, search for emojis, and more." />
+
+	<!-- Facebook Meta Tags -->
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="Advanced Emoji Tools" />
+	<meta property="og:description" content="Convert text to emojis, search for emojis, and more." />
+
+	<!-- Twitter Card Data -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Advanced Emoji Tools" />
+	<meta name="twitter:description" content="Convert text to emojis, search for emojis, and more." />
+</svelte:head>
+
 <section class="p-4 text-center">
 	<h3 class="mb-4 text-2xl font-bold">Under Construction</h3>
 	<p class="mb-4 text-lg">We're currently working on this App. Please check back later.</p>

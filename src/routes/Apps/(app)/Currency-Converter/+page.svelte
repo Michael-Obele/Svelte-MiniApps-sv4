@@ -11,7 +11,7 @@
 
 	let userData = $page.data.user?.userData;
 
-	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+	const { userUsername } = getContext<UserContext>('userContext');
 
 	export let form: ActionData & FormActionData;
 	let isLoading = false;

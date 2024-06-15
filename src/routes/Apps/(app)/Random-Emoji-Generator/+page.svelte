@@ -25,7 +25,7 @@
 	import { getContext } from 'svelte';
 	import { toast } from 'svelte-sonner';
 
-	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+	const { userUsername } = getContext<UserContext>('userContext');
 </script>
 
 <svelte:head>
@@ -67,7 +67,7 @@
 <div class="min-h-screen">
 	<h1 class="px-5 py-10 text-center text-4xl font-bold text-white dark:text-green-300">
 		Welcome<br />
-		{userUsername || sessionUserName || ''}
+		{userUsername || ''}
 		<br />
 		to the Random Emoji Generator!
 	</h1>

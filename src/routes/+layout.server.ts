@@ -50,7 +50,7 @@ export const load: LayoutServerLoad = async (event) => {
 	}
 
 	return {
-		user: { userData, session: await event.locals.getSession() },
+		user: { userData },
 		hasSeenCookieNotification
 	};
 };

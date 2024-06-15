@@ -6,32 +6,22 @@ export interface User {
 	image: string;
 }
 
-export interface Session {
-	user: User;
-	expires: string;
-}
-
 export interface UserData {
 	username: string;
 	isAdmin: boolean;
+	user?: User;
+	expires?: string;
 	createdAt: string;
-	role: Role;
+	updatedAt?: string;
 }
 
 export interface UserSessionData {
 	data: UserData;
-	session: Session;
 }
 
 export interface UserContext {
 	currentUser: UserSessionData | null;
 	userUsername: string;
-	sessionUserName: string;
-}
-
-interface Role {
-	id: BigInt;
-	name?: string;
 }
 
 export interface UserDB {
@@ -42,7 +32,5 @@ export interface UserDB {
 	isAdmin: boolean;
 	createdAt: Date;
 	updatedAt: Date;
-	roleId: BigInt;
-	role?: Role;
 	data?: string | null;
 }

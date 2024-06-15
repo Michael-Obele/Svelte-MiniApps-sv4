@@ -6,7 +6,7 @@
 	import { getContext } from 'svelte';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 
-	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+	const { userUsername } = getContext<UserContext>('userContext');
 
 	let inputText = '';
 
@@ -50,7 +50,7 @@
 	<header class="mb-4 text-4xl font-bold">
 		<h1>
 			Welcome,
-			<span class="text-green-400">{userUsername || sessionUserName || ''}</span>
+			<span class="text-green-400">{userUsername || ''}</span>
 			<br /> to the QR Code Generator
 		</h1>
 	</header>

@@ -7,7 +7,7 @@
 	import type { UserContext } from '$lib/types';
 	import { afterUpdate, getContext } from 'svelte';
 
-	const { userUsername, sessionUserName } = getContext<UserContext>('userContext');
+	const { userUsername } = getContext<UserContext>('userContext');
 	import NoWord from '$lib/logo/not-found.svelte';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { toast } from 'svelte-sonner';
