@@ -1,7 +1,10 @@
 <script lang="ts">
 	import { afterUpdate, setContext } from 'svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
+	import { Badge } from '$lib/components/ui/badge/index.js';
+
 	import { page } from '$app/stores';
+	import { Code2 } from 'lucide-svelte';
 	$: route = $page.url.pathname.split('/');
 	$: routeId = route[2];
 	$: currentRoute = route[route.length - 1];
@@ -9,6 +12,7 @@
 	let userUsername = $page.data.user.userData?.username;
 	let sessionUserName = $page.data.user.session?.user?.name;
 	setContext('userContext', { userUsername, sessionUserName });
+	let link = 'https://github.com/Michael-Obele/Svelte-MiniApps/tree/master/src/routes/Apps/(app)';
 </script>
 
 <svelte:head>
@@ -39,7 +43,7 @@
 	<link rel="canonical" href="https://svelte-apps.me/Apps" />
 </svelte:head>
 
-<div class="mb-5 mt-2 flex place-items-center justify-center">
+<div class="relative mb-5 mt-2 flex place-items-center justify-center">
 	<Breadcrumb.Root>
 		<Breadcrumb.List>
 			<Breadcrumb.Item>
@@ -61,7 +65,11 @@
 			{/if}
 		</Breadcrumb.List>
 	</Breadcrumb.Root>
+	<a href="{link}/{routeId}" target="_blank">
+		<Badge class="absolute right-5 top-0">View Source Code <Code2 size="16" class="mx-1" /></Badge>
+	</a>
 </div>
-<div class="">
+
+<div class="relative min-h-screen">
 	<slot />
 </div>

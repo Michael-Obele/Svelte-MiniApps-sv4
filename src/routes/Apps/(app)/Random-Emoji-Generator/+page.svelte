@@ -65,14 +65,14 @@
 </svelte:head>
 
 <div class="min-h-screen">
-	<h1 class="px-5 py-10 text-center text-4xl font-bold text-white dark:text-green-300">
+	<h1 class="px-5 py-10 text-center text-4xl font-bold text-gray-800 dark:text-green-300">
 		Welcome<br />
 		{userUsername || ''}
 		<br />
 		to the Random Emoji Generator!
 	</h1>
 	<div class="flex flex-col items-center justify-center">
-		<p class="mb-8 text-center text-lg text-white dark:text-green-200">
+		<p class="mb-8 text-center text-lg text-gray-700 dark:text-green-200">
 			Click the Button below to generate a random emoji.
 		</p>
 		<Button
@@ -83,10 +83,10 @@
 		</Button>
 		{#if randomEmoji.emoji}
 			<div class="flex flex-col items-center">
-				<h2 class="mt-4 text-2xl font-semibold text-white dark:text-green-300 md:text-3xl">
+				<h2 class="mt-4 text-2xl font-semibold text-gray-800 dark:text-green-300 md:text-3xl">
 					{randomEmoji.emoji}
 				</h2>
-				<h3 class="mt-2 text-lg capitalize text-white dark:text-green-200 md:text-xl">
+				<h3 class="mt-2 text-lg capitalize text-gray-700 dark:text-green-200 md:text-xl">
 					{randomEmoji.name.split('_').join(' ')}
 				</h3>
 			</div>

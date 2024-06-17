@@ -210,13 +210,16 @@
 		<div id="introduction-list" class="mx-auto my-5 w-fit max-w-[80%]">
 			<ul class="space-y-4 text-left">
 				{#each data.features as feature, i}
-					<li id={feature.title.split(' ').join('-')} class="flex items-center">
+					<li
+						id={feature.title.split(' ').join('-')}
+						class="flex flex-col items-center md:flex-row"
+					>
 						<lord-icon
 							target="li"
 							src="https://cdn.lordicon.com/cgzlioyf.json"
 							trigger="morph"
 							colors="primary:#c71f16,secondary:#109173"
-							class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
+							class="mr-5 h-10 w-10 text-green-500 dark:text-green-400"
 						>
 						</lord-icon>
 						<span class="felx flex-col font-semibold">
@@ -240,13 +243,16 @@
 				more complex ones like persistent to-do lists.
 			</p>
 			<ul class="mx-auto w-fit space-y-4 text-center">
-				<li id="Browse" class="flex items-center space-x-3 rtl:space-x-reverse">
+				<li
+					id="Browse"
+					class="flex flex-col items-center space-x-3 md:flex-row rtl:space-x-reverse"
+				>
 					<lord-icon
 						src="https://cdn.lordicon.com/unukghxb.json"
 						target="li"
 						trigger="morph"
 						colors="primary:#c71f16,secondary:#109173"
-						class="mr-5 hidden h-8 w-8 text-green-500 dark:text-green-400 md:block"
+						class="mr-5 h-8 w-8 text-green-500 dark:text-green-400"
 					>
 					</lord-icon>
 					<span class="">
@@ -254,13 +260,13 @@
 					</span>
 				</li>
 
-				<li id="Dive" class="flex items-center space-x-3 rtl:space-x-reverse">
+				<li id="Dive" class="flex flex-col items-center space-x-3 md:flex-row rtl:space-x-reverse">
 					<lord-icon
 						src="https://cdn.lordicon.com/uvqdhrsk.json"
 						target="li"
 						trigger="morph"
 						colors="primary:#c71f16,secondary:#109173"
-						class="mr-5 hidden h-10 w-10 text-green-500 dark:text-green-400 md:block"
+						class="mr-5 h-10 w-10 text-green-500 dark:text-green-400"
 					>
 					</lord-icon>
 					<span class="">
@@ -294,12 +300,12 @@
 		<div class="mx-auto my-5 w-fit max-w-[80%]">
 			<ul class="space-y-4 text-left">
 				{#each data.reasons as reason, i}
-					<li class="flex items-center">
+					<li class="flex flex-col items-center md:flex-row">
 						<lord-icon
 							src="https://cdn.lordicon.com/mjyxajfq.json"
 							trigger="loop"
 							colors="primary:#c71f16,secondary:#109173"
-							class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
+							class="mr-5 h-16 w-16 text-green-500 dark:text-green-400"
 						>
 						</lord-icon>
 						<span class="felx flex-col font-semibold">
@@ -323,11 +329,13 @@
 				class="bold text-xl text-green-800 dark:text-green-400 lg:text-3xl"
 			>
 				handy, bite-sized tools
-				<span class="text-lg text-white lg:text-2xl"> you grab for specific tasks. </span>
+				<span class="text-lg text-black dark:text-white lg:text-2xl">
+					you grab for specific tasks.
+				</span>
 				No bulky all-in-ones
-				<span class="text-lg text-white lg:text-2xl"> or</span>
+				<span class="text-lg text-black dark:text-white lg:text-2xl"> or</span>
 				dusty
-				<span class="text-lg text-white lg:text-2xl"> specialty tools here. </span>
+				<span class="text-lg text-black dark:text-white lg:text-2xl"> specialty tools here. </span>
 			</span>
 		</p>
 		<h3 id="future" class="bold mx-auto mb-12 mt-16 w-fit cursor-pointer text-center text-2xl">
@@ -349,26 +357,15 @@
 		<div class="mx-auto my-5 w-fit max-w-[90%]">
 			<ul class="space-y-4 text-left">
 				{#each data.future as item, i}
-					<li id={item.title.split(' ').join('-')} class="flex items-center">
-						{#if i == 0}
-							<lord-icon
-								target="li"
-								src="https://cdn.lordicon.com/jdalicnn.json"
-								trigger="morph"
-								colors="primary:#c71f16,secondary:#109173"
-								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
-							>
-							</lord-icon>
-						{:else if i == 1}
-							<lord-icon
-								target="li"
-								src="https://cdn.lordicon.com/wzrwaorf.json"
-								trigger="morph"
-								colors="primary:#c71f16,secondary:#109173"
-								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
-							>
-							</lord-icon>
-						{/if}
+					<li id={item.title.split(' ').join('-')} class="flex flex-col items-center md:flex-row">
+						<lord-icon
+							target="#{item.title.split(' ').join('-')}"
+							src={`https://cdn.lordicon.com/${i == 0 ? 'jdalicnn' : 'wzrwaorf'}.json`}
+							trigger="morph"
+							colors="primary:#c71f16,secondary:#109173"
+							class="mr-5 h-16 w-16 text-green-500 dark:text-green-400"
+						>
+						</lord-icon>
 
 						<span class="felx flex-col font-semibold">
 							{item.title}:
@@ -389,27 +386,15 @@
 		<div class="mx-auto my-5 w-fit max-w-[90%]">
 			<ul class="space-y-4 text-left">
 				{#each data.next as item, i}
-					<li id={item.title.split(' ').join('-')} class="flex items-center">
-						{#if i == 0}
-							<lord-icon
-								target="li"
-								src="https://cdn.lordicon.com/xpuzvjaf.json"
-								trigger="morph"
-								colors="primary:#c71f16,secondary:#109173"
-								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
-							>
-							</lord-icon>
-						{:else if i == 1}
-							<lord-icon
-								target="li"
-								src="https://cdn.lordicon.com/kndkiwmf.json"
-								trigger="morph"
-								colors="primary:#c71f16,secondary:#109173"
-								class="mr-5 hidden h-16 w-16 text-green-500 dark:text-green-400 md:block"
-							>
-							</lord-icon>
-						{/if}
-
+					<li id={item.title.split(' ').join('-')} class="flex flex-col items-center md:flex-row">
+						<lord-icon
+							target="#{item.title.split(' ').join('-')}"
+							src={`https://cdn.lordicon.com/${i == 0 ? 'xpuzvjaf' : 'kndkiwmf'}.json`}
+							trigger="morph"
+							colors="primary:#c71f16,secondary:#109173"
+							class="mr-5 h-16 w-16 text-green-500 dark:text-green-400"
+						>
+						</lord-icon>
 						<span class="felx flex-col font-semibold">
 							{item.title}
 
@@ -482,7 +467,6 @@
 </footer>
 
 <!-- End of Footer -->
-
 
 <style>
 	h3 {

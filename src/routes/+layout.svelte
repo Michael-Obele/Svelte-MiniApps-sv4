@@ -85,7 +85,17 @@
 
 <svelte:head>
 	<title>Svelte MiniApps</title>
+</svelte:head>
 
+<ModeWatcher />
+
+<Navbar />
+
+<Toaster />
+
+<slot class="text-gray-900 dark:text-white" />
+
+<!-- 
 	<script type="application/ld+json">
 	{{
 		"@context": "https://schema.org",
@@ -137,12 +147,5 @@
     }]
 	}}
 	</script>
-</svelte:head>
 
-<ModeWatcher />
-
-<Navbar />
-
-<Toaster />
-
-<slot class="text-gray-900 dark:text-white" />
+-->
