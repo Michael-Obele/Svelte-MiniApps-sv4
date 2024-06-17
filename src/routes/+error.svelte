@@ -2,6 +2,9 @@
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import Svelte from '$lib/logo/svelte-icon-black.svelte';
+	import NF from '$lib/logo/404.svelte';
+	import Bad from '$lib/logo/Bad.svelte';
+	import Bug from '$lib/logo/Bug.svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 </script>
 
@@ -14,14 +17,12 @@
 		Code: {$page.status}
 	</h3>
 	<div class="mb-8 flex justify-center">
-		<div
-			class="flex h-fit w-fit flex-row items-center rounded-full stroke-red-400 dark:stroke-red-500"
-		>
-			<Svelte />
-			<span
-				class="shadow12 -indent-[5vw] text-2xl font-bold leading-loose tracking-wider text-red-500 dark:text-black sm:text-4xl md:-indent-[5vw] md:text-5xl"
-				>omething's off!</span
-			>
+		<div class="flex size-60 flex-row items-center sm:size-96">
+			{#if $page.status == 404}
+				<NF />
+			{:else}
+				<Bad />
+			{/if}
 		</div>
 	</div>
 
@@ -30,19 +31,19 @@
 	<p class="mx-8 mb-8 text-center text-4xl text-gray-600 dark:text-gray-400">
 		{#if $page.error?.message}
 			{#if $page.status === 404}
-				<span class="font-bold text-red-500">Page</span>
-			{/if}
-			{$page.error?.message}
-			{#if $page.status === 405}
-				<span class="mt-3 font-semibold text-blue-500">
-					<br />
+				<span class="font-bold text-red-500">Page Not Found! </span>
+			{:else if $page.status === 405}
+				<span class="font-semibold text-blue-500">
 					"It looks like you're trying to do something that isn't allowed here.
-					<br />
-					Let's head back home, shall we?"
+					<br />Let's head back home and try it there, shall we?"
 				</span>
+			{:else}
+				<span class="font-bold text-red-500">
+					{$page.error.message}
+				</span>
+				<br />
+				We're having some trouble at the moment. Please try again.
 			{/if}
-		{:else}
-			We're having some trouble at the moment. Please try again later.
 		{/if}
 	</p>
 

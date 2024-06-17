@@ -66,10 +66,12 @@
 		</Breadcrumb.List>
 	</Breadcrumb.Root>
 	<a href="{link}/{routeId}" target="_blank">
-		<Badge class="absolute right-5 top-0">View Source Code <Code2 size="16" class="mx-1" /></Badge>
+		<Badge class="absolute right-5 top-5 sm:top-0"
+			>View Source Code <Code2 size="16" class="mx-1" /></Badge
+		>
 	</a>
 </div>
 
-<div class="relative min-h-screen">
+<div class="relative mt-6 min-h-screen">
 	<slot />
 </div>

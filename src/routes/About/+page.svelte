@@ -9,6 +9,7 @@
 
 	import { _splitDescription } from './+page';
 	import { onMount } from 'svelte';
+	import { goto } from '$app/navigation';
 
 	const h3Ids = [
 		'MiniApps',
