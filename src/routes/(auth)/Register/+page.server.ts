@@ -3,7 +3,7 @@ import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcryptjs';
 import { getDbInstance } from '$lib/database';
 
-import { isPrismaClientKnownRequestError, enhance } from '@zenstackhq/runtime';
+import { isPrismaClientKnownRequestError } from '@zenstackhq/runtime';
 import { Admin_PW } from '$env/static/private';
 
 const db = getDbInstance(); // Get the Prisma client instance
