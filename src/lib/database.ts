@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-let db: PrismaClient;
+let db: PrismaClient | null = null;
 
 function getDbInstance() {
 	if (!db) {

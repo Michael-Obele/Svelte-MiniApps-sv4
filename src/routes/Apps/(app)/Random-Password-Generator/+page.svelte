@@ -143,7 +143,7 @@
 							class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
 							aria-label="Generate a new password"
 						>
-							{#if saved}
+							{#if form?.saved}
 								<Star class="h-6 w-6 fill-green-300" />
 							{:else}
 								<Star class="h-6 w-6 fill-white dark:fill-black" />

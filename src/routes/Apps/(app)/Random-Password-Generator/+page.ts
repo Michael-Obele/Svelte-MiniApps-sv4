@@ -1,5 +1,15 @@
 import { toast } from 'svelte-sonner';
 
+/**
+ * Generates a random password of the specified length, including uppercase, lowercase, numbers, and symbols if selected.
+ *
+ * @param {number} length - The length of the password to generate.
+ * @param {boolean} includeUppercase - Whether to include uppercase letters in the password.
+ * @param {boolean} includeLowercase - Whether to include lowercase letters in the password.
+ * @param {boolean} includeNumbers - Whether to include numbers in the password.
+ * @param {boolean} includeSymbol - Whether to include symbols in the password.
+ * @return {string} The generated random password.
+ */
 export function _generatePassword(
 	length: number,
 	includeUppercase: boolean,
