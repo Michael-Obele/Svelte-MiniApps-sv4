@@ -61,7 +61,7 @@ const login: Action = async ({ cookies, request }) => {
 
 	// Update the user's userAuthToken field with a randomly generated UUID
 	const authenticatedUser = await db.user.update({
-		where: { username: user.username ?? '' },
+		where: { username: user.username! },
 		data: { userAuthToken: crypto.randomUUID() }
 	});
 
