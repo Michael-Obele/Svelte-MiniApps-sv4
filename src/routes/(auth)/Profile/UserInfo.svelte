@@ -18,6 +18,20 @@
 	}
 </script>
 
+<!--
+@component
+## Svelte Component: UserInfo Card
+This component shows user details like whether they're an admin, how they registered, and their email. It uses `userData` and `gitData` props. It also conditionally renders content based on the availability of these props.
+
+## Key Features
+- **Admin Status**: Displays if the user is an admin.
+- **Registration Method**: Shows how the user registered.
+- **Email Linking**: Indicates if the user has an email linked to their account.
+
+## Helper Functions
+- **`isAdmin(userOrGit)`**: Checks if the user or Git data marks them as an admin.
+- **`registrationMethod(user, git)`**: Identifies the registration method used by the user.
+-->
 <div>
 	{#if userData || gitData}
 		<div class="rounded-lg bg-green-400 p-3 dark:bg-green-900">

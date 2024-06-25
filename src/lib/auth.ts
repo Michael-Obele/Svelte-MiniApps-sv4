@@ -19,7 +19,7 @@ export const providerMap = providers.map((provider) => {
 export const { handle, signIn, signOut } = SvelteKitAuth({
 	adapter: PrismaAdapter(prisma),
 	trustHost: true,
-	 providers: [GitHub],
+	providers: [GitHub],
 	pages: {
 		signIn: '/signin'
 	}

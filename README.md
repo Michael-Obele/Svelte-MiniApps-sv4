@@ -12,7 +12,6 @@ Svelte MiniApps is a collection of mini-applications created to demonstrate the 
 - [Contributing to Svelte MiniApps](#contributing-to-svelte-miniapps) 🤝
 - [License](#license) 📄
 
-
 ## About
 
 This project offers a collection of handy tools, each designed to streamline a specific task. Whether you're converting units, generating strong passwords, or managing your to-do list, there's a mini-app here to simplify your day.
@@ -23,14 +22,13 @@ These mini-apps cater to various difficulty levels, so you can find the perfect 
 
 **Here's a glimpse of what you can do:**
 
-* **Effortless Calculations:** Convert units, generate random passwords, or calculate your BMI with a few clicks.
-* **Stay on Top of Things:** Create checklists, to-do lists (with persistence!), or set timers to stay focused.
-* **Explore and Learn:** Generate QR codes, translate between text and Morse code, or visually explore Wikipedia articles.
-* **Manage Your Life:** Track your habits, budget your finances, or even edit and view markdown files with ease.
-* **And More!** Discover a variety of other mini-apps to enhance your daily workflow.
+- **Effortless Calculations:** Convert units, generate random passwords, or calculate your BMI with a few clicks.
+- **Stay on Top of Things:** Create checklists, to-do lists (with persistence!), or set timers to stay focused.
+- **Explore and Learn:** Generate QR codes, translate between text and Morse code, or visually explore Wikipedia articles.
+- **Manage Your Life:** Track your habits, budget your finances, or even edit and view markdown files with ease.
+- **And More!** Discover a variety of other mini-apps to enhance your daily workflow.
 
 This project goes beyond a simple list of tools – it's a toolbox for efficiency! With its diverse functionalities and user-friendly interfaces, it empowers you to get things done effectively, no matter your skill level.
-
 
 ## Getting Started
 
@@ -45,8 +43,8 @@ The Svelte MiniApps project showcases a collection of pre-built mini-apps. You c
 ```bash
 git clone https://github.com/Michael-Obele/Svelte-MiniApps.git
 cd Svelte-MiniApps
-bun install  
-bun run dev  
+bun install
+bun run dev
 ```
 
 This will launch a local server and open all the available mini-apps in your browser window. Navigate through the different functionalities and see how they work.
@@ -62,8 +60,8 @@ You can install Svelte MiniApps as standalone applications on your device for qu
 Svelte MiniApps will be added to your device's home screen, allowing you to launch it like any other app.
 
 ### Live Version
-You can also access a live version of the Svelte MiniApps project on our website: [Svelte MiniApps](https://svelte-apps.me/)
 
+You can also access a live version of the Svelte MiniApps project on our website: [Svelte MiniApps](https://svelte-apps.me/)
 
 ## Contributing to Svelte MiniApps
 
