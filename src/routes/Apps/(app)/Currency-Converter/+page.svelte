@@ -174,7 +174,7 @@
 	<span class="far underline1">be centered under the word, for example</span>)
 </div> -->
 
-<style>
+<!-- <style>
 	.underline1 {
 		background-image: linear-gradient(#5fca66 0 0);
 		background-position: bottom center; /*Adjust the background-position to move the line*/
@@ -203,4 +203,4 @@
 	.big {
 		background-size: 100% 3px;
 	}
-</style>
+</style> -->
