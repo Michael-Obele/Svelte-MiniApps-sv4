@@ -1,8 +1,9 @@
 <script lang="ts">
+	import PasswordManagerSection from './PasswordManagerSection.svelte';
+
 	import { Clipboard, RefreshCcw, Star } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 	import type { ActionData } from './$types';
-	import logo from '$lib/logo/svelte-black.png';
 	import { page } from '$app/stores';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import Input from '$lib/components/ui/input/input.svelte';
@@ -13,8 +14,6 @@
 	export let form: ActionData;
 
 	const { userUsername } = getContext<UserContext>('userContext');
-
-	$: saved = form?.saved;
 
 	let passwordOptions = {
 		length: 12,
@@ -50,6 +49,11 @@
 		if (form) {
 			form.saved = false;
 		}
+	}
+
+	let savedPasswordArray: string[] = [];
+	$: if (form?.saved) {
+		savedPasswordArray.push(password);
 	}
 </script>
 
@@ -143,7 +147,7 @@
 							class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
 							aria-label="Generate a new password"
 						>
-							{#if form?.saved}
+							{#if form?.saved || savedPasswordArray.includes(password)}
 								<Star class="h-6 w-6 fill-green-300" />
 							{:else}
 								<Star class="h-6 w-6 fill-white dark:fill-black" />
@@ -254,51 +258,5 @@
 </main>
 
 {#if userData?.SavePassword}
-	<section class="mx-auto my-12 w-3/4 max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
-		<p class="mb-2 text-center text-green-500 dark:text-green-400">You can have saved passwords.</p>
-		<form use:enhance action="?/viewPasswords" method="POST" class="space-y-4">
-			<input type="hidden" name="id" value={userData?.id} />
-			{#if form?.displayPassword && form?.displayPassword.length > 0}
-				{#if form?.displayPassword.length > 0}
-					<p class="text-center text-gray-700 dark:text-gray-300">
-						You have {form?.displayPassword.length} saved passwords.
-					</p>
-				{/if}
-				<button
-					formaction="?/hidePasswords"
-					class="inline-block w-full rounded bg-green-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500"
-				>
-					Hide Saved Passwords
-				</button>
-			{:else}
-				<button
-					type="submit"
-					class="inline-block w-full rounded bg-green-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500"
-				>
-					View Saved Passwords
-				</button>
-			{/if}
-			{#if form?.error}
-				<p
-					class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
-				>
-					{form?.error}
-				</p>
-			{/if}
-
-			{#if form?.displayPassword}
-				{#each form?.displayPassword as item}
-					<p class="mt-2 text-gray-700 dark:text-gray-300">
-						<span
-							class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
-						>
-							{item.password}
-						</span>
-						was created on {item.createdAt}.
-					</p>
-					<hr class="my-4 border-t-2 border-green-500 dark:border-green-400" />
-				{/each}
-			{/if}
-		</form>
-	</section>
+	<PasswordManagerSection {form} />
 {/if}
