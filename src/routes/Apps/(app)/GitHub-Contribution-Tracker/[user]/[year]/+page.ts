@@ -1,4 +1,4 @@
-import type { PageLoad } from './$types';
+import type { PageLoad, PageParentData } from './$types';
 import { writable } from 'svelte/store';
 import { parseHTML } from 'linkedom';
 import { contributions } from '$lib/utils';
@@ -102,6 +102,15 @@ interface OutputEntry {
 }
 
 const sortedContributions = sortContributionsByMonth(contributionsByMonth);
+
+interface LoadData {
+	props: {
+		user: string;
+		year: string;
+	};
+	contributionsInfo: string; // Adjust the type according to the actual data structure
+	streakStats: any; // Replace 'any' with a more specific type if possible
+}
 
 export const load: PageLoad = async ({ parent, data }) => {
 	await parent();
