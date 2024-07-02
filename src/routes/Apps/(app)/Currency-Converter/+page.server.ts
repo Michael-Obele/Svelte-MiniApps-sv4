@@ -16,8 +16,7 @@ async function fetchWithTimeout(
 export async function _rates(
 	currencyFrom: string,
 	currencyTo: string,
-	currencyAmount: number,
-	isDecimalComma: boolean
+	currencyAmount: number
 ): Promise<number> {
 	try {
 		const response = await fetchWithTimeout(
@@ -39,12 +38,8 @@ export async function _rates(
 		}
 
 		let rates = rateText;
+		rates = rates.replace(/\./g, '').replace(',', '.');
 
-		if (isDecimalComma) {
-			rates = rates.replace(/\./g, '').replace(',', '.');
-		} else {
-			rates = rates.replace(',', '');
-		}
 		let rateAsNumber = parseFloat(rates);
 		let rate = (rateAsNumber / currencyAmount).toString();
 		console.log(parseFloat(rate)); // Log the rate
@@ -61,7 +56,6 @@ export const actions: Actions = {
 		let currencyFrom: string = String(data.get('currencyFrom'));
 		let currencyTo: string = String(data.get('currencyTo'));
 		let currencyAmount: number = Number(data.get('currencyAmount'));
-		let isDecimalComma = true;
 
 		// Check if currencyFrom is provided
 		if (!currencyFrom) {
@@ -73,14 +67,9 @@ export const actions: Actions = {
 			error(422, 'currencyTo is required');
 		}
 
-		// Check if currencyAmount is provided and is a valid number
+		// Check if currencyAmount is provided
 		if (!currencyAmount) {
 			error(422, 'currencyAmount is required');
-		}
-
-		// Check if isDecimalComma is provided and is a boolean
-		if (typeof isDecimalComma !== 'boolean') {
-			error(422, 'isDecimalComma is required and must be a boolean');
 		}
 
 		currencyFrom = currencyFrom.trim();
@@ -126,7 +115,12 @@ export const actions: Actions = {
 		} catch (error) {
 			console.error('Error fetching rates:', error);
 			// Return a Response object with an error status
-			return fail(500, { currencyFrom, currencyTo, error: 'Failed to fetch currency rates' });
+			return fail(500, {
+				currencyFrom,
+				currencyTo,
+				currencyAmount,
+				error: 'Failed to fetch currency rates'
+			});
 		}
 	}
 };
