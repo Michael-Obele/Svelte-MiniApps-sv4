@@ -64,7 +64,8 @@ export const actions: Actions = {
 		const formData = await request.formData();
 		let currencyFrom: string = String(formData.get('currencyFrom')); // Extract currencyFrom from form data
 		let currencyTo: string = String(formData.get('currencyTo')); // Extract currencyTo from form data
-		let currencyAmount: number = Number(formData.get('currencyAmount')); // Extract currencyAmount from form data
+		const convertedNumber = parseFloat(String(formData.get('currencyAmount')).replace(/,/g, ''));
+		let currencyAmount: number = Number(convertedNumber); // Extract currencyAmount from form data
 
 		// Validate input fields
 		if (!currencyFrom) {
@@ -102,10 +103,10 @@ export const actions: Actions = {
 				throw new Error('Rate text not found'); // Throw error if rate text is missing
 			}
 
-			// Process extracted rate text
-			let rates = rateText.replace(/\./g, '').replace(',', '.'); // Replace dots with commas and vice versa
-			const splitRates = rates.split(' '); // Split processed rate text into array
+			console.log({ rateText });
+			const splitRates = rateText.split(' '); // Split processed rate text into array
 			let rateAsNumber = parseFloat(splitRates[0]); // Convert first part of split rates to float
+			console.log(rateAsNumber);
 
 			// Construct and return successful response
 			return {

@@ -124,8 +124,9 @@
 			>Enter Amount to Convert:</label
 		>
 		<Input
-			type="number"
+			type="text"
 			id="currencyAmount"
+			pattern="\d+(?:,\d+)*"
 			name="currencyAmount"
 			value={''}
 			placeholder="Enter amount"
@@ -145,7 +146,8 @@
 	{#if form?.status === 200}
 		<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
 			Conversion successful from <strong>{form?.currencyFrom}</strong> to
-			<strong>{form?.currencyTo}</strong>. Amount: <strong>{form?.currencyAmount}</strong><br />
+			<strong>{form?.currencyTo}</strong>. Amount:
+			<strong>{form?.currencyAmount.toLocaleString()}</strong><br />
 			Your exchange rate is <strong>{form?.body?.rate}</strong>
 			{getCurrencyLabel(form?.currencyTo)}.
 		</p>
@@ -155,52 +157,3 @@
 		</p>
 	{/if}
 </div>
-
-<!-- <Motion
-	let:motion
-	initial={{ backgroundSize: '0% 2px', backgroundPosition: 'bottom center' }}
-	animate={{ backgroundSize: '100% 2px', backgroundPosition: 'bottom center' }}
-	transition={{ duration: 2, ease: 'linear', delay: 0.5 }}
->
-	<span use:motion class="underline1">This is the text to underline.</span>
-</Motion> -->
-<!-- <div class="mt-12">
-	This is a <span class="underline1">sentence</span>. I would like
-	<span class="underline1">some words to have</span>
-	longer <span class="left underline1">underline1s</span> than others. I would
-	<span class="big center-close underline1">also like</span>
-	to be able to change the <span class="small right underline1">position</span> of the
-	<span class="big underline1">underline1</span>(to
-	<span class="far underline1">be centered under the word, for example</span>)
-</div> -->
-
-<!-- <style>
-	.underline1 {
-		background-image: linear-gradient(#5fca66 0 0);
-		background-position: bottom center; /*Adjust the background-position to move the line*/
-		background-size: 50% 2px; /*Adjust the background size to control length and height*/
-		background-repeat: no-repeat;
-		padding-bottom: 2px; /* this can also control the position */
-	}
-
-	.small {
-		background-size: 50% 1px;
-	}
-
-	.left {
-		background-position: bottom left;
-	}
-
-	.center-close {
-		background-position: bottom 5px center;
-		background-image: linear-gradient(red 0 0);
-	}
-
-	.right {
-		background-position: bottom right;
-	}
-
-	.big {
-		background-size: 100% 3px;
-	}
-</style> -->
