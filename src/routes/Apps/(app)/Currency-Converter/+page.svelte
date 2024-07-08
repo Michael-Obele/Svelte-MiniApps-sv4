@@ -145,10 +145,14 @@
 <div class:hidden={isLoading}>
 	{#if form?.status === 200}
 		<p class="mt-4 text-center text-lg text-green-600 dark:text-green-400">
-			Conversion successful from <strong>{form?.currencyFrom}</strong> to
-			<strong>{form?.currencyTo}</strong>. Amount:
-			<strong>{form?.currencyAmount.toLocaleString()}</strong><br />
-			Your exchange rate is <strong>{form?.body?.rate}</strong>
+			Conversion successful from <strong>{form?.currencyFrom}</strong>
+			to
+			<strong>{form?.currencyTo}</strong>.
+			<br />
+			Amount: <strong>{form?.currencyAmount.toLocaleString()}</strong>
+			{getCurrencyLabel(form?.currencyFrom)}
+			<br />
+			Exchanged Amount: <strong>{form?.body?.rate}</strong>
 			{getCurrencyLabel(form?.currencyTo)}.
 		</p>
 	{:else if form?.status === 500}
