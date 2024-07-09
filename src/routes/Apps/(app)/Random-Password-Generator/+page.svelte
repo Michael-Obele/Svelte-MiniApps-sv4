@@ -1,6 +1,6 @@
 <script lang="ts">
 	import PasswordManagerSection from './PasswordManagerSection.svelte';
-
+	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { Clipboard, RefreshCcw, Star } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 	import type { ActionData } from './$types';
@@ -103,7 +103,7 @@
 </svelte:head>
 
 <main class="container">
-	<div class="mt-10 flex flex-col items-center justify-center space-y-4">
+	<div class="container mt-10 flex flex-col items-center justify-center space-y-4">
 		<h3 class="text-center text-4xl font-bold text-green-500">
 			Welcome
 			{userUsername || 'Guest'}!
@@ -112,12 +112,31 @@
 		<h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">
 			Here's Your Secure Password
 		</h3>
+
 		<div
 			class="min-w-3/4 relative flex max-w-full items-center space-x-10 rounded-lg bg-slate-400 py-4 shadow-md"
 		>
-			<p class="mx-2 h-fit overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">
-				{password}
-			</p>
+			<AlertDialog.Root>
+				<AlertDialog.Trigger>
+					<p class="mx-2 h-fit overflow-hidden text-ellipsis text-wrap text-lg font-semibold">
+						{password}
+					</p>
+				</AlertDialog.Trigger>
+				<AlertDialog.Content>
+					<AlertDialog.Header>
+						<AlertDialog.Title class="text-center">Your Password</AlertDialog.Title>
+						<AlertDialog.Description>
+							<p class="mx-2 h-fit overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">
+								{password}
+							</p>
+						</AlertDialog.Description>
+					</AlertDialog.Header>
+					<AlertDialog.Footer>
+						<AlertDialog.Cancel>Close</AlertDialog.Cancel>
+					</AlertDialog.Footer>
+				</AlertDialog.Content>
+			</AlertDialog.Root>
+
 			<div class="flex flex-row px-1">
 				<Button
 					variant="outline"
@@ -257,6 +276,7 @@
 	</div>
 </main>
 
+<!-- Check boxes for password format -->
 {#if userData?.SavePassword}
 	<PasswordManagerSection {form} />
 {/if}
