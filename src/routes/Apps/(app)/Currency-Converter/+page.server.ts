@@ -61,15 +61,12 @@ export const actions: Actions = {
 			const $ = cheerio.load(body); // Load HTML into Cheerio for parsing
 
 			// Extract exchange rate text from parsed HTML
-			const rateText = $('.iBp4i').text();
-			if (!rateText) {
+			const rate = $('.iBp4i').text().split(' ')[0];
+			if (!rate) {
 				throw new Error('Rate text not found'); // Throw error if rate text is missing
 			}
-
-			console.log({ rateText });
-			const splitRates = rateText.split(' '); // Split processed rate text into array
-			let rateAsNumber = parseFloat(splitRates[0]); // Convert first part of split rates to float
-			console.log(rateAsNumber);
+			console.log(typeof rate);
+			console.log(rate);
 
 			// Construct and return successful response
 			return {
@@ -78,7 +75,7 @@ export const actions: Actions = {
 				currencyAmount,
 				status: 200,
 				body: {
-					rate: rateAsNumber.toString() // Convert rate back to string for response
+					rate
 				}
 			};
 		} catch (error) {
