@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Footer from './Footer.svelte';
+
 	import InfoBlock from './InfoBlock.svelte';
 
 	import ContentBlock from './ContentBlock.svelte';
@@ -129,6 +131,7 @@
 				</div>
 
 				<section
+					id="apps"
 					class="mx-auto mt-10 max-w-screen-xl bg-white px-4 py-12 dark:bg-gray-900 lg:py-16"
 				>
 					<h2 class="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
@@ -291,75 +294,5 @@
 		</div>
 	</section>
 </div>
-<footer class="w-full bg-black py-5 text-center text-white md:py-10">
-	<div class="container px-4 md:px-6">
-		<!-- Existing Scroll to Top Button -->
-		<button
-			class="mt-2 text-red-500 underline hover:no-underline dark:text-green-500"
-			on:click={scrollToTop}
-		>
-			Back to top
-		</button>
-		<!-- New Content: Made with Love and Installable Message -->
-		<div class="mt-2 flex flex-wrap items-center justify-center gap-4">
-			<a
-				href="https://github.com/Michael-Obele"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="flex flex-row items-center justify-between text-green-400 hover:text-green-300"
-			>
-				Made with
-				<Heart size="20" class="mx-2 text-red-500" fill="red" />
-				by Michael-Obele
-			</a>
-			<p class="text-sm text-gray-500">
-				FYI: This app is <span class="font-semibold text-red-500">installable</span>.
-			</p>
-		</div>
-	</div>
-</footer>
 
-<!-- Path: src/routes/InfoBlock.svelte -->
-<!-- 
-	<div class="block max-w-md rounded-lg p-6">
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/ercyvufy.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="float-right m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
-						>
-						</lord-icon>
-						<h2 class="mb-4 text-2xl font-bold dark:text-gray-300">Share the app:</h2>
-						<p class="mb-4 justify-start text-left text-lg dark:text-gray-400">
-							<b class="dark:text-gray-200">Spread the word</b> Casually mention the awesome Svelte MiniApp
-							you discovered to your friends and colleagues. Share it on social media (Twitter, TikTok,
-							etc.) or bring it up in conversation. Is there a specific task this Svelte MiniApp helped
-							you with? Describe how it streamlined your workflow and how it might benefit others. The
-							more people who know about this valuable tool, the bigger the Svelte MiniApp community
-							can become!
-						</p>
-					</div>
-
-					<div class="block max-w-md justify-self-end rounded-lg p-6">
-						<h2 class="mb-4 text-2xl font-bold dark:text-gray-300">Report a bug:</h2>
-						<lord-icon
-							target="div"
-							src="https://cdn.lordicon.com/rpgflpkp.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="float-left m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
-						>
-						</lord-icon>
-						<p class="mb-4 justify-start text-right text-lg dark:text-gray-400">
-							We're committed to making your Svelte MiniApp experience the best it can be. If you
-							encounter any issues, please help us fix them by contributing to the project on
-							GitHub. This could involve creating a new issue to report the bug, or even fixing the
-							bug yourself and submitting a pull request. Not a coding pro? No worries You can still
-							be a valuable asset by simply describing the bug you encountered in a GitHub issue.
-							The more details you provide (steps to reproduce, screenshots, etc.), the easier it
-							will be for developers to identify and fix the problem.
-						</p>
-					</div>
-
- -->
+<Footer />

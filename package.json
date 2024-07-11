@@ -48,6 +48,7 @@
     "@sentry/sveltekit": "^7.113.0",
     "bcryptjs": "^2.4.3",
     "bits-ui": "^0.21.10",
+    "bytemd": "^1.21.0",
     "cheerio": "^1.0.0-rc.12",
     "clsx": "^2.1.1",
     "cmdk-sv": "^0.0.17",

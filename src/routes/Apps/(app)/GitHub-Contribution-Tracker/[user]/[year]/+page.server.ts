@@ -67,7 +67,7 @@ export async function load({
 	setHeaders(responseHeaders);
 	try {
 		let data = await fetchData(user, year);
-		console.log(data);
+		// console.log(data);
 		return {
 			props: { user, year },
 			contributionsInfo: data.contributionsInfo,
@@ -92,7 +92,7 @@ export const actions = {
 
 		try {
 			let data = await fetchData(user, year);
-			console.log(data);
+			// console.log(data);
 			return {
 				props: { user, year },
 				contributionsInfo: data.contributionsInfo,

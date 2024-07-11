@@ -7,8 +7,9 @@ Svelte MiniApps is a collection of mini-applications created to demonstrate the 
 **Table of Contents**
 
 - [About](#about) 📝
-- [ Built for Efficiency](#built-for-efficiency) 🛠️
+- [Built for Efficiency](#built-for-efficiency) 🛠️
 - [Getting Started](#getting-started) 🏁
+- [List of Apps](#list-of-apps) 📋
 - [Contributing to Svelte MiniApps](#contributing-to-svelte-miniapps) 🤝
 - [License](#license) 📄
 
@@ -62,6 +63,12 @@ Svelte MiniApps will be added to your device's home screen, allowing you to laun
 ### Live Version
 
 You can also access a live version of the Svelte MiniApps project on our website: [Svelte MiniApps](https://svelte-apps.me/)
+
+## List of Apps
+
+Explore the full list of mini-apps available in the Svelte MiniApps collection. Each app is designed to simplify a specific task and boost your productivity. 
+
+For the full list of apps, go to [svelte-apps.me/#apps](https://svelte-apps.me/#apps).
 
 ## Contributing to Svelte MiniApps
 
