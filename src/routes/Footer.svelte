@@ -1,41 +1,10 @@
 <script lang="ts">
-	import InfoBlock from './InfoBlock.svelte';
-
-	import ContentBlock from './ContentBlock.svelte';
-
-	import { page } from '$app/stores';
-	import { projects, done } from '$lib/index';
-	import Svelte from '$lib/logo/svelte.svelte';
-	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
-	import { toast } from 'svelte-sonner';
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
-	//
-	let websiteTitle = 'Svelte MiniApps';
-	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
-	let websiteUrl = 'https://svelte-apps.me/';
-	let websiteImage = 'https://i.ibb.co/ZhhhnCz/svelte-badge.png';
-	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
-	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
-	//
-	let seenCookie = $page.data.hasSeenCookieNotification;
-	if (seenCookie == false) {
-		toast("Session cookies at work here. Chill, it's all cool!", {
-			action: {
-				label: 'OK',
-				onClick: () => goto(`${websiteUrl}/cookies`)
-			},
-			duration: Number.POSITIVE_INFINITY,
-			icon: Cookie
-		});
-	}
+	import { Heart } from 'lucide-svelte';
 
 	// Function to scroll smoothly to the top of the page
 	function scrollToTop() {
 		window.scrollTo({ top: 0, behavior: 'smooth' });
 	}
-	let userData = $page.data.user.userData;
-	let gitUser = $page.data.user.session;
 </script>
 
 <footer class="w-full bg-black py-5 text-center text-white md:py-10">

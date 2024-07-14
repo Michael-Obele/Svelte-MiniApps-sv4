@@ -112,70 +112,68 @@
 		<h3 class="text-center text-2xl font-semibold text-gray-800 dark:text-gray-200">
 			Here's Your Secure Password
 		</h3>
-
-		<div
-			class="min-w-3/4 relative flex max-w-full items-center space-x-10 rounded-lg bg-slate-400 py-4 shadow-md"
-		>
-			<AlertDialog.Root>
-				<AlertDialog.Trigger>
-					<p class="mx-2 h-fit overflow-hidden text-ellipsis text-wrap text-lg font-semibold">
-						{password}
-					</p>
-				</AlertDialog.Trigger>
-				<AlertDialog.Content>
-					<AlertDialog.Header>
-						<AlertDialog.Title class="text-center">Your Password</AlertDialog.Title>
-						<AlertDialog.Description>
-							<p class="mx-2 h-fit overflow-hidden text-ellipsis text-nowrap text-lg font-semibold">
-								{password}
-							</p>
-						</AlertDialog.Description>
-					</AlertDialog.Header>
-					<AlertDialog.Footer>
-						<AlertDialog.Cancel>Close</AlertDialog.Cancel>
-					</AlertDialog.Footer>
-				</AlertDialog.Content>
-			</AlertDialog.Root>
-
-			<div class="flex flex-row px-1">
-				<Button
-					variant="outline"
-					type="button"
-					on:click={() => _copyToClipboard(password)}
-					class="rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 dark:text-white"
-					aria-label="Copy password to clipboard"
-				>
-					<Clipboard class="h-6 w-6" />
-				</Button>
-				<Button
-					variant="outline"
-					type="button"
-					on:click={generateNewPassword}
-					class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
-					aria-label="Generate a new password"
-				>
-					<RefreshCcw class="h-6 w-6" />
-				</Button>
-				{#if userData}
-					<form action="?/save" use:enhance method="POST">
-						<input type="hidden" name="password" bind:value={password} />
-						<input type="hidden" name="id" value={userData?.id} />
-						<Button
-							variant="outline"
-							type="submit"
-							class="ml-2 rounded-md p-2 text-black hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-400 dark:text-white"
-							aria-label="Generate a new password"
+		<!-- Password View -->
+		<div>
+			<div class="flex align-middle shadow-sm">
+				<AlertDialog.Root>
+					<AlertDialog.Trigger>
+						<div
+							class="pointer-events-none inline-block h-12 w-48 cursor-not-allowed overflow-hidden text-ellipsis whitespace-nowrap rounded-l border px-2 py-3 focus:border-green-500 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
 						>
-							{#if form?.saved || savedPasswordArray.includes(password)}
-								<Star class="h-6 w-6 fill-green-300" />
-							{:else}
-								<Star class="h-6 w-6 fill-white dark:fill-black" />
-							{/if}
-						</Button>
-					</form>
-				{/if}
+							{password}
+						</div>
+					</AlertDialog.Trigger>
+					<AlertDialog.Content>
+						<AlertDialog.Header>
+							<AlertDialog.Title class="text-center">Your Password</AlertDialog.Title>
+							<AlertDialog.Description>
+								<div
+									class="max-w-lg break-words rounded-lg border border-blue-700 bg-blue-500 p-4 text-base text-white dark:border-blue-800 dark:bg-blue-900 dark:text-blue-100"
+								>
+									{password}
+								</div>
+							</AlertDialog.Description>
+						</AlertDialog.Header>
+						<AlertDialog.Footer>
+							<AlertDialog.Cancel>Close</AlertDialog.Cancel>
+						</AlertDialog.Footer>
+					</AlertDialog.Content>
+				</AlertDialog.Root>
+				<div class="flex h-12">
+					<button
+						type="button"
+						on:click={generateNewPassword}
+						class="inline-flex items-center justify-center border bg-white px-4 py-3 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+					>
+						Generate
+					</button>
+					{#if userUsername}
+						<form action="?/save" use:enhance method="POST">
+							<input type="hidden" name="password" bind:value={password} />
+							<input type="hidden" name="id" value={userData?.id} />
+							<button
+								type="submit"
+								class="inline-flex h-12 items-center justify-center border border-transparent px-4 py-3 text-sm font-semibold text-white hover:bg-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+							>
+								{#if form?.saved || savedPasswordArray.includes(password)}
+									Saved
+								{:else}
+									Save
+								{/if}
+							</button>
+						</form>
+					{/if}
+					<button
+						type="button"
+						on:click={() => _copyToClipboard(password)}
+						class="inline-flex items-center justify-center rounded-e-md border border-transparent bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
+					>
+						Copy
+					</button>
+				</div>
 			</div>
 		</div>
+		<!-- End of Password View -->
 	</div>
 
 	<h4 class="m-6 mt-12 text-center text-2xl">Choose another Password</h4>
@@ -186,6 +184,7 @@
 				type="number"
 				name="length"
 				id="length"
+				disabled
 				bind:value={length}
 				min="10"
 				max="50"
