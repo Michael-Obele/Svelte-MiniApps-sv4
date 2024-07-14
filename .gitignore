@@ -28,6 +28,7 @@ vite.config.ts.timestamp-*
 diff_file.txt
 # Ignore diff.txt
 diff.txt
+diff.diff
 # Ignore dev.db file
 dev.db
 # Ignore files starting with Untitled.
