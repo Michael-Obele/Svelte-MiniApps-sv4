@@ -57,9 +57,12 @@ export const actions: Actions = {
 				select: { password: true, createdAt: true },
 				orderBy: { createdAt: 'desc' }
 			});
-			// console.log('displayPassword = ', displayPassword);
-			return { displayPassword };
+			if (displayPassword.length > 0) {
+				return { displayPassword };
+			}
 		} catch (error) {
+			console.log('No password');
+			console.error(error);
 			return fail(400, { error: 'No passwords' });
 		}
 	},

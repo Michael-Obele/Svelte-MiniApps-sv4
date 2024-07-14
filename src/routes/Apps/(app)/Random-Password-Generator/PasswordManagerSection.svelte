@@ -3,6 +3,7 @@
 	import type { ActionData } from './$types';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
+	import { afterUpdate } from 'svelte';
 
 	export let form: ActionData;
 
@@ -10,7 +11,7 @@
 </script>
 
 <section class="mx-auto my-12 w-3/4 max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
-	<p class="mb-2 text-center text-green-500 dark:text-green-400">You can have saved passwords.</p>
+	<p class="mb-2 text-center text-green-500 dark:text-green-400">You can save passwords.</p>
 	<form use:enhance action="?/viewPasswords" method="POST" class="space-y-4">
 		<input type="hidden" name="id" value={userData?.id} />
 		{#if form?.displayPassword && form?.displayPassword.length > 0}
@@ -33,17 +34,17 @@
 				View Saved Passwords
 			</button>
 		{/if}
-		{#if form?.error}
+		{#if !form?.displayPassword}
 			<p
-				class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
+				class="mt-2 block bg-white p-2 text-center text-red-500 dark:bg-gray-800 dark:text-red-400"
 			>
-				{form?.error}
+				No passwords to display
 			</p>
 		{:else if form?.displayPassword}
 			{#each form?.displayPassword as item}
 				<p class="mt-2 text-gray-700 dark:text-gray-300">
 					<span
-						class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
+						class="mt-2 block rounded bg-white p-2 text-red-500 dark:bg-gray-800 dark:text-red-400"
 					>
 						{item.password}
 					</span>
