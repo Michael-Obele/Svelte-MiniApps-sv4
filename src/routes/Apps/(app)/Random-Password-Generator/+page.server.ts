@@ -17,7 +17,7 @@ export const actions: Actions = {
 		let id = String(data.get('id'));
 
 		// Log the password for debugging purposes
-		console.log(password);
+		// console.log(password);
 
 		// Check if the user exists in the database
 		const user = await db.user.findUnique({ where: { id } });
@@ -54,12 +54,11 @@ export const actions: Actions = {
 			// Retrieve and display saved passwords for the user
 			const displayPassword = await db.savePassword.findMany({
 				where: { userId: user.id },
-				select: { password: true, createdAt: true },
+				select: { password: true, createdAt: true, title: true, details: true },
 				orderBy: { createdAt: 'desc' }
 			});
-			if (displayPassword.length > 0) {
-				return { displayPassword };
-			}
+
+			return { displayPassword };
 		} catch (error) {
 			console.log('No password');
 			console.error(error);

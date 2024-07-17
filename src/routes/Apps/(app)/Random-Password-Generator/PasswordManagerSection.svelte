@@ -34,13 +34,8 @@
 				View Saved Passwords
 			</button>
 		{/if}
-		{#if !form?.displayPassword}
-			<p
-				class="mt-2 block bg-white p-2 text-center text-red-500 dark:bg-gray-800 dark:text-red-400"
-			>
-				No passwords to display
-			</p>
-		{:else if form?.displayPassword}
+
+		{#if form?.displayPassword}
 			{#each form?.displayPassword as item}
 				<p class="mt-2 text-gray-700 dark:text-gray-300">
 					<span

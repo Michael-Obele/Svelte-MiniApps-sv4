@@ -29,8 +29,8 @@ model SavePassword {
     userId      String
     userExtraId String?
     password    String   @unique()
-    details     String?
-    title       String?
+    details     String   @default("")
+    title       String   @default("")
     updatedAt   DateTime @default(now()) @updatedAt()
     createdAt   DateTime @default(now())
     User        User     @relation(fields: [userId], references: [id])
