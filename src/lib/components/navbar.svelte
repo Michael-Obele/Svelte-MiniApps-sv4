@@ -14,6 +14,7 @@
 	// Reactive statement to determine if the current route matches the item
 	$: isActive = (item: string) => {
 		const routeId = $page.url.pathname;
+		show = false;
 		if (item === 'Home' && routeId == '/') {
 			return true;
 		} else {
