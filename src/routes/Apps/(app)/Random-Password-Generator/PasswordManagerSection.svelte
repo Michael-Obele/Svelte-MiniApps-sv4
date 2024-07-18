@@ -134,7 +134,7 @@
 								</AlertDialog.Description>
 							</AlertDialog.Header>
 							<AlertDialog.Footer>
-								<AlertDialog.Action>
+								<AlertDialog.Action class="bg-red-600 hover:bg-red-500">
 									<form action="?/delete" use:enhance method="POST">
 										<input type="hidden" name="id" value={item.id} />
 										<button on:click={() => showPassword.set(false)} type="submit">
