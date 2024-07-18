@@ -83,3 +83,10 @@ export function stringifyWithBigInt(obj: any) {
 		return value; // Return other values as is
 	});
 }
+
+
+export const isLoading = writable(false);
+
+
+export const savePassword = writable(false);
+export const showPassword = writable(false);

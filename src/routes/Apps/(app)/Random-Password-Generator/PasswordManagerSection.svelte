@@ -1,24 +1,23 @@
 <script lang="ts">
-	import { _generatePassword, _copyToClipboard } from './+page';
 	import type { ActionData } from './$types';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 	import { Toggle } from '$lib/components/ui/toggle/index.js';
 
-	import { afterUpdate, beforeUpdate } from 'svelte';
+	import { afterUpdate, onMount } from 'svelte';
 	import { Pencil } from 'lucide-svelte';
 
-	export let form: ActionData;
+	import { showPassword } from '$lib/utils';
 
-	let isLoading = false;
+	export let form;
 
 	let userData = $page.data.user?.userData;
 
-	let readOnlyStates: any[] = []; // Track the readonly state of each input
+	let readOnlyStates: boolean[] = []; // Track the readonly state of each input
 
 	// Reactive statement to initialize readOnlyStates based on form.displayPassword
 	$: if (form?.displayPassword) {
-		form.displayPassword.forEach((_, i) => {
+		form.displayPassword.forEach((_: string, i: number) => {
 			readOnlyStates[i] = true; // Initialize all inputs as readonly
 		});
 	}
@@ -26,6 +25,11 @@
 	function toggleReadOnly(i: number) {
 		readOnlyStates[i] = !readOnlyStates[i];
 	}
+
+	afterUpdate(() => {
+		console.log('Sub');
+		console.log({ $showPassword });
+	});
 </script>
 
 <section class="mx-auto my-12 w-3/4 max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
@@ -40,7 +44,7 @@
 			{/if}
 			<button
 				formaction="?/hidePasswords"
-				on:click={() => (isLoading = false)}
+				on:click={() => showPassword.set(false)}
 				class="inline-block w-full rounded bg-green-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500"
 			>
 				Hide Saved Passwords
@@ -48,10 +52,10 @@
 		{:else}
 			<button
 				type="submit"
-				on:click={() => (isLoading = true)}
+				on:click={() => showPassword.set(true)}
 				class="inline-block w-full rounded bg-green-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500"
 			>
-				{#if isLoading}
+				{#if $showPassword}
 					Loading Passwords
 				{:else}
 					View Saved Passwords

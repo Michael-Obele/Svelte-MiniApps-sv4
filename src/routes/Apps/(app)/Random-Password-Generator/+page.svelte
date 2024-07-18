@@ -1,36 +1,26 @@
 <script lang="ts">
 	import PasswordManagerSection from './PasswordManagerSection.svelte';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
-	import { Clipboard, RefreshCcw, Star } from 'lucide-svelte';
 	import { _generatePassword, _copyToClipboard } from './+page';
 	import type { ActionData } from './$types';
 	import { page } from '$app/stores';
-	import { Button } from '$lib/components/ui/button/index.js';
-	import Input from '$lib/components/ui/input/input.svelte';
 	import type { UserContext } from '$lib/types';
-	import { getContext } from 'svelte';
-	import { enhance, applyAction } from '$app/forms';
+	import { afterUpdate, getContext } from 'svelte';
+	import { enhance } from '$app/forms';
+
+	import { showPassword, savePassword } from '$lib/utils';
 
 	export let form: ActionData;
 
+	afterUpdate(() => {
+		console.log('Main');
+		console.log({ $showPassword });
+	});
+
 	const submitAction = () => {
-		isSubmitting = true;
-		console.log(isSubmitting);
+		savePassword.set(true);
+		showPassword.set(false);
 	};
-
-	let isSubmitting = false; // Flag to control loading state
-
-	// const submitting = async () => {
-	// 	isSubmitting = true;
-	// 	console.log({ isSubmitting });
-
-	// 	return async ({ result }) => {
-	// 		console.log(result);
-	// 		if (result.type == 'success') {
-	// 			savedPasswordArray.push(password);
-	// 		}
-	// 	};
-	// };
 
 	const { userUsername } = getContext<UserContext>('userContext');
 
@@ -66,7 +56,7 @@
 	function generateNewPassword() {
 		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
 
-		isSubmitting = false;
+		savePassword.set(false);
 		if (form) {
 			form.saved = false;
 		}
@@ -182,7 +172,7 @@
 							>
 								{#if saved}
 									Saved
-								{:else if isSubmitting}
+								{:else if $savePassword}
 									Saving
 								{:else}
 									Save
