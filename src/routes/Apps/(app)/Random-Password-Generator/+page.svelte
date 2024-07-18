@@ -114,11 +114,11 @@
 		</h3>
 		<!-- Password View -->
 		<div>
-			<div class="xs:flex-row flex flex-col align-middle shadow-sm">
+			<div class="flex flex-col align-middle shadow-sm xs:flex-row">
 				<AlertDialog.Root>
 					<AlertDialog.Trigger>
 						<div
-							class="pointer-events-none inline-block h-12 w-48 cursor-not-allowed overflow-hidden text-ellipsis whitespace-nowrap rounded-md border px-2 py-3 focus:border-green-500 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+							class="pointer-events-none inline-block h-12 w-48 cursor-not-allowed overflow-hidden text-ellipsis whitespace-nowrap rounded-md border px-2 py-3 focus:border-green-500 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 xs:rounded-r-none"
 						>
 							{password}
 						</div>
@@ -143,7 +143,7 @@
 					<button
 						type="button"
 						on:click={generateNewPassword}
-						class="inline-flex items-center justify-center border bg-white px-4 py-3 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+						class="inline-flex items-center justify-center rounded-l-md border bg-white px-4 py-3 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white xs:rounded-l-none"
 					>
 						Generate
 					</button>
@@ -153,7 +153,10 @@
 							<input type="hidden" name="id" value={userData?.id} />
 							<button
 								type="submit"
-								class="inline-flex h-12 items-center justify-center border border-transparent px-4 py-3 text-sm font-semibold text-white hover:bg-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white"
+								class="inline-flex h-12 items-center justify-center border border-transparent px-4 py-3 text-sm font-semibold text-white {form?.saved ||
+								savedPasswordArray.includes(password)
+									? 'bg-green-500 dark:bg-green-500'
+									: 'hover:bg-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'}"
 							>
 								{#if form?.saved || savedPasswordArray.includes(password)}
 									Saved
