@@ -22,9 +22,6 @@
 	}
 
 	function toggleReadOnly(i: number) {
-		console.log(i);
-		console.log(readOnlyStates[i]);
-
 		readOnlyStates[i] = !readOnlyStates[i];
 	}
 </script>
@@ -94,9 +91,9 @@
 					<Toggle
 						on:click={() => toggleReadOnly(i)}
 						bind:pressed={readOnlyStates[i]}
-						class="mt-1 {!readOnlyStates[i]
+						class="mt-1 hover:bg-blue-500 {!readOnlyStates[i]
 							? 'bg-red-500 text-foreground hover:bg-red-500 hover:text-white'
-							: 'text-muted-foreground'}"
+							: 'text-muted-foreground '}"
 						aria-label="toggle edit"
 					>
 						<Pencil class="h-4 w-4" />
