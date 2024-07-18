@@ -34,8 +34,8 @@
 			}),
 			{
 				loading: 'Submitting...',
-				success: 'Submitted!',
-				error: 'An unknown error occurred.'
+				success: 'Submitted! Redirecting...',
+				error: 'An unknown error occurred. Please reload and try again'
 			}
 		);
 	}

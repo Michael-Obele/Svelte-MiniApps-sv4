@@ -9,9 +9,28 @@
 	import Input from '$lib/components/ui/input/input.svelte';
 	import type { UserContext } from '$lib/types';
 	import { getContext } from 'svelte';
-	import { enhance } from '$app/forms';
+	import { enhance, applyAction } from '$app/forms';
 
 	export let form: ActionData;
+
+	const submitAction = () => {
+		isSubmitting = true;
+		console.log(isSubmitting);
+	};
+
+	let isSubmitting = false; // Flag to control loading state
+
+	// const submitting = async () => {
+	// 	isSubmitting = true;
+	// 	console.log({ isSubmitting });
+
+	// 	return async ({ result }) => {
+	// 		console.log(result);
+	// 		if (result.type == 'success') {
+	// 			savedPasswordArray.push(password);
+	// 		}
+	// 	};
+	// };
 
 	const { userUsername } = getContext<UserContext>('userContext');
 
@@ -46,6 +65,8 @@
 
 	function generateNewPassword() {
 		password = _generatePassword(length, uppercaseLetters, lowercaseLetters, number, symbols);
+
+		isSubmitting = false;
 		if (form) {
 			form.saved = false;
 		}
@@ -148,18 +169,21 @@
 						Generate
 					</button>
 					{#if userUsername}
+						{@const saved = form?.saved || savedPasswordArray.includes(password)}
 						<form action="?/save" use:enhance method="POST">
 							<input type="hidden" name="password" bind:value={password} />
 							<input type="hidden" name="id" value={userData?.id} />
 							<button
 								type="submit"
-								class="inline-flex h-12 items-center justify-center border border-transparent px-4 py-3 text-sm font-semibold text-white {form?.saved ||
-								savedPasswordArray.includes(password)
+								on:click={() => submitAction()}
+								class="inline-flex h-12 items-center justify-center border border-transparent px-4 py-3 text-sm font-semibold text-white {saved
 									? 'bg-green-500 dark:bg-green-500'
 									: 'hover:bg-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'}"
 							>
-								{#if form?.saved || savedPasswordArray.includes(password)}
+								{#if saved}
 									Saved
+								{:else if isSubmitting}
+									Saving
 								{:else}
 									Save
 								{/if}

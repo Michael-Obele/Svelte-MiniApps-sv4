@@ -5,10 +5,12 @@
 	import { enhance } from '$app/forms';
 	import { Toggle } from '$lib/components/ui/toggle/index.js';
 
-	import { afterUpdate } from 'svelte';
+	import { afterUpdate, beforeUpdate } from 'svelte';
 	import { Pencil } from 'lucide-svelte';
 
 	export let form: ActionData;
+
+	let isLoading = false;
 
 	let userData = $page.data.user?.userData;
 
@@ -38,6 +40,7 @@
 			{/if}
 			<button
 				formaction="?/hidePasswords"
+				on:click={() => (isLoading = false)}
 				class="inline-block w-full rounded bg-green-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500"
 			>
 				Hide Saved Passwords
@@ -45,9 +48,14 @@
 		{:else}
 			<button
 				type="submit"
+				on:click={() => (isLoading = true)}
 				class="inline-block w-full rounded bg-green-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-green-600 dark:bg-green-400 dark:hover:bg-green-500"
 			>
-				View Saved Passwords
+				{#if isLoading}
+					Loading Passwords
+				{:else}
+					View Saved Passwords
+				{/if}
 			</button>
 		{/if}
 
