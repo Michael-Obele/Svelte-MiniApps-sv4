@@ -5,15 +5,24 @@ const config = {
 	darkMode: ['class'],
 	content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/layerchart/**/*.{svelte,js}'],
 	safelist: ['dark'],
+	screens: {
+		'2xl': '1400px',
+		'xs': '420px'
+	},
 	theme: {
 		container: {
 			center: true,
 			padding: '2rem',
 			screens: {
-				'2xl': '1400px'
+				'2xl': '1400px',
+				'xs': '420px'
 			}
 		},
 		extend: {
+			screens: {
+				'2xl': '1400px',
+				'xs': '420px'
+			}, // This was the only one that worked!
 			colors: {
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',

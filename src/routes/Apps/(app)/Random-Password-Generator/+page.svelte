@@ -114,11 +114,11 @@
 		</h3>
 		<!-- Password View -->
 		<div>
-			<div class="flex align-middle shadow-sm">
+			<div class="xs:flex-row flex flex-col align-middle shadow-sm">
 				<AlertDialog.Root>
 					<AlertDialog.Trigger>
 						<div
-							class="pointer-events-none inline-block h-12 w-48 cursor-not-allowed overflow-hidden text-ellipsis whitespace-nowrap rounded-l border px-2 py-3 focus:border-green-500 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+							class="pointer-events-none inline-block h-12 w-48 cursor-not-allowed overflow-hidden text-ellipsis whitespace-nowrap rounded-md border px-2 py-3 focus:border-green-500 focus:ring-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
 						>
 							{password}
 						</div>
@@ -177,7 +177,7 @@
 	</div>
 
 	<h4 class="m-6 mt-12 text-center text-2xl">Choose another Password</h4>
-	<div class="mx-auto flex w-[80vw] flex-col items-center">
+	<div class="mx-auto flex max-w-[80vw] flex-col items-center justify-center">
 		<div class="mx-3 flex w-fit flex-col items-center space-x-5 md:flex-row">
 			<label class="text-lg font-bold" for="length">Edit length:</label>
 			<input
