@@ -62,6 +62,22 @@ export const actions: Actions = {
 		}
 	},
 
+	delete: async ({ request }) => {
+		const data = await request.formData();
+		const id = String(data.get('id'));
+		const existingPassword = await db.savePassword.findUnique({ where: { id } });
+		if (!existingPassword) {
+			return fail(404, { invalid: true });
+		}
+		try {
+			await db.savePassword.delete({ where: { id } });
+			return { deleted: true };
+		} catch (err) {
+			console.error('Error:', err);
+			return fail(400, { error: 'Something Unexpected happened!' });
+		}
+	},
+
 	// View action to display saved passwords for a user
 	viewPasswords: async ({ request }) => {
 		const data = await request.formData();

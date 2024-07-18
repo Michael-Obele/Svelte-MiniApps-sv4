@@ -1,11 +1,12 @@
 <script lang="ts">
+	import * as AlertDialog from '$lib/components/ui/alert-dialog';
+	import { Button } from '$lib/components/ui/button';
 	import type { ActionData } from './$types';
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
-	import { Toggle } from '$lib/components/ui/toggle/index.js';
 
 	import { afterUpdate, onMount } from 'svelte';
-	import { Pencil } from 'lucide-svelte';
+	import { Pencil, Trash2 } from 'lucide-svelte';
 
 	import { showPassword } from '$lib/utils';
 
@@ -100,16 +101,52 @@
 						</button>
 					</form>
 
-					<Toggle
+					<Button
 						on:click={() => toggleReadOnly(i)}
-						bind:pressed={readOnlyStates[i]}
-						class="mt-1 hover:bg-blue-500 {!readOnlyStates[i]
-							? 'bg-red-500 text-foreground hover:bg-red-500 hover:text-white'
-							: 'text-muted-foreground '}"
+						variant="outline"
+						class="mt-1 {!readOnlyStates[i]
+							? 'bg-blue-500 text-white hover:bg-blue-500 hover:text-white'
+							: 'text-muted-foreground hover:bg-blue-500'}"
 						aria-label="toggle edit"
 					>
 						<Pencil class="h-4 w-4" />
-					</Toggle>
+					</Button>
+
+					<AlertDialog.Root>
+						<AlertDialog.Trigger>
+							<Button
+								variant="outline"
+								class="mt-1 text-white hover:bg-red-700 hover:text-white"
+								aria-label="toggle edit"
+							>
+								<Trash2 class="h-4 w-4" />
+							</Button>
+						</AlertDialog.Trigger>
+						<AlertDialog.Content>
+							<AlertDialog.Header>
+								<AlertDialog.Title class="text-center">Delete Your Password!?</AlertDialog.Title>
+								<AlertDialog.Description>
+									<h3 class="text-center text-lg font-semibold text-red-600">
+										Delete the password <span class="rounded-sm bg-white p-1 font-bold"
+											>{item.password}</span
+										> <br /> This process can't be undone!
+									</h3>
+								</AlertDialog.Description>
+							</AlertDialog.Header>
+							<AlertDialog.Footer>
+								<AlertDialog.Action>
+									<form action="?/delete" use:enhance method="POST">
+										<input type="hidden" name="id" value={item.id} />
+										<button on:click={() => showPassword.set(false)} type="submit">
+											Continue
+										</button>
+									</form>
+								</AlertDialog.Action>
+								<AlertDialog.Cancel>Close</AlertDialog.Cancel>
+							</AlertDialog.Footer>
+						</AlertDialog.Content>
+					</AlertDialog.Root>
+
 					<h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">{item.title ?? ''}</h3>
 
 					<h3 class="text-lg text-gray-600 dark:text-gray-300">{item.details ?? ''}</h3>
