@@ -1,6 +1,5 @@
 import type { Actions, PageServerLoad, RequestEvent } from './$types';
 import { getDbInstance } from '$lib/database';
-import { page } from '$app/stores';
 import { fail } from '@sveltejs/kit';
 import type { Prisma } from '@prisma/client';
 

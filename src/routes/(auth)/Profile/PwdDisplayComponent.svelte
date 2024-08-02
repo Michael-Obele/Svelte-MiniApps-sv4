@@ -1,23 +1,10 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import date from 'date-and-time';
 	import { _fetchCommitData } from './+page';
 	import type { ActionData } from './$types.js';
 	import { enhance } from '$app/forms';
 
 	export let form: ActionData;
-
-	function formatDate(dateString: string | number | Date) {
-		const dateObj = new Date(dateString);
-		const options = {
-			month: 'long',
-			day: 'numeric',
-			year: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit'
-		} as Intl.DateTimeFormatOptions;
-		return `Released on ${dateObj.toLocaleDateString('en-US', options)} at ${dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
-	}
 
 	let userData = $page.data.user?.userData;
 	const userId = $page.data.user.userData.id;
@@ -70,6 +57,20 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 							class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
 						>
 							{item.password}
+						</span>
+
+						<span
+						
+							class="border-gray-300 p-2">
+
+							{item.details}
+						</span>
+
+						<span
+						
+							class="border-gray-300 p-2">
+
+							{item.title}
 						</span>
 						was created on {item.createdAt}.
 					</p>
