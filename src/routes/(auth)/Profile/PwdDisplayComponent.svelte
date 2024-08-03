@@ -53,24 +53,27 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 			{#if form?.displayPassword}
 				{#each form?.displayPassword as item}
 					<p class="mt-2 text-gray-700 dark:text-gray-300">
+						<span class="flex flex-col">
+
+						<span
+						
+							class="border-gray-300 p-2 font-bold">
+
+							{item.title}
+						</span>
+
+						<span
+						
+							class="border-gray-300 p-2 italic">
+
+							{item.details}
+						</span>
+					</span>
+
 						<span
 							class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
 						>
 							{item.password}
-						</span>
-
-						<span
-						
-							class="border-gray-300 p-2">
-
-							{item.details}
-						</span>
-
-						<span
-						
-							class="border-gray-300 p-2">
-
-							{item.title}
 						</span>
 						was created on {item.createdAt}.
 					</p>
