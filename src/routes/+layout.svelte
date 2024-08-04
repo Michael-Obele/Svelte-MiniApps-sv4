@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { toast } from 'svelte-sonner';
-	import { Download, Heart } from 'lucide-svelte';
+	import { Download } from 'lucide-svelte';
 	import Navbar from '$lib/components/navbar.svelte';
 	import { Toaster } from '$lib/components/ui/sonner';
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
-	import { partytownSnippet } from '@builder.io/partytown/integration';
 	import { afterUpdate, onMount } from 'svelte';
-	import { goto, invalidate, invalidateAll, replaceState } from '$app/navigation';
+	import { goto} from '$app/navigation';
 
 	let updateAvailable = false;
 
@@ -95,7 +94,7 @@
 
 <slot class="text-gray-900 dark:text-white" />
 
-<!-- 
+<!--
 	<script type="application/ld+json">
 	{{
 		"@context": "https://schema.org",
