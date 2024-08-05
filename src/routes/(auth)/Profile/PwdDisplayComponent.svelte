@@ -3,6 +3,7 @@
 	import { _fetchCommitData } from './+page';
 	import type { ActionData } from './$types.js';
 	import { enhance } from '$app/forms';
+	import { ScrollArea } from "$lib/components/ui/scroll-area/index.js";
 
 	export let form: ActionData;
 
@@ -49,8 +50,10 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 					View Saved Passwords
 				</button>
 			{/if}
+		</form>
 
-			{#if form?.displayPassword}
+		<ScrollArea class="h-44 w-fit rounded-md border">
+		{#if form?.displayPassword}
 				{#each form?.displayPassword as item}
 					<p class="mt-2 text-gray-700 dark:text-gray-300">
 						<span class="flex flex-col">
@@ -79,7 +82,11 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 					</p>
 					<hr class="my-4 border-t-2 border-green-500 dark:border-green-400" />
 				{/each}
-			{/if}
-		</form>
+				{:else}
+				<div>
+					<h3>Click to get Saved Passwords</h3>
+				</div>
+				{/if}
+			</ScrollArea>
 	</section>
 {/if}
