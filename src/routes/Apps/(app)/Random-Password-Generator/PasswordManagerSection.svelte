@@ -1,7 +1,7 @@
 <script lang="ts">
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { Button } from '$lib/components/ui/button';
-	import type { ActionData } from './$types';
+	import { ScrollArea } from "$lib/components/ui/scroll-area/index.js";
 	import { page } from '$app/stores';
 	import { enhance } from '$app/forms';
 
@@ -27,10 +27,7 @@
 		readOnlyStates[i] = !readOnlyStates[i];
 	}
 
-	afterUpdate(() => {
-		console.log('Sub');
-		console.log({ $showPassword });
-	});
+
 </script>
 
 <section class="mx-auto my-12 w-3/4 max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
@@ -63,7 +60,7 @@
 				{/if}
 			</button>
 		{/if}
-
+		<ScrollArea class="h-96 w-fit rounded-md border">
 		{#if form?.displayPassword}
 			{#each form?.displayPassword as item, i}
 				<div class="mb-4 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
@@ -163,5 +160,6 @@
 				</div>
 			{/each}
 		{/if}
+		</ScrollArea>
 	</form>
 </section>

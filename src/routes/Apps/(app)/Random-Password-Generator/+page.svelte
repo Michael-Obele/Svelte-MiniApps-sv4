@@ -12,10 +12,7 @@
 
 	export let form: ActionData;
 
-	afterUpdate(() => {
-		console.log('Main');
-		console.log({ $showPassword });
-	});
+	
 
 	const submitAction = () => {
 		savePassword.set(true);
@@ -192,9 +189,13 @@
 		</div>
 		<!-- End of Password View -->
 	</div>
+</main>
 
+<section class="mx-auto flex w-full flex-col justify-center md:flex-row">
+	
+	<div class="w-1/2">
 	<h4 class="m-6 mt-12 text-center text-2xl">Choose another Password</h4>
-	<div class="mx-auto flex max-w-[80vw] flex-col items-center justify-center">
+	<div class="mx-auto flex max-w-[80vw] flex-col items-center justify-center md:mx-0">
 		<div class="mx-3 flex w-fit flex-col items-center space-x-5 md:flex-row">
 			<label class="text-lg font-bold" for="length">Edit length:</label>
 			<input
@@ -290,9 +291,10 @@
 			</ul>
 		</div>
 	</div>
-</main>
+</div>
 
-<!-- Check boxes for password format -->
-{#if userData?.SavePassword}
-	<PasswordManagerSection {form} />
-{/if}
+	<!-- Check boxes for password format -->
+	{#if userData?.SavePassword}
+		<PasswordManagerSection {form} />
+	{/if}
+</section>
