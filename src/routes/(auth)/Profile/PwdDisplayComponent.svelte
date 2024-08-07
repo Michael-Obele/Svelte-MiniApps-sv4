@@ -3,7 +3,7 @@
 	import { _fetchCommitData } from './+page';
 	import type { ActionData } from './$types.js';
 	import { enhance } from '$app/forms';
-	import { ScrollArea } from "$lib/components/ui/scroll-area/index.js";
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 
 	export let form: ActionData;
 
@@ -53,25 +53,18 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 		</form>
 
 		<ScrollArea class="h-44 w-fit rounded-md border">
-		{#if form?.displayPassword}
+			{#if form?.displayPassword}
 				{#each form?.displayPassword as item}
 					<p class="mt-2 text-gray-700 dark:text-gray-300">
 						<span class="flex flex-col">
+							<span class="border-gray-300 p-2 font-bold">
+								{item.title}
+							</span>
 
-						<span
-						
-							class="border-gray-300 p-2 font-bold">
-
-							{item.title}
+							<span class="border-gray-300 p-2 italic">
+								{item.details}
+							</span>
 						</span>
-
-						<span
-						
-							class="border-gray-300 p-2 italic">
-
-							{item.details}
-						</span>
-					</span>
 
 						<span
 							class="mt-2 block rounded bg-white p-2 text-red-500 shadow-lg dark:bg-gray-800 dark:text-red-400"
@@ -82,11 +75,18 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 					</p>
 					<hr class="my-4 border-t-2 border-green-500 dark:border-green-400" />
 				{/each}
-				{:else}
-				<div>
-					<h3>Click to get Saved Passwords</h3>
-				</div>
-				{/if}
-			</ScrollArea>
+			{:else}
+				<p class="text-center text-gray-700 dark:text-gray-300">No saved passwords to display.</p>
+			{/if}
+		</ScrollArea>
+		<h3 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+			Explore more with the
+			<a
+				href="./Apps/Random-Password-Generator"
+				class="text-blue-500 underline hover:text-blue-700 dark:text-green-400 dark:hover:text-green-600"
+			>
+				Password Generator
+			</a>
+		</h3>
 	</section>
 {/if}
