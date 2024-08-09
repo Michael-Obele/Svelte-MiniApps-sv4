@@ -22,9 +22,12 @@ self.addEventListener('install', (event) => {
 	async function addFilesToCache() {
 		const cache = await caches.open(CACHE);
 		await cache.addAll(ASSETS);
+		// Wait for the cache to be populated before activating
+		self.skipWaiting(); // This is important!
 	}
 	event.waitUntil(addFilesToCache());
 });
+
 
 //active
 
