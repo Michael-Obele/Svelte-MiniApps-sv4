@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import date from 'date-and-time';
 	import { _fetchCommitData } from './+page';
+	import { onMount } from 'svelte';
 
 	export let data;
 
@@ -18,6 +19,49 @@
 		return `Released on ${dateObj.toLocaleDateString('en-US', options)} at ${dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
 	}
 
+	interface Commit {
+  sha: string;
+  author: string;
+  date: string;
+  message: string;
+}
+
+async function getLast5Commits(): Promise<Commit[]> {
+  const owner = 'Michael-Obele';
+  const repo = 'Svelte-MiniApps';
+  const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
+    }
+    const commits = await response.json();
+    return commits.map((commit: any) => ({
+      sha: commit.sha,
+      author: commit.commit.author.name,
+      date: commit.commit.author.date,
+      message: commit.commit.message,
+    }));
+  } catch (error) {
+    console.error('Failed to fetch commits:', error);
+    return [];
+  }
+}
+
+
+onMount(()=>{
+	// Usage example
+	getLast5Commits().then(commits => console.log(commits));
+
+})
+
+interface Commit {
+  sha: string;
+  author: string;
+  date: string;
+  message: string;
+}
 	const pattern = date.compile('ddd, MMM DD YYYY');
 	const timePattern = date.compile('hh:mm A');
 </script>
@@ -42,6 +86,7 @@
 							>Latest</span
 						>
 					</h3>
+					
 					<time class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
 						>Released on {date.format(new Date(commitData.commit.committer.date), pattern)} at
 						{date.format(new Date(commitData.commit.committer.date), timePattern)}</time
