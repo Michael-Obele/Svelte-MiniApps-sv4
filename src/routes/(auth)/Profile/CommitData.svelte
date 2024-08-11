@@ -7,73 +7,55 @@
 
 	export let data;
 
-	function formatDate(dateString: string | number | Date) {
-		const dateObj = new Date(dateString);
-		const options = {
-			month: 'long',
-			day: 'numeric',
-			year: 'numeric',
-			hour: '2-digit',
-			minute: '2-digit'
-		} as Intl.DateTimeFormatOptions;
-		return `Released on ${dateObj.toLocaleDateString('en-US', options)} at ${dateObj.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
+	function truncateText(text: string, maxLength: number) {
+		const originalText = text || '';
+		if (originalText.length > maxLength) {
+			return text = originalText.slice(0, maxLength - 3) + '...';
+		} return text
 	}
 
 	interface Commit {
-  sha: string;
-  author: string;
-  date: string;
-  message: string;
-}
+		sha: string;
+		author: string;
+		date: string;
+		message: string;
+	}
 
-async function getLast5Commits(): Promise<Commit[]> {
-  const owner = 'Michael-Obele';
-  const repo = 'Svelte-MiniApps';
-  const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`;
+	async function getLast5Commits(): Promise<Commit[]> {
+		const owner = 'Michael-Obele';
+		const repo = 'Svelte-MiniApps';
+		const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`;
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status} ${response.statusText}`);
-    }
-    const commits = await response.json();
-    return commits.map((commit: any) => ({
-      sha: commit.sha,
-      author: commit.commit.author.name,
-      date: commit.commit.author.date,
-      message: commit.commit.message,
-    }));
-  } catch (error) {
-    console.error('Failed to fetch commits:', error);
-    return [];
-  }
-}
+		try {
+			const response = await fetch(url);
+			if (!response.ok) {
+				throw new Error(`Error: ${response.status} ${response.statusText}`);
+			}
+			const commits = await response.json();
+			return commits.map((commit: any) => ({
+				sha: commit.sha,
+				author: commit.commit.author.name,
+				date: commit.commit.author.date,
+				message: commit.commit.message
+			}));
+		} catch (error) {
+			console.error('Failed to fetch commits:', error);
+			return [];
+		}
+	}
 
-
-onMount(()=>{
-	// Usage example
-	getLast5Commits().then(commits => console.log(commits));
-
-})
-
-interface Commit {
-  sha: string;
-  author: string;
-  date: string;
-  message: string;
-}
 	const pattern = date.compile('ddd, MMM DD YYYY');
 	const timePattern = date.compile('hh:mm A');
 </script>
 
 <section>
-	{#await data.props.commitData}
+	{#await getLast5Commits()}
 		<p class="text-center text-lg font-semibold text-gray-700 dark:text-gray-300">
 			Loading commit data...
 		</p>
 	{:then commitData}
-		<div class="my-4 px-4 lg:m-0 lg:p-0">
-			<ol class="relative border-gray-200 dark:border-gray-700 lg:border-s">
+		<ol class="relative border-s border-gray-200 dark:border-gray-700">
+			{#each commitData.slice(0, 1) as commit}
 				<li class="mb-10 ms-6">
 					<span
 						class="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-green-100 ring-8 ring-white dark:bg-green-900 dark:ring-gray-900"
@@ -86,13 +68,12 @@ interface Commit {
 							>Latest</span
 						>
 					</h3>
-					
 					<time class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
-						>Released on {date.format(new Date(commitData.commit.committer.date), pattern)} at
-						{date.format(new Date(commitData.commit.committer.date), timePattern)}</time
+						>Released on {date.format(new Date(commit.date), pattern)} at
+						{date.format(new Date(commit.date), timePattern)}</time
 					>
 					<p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-						{commitData.commit.message}
+						{commit.message}
 					</p>
 					<a
 						target="_blank"
@@ -101,8 +82,27 @@ interface Commit {
 						><Github class="mr-2 h-4 w-4" /> Check it out</a
 					>
 				</li>
-			</ol>
-		</div>
+			{/each}
+			{#each commitData.slice(1, 5) as commit}
+				<li class="mb-10 ms-6">
+					<span
+						class="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-green-100 ring-8 ring-white dark:bg-green-900 dark:ring-gray-900"
+					>
+						<CalendarDays />
+					</span>
+					<h3 class="mb-1 text-lg font-semibold text-gray-900 dark:text-white">
+						Svelte MiniApps Update
+					</h3>
+					<time class="mb-2 block text-sm font-normal leading-none text-gray-400 dark:text-gray-500"
+						>Released on {date.format(new Date(commit.date), pattern)} at
+						{date.format(new Date(commit.date), timePattern)}</time
+					>
+					<p class="text-base font-normal text-gray-500 dark:text-gray-400">
+						{truncateText(commit.message,100)}
+					</p>
+				</li>
+			{/each}
+		</ol>
 	{:catch error}
 		<p class="text-center text-lg font-semibold text-red-600 dark:text-red-400">
 			Failed to load commit data: {error.message}
