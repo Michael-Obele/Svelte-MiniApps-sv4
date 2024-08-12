@@ -55,6 +55,7 @@
     "d3-array": "^3.2.4",
     "d3-scale": "^4.0.2",
     "date-and-time": "^3.2.0",
+    "date-fns": "^3.6.0",
     "formsnap": "^1.0.0",
     "html-to-image": "^1.11.11",
     "jsonwebtoken": "^9.0.2",

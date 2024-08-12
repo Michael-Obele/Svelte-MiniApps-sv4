@@ -3,7 +3,6 @@
 	import CommitData from './CommitData.svelte';
 	import UserInfo from './UserInfo.svelte';
 	import { page } from '$app/stores';
-	import { _fetchCommitData } from './+page';
 	import type { ActionData } from './$types.js';
 
 	export let data;
@@ -27,7 +26,7 @@
 			<div
 				class="flex w-full flex-col items-center justify-center space-y-6 xl:flex-row xl:space-x-6"
 			>
-				<CommitData {data} />
+				<CommitData />
 
 				<UserInfo {userData} {gitData} />
 				<PwdDisplayComponent {form} />

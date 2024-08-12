@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { _fetchCommitData } from './+page';
 	import type { ActionData } from './$types.js';
 	import { enhance } from '$app/forms';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';

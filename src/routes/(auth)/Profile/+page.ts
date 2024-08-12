@@ -1,37 +1,43 @@
-interface Author {
-	name: string;
-	email: string;
+import { json } from '@sveltejs/kit';
+import date from 'date-and-time';
+
+
+interface GitUser {
+	name: string | null;
+	email: string | null;
 	date: string;
-}
-
-interface Tree {
-	sha: string;
-	url: string;
-}
-
-interface Verification {
+  }
+  
+  interface CommitVerification {
 	verified: boolean;
 	reason: string;
-	signature: null;
-	payload: null;
-}
-
-interface Commit {
-	author: Author;
-	committer: Author;
-	message: string;
-	tree: Tree;
+	payload: string | null;
+	signature: string | null;
+  }
+  
+  interface CommitTree {
+	sha: string;
 	url: string;
+  }
+  
+  interface Commit {
+	url: string;
+	author: GitUser | null;
+	committer: GitUser | null;
+	message: string;
 	comment_count: number;
-	verification: Verification;
-}
-
-interface User {
+	tree: CommitTree;
+	verification: CommitVerification;
+  }
+  
+  interface SimpleUser {
+	name: string | null;
+	email: string | null;
 	login: string;
 	id: number;
 	node_id: string;
 	avatar_url: string;
-	gravatar_id: string;
+	gravatar_id: string | null;
 	url: string;
 	html_url: string;
 	followers_url: string;
@@ -45,24 +51,19 @@ interface User {
 	received_events_url: string;
 	type: string;
 	site_admin: boolean;
-}
-
-interface Parent {
+	starred_at: string;
+  }
+  
+  interface CommitParent {
 	sha: string;
 	url: string;
 	html_url: string;
-}
-
-interface Stats {
-	total: number;
-	additions: number;
-	deletions: number;
-}
-
-interface File {
+  }
+  
+  interface DiffEntry {
 	sha: string;
 	filename: string;
-	status: string;
+	status: 'added' | 'removed' | 'modified' | 'renamed' | 'copied' | 'changed' | 'unchanged';
 	additions: number;
 	deletions: number;
 	changes: number;
@@ -70,52 +71,78 @@ interface File {
 	raw_url: string;
 	contents_url: string;
 	patch: string;
-}
-
-interface CommitData {
+	previous_filename: string;
+  }
+  
+  interface CommitStats {
+	additions: number;
+	deletions: number;
+	total: number;
+  }
+  
+  interface CommitData {
+	url: string;
 	sha: string;
 	node_id: string;
-	commit: Commit;
-	url: string;
 	html_url: string;
 	comments_url: string;
-	author: User;
-	committer: User;
-	parents: Parent[];
-	stats: Stats;
-	files: File[];
+	commit: Commit;
+	author: SimpleUser | null;
+	committer: SimpleUser | null;
+	parents: CommitParent[];
+	stats: CommitStats;
+	files: DiffEntry[];
+  }
+  
+  type CommitResponse = CommitData[];
+  
+  
+
+
+interface Commits {
+	sha: string;
+	author: string;
+	date: string;
+	message: string;
 }
 
-export async function _fetchCommitData(
-	owner: string,
-	repo: string,
-	branch: string
-): Promise<CommitData> {
-	const baseUrl = 'https://api.github.com';
-	const url = `${baseUrl}/repos/${owner}/${repo}/branches/${branch}`;
-	const response = await fetch(url);
-	if (!response.ok) {
-		throw new Error(`Failed to fetch branch information: ${response.statusText}`);
-	}
-	const data = await response.json();
-	const commitSHA = data.commit.sha;
-	const commitUrl = `${baseUrl}/repos/${owner}/${repo}/commits/${commitSHA}`;
-	const commitResponse = await fetch(commitUrl);
-	if (!commitResponse.ok) {
-		throw new Error(`Failed to fetch commit details: ${commitResponse.statusText}`);
-	}
-	return commitResponse.json();
-}
-
-export async function load({ params }) {
+export async function load() {
+	// Define the owner and repository name
 	const owner = 'Michael-Obele';
 	const repo = 'Svelte-MiniApps';
-	const branch = 'master';
-	const commitData = _fetchCommitData(owner, repo, branch);
+	// Construct the API URL to fetch the last 5 commits
+	const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`;
+  
+	try {
+	  // Fetch data from the GitHub API
+	  const response = await fetch(url);
+	  // Check if the request was successful
+	  if (!response.ok) {
+		throw new Error(`Error: ${response.status} ${response.statusText}`);
+	  }
+	  // Parse the response as JSON
+	  const commits: CommitResponse = await response.json();
+	  
+  
+	  // Format the commit data for display
+	  const formattedCommits: Commits[] = commits.map((commit: any) => ({
+		sha: commit.sha,
+		author: commit.commit.author.name,
+		date: commit.commit.author.date,
+		message: commit.commit.message
+	  }));
+  
+	  // Return the formatted commit data and date formatting patterns
+	  return {
+		commitData: formattedCommits,
+		pattern: date.compile('ddd, MMM DD YYYY'),
+		timePattern: date.compile('hh:mm A')
+	  };
+	} catch (error) {
+	  // Log the error and return an error message
+	  console.error('Failed to fetch commits:', error);
+	  return { error: 'Failed to load commit data' };
+	}
+  }
+  
 
-	return {
-		props: {
-			commitData
-		}
-	};
-}
