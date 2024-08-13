@@ -27,18 +27,20 @@
 <!--
 @component
 ## Svelte Component: CommitData
+
 This component displays the latest 5 commits from the Svelte MiniApps GitHub repository. It fetches the commit data from the GitHub API and presents it in a visually appealing list format.
 
 ## Key Features
-- **Latest Commit Highlight:** The most recent commit is highlighted with a "Latest" label.
-- **Commit Details:** Each commit displays the date, author, and a truncated message.
-- **GitHub Link:** A link to the Svelte MiniApps GitHub repository is provided for users to explore the project further.
+- **Latest Commit Highlight:** The most recent commit is highlighted with a green circle icon.
+- **Commit Details:** Each commit displays the date, a formatted timestamp, and a truncated message.
+- **GitHub Link:** A link to the specific commit on GitHub is provided for the most recent commit.
 
 ## Data Fetching
-- The component uses the `getLast5Commits` function to fetch the commit data from the GitHub API.
-- The `await` keyword is used to wait for the data to be loaded before rendering the component.
+- The component utilizes data fetched from the `$page.data.commitData` store, which presumably is populated by a parent component or route handler.
+- The `await` keyword handles the asynchronous loading of the commit data.
 - Error handling is implemented to display a message if the data fails to load.
 -->
+
 
 <section>
 	{#await $page.data.commitData}
