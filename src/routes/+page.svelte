@@ -58,7 +58,7 @@
 
 <div class="pb-5 xl:px-10">
 	<section class="w-full py-8 md:py-14 lg:py-24">
-		<div class="container px-4 md:px-6">
+		<div class="px-4 xl:container md:px-6">
 			<div class="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
 				<div class="flex flex-col justify-center space-y-4">
 					<header class="space-y-2">
@@ -103,7 +103,7 @@
 	</section>
 
 	<main class="w-full py-5 md:py-8 lg:py-10">
-		<div class="container px-4 md:px-6">
+		<div class="px-4 xl:container md:px-6">
 			<section
 				class="mx-auto max-w-screen-xl justify-center bg-white px-4 py-8 dark:bg-gray-900 lg:py-16 xl:rounded-lg"
 			>
@@ -159,7 +159,7 @@
 		</div>
 	</main>
 	<section class="w-full md:py-24 lg:py-32">
-		<div class="container px-4 md:px-6">
+		<div class="px-4 xl:container md:px-6">
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">
 				<ContentBlock>
 					<div slot="header" class="flex items-center justify-center space-x-2">
@@ -221,7 +221,7 @@
 		</div>
 	</section>
 
-	<section class="container w-full px-4 py-5 md:px-6 md:py-8 lg:py-10">
+	<section class="w-full px-4 py-5 xl:container md:px-6 md:py-8 lg:py-10">
 		<div
 			class="mx-auto max-w-screen-xl justify-center bg-white px-4 py-8 dark:bg-gray-900 lg:py-16 xl:rounded-lg"
 		>
@@ -238,7 +238,7 @@
 				</ContentBlock>
 			</div>
 
-			<div class="container mx-auto space-y-10 px-4 py-8 text-center">
+			<div class="mx-auto space-y-10 px-4 py-8 text-center xl:container">
 				<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
 					<InfoBlock direction="left">
 						<lord-icon
