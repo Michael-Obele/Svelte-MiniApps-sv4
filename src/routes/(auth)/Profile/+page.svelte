@@ -13,7 +13,7 @@
 </script>
 
 <main class="min-h-screen bg-gray-100 py-4 dark:bg-gray-900">
-	<div class="container mx-auto px-4">
+	<div class="mx-auto px-4">
 		<div class="mb-4">
 			<h1 class="text-center text-3xl font-bold text-gray-900 dark:text-white">Profile Page</h1>
 		</div>

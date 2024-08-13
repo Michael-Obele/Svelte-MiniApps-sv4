@@ -51,7 +51,7 @@ Utilizes enhanced form handling to submit requests for viewing or hiding passwor
 			{/if}
 		</form>
 
-		<ScrollArea class="h-44 w-fit rounded-md border">
+		<ScrollArea class="h-80 w-fit rounded-md border">
 			{#if form?.displayPassword}
 				{#each form?.displayPassword as item}
 					<p class="mt-2 text-gray-700 dark:text-gray-300">

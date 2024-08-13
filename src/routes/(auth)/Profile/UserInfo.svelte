@@ -34,7 +34,7 @@ This component shows user details like whether they're an admin, how they regist
 -->
 <div>
 	{#if userData || gitData}
-		<div class="rounded-lg bg-green-400 p-3 dark:bg-green-900">
+		<div class="max-w-2xl rounded-lg bg-green-400 p-3 dark:bg-green-900">
 			<div class="mb-4">
 				<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
 					{userData?.username || gitData?.name} is
