@@ -9,7 +9,10 @@ const db = getDbInstance(); // Get the Prisma client instance
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 	const session = await event.locals.getSession();
-	if (sessionID || session) {
+	console.log({session});
+	console.log({ sessionID });
+	
+	if (sessionID && session) {
 		return redirect(303, '/Profile');
 	}
 	return {};
@@ -71,7 +74,7 @@ const login: Action = async ({ cookies, request }) => {
 		httpOnly: true,
 		sameSite: 'strict',
 		secure: process.env.NODE_ENV === 'production',
-		maxAge: 60 * 60 * 24 * 30
+		maxAge: 60 * 60 * 24 // Set the maxAge to 1 day
 	});
 
 	// Redirect the user to the homepage

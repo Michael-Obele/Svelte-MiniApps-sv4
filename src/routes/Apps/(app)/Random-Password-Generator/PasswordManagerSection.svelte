@@ -30,7 +30,7 @@
 
 </script>
 
-<section class="mx-auto my-12 w-3/4 max-w-md rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
+<section class="mx-auto my-12 w-3/4 max-w-md rounded-lg border bg-white p-4 shadow-md dark:bg-gray-800">
 	<p class="mb-2 text-center text-green-500 dark:text-green-400">You can save passwords.</p>
 	<form use:enhance action="?/viewPasswords" method="POST" class="space-y-4">
 		<input type="hidden" name="id" value={userData?.id} />
@@ -63,7 +63,7 @@
 		<ScrollArea class="h-96 w-fit rounded-md border">
 		{#if form?.displayPassword}
 			{#each form?.displayPassword as item, i}
-				<div class="mb-4 rounded-lg bg-white p-4 shadow-md dark:bg-gray-800">
+				<div class="mb-4 rounded-lg bg-white p-4 dark:bg-gray-800">
 					<form
 						action="?/update"
 						class:hidden={readOnlyStates[i]}
@@ -102,8 +102,8 @@
 						on:click={() => toggleReadOnly(i)}
 						variant="outline"
 						class="mt-1 {!readOnlyStates[i]
-							? 'bg-blue-500 text-white hover:bg-blue-500 hover:text-white'
-							: 'text-muted-foreground hover:bg-blue-500'}"
+							? 'bg-blue-500 text-black dark:text-white hover:bg-blue-500 hover:text-white'
+							: 'text-black  dark:text-white hover:bg-blue-500'}"
 						aria-label="toggle edit"
 					>
 						<Pencil class="h-4 w-4" />
@@ -113,7 +113,7 @@
 						<AlertDialog.Trigger>
 							<Button
 								variant="outline"
-								class="mt-1 text-white hover:bg-red-700 hover:text-white"
+								class="mt-1 bg-red-300 text-black hover:bg-red-700 hover:text-white dark:bg-red-700 dark:text-white hover:dark:bg-red-500"
 								aria-label="toggle edit"
 							>
 								<Trash2 class="h-4 w-4" />

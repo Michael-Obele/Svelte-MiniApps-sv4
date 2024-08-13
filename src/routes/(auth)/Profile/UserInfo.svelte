@@ -2,7 +2,6 @@
 	import { UserRoundX } from 'lucide-svelte';
 
 	export let userData;
-	export let gitData;
 
 	// Adjusted function to check if the user or git data indicates admin status
 	function isAdmin(userOrGit: { isAdmin?: boolean }) {
@@ -10,10 +9,13 @@
 		return !!userOrGit?.isAdmin;
 	}
 
+console.log({ userData });
+
 	// Function to format the registration method
-	function registrationMethod(user: { username: string }, git: { name: string }) {
-		if (user?.username) return 'username';
-		if (git?.name) return 'OAuth';
+	function registrationMethod(user: { id:number|null}) {
+		if (user?.id !== null) return 'username';
+		if (user?.id == null) return 'OAuth';
+		console.log({ user });
 		return '';
 	}
 </script>
@@ -21,7 +23,7 @@
 <!--
 @component
 ## Svelte Component: UserInfo Card
-This component shows user details like whether they're an admin, how they registered, and their email. It uses `userData` and `gitData` props. It also conditionally renders content based on the availability of these props.
+This component shows user details like whether they're an admin, how they registered, and their email. It uses `userData` and `userData` props. It also conditionally renders content based on the availability of these props.
 
 ## Key Features
 - **Admin Status**: Displays if the user is an admin.
@@ -33,11 +35,11 @@ This component shows user details like whether they're an admin, how they regist
 - **`registrationMethod(user, git)`**: Identifies the registration method used by the user.
 -->
 <div>
-	{#if userData || gitData}
+	{#if userData || userData}
 		<div class="max-w-2xl rounded-lg bg-green-400 p-3 dark:bg-green-900">
 			<div class="mb-4">
 				<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
-					{userData?.username || gitData?.name} is
+					{userData?.username} is
 					{#if isAdmin(userData)}
 						<span class="text-center text-lg font-semibold text-green-700 dark:text-green-300">
 							an Admin
@@ -51,13 +53,13 @@ This component shows user details like whether they're an admin, how they regist
 			</div>
 			<div class="mb-4">
 				<p class="text-center text-gray-700 dark:text-gray-300">
-					You registered using the {registrationMethod(userData, gitData)} method.
+					You registered using the {registrationMethod(userData)} method.
 					<br />
 					<span class="text-center text-gray-700 dark:text-gray-300">
-						{#if gitData?.email}
+						{#if userData?.email}
 							<span class="font-semibold text-green-600 dark:text-green-400"
 								>Your associated email is:</span
-							> <span class="font-semibold">{gitData?.email}</span>.
+							> <span class="font-semibold">{userData?.email}</span>.
 						{:else}
 							<span class="font-semibold text-red-600 dark:text-red-400"
 								>Please note, you do not have an email linked to this account. This means you won't
@@ -67,38 +69,34 @@ This component shows user details like whether they're an admin, how they regist
 					</span>
 				</p>
 			</div>
-			{#if userData}
+			{#if userData?.createdAt}
 				<div class="mb-4">
 					<p class="text-center text-gray-700 dark:text-gray-300">
 						Joined on: {userData?.createdAt}
 					</p>
 				</div>
 			{/if}
-			{#if gitData}
 				<div class="mb-4">
-					<p class="text-center text-gray-700 dark:text-gray-300">
-						Your name is: {gitData?.name}
-					</p>
+					
 					<div class="space-y-5">
 						<p class="text-center text-lg text-gray-700 dark:text-gray-300">
 							Your profile image is:
 						</p>
-						{#if gitData?.image}
+						{#if userData?.image}
 							<img
-								src={gitData?.image}
+								src={userData?.image}
 								alt="user img"
 								class="mx-auto h-auto w-3/4 rounded-xl transition-all duration-300 hover:blur-none md:blur-sm"
 							/>
 						{:else}
 							<div
-								class="h-auto min-w-2.5 max-w-lg rounded-lg transition-all duration-300 hover:blur-none md:blur-sm"
+								class="mx-auto h-auto w-3/4 rounded-xl bg-blue-600 transition-all duration-300 hover:blur-none md:blur-sm"
 							>
-								<UserRoundX />
+								<UserRoundX class='mx-auto size-80' />
 							</div>
 						{/if}
 					</div>
 				</div>
-			{/if}
 		</div>
 	{/if}
 </div>

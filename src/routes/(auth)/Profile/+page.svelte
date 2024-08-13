@@ -9,7 +9,8 @@
 	export let form: ActionData;
 
 	let userData = $page.data.user?.userData;
-	let gitData = $page.data.user?.session?.user;
+
+	// console.log({ userData });
 </script>
 
 <main class="min-h-screen bg-gray-100 py-4 dark:bg-gray-900">
@@ -28,7 +29,7 @@
 			>
 				<CommitData />
 
-				<UserInfo {userData} {gitData} />
+				<UserInfo {userData} />
 				<PwdDisplayComponent {form} />
 			</div>
 		</div>

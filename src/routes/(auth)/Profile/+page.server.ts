@@ -7,6 +7,9 @@ const db = getDbInstance();
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 	const session = await event.locals.getSession();
+
+	console.log({session});
+	console.log({ sessionID });
 	if (!sessionID && !session) {
 		return redirect(303, '/Login');
 	}

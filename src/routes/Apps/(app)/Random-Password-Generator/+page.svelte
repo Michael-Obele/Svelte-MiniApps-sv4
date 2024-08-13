@@ -163,7 +163,7 @@
 							<button
 								type="submit"
 								on:click={() => submitAction()}
-								class="inline-flex h-12 items-center justify-center border border-transparent px-4 py-3 text-sm font-semibold text-white {saved
+								class="inline-flex h-12 items-center justify-center border-t border-b  px-4 py-3 text-sm font-semibold text-black border dark:text-white {saved
 									? 'bg-green-500 dark:bg-green-500'
 									: 'hover:bg-green-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white'}"
 							>
