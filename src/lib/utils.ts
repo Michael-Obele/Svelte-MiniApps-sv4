@@ -90,3 +90,5 @@ export const isLoading = writable(false);
 
 export const savePassword = writable(false);
 export const showPassword = writable(false);
+
+export const seenCookie = writable(false)

@@ -1,17 +1,14 @@
 <script lang="ts">
 	import Footer from './Footer.svelte';
-
 	import InfoBlock from './InfoBlock.svelte';
-
 	import ContentBlock from './ContentBlock.svelte';
-
+	//
 	import { page } from '$app/stores';
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
-	import { ArrowRight, CheckCircle2, Cookie, Heart } from 'lucide-svelte';
+	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
-	import { goto } from '$app/navigation';
-	import { onMount } from 'svelte';
+	import { seenCookie } from '$lib/utils';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -20,24 +17,17 @@
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
-	let seenCookie = $page.data.hasSeenCookieNotification;
-	if (seenCookie == false) {
+	if ($seenCookie == false) {
 		toast("Session cookies at work here. Chill, it's all cool!", {
 			action: {
 				label: 'OK',
-				onClick: () => goto(`${websiteUrl}/cookies`)
+				onClick: () => seenCookie.set(true)
 			},
 			duration: Number.POSITIVE_INFINITY,
 			icon: Cookie
 		});
 	}
-
-	// Function to scroll smoothly to the top of the page
-	function scrollToTop() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	}
 	let userData = $page.data.user.userData;
-	let gitUser = $page.data.user.session;
 </script>
 
 <svelte:head>
