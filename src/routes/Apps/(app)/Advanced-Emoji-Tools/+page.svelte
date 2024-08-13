@@ -1,8 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import Construction from '$lib/logo/Construction.svelte';
-	export let data: PageData;
-	console.log({ data });
+	// export let data: PageData;
 </script>
 
 <svelte:head>

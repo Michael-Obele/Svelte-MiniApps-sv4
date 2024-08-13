@@ -90,7 +90,6 @@ const register: Action = async ({ request }) => {
  */
 async function createUser(username: string, password: string, isAdmin: boolean) {
 	const passwordHash = isAdmin ? adminHash : await bcrypt.hash(password, 10);
-	console.log('isAdmin:', isAdmin);
 
 	await db.user.create({
 		data: {

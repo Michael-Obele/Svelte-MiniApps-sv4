@@ -17,7 +17,7 @@ export const actions: Actions = {
 		let id = String(data.get('id'));
 
 		// Log the password for debugging purposes
-		// console.log(password);
+	
 
 		// Check if the user exists in the database
 		const user = await db.user.findUnique({ where: { id } });
@@ -30,7 +30,6 @@ export const actions: Actions = {
 			const savePassword = await db.savePassword.create({
 				data: { password: password, userId: user.id }
 			});
-			// console.log('savePassword = ', savePassword);
 			return { saved: true };
 		} catch (err) {
 			console.error('Error:', err);
@@ -43,8 +42,6 @@ export const actions: Actions = {
 		const id = String(data.get('id'));
 		const title = String(data.get('title'))
 		const details = String(data.get('details'))
-		// Log the data for debugging purposes 
-		// console.log(password, id, title, details); 
 		// Check if the password exists in the database 
 		const existingPassword = await db.savePassword.findUnique({ where: { id } });
 		if (!existingPassword) {
@@ -53,7 +50,6 @@ export const actions: Actions = {
 		try {
 			// Update the password for the user 
 			const updatePassword: Prisma.SavePasswordUpdateInput = await db.savePassword.update({ where: { id }, data: { title, details } });
-			// console.log('updatePassword = ', updatePassword); 
 			return { updated: true };
 		} catch (err) {
 			console.error('Error:', err);
@@ -109,11 +105,9 @@ export const actions: Actions = {
 				select: passwordDetails,
 				orderBy: { createdAt: 'desc' }
 			});
-			// console.log(displayPassword);
 
 			return { displayPassword };
 		} catch (error) {
-			console.log('No password');
 			console.error(error);
 			return fail(400, { error: 'No passwords' });
 		}

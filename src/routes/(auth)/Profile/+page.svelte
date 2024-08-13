@@ -4,13 +4,10 @@
 	import UserInfo from './UserInfo.svelte';
 	import { page } from '$app/stores';
 	import type { ActionData } from './$types.js';
-
-	export let data;
 	export let form: ActionData;
 
 	let userData = $page.data.user?.userData;
 
-	// console.log({ userData });
 </script>
 
 <main class="min-h-screen bg-gray-100 py-4 dark:bg-gray-900">

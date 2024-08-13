@@ -35,9 +35,7 @@
 	let currentMeaning: DictionaryEntry | undefined;
 
 	let Meaning = form?.data;
-	afterUpdate(() => {
-		console.log('Meaning = ', Meaning);
-	});
+
 
 	let searchTerm = '';
 

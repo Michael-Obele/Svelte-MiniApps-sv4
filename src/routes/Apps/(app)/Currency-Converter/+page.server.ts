@@ -65,8 +65,7 @@ export const actions: Actions = {
 			if (!rate) {
 				throw new Error('Rate text not found'); // Throw error if rate text is missing
 			}
-			console.log(typeof rate);
-			console.log(rate);
+			
 
 			// Construct and return successful response
 			return {

@@ -68,8 +68,6 @@ export const actions: Actions = {
 
 			// If the response was successful, parse the data from the response
 			const data: DictionaryEntry[] = await response.json();
-			// Log the received data for debugging purposes
-			console.log('data = ', data);
 			// Return the data along with the original word and an indication of no error
 			return { word, error: false, data };
 		} catch (error) {

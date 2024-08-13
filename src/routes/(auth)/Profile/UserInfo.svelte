@@ -9,13 +9,11 @@
 		return !!userOrGit?.isAdmin;
 	}
 
-console.log({ userData });
 
 	// Function to format the registration method
 	function registrationMethod(user: { id:number|null}) {
 		if (user?.id !== null) return 'username';
 		if (user?.id == null) return 'OAuth';
-		console.log({ user });
 		return '';
 	}
 </script>

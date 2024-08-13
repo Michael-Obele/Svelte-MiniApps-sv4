@@ -24,7 +24,6 @@
 				body: formData
 			}).then(async (response) => {
 				const data = await response.json();
-				console.log('Data:', data);
 				if (!response.ok) {
 					isLoading = false;
 				} else {
