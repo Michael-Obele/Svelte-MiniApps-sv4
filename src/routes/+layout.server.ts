@@ -19,10 +19,6 @@ interface Password {
 
 export const load: LayoutServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
-	const hasSeenCookieNotification = event.cookies.get('seenCookieNotification');
-	if (!hasSeenCookieNotification) {
-		event.cookies.set('seenCookieNotification', 'false', { path: '/' });
-	}
 
 	let userData: User | null = null;
 	/**
@@ -50,8 +46,7 @@ export const load: LayoutServerLoad = async (event) => {
 	}
 
 	return {
-		user: { userData },
-		hasSeenCookieNotification
+		user: { userData }
 	};
 };
 
