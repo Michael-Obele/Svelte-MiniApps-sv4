@@ -84,13 +84,14 @@ This component shows user details like whether they're an admin, how they regist
 							<img
 								src={userData?.image}
 								alt="user img"
-								class="mx-auto h-auto w-3/4 rounded-xl transition-all duration-300 hover:blur-none md:blur-sm"
+								class="mx-auto h-auto w-3/4 rounded-xl transition-all duration-300 hover:blur-none sm:blur-sm"
 							/>
 						{:else}
 							<div
-								class="mx-auto h-auto w-3/4 rounded-xl bg-blue-600 transition-all duration-300 hover:blur-none md:blur-sm"
+								class="mx-auto h-auto w-3/4 rounded-xl bg-blue-600 transition-all duration-300 hover:blur-none sm:blur-sm"
 							>
 								<UserRoundX class='mx-auto size-80' />
+							<span aria-label="Profile Pic"></span>
 							</div>
 						{/if}
 					</div>
