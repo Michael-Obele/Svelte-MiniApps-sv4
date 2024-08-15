@@ -1,6 +1,8 @@
 {
 	"name": "Svelte Mini Apps",
-	"orientation": "landscape-primary",
+	"orientation": "portrait-primary",
+    "display_override": "standalone",
+	"protocol_handlers": [{}],
 	"shortcuts": [
 		{
 			"name": "Home",
@@ -65,6 +67,7 @@
 	"short_name": "Svelte-Apps",
 	"description": "A collection of useful and engaging tools built with Svelte.",
 	"start_url": "/",
+	"id": "MiniApps000",
 	"display": "standalone",
 	"theme_color": "#B91C1C",
 	"background_color": "#020817",
@@ -111,5 +114,12 @@
 			"type": "image/png",
 			"purpose": "any"
 		}
+	],
+	"categories": [
+	  "education",
+	  "entertainment",
+	  "personalization",
+	  "productivity",
+	  "utilities"
 	]
 }
