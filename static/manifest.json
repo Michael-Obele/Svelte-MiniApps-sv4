@@ -25,12 +25,43 @@
 	],
 	"screenshots": [
 		{
-			"src": "screenshot.jpg",
-			"sizes": "1280x720",
-			"type": "image/jpg",
+			"src": "screenshots/1024x768desktop-8c8e25.png",
+			"sizes": "1024x768",
+			"type": "image/png",
 			"platform": "wide"
+		},
+		{
+			"src": "screenshots/1024x768desktop-9e2523.png",
+			"sizes": "1024x768",
+			"type": "image/png",
+			"platform": "wide"
+		},
+		{
+			"src": "screenshots/1024xFULLdesktop-8c8e25.png",
+			"sizes": "1024x768",
+			"type": "image/png",
+			"platform": "wide"
+		},
+		{
+			"src": "screenshots/1024xFULLdesktop-bd9861.png",
+			"sizes": "1024x768",
+			"type": "image/png",
+			"platform": "wide"
+		},
+		{
+			"src": "screenshots/1024xFULLdesktop-eaa02e.png",
+			"sizes": "1024x768",
+			"type": "image/png",
+			"platform": "wide"
+		},
+		{
+			"src": "screenshots/480xFULLphone-76659d.png",
+			"sizes": "480x800",
+			"type": "image/png",
+			"platform": "narrow"
 		}
 	],
+
 	"short_name": "Svelte-Apps",
 	"description": "A collection of useful and engaging tools built with Svelte.",
 	"start_url": "/",
