@@ -1,8 +1,11 @@
 {
 	"name": "Svelte Mini Apps",
 	"orientation": "portrait-primary",
-    "display_override": "standalone",
-	"protocol_handlers": [{}],
+	"display_override": [
+		"standalone",
+		"fullscreen",
+		"window-controls-overlay"
+	  ],
 	"shortcuts": [
 		{
 			"name": "Home",
@@ -78,6 +81,7 @@
 			"type": "image/png",
 			"purpose": "any"
 		},
+
 		{
 			"src": "android/android-launchericon-512-512.png",
 			"sizes": "512x512",
@@ -89,6 +93,12 @@
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "maskable"
+		},
+		{
+			"src": "android/android-launchericon-512-512-monochrome.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "monochrome"
 		},
 		{
 			"src": "android/android-launchericon-144-144.png",
@@ -121,5 +131,8 @@
 	  "personalization",
 	  "productivity",
 	  "utilities"
-	]
+	],
+	"lang": "en",
+	"dir": "auto",
+	"prefer_related_applications": false
 }
