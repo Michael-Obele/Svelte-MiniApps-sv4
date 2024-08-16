@@ -78,6 +78,7 @@
 			"type": "image/png",
 			"purpose": "any"
 		},
+
 		{
 			"src": "android/android-launchericon-512-512.png",
 			"sizes": "512x512",
