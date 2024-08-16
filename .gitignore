@@ -60,3 +60,6 @@ __bun_temp/
 # Ignore the .vercel file
 .vercel
 node_modules
+
+!.well-known
+

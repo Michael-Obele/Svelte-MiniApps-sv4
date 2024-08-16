@@ -53,10 +53,13 @@
 	});
 
 	onMount(() => {
+	  setTimeout(() => {
 		const script = document.createElement('script');
 		script.src = 'https://cdn.lordicon.com/lordicon.js';
 		document.body.appendChild(script);
+	  }, 3000); // 3000 milliseconds = 3 seconds
 	});
+	
 
 	afterUpdate(() => {
 		const url = $page.url.href;
