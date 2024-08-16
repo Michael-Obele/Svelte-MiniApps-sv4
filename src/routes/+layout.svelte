@@ -7,22 +7,21 @@
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
 	import { afterUpdate, onMount } from 'svelte';
-	import { goto} from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	let updateAvailable = false;
 
+	let registration: ServiceWorkerRegistration; // Store the registration globally
+
 	async function detectSWUpdate() {
 		try {
-			const registration = await navigator.serviceWorker.ready;
+			registration = await navigator.serviceWorker.ready;
 
 			registration.addEventListener('updatefound', () => {
-				const newSW = registration.installing;
-				newSW?.addEventListener('statechange', () => {
-					if (newSW.state === 'installed') {
-						// Instead of reloading, set updateAvailable to true
-						updateAvailable = true;
-					}
-				});
+				// We'll prompt the user as soon as 'updatefound' is fired
+				if (registration.installing) {
+					updateAvailable = true;
+				}
 			});
 		} catch (error) {
 			console.error('Service worker registration failed:', error);
@@ -30,11 +29,11 @@
 	}
 
 	function updateApp() {
-		navigator.serviceWorker.getRegistration().then((registration) => {
-			// Assuming the new service worker is waiting
-			registration?.waiting?.postMessage({ type: 'skipWaiting' });
+		if (registration && registration.waiting) {
+			registration.waiting.postMessage({ type: 'skipWaiting' });
+			// Refresh the page after sending the message
 			window.location.reload();
-		});
+		}
 	}
 
 	if (updateAvailable) {
@@ -53,13 +52,12 @@
 	});
 
 	onMount(() => {
-	  setTimeout(() => {
-		const script = document.createElement('script');
-		script.src = 'https://cdn.lordicon.com/lordicon.js';
-		document.body.appendChild(script);
-	  }, 3000); // 3000 milliseconds = 3 seconds
+		setTimeout(() => {
+			const script = document.createElement('script');
+			script.src = 'https://cdn.lordicon.com/lordicon.js';
+			document.body.appendChild(script);
+		}, 3000);
 	});
-	
 
 	afterUpdate(() => {
 		const url = $page.url.href;
