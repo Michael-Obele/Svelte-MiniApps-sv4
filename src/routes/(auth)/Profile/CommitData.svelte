@@ -53,7 +53,7 @@ This component displays the latest 5 commits from the Svelte MiniApps GitHub rep
 				{#each commitData as commit, i}
 					<li class="mb-10 ms-6">
 						<span
-							class="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-green-100 ring-8 ring-white dark:bg-green-900 dark:ring-gray-900"
+							class="absolute -start-3 flex h-6 w-6 items-center justify-center rounded-full bg-green-300 ring-8 ring-white dark:bg-green-900 dark:ring-gray-900"
 						>
 							<CalendarDays />
 						</span>
