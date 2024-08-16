@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	// import type { PageData } from './$types';s
 	import Construction from '$lib/logo/Construction.svelte';
 	// export let data: PageData;
 </script>
@@ -40,7 +40,7 @@
 	</div>
 </section>
 
-<!-- <section> 
+<!-- <section>
 	<div class="input-container bg-white p-4 dark:bg-gray-800">
 	<label for="emojify-input" class="block text-green-700 dark:text-green-300">Emojify Text:</label>
 	<input
