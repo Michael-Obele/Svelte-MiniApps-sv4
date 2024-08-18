@@ -49,19 +49,19 @@
 		</a>
 		<!-- End of Logo -->
 		<div class="flex items-center space-x-3 md:order-2 md:mx-0 md:space-x-0">
-			{#if gitData || userData}
-				{#if gitData}
+			{#if userData}
+				{#if userData?.id == null}
 					<DropdownMenu.Root>
 						<DropdownMenu.Trigger asChild let:builder>
 							<Button builders={[builder]} size="icon" variant="link" class="hover:no-underline">
 								<Avatar.Root>
-									<Avatar.Image src={gitData.image} alt="profile image" />
-									<Avatar.Fallback class="capitalize">{gitData.name.charAt(0)}</Avatar.Fallback>
+									<Avatar.Image src={userData.image} alt="profile image" />
+									<Avatar.Fallback class="capitalize">{userData.name.charAt(0)}</Avatar.Fallback>
 								</Avatar.Root>
 							</Button>
 						</DropdownMenu.Trigger>
 						<DropdownMenu.Content class="w-56">
-							<DropdownMenu.Label>{gitData?.name}</DropdownMenu.Label>
+							<DropdownMenu.Label>{userData?.name}</DropdownMenu.Label>
 							<DropdownMenu.Separator />
 							<DropdownMenu.Item href="/Profile">Profile</DropdownMenu.Item>
 							<DropdownMenu.Separator />

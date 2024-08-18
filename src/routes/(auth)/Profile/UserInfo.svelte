@@ -9,9 +9,8 @@
 		return !!userOrGit?.isAdmin;
 	}
 
-
 	// Function to format the registration method
-	function registrationMethod(user: { id:number|null}) {
+	function registrationMethod(user: { id: number | null }) {
 		if (user?.id !== null) return 'username';
 		if (user?.id == null) return 'OAuth';
 		return '';
@@ -33,7 +32,7 @@ This component shows user details like whether they're an admin, how they regist
 - **`registrationMethod(user, git)`**: Identifies the registration method used by the user.
 -->
 <div>
-	{#if userData || userData}
+	{#if userData?.username}
 		<div class="max-w-2xl rounded-lg bg-green-400 p-3 dark:bg-green-900">
 			<div class="mb-4">
 				<h2 class="text-center text-xl font-bold text-gray-900 dark:text-white">
@@ -74,28 +73,25 @@ This component shows user details like whether they're an admin, how they regist
 					</p>
 				</div>
 			{/if}
-				<div class="mb-4">
-					
-					<div class="space-y-5">
-						<p class="text-center text-lg text-gray-700 dark:text-gray-300">
-							Your profile image is:
-						</p>
-						{#if userData?.image}
-							<img
-								src={userData?.image}
-								alt="user img"
-								class="mx-auto h-auto w-3/4 rounded-xl transition-all duration-300 hover:blur-none sm:blur-sm"
-							/>
-						{:else}
-							<div
-								class="mx-auto h-auto w-3/4 rounded-xl bg-blue-600 transition-all duration-300 hover:blur-none sm:blur-sm"
-							>
-								<UserRoundX class='mx-auto size-80' />
+			<div class="mb-4">
+				<div class="space-y-5">
+					<p class="text-center text-lg text-gray-700 dark:text-gray-300">Your profile image is:</p>
+					{#if userData?.image}
+						<img
+							src={userData?.image}
+							alt="user img"
+							class="mx-auto h-auto w-3/4 rounded-xl transition-all duration-300 hover:blur-none sm:blur-sm"
+						/>
+					{:else}
+						<div
+							class="mx-auto h-auto w-3/4 rounded-xl bg-blue-600 transition-all duration-300 hover:blur-none sm:blur-sm"
+						>
+							<UserRoundX class="mx-auto size-80" />
 							<span aria-label="Profile Pic"></span>
-							</div>
-						{/if}
-					</div>
+						</div>
+					{/if}
 				</div>
+			</div>
 		</div>
 	{/if}
 </div>
