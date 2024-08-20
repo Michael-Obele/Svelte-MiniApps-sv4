@@ -437,7 +437,7 @@
 	</a>
 
 	<form
-		action="https://formspree.io/f/xyyrldpl"
+		action="https://submit-form.com/CeUldzMcN"
 		method="POST"
 		target="_blank"
 		class="mx-auto mb-4 flex w-full items-center justify-center sm:w-full md:mb-0"

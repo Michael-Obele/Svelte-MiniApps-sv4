@@ -17,6 +17,12 @@ const ASSETS = [
 	...files // everything in `static`
 ];
 
+// Add LordIcon URL to the ASSETS array 
+const LORDICON_URL = 'https://cdn.lordicon.com/lordicon.js';
+ASSETS.push(LORDICON_URL); 
+
+//install
+
 self.addEventListener('install', (event) => {
 	// Create a new cache and add all files to it
 	async function addFilesToCache() {
@@ -26,6 +32,8 @@ self.addEventListener('install', (event) => {
 		self.skipWaiting(); // This is important!
 	}
 	event.waitUntil(addFilesToCache());
+	// Tell the service worker to activate as soon as possible
+	self.skipWaiting(); 
 });
 
 
@@ -40,6 +48,8 @@ self.addEventListener('activate', (event) => {
 	}
 
 	event.waitUntil(deleteOldCaches());
+	// Now it's safe to claim clients
+	event.waitUntil(self.clients.claim()); 
 });
 
 self.addEventListener('fetch', (event) => {
@@ -58,6 +68,22 @@ self.addEventListener('fetch', (event) => {
 				return response;
 			}
 		}
+
+		 // Cache LordIcon.js specifically
+		 if (url.href === LORDICON_URL) {
+			try {
+			  const response = await fetch(event.request);
+			  if (response.status === 200) {
+				cache.put(event.request, response.clone());
+			  }
+			  return response;
+			} catch (err) {
+			  const cachedResponse = await cache.match(event.request);
+			  if (cachedResponse) return cachedResponse;
+			  throw err; // Re-throw if not in cache
+			}
+		  } 
+	  
 
 		// for everything else, try the network first, but
 		// fall back to the cache if we're offline
