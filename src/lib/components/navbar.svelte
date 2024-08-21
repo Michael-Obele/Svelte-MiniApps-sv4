@@ -33,7 +33,6 @@
 	};
 
 	$: userData = $page.data.user.userData;
-	$: gitData = $page.data?.user?.session?.user;
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
