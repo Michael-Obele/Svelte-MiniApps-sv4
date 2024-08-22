@@ -1,22 +1,9 @@
 <script lang="ts">
-	import UserProfileCard from './UserProfileCard.svelte';
-
-	import PwdDisplayComponent from './PwdDisplayComponent.svelte';
-	import CommitData from './CommitData.svelte';
-	import UserInfo from './UserInfo.svelte';
-	import { page } from '$app/stores';
-	import type { ActionData } from './$types.js';
 	import { Card, CardHeader, CardContent, CardTitle } from '$lib/components/ui/card';
-	import { Avatar, AvatarFallback, AvatarImage } from '$lib/components/ui/avatar';
-	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
-	import { Separator } from '$lib/components/ui/separator';
-	import { StarIcon } from 'lucide-svelte';
 	import { projects, done, truncateText } from '$lib';
 
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
-
-	let userData = $page.data.user?.userData;
 </script>
 
 <Card>

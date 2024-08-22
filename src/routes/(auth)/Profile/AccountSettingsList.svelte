@@ -1,11 +1,4 @@
 <script lang="ts">
-	import MiniAppList from './MiniAppList.svelte';
-
-	import UserProfileCard from './UserProfileCard.svelte';
-
-	import PwdDisplayComponent from './PwdDisplayComponent.svelte';
-	import CommitData from './CommitData.svelte';
-	import UserInfo from './UserInfo.svelte';
 	import { page } from '$app/stores';
 	import type { ActionData } from './$types.js';
 	import { Card, CardHeader, CardContent, CardTitle } from '$lib/components/ui/card';

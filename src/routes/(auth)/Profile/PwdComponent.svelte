@@ -35,11 +35,11 @@
 		{#if form?.displayPassword}
 			<ScrollArea class="h-64 rounded-md">
 				{#each form?.displayPassword as password}
-					<div class="my-5 flex items-center justify-between">
+					<div class="my-2 flex items-center justify-between">
 						<div class="space-y-6">
 							<div class="rounded-md bg-slate-500 p-3 font-semibold">{password.password}</div>
-							<div class="text-base">{password.title}</div>
-							<div class="text-sm text-muted-foreground">{password.details}</div>
+							<div class="text-base">{password.title || ''}</div>
+							<div class="text-sm text-muted-foreground">{password.details || ''}</div>
 						</div>
 						<div class="text-sm text-muted-foreground">
 							{formatDistance(new Date(password.createdAt), Date.now())}
