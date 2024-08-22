@@ -1,26 +1,25 @@
 import { json } from '@sveltejs/kit';
 import date from 'date-and-time';
 
-
 interface GitUser {
 	name: string | null;
 	email: string | null;
 	date: string;
-  }
-  
-  interface CommitVerification {
+}
+
+interface CommitVerification {
 	verified: boolean;
 	reason: string;
 	payload: string | null;
 	signature: string | null;
-  }
-  
-  interface CommitTree {
+}
+
+interface CommitTree {
 	sha: string;
 	url: string;
-  }
-  
-  interface Commit {
+}
+
+interface Commit {
 	url: string;
 	author: GitUser | null;
 	committer: GitUser | null;
@@ -28,9 +27,9 @@ interface GitUser {
 	comment_count: number;
 	tree: CommitTree;
 	verification: CommitVerification;
-  }
-  
-  interface SimpleUser {
+}
+
+interface SimpleUser {
 	name: string | null;
 	email: string | null;
 	login: string;
@@ -52,15 +51,15 @@ interface GitUser {
 	type: string;
 	site_admin: boolean;
 	starred_at: string;
-  }
-  
-  interface CommitParent {
+}
+
+interface CommitParent {
 	sha: string;
 	url: string;
 	html_url: string;
-  }
-  
-  interface DiffEntry {
+}
+
+interface DiffEntry {
 	sha: string;
 	filename: string;
 	status: 'added' | 'removed' | 'modified' | 'renamed' | 'copied' | 'changed' | 'unchanged';
@@ -72,15 +71,15 @@ interface GitUser {
 	contents_url: string;
 	patch: string;
 	previous_filename: string;
-  }
-  
-  interface CommitStats {
+}
+
+interface CommitStats {
 	additions: number;
 	deletions: number;
 	total: number;
-  }
-  
-  interface CommitData {
+}
+
+interface CommitData {
 	url: string;
 	sha: string;
 	node_id: string;
@@ -92,12 +91,9 @@ interface GitUser {
 	parents: CommitParent[];
 	stats: CommitStats;
 	files: DiffEntry[];
-  }
-  
-  type CommitResponse = CommitData[];
-  
-  
+}
 
+type CommitResponse = CommitData[];
 
 interface Commits {
 	sha: string;
@@ -112,37 +108,34 @@ export async function load() {
 	const repo = 'Svelte-MiniApps';
 	// Construct the API URL to fetch the last 5 commits
 	const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`;
-  
-	try {
-	  // Fetch data from the GitHub API
-	  const response = await fetch(url);
-	  // Check if the request was successful
-	  if (!response.ok) {
-		throw new Error(`Error: ${response.status} ${response.statusText}`);
-	  }
-	  // Parse the response as JSON
-	  const commits: CommitResponse = await response.json();
-	  
-  
-	  // Format the commit data for display
-	  const formattedCommits: Commits[] = commits.map((commit: any) => ({
-		sha: commit.sha,
-		author: commit.commit.author.name,
-		date: commit.commit.author.date,
-		message: commit.commit.message
-	  }));
-  
-	  // Return the formatted commit data and date formatting patterns
-	  return {
-		commitData: formattedCommits,
-		pattern: date.compile('ddd, MMM DD YYYY'),
-		timePattern: date.compile('hh:mm A')
-	  };
-	} catch (error) {
-	  // Log the error and return an error message
-	  console.error('Failed to fetch commits:', error);
-	  return { error: 'Failed to load commit data' };
-	}
-  }
-  
 
+	try {
+		// Fetch data from the GitHub API
+		const response = await fetch(url);
+		// Check if the request was successful
+		if (!response.ok) {
+			throw new Error(`Error: ${response.status} ${response.statusText}`);
+		}
+		// Parse the response as JSON
+		const commits: CommitResponse = await response.json();
+
+		// Format the commit data for display
+		const formattedCommits: Commits[] = commits.map((commit: any) => ({
+			sha: commit.sha,
+			author: commit.commit.author.name,
+			date: commit.commit.author.date,
+			message: commit.commit.message
+		}));
+
+		// Return the formatted commit data and date formatting patterns
+		return {
+			commitData: formattedCommits,
+			pattern: date.compile('ddd, MMM DD YYYY'),
+			timePattern: date.compile('hh:mm A')
+		};
+	} catch (error) {
+		// Log the error and return an error message
+		console.error('Failed to fetch commits:', error);
+		return { error: 'Failed to load commit data' };
+	}
+}

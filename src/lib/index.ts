@@ -8,6 +8,7 @@ export const done = [
 	'Currency Converter',
 	'Advanced Emoji Tools'
 ];
+//
 export const projects = [
 	{
 		title: 'Unit Converter',
@@ -184,3 +185,13 @@ export const projects = [
 		difficulty: 'medium'
 	}
 ];
+
+//
+
+export function truncateText(text: string, maxLength: number) {
+	const originalText = text || '';
+	if (originalText.length > maxLength) {
+		return originalText.slice(0, maxLength - 3) + '...';
+	}
+	return originalText;
+}
