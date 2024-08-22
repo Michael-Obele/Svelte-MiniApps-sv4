@@ -106,8 +106,8 @@ export async function load() {
 	// Define the owner and repository name
 	const owner = 'Michael-Obele';
 	const repo = 'Svelte-MiniApps';
-	// Construct the API URL to fetch the last 5 commits
-	const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=5`;
+	// Construct the API URL to fetch the last 10 commits
+	const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=10`;
 
 	try {
 		// Fetch data from the GitHub API
