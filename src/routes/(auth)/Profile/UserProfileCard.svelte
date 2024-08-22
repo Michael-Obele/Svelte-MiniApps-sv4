@@ -23,6 +23,20 @@
 	let userData = $page.data.user?.userData;
 </script>
 
+<!--
+@component
+## Svelte Component: User Profile Card
+This component displays a user's profile information, including their avatar, username, email, and admin status. It also provides a message about password recovery if the user does not have an associated email address.
+
+## Key Features
+- **User Information**: Displays the user's avatar, username, and email address.
+- **Admin Status**: Shows a badge indicating whether the user has admin privileges.
+- **Password Recovery Message**: Informs users without an associated email about the inability to recover their password.
+
+## Data Source
+Utilizes the `userData` object from the `$page.data.user` store to populate the profile information.
+-->
+
 <Card>
 	<CardHeader>
 		<div class="flex items-center gap-4">

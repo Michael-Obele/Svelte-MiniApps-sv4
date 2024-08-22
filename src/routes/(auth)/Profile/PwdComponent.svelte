@@ -17,6 +17,19 @@
 	const userId = $page.data.user.userData.id;
 </script>
 
+<!--
+@component
+## Svelte Component: Saved Passwords Display
+This component allows users to view and manage their saved passwords. It provides options to hide or view saved passwords and displays each password along with its creation date, title, and details. The component utilizes form handling and conditional rendering to display relevant information and actions based on the user's saved passwords.
+
+## Key Features
+- **View Saved Passwords**: Users can see all their saved passwords, including title, details, and creation date.
+- **Hide Option**: Offers a way to hide saved passwords for security reasons.
+
+## Form Handling
+Utilizes enhanced form handling to submit requests for viewing or hiding passwords securely.
+-->
+
 <Card>
 	<CardHeader>
 		<CardTitle>Saved Passwords</CardTitle>
