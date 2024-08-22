@@ -37,7 +37,7 @@
 				Loading commit data...
 			</p>
 		{:then commitData}
-			<ScrollArea class="h-64 rounded-md">
+			<ScrollArea class="h-64 rounded-md px-3">
 				{#each commitData as commit, i}
 					<div class="my-5 flex items-center justify-between">
 						<div class="space-y-5">
@@ -55,18 +55,18 @@
 								{@html truncateText(commit.message, 70)}
 							</div>
 						</div>
-						<div class="text-sm text-muted-foreground">
+						<div class="text-right text-sm text-muted-foreground">
 							Updated {formatDistance(new Date(commit.date), Date.now())} ago
-							{#if i == 0}
-								<a
-									target="_blank"
-									href="https://github.com/Michael-Obele/Svelte-MiniApps/commit/{commit.sha}"
-									class="my-2 inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:text-green-700 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
-									><Github class="mr-2 h-4 w-4" /> Check it out</a
-								>
-							{/if}
 						</div>
 					</div>
+					{#if i == 0}
+						<a
+							target="_blank"
+							href="https://github.com/Michael-Obele/Svelte-MiniApps/commit/{commit.sha}"
+							class="my-2 inline-flex items-center rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-green-700 focus:z-10 focus:text-green-700 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700"
+							><Github class="mr-2 h-4 w-4" /> Check it out</a
+						>
+					{/if}
 					<Separator />
 				{/each}
 			</ScrollArea>
