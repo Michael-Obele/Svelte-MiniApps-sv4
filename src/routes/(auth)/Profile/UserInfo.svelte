@@ -52,7 +52,7 @@ This component shows user details like whether they're an admin, how they regist
 				<p class="text-center text-gray-700 dark:text-gray-300">
 					You registered using the {registrationMethod(userData)} method.
 					<br />
-					<span class="text-center text-gray-700 dark:text-gray-300">
+					<span class="text-left text-gray-700 dark:text-gray-300">
 						{#if userData?.email}
 							<span class="font-semibold text-green-600 dark:text-green-400"
 								>Your associated email is:</span
