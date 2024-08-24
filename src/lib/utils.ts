@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge';
 import { cubicOut } from 'svelte/easing';
 import type { TransitionConfig } from 'svelte/transition';
 import { writable } from 'svelte/store';
+import { persisted } from 'svelte-persisted-store';
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs));
@@ -73,7 +74,7 @@ export let contributions = writable([
 ]);
 
 // A writable store that represents a filter state, initially set to false
-export let filter = writable('all');
+export let filter = persisted('filter', 'all');
 
 export function stringifyWithBigInt(obj: any) {
 	return JSON.stringify(obj, (key, value) => {
@@ -84,11 +85,9 @@ export function stringifyWithBigInt(obj: any) {
 	});
 }
 
-
 export const isLoading = writable(false);
-
 
 export const savePassword = writable(false);
 export const showPassword = writable(false);
 
-export const seenCookie = writable(false)
+export const seenCookie = persisted<boolean>('seen-cookie', false);

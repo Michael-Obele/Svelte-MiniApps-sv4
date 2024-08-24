@@ -190,6 +190,7 @@
 </main>
 
 <section class="mx-auto flex w-full flex-col justify-center md:flex-row">
+	<!-- Check boxes for password format -->
 	<div class="mx-auto w-1/2">
 		<h4 class="m-6 mt-12 text-center text-2xl">Choose another Password</h4>
 		<div class="mx-auto flex max-w-[80vw] flex-col items-center justify-center md:mx-0">
@@ -289,8 +290,7 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Check boxes for password format -->
+	<!--  -->
 	{#if userData?.SavePassword}
 		<PasswordManagerSection {form} />
 	{/if}
