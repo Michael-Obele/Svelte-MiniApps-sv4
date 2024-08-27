@@ -20,6 +20,9 @@ interface Password {
 export const load: LayoutServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 
+	// console.log('New:', event.locals.auth());
+	// console.log('Old:', event.locals.getSession());
+
 	let userData: User | null = null;
 	/**
 	 * Retrieves user data from the session ID or session object.
@@ -31,7 +34,7 @@ export const load: LayoutServerLoad = async (event) => {
 	if (sessionID) {
 		userData = await getUserBySessionID(sessionID);
 	} else {
-		const session = await event.locals.getSession();
+		const session = await event.locals.auth();
 		if (session && session.user) {
 			userData = {
 				username: session.user.name || null,
