@@ -103,39 +103,47 @@ interface Commits {
 }
 
 export async function load() {
-	// Define the owner and repository name
+	// Define the GitHub repository owner and name
 	const owner = 'Michael-Obele';
 	const repo = 'Svelte-MiniApps';
-	// Construct the API URL to fetch the last 10 commits
+	// Retrieve the GitHub personal access token from environment variables
+	const accessToken = import.meta.env.VITE_ACCESS_TOKEN;
+	// Set the authorization header for the GitHub API request
+	const headers = {
+		Authorization: `token ${accessToken}`
+	};
+	// Construct the GitHub API URL to fetch the last 10 commits
 	const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=10`;
 
 	try {
-		// Fetch data from the GitHub API
-		const response = await fetch(url);
-		// Check if the request was successful
+		// Fetch commit data from the GitHub API
+		const response = await fetch(url, { headers });
+		// Check if the API request was successful (status code 200-299)
 		if (!response.ok) {
+			// If not successful, throw an error with the status and status text
 			throw new Error(`Error: ${response.status} ${response.statusText}`);
 		}
-		// Parse the response as JSON
+		// Parse the response body as JSON into the `commits` array
 		const commits: CommitResponse = await response.json();
 
-		// Format the commit data for display
+		// Format the commit data for display in the UI
 		const formattedCommits: Commits[] = commits.map((commit: any) => ({
-			sha: commit.sha,
-			author: commit.commit.author.name,
-			date: commit.commit.author.date,
-			message: commit.commit.message
+			sha: commit.sha, // Commit SHA hash
+			author: commit.commit.author.name, // Commit author's name
+			date: commit.commit.author.date, // Commit date and time
+			message: commit.commit.message // Commit message
 		}));
 
-		// Return the formatted commit data and date formatting patterns
+		// Return the formatted commit data and date/time formatting patterns
 		return {
-			commitData: formattedCommits,
-			pattern: date.compile('ddd, MMM DD YYYY'),
-			timePattern: date.compile('hh:mm A')
+			commitData: formattedCommits, // Formatted commits array
+			pattern: date.compile('ddd, MMM DD YYYY'), // Date formatting pattern
+			timePattern: date.compile('hh:mm A') // Time formatting pattern
 		};
 	} catch (error) {
-		// Log the error and return an error message
+		// If an error occurs during the process, log the error to the console
 		console.error('Failed to fetch commits:', error);
+		// Return an error object indicating that commit data loading failed
 		return { error: 'Failed to load commit data' };
 	}
 }

@@ -5,7 +5,7 @@ import type { Prisma } from '@prisma/client';
 const db = getDbInstance();
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
-	const session = await event.locals.getSession();
+	const session = await event.locals.auth();
 	if (!sessionID && !session) {
 		return redirect(303, '/Login');
 	}
