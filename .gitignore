@@ -43,8 +43,6 @@ node_modules/
 .pnp/
 # Ignore the public/build directory
 public/build/
-# Ignore all files starting with .env
-.env*
 # Ignore the .vscode directory
 .vscode/
 # Ignore the .idea directory
