@@ -1,63 +1,45 @@
-# Ignore macOS directory metadata files
+# macOS
 .DS_Store
-# Ignore the node_modules directory
-node_modules/
-# Ignore the build directory
-/build
-# Ignore the .svelte-kit directory
-/.svelte-kit
-# Ignore the package file
-/package
-# Ignore the .env file
-.env
-# Ignore all files starting with a dot
+
+# For dot files
 .*
-# Ignore all files starting with .env
-.env.*
-# Exclude .env.example from being ignored
-!.env.example
-# Ignore bun.lockb file
-bun.lockb
-# Ignore all files starting with bun.
-bun.*
-# Ignore vite.config.js files with timestamp-
+
+# Build artifacts
+/build
+/.svelte-kit
+/package
+public/build/
+
+# Dependency management
+node_modules/
+.yarn/cache/
+.pnp/
+
+# IDE/Editor files
+.vscode/
+.idea/
+
+# Local development
+dev.db
+
+# Temporary files
+__bun_temp/
 vite.config.js.timestamp-*
-# Ignore vite.config.ts files with timestamp-
 vite.config.ts.timestamp-*
-# Ignore diff_file.txt
 diff_file.txt
-# Ignore diff.txt
 diff.txt
 diff.diff
-# Ignore dev.db file
-dev.db
-# Ignore files starting with Untitled.
 Untitled.*
-# Ignore files starting with Untitled-.
 Untitled-*.*
-# Ignore the node_modules directory
-node_modules/
-# Ignore the .yarn/cache directory
-.yarn/cache/
-# Ignore the .pnp directory
-.pnp/
-# Ignore the public/build directory
-public/build/
-# Ignore the .vscode directory
-.vscode/
-# Ignore the .idea directory
-.idea/
-# Ignore the coverage directory
-coverage/
-# Ignore the __bun_temp directory
-__bun_temp/
-# Ignore the .netlify directory
+
+# Deployment/Hosting
 .netlify
-# Ignore the .sentryclirc file
 .sentryclirc
-# Ignore the .vercel file
 .vercel
-node_modules
 
+# Environment variables
+.env*
+!.env.example
+
+# Well-known 
 !.well-known
-
