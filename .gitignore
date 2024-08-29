@@ -13,7 +13,6 @@ public/build/
 # Dependency management
 node_modules/
 .yarn/cache/
-.pnp/
 
 # IDE/Editor files
 .vscode/
