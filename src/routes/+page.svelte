@@ -148,6 +148,7 @@
 			</section>
 		</div>
 	</main>
+
 	<section class="w-full md:py-24 lg:py-32">
 		<div class="px-4 xl:container md:px-6">
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">

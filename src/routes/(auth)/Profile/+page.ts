@@ -113,7 +113,7 @@ export async function load() {
 		Authorization: `token ${accessToken}`
 	};
 	// Construct the GitHub API URL to fetch the last 10 commits
-	const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=10`;
+	let url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=10`;
 
 	try {
 		// Fetch commit data from the GitHub API
