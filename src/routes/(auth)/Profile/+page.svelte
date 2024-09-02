@@ -13,11 +13,8 @@
 
 	import PwdComponent from './PwdComponent.svelte';
 
-	import { page } from '$app/stores';
 	import type { ActionData } from './$types.js';
 	export let form: ActionData;
-
-	let userData = $page.data.user?.userData;
 </script>
 
 <section class="min-h-screen space-y-3 bg-gray-100 p-6 py-4 dark:bg-gray-900">

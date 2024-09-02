@@ -154,7 +154,7 @@
 		{#each h3Ids as id, i}
 			<a
 				href="#{id}"
-				class={`my-1 flex items-center capitalize ${activeId.includes(id) ? 'text-green-600 dark:text-green-500' : ''}`}
+				class={`my-1 flex cursor-pointer items-center capitalize ${activeId.includes(id) ? 'text-green-600 dark:text-green-500' : ''}`}
 				on:click={(event) => {
 					event.preventDefault(); // Prevent the default jump behavior
 					const targetElement = document.getElementById(id);
