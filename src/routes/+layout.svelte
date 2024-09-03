@@ -8,6 +8,7 @@
 	import { ModeWatcher } from 'mode-watcher';
 	import { afterUpdate, onMount } from 'svelte';
 	import { goto } from '$app/navigation';
+	import { partytownSnippet } from '@builder.io/partytown/integration';
 
 	let updateAvailable = false;
 
@@ -85,6 +86,27 @@
 
 <svelte:head>
 	<title>Svelte MiniApps</title>
+	<script>
+		// Forward the necessary functions to the web worker layer
+		partytown = {
+			forward: ['dataLayer.push', 'gtag']
+		};
+	</script>
+
+	{@html '<script>' + partytownSnippet() + '</script>'}
+
+	<script
+		type="text/partytown"
+		src="https://www.googletagmanager.com/gtag/js?id=GTM-M2447T6N"
+	></script>
+	<script type="text/partytown">
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = function () {
+			dataLayer.push(arguments);
+		};
+		gtag('js', new Date());
+		gtag('config', 'GTM-M2447T6N');
+	</script>
 </svelte:head>
 
 <ModeWatcher />
