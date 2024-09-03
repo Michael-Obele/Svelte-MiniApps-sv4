@@ -97,7 +97,7 @@
 
 	<script
 		type="text/partytown"
-		src="https://www.googletagmanager.com/gtag/js?id=GTM-M2447T6N"
+		src="https://www.googletagmanager.com/gtag/js?id=G-3QH4C3V22M"
 	></script>
 	<script type="text/partytown">
 		window.dataLayer = window.dataLayer || [];
@@ -105,7 +105,7 @@
 			dataLayer.push(arguments);
 		};
 		gtag('js', new Date());
-		gtag('config', 'GTM-M2447T6N');
+		gtag('config', 'G-3QH4C3V22M');
 	</script>
 </svelte:head>
 
