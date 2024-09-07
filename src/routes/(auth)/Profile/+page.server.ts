@@ -45,7 +45,7 @@ export const actions: Actions = {
 			});
 			return { displayPassword };
 		} catch (error) {
-			console.error(error);
+			console.error('Error: ', error);
 			return fail(400, { error: 'No passwords' });
 		}
 	},
@@ -53,49 +53,61 @@ export const actions: Actions = {
 		return { displayPassword: [] };
 	},
 	updatePassword: async ({ request, locals }) => {
+		// Extract data from the incoming request's form data
 		const formData = await request.formData();
-		const currentPassword = formData.get('currentPassword') as string;
-		const userId = formData.get('id') as string;
-		const newPassword = formData.get('newPassword') as string;
+		const currentPassword = formData.get('currentPassword') as string; // Get the current password
+		const userId = formData.get('id') as string; // Get the user ID
+		const newPassword = formData.get('newPassword') as string; // Get the new password
 
+		// Check if the user ID is provided
 		if (!userId) {
+			// If not, return a 401 Unauthorized error with a message
 			return fail(401, {
 				error: "Unauthorized! \t If you used OAuth You can't change your password."
 			});
 		}
 
 		try {
-			// Verify the current password
+			// Try to find the user in the database using the provided user ID
 			const user = await db.user.findUnique({
 				where: { id: userId }
 			});
 
+			// If the user is not found, return a 404 Not Found error
 			if (!user) {
 				return fail(404, { error: 'User not found' });
 			}
 
-			// Check if the user has a password hash
+			// Check if the user has a password hash (meaning they registered with email/password)
 			if (user.passwordHash) {
+				// Compare the provided current password with the stored password hash
 				const correctPassword = await bcrypt.compare(currentPassword, user?.passwordHash);
 
+				// If the passwords don't match, return a 401 Unauthorized error
 				if (!correctPassword) {
 					return fail(401, { error: 'Incorrect password' });
-					// Redirect to the profile page or return a success message
+					// If passwords match, proceed with updating the password
 				} else {
-					// Hash the new password using bcrypt
+					// Hash the new password using bcrypt with a cost factor of 10
 					const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-					// Update the user's password in the database
+					// Update the user's password hash in the database
 					await db.user.update({
 						where: { id: userId },
 						data: {
-							passwordHash: hashedPassword // Store the hashed password
+							passwordHash: hashedPassword // Store the newly hashed password
 						}
 					});
+					// Return a success message indicating the password was updated
 					return { message: 'Password updated successfully!' };
 				}
+			} else {
+				// If the user doesn't have a password hash, they likely used OAuth to sign up
+				// Handle this case appropriately (e.g., return an error or redirect)
+				return fail(400, { error: 'Cannot change password for OAuth users.' });
 			}
 		} catch (error) {
+			// If any error occurs during the process, log the error and return a 500 Internal Server Error
 			console.error('Error updating password:', error);
 			return fail(500, { error: 'Failed to update password' });
 		}
