@@ -25,7 +25,7 @@
 		<!-- Mini App List  -->
 		<MiniAppList />
 		<!-- Account Settings  -->
-		<AccountSettingsList />
+		<AccountSettingsList {form} />
 		<!-- Updates List  -->
 		<LatestUpdatesList />
 		<!-- Favorite Apps  -->

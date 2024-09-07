@@ -2,7 +2,10 @@ import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import { getDbInstance } from '$lib/database';
 import type { Prisma } from '@prisma/client';
+import bcrypt from 'bcryptjs'; // Import bcrypt
+
 const db = getDbInstance();
+
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 	const session = await event.locals.auth();
@@ -48,5 +51,53 @@ export const actions: Actions = {
 	},
 	hidePasswords: async ({}) => {
 		return { displayPassword: [] };
+	},
+	updatePassword: async ({ request, locals }) => {
+		const formData = await request.formData();
+		const currentPassword = formData.get('currentPassword') as string;
+		const userId = formData.get('id') as string;
+		const newPassword = formData.get('newPassword') as string;
+
+		if (!userId) {
+			return fail(401, {
+				error: "Unauthorized! \t If you used OAuth You can't change your password."
+			});
+		}
+
+		try {
+			// Verify the current password
+			const user = await db.user.findUnique({
+				where: { id: userId }
+			});
+
+			if (!user) {
+				return fail(404, { error: 'User not found' });
+			}
+
+			// Check if the user has a password hash
+			if (user.passwordHash) {
+				const correctPassword = await bcrypt.compare(currentPassword, user?.passwordHash);
+
+				if (!correctPassword) {
+					return fail(401, { error: 'Incorrect password' });
+					// Redirect to the profile page or return a success message
+				} else {
+					// Hash the new password using bcrypt
+					const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+					// Update the user's password in the database
+					await db.user.update({
+						where: { id: userId },
+						data: {
+							passwordHash: hashedPassword // Store the hashed password
+						}
+					});
+					return { message: 'Password updated successfully!' };
+				}
+			}
+		} catch (error) {
+			console.error('Error updating password:', error);
+			return fail(500, { error: 'Failed to update password' });
+		}
 	}
 };
