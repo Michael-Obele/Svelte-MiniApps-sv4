@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let direction: string;
+	export let direction: string = 'left';
 </script>
 
 {#if direction == 'left'}

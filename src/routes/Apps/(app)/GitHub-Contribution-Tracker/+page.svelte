@@ -48,10 +48,8 @@
 	// 		body: formData
 	// 	}).then(async (response) => {
 	// 		if (!response.ok) {
-	// 			toast.dismiss(); // Dismiss all toasts.
 	// 			toast.error('Error'); // Show error toast.
 	// 		} else {
-	// 			toast.dismiss(); // Dismiss all toasts.
 	// 			toast.success('Success', {
 	// 				action: {
 	// 					label: 'OK',

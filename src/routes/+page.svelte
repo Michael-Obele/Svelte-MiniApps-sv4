@@ -274,6 +274,27 @@
 						</span>
 					</InfoBlock>
 
+					<InfoBlock direction="left">
+						<lord-icon
+							slot="icon"
+							target="div"
+							src="https://cdn.lordicon.com/kndkiwmf.json"
+							colors="primary:red,secondary:green"
+							trigger="loop-on-hover"
+							class="float-right m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
+						>
+						</lord-icon>
+						<span slot="header">Contribute to the app:</span>
+						<span slot="paragraph">
+							Do you have ideas for new features or improvements? We'd love to hear them! Feel free
+							to submit a GitHub issue or pull request with your suggestions.
+							<br />
+							Additionally, there are many apps on the list that haven't been implemented yet. If you're
+							interested in helping out, you can choose one of these apps and start working on it. Your
+							contributions will help make the Svelte MiniApp even more useful and enjoyable for everyone.
+						</span>
+					</InfoBlock>
+
 					<p class="mt-4 text-lg text-gray-800 dark:text-gray-200">
 						Your contribution to our app's growth and development is invaluable. By sharing the app
 						and reporting any bugs you encounter, you're actively helping us improve. For more
