@@ -16,5 +16,5 @@
 	src="https://cdn.lordicon.com/{src}.json"
 	{colors}
 	{trigger}
-	class="float-{dir == 'left' ? 'left' : 'right'} m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
+	class="float-{dir} m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
 ></lord-icon>

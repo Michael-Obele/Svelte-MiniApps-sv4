@@ -29,6 +29,9 @@
 		});
 	}
 	let userData = $page.data.user.userData;
+	//
+	export let data;
+	let { contentBlocksData, infoBlocksData } = data;
 </script>
 
 <svelte:head>
@@ -153,62 +156,23 @@
 	<section class="w-full md:py-24 lg:py-32">
 		<div class="px-4 xl:container md:px-6">
 			<div class="flex flex-col items-center justify-center space-y-4 text-center">
-				<ContentBlock>
-					<div slot="header" class="flex items-center justify-center space-x-2">
-						<strong class="text-[#F03E3E]">Svelte</strong>
-						<span>MiniApps</span>
-					</div>
+				{#each contentBlocksData as block}
+					<ContentBlock iconId={block.iconId}>
+						<div slot="header" class="flex items-center justify-center space-x-2">
+							{#each block.header.text as segment}
+								<span
+									class={segment.type === 'strong' ? 'font-bold text-[#F03E3E]' : 'font-semibold'}
+								>
+									{segment.content}
+								</span>
+							{/each}
+						</div>
 
-					<span slot="paragraph">
-						Svelte MiniApps are tiny, focused tools built with SvelteKit for lightning speed. These
-						mini applications are designed to conquer everyday tasks with ease, providing a powerful
-						yet lightweight solution for your daily needs. Whether you're managing tasks, tracking
-						habits, or calculating quick figures, Svelte MiniApps can handle it all efficiently.
-					</span>
-				</ContentBlock>
-
-				<ContentBlock iconId={'axteoudt'}>
-					<div slot="header" class="flex items-center justify-center space-x-2">
-						<span>Why</span>
-						<strong class="text-[#F03E3E]">Svelte MiniApps</strong>
-					</div>
-
-					<span slot="paragraph">
-						Svelte MiniApps leverage the power of Svelte, a modern, component-based JavaScript
-						framework that offers a unique approach to building user interfaces. Unlike traditional
-						frameworks that rely on a virtual DOM, Svelte compiles your components into
-						highly-optimized JavaScript code that updates the DOM directly, resulting in
-						lightning-fast performance and a smooth user experience.
-					</span>
-				</ContentBlock>
-
-				<ContentBlock iconId={'zguybvqs'}>
-					<div slot="header">
-						<strong class="text-[#F03E3E]"> Simple </strong>
-						<span> and Efficient </span>
-					</div>
-
-					<span slot="paragraph">
-						Svelte MiniApps inherit Svelte's intuitive and efficient syntax, making them accessible
-						to developers of all levels. Svelte provides the foundation and tools for building
-						MiniApps, emphasizing simplicity and efficiency to create sophisticated tools with
-						minimal code, streamlining development and maintenance.
-					</span>
-				</ContentBlock>
-
-				<ContentBlock iconId={'yxyampao'}>
-					<div slot="header">
-						<span> Versatile and </span>
-						<strong class="text-[#F03E3E]"> Scalable </strong>
-					</div>
-
-					<span slot="paragraph">
-						Harnessing Svelte's modular architecture and robust tooling, Svelte MiniApps are
-						customized to fulfill various web tool needs, from personal projects to enterprise-level
-						solutions. Their versatility and performance ensure smooth operation, making them ideal
-						for a wide range of tasks, from everyday utilities to more complex applications.
-					</span>
-				</ContentBlock>
+						<span slot="paragraph">
+							{block.paragraph}
+						</span>
+					</ContentBlock>
+				{/each}
 			</div>
 		</div>
 	</section>
@@ -232,45 +196,19 @@
 
 			<div class="mx-auto space-y-10 px-4 py-8 text-center xl:container">
 				<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
-					<InfoBlock dir="left">
-						<LordIcon slot="icon" dir="right" src="ercyvufy" />
-						<span slot="header">Share the app:</span>
-						<span slot="paragraph">
-							<b class="dark:text-gray-200">Spread the word</b> Casually mention the awesome Svelte MiniApp
-							you discovered to your friends and colleagues. Share it on social media (Twitter, TikTok,
-							etc.) or bring it up in conversation. Is there a specific task this Svelte MiniApp helped
-							you with? Describe how it streamlined your workflow and how it might benefit others. The
-							more people who know about this valuable tool, the bigger the Svelte MiniApp community
-							can become!
-						</span>
-					</InfoBlock>
-
-					<InfoBlock dir="right">
-						<LordIcon slot="icon" dir="left" src="rpgflpkp" />
-						<span slot="header">Report a bug:</span>
-						<span slot="paragraph">
-							We're committed to making your Svelte MiniApp experience the best it can be. If you
-							encounter any issues, please help us fix them by contributing to the project on
-							GitHub. This could involve creating a new issue to report the bug, or even fixing the
-							bug yourself and submitting a pull request. Not a coding pro? No worries You can still
-							be a valuable asset by simply describing the bug you encountered in a GitHub issue.
-							The more details you provide (steps to reproduce, screenshots, etc.), the easier it
-							will be for developers to identify and fix the problem.
-						</span>
-					</InfoBlock>
-
-					<InfoBlock dir="left">
-						<LordIcon slot="icon" dir="right" src="kndkiwmf" />
-						<span slot="header">Contribute to the app:</span>
-						<span slot="paragraph">
-							Do you have ideas for new features or improvements? We'd love to hear them! Feel free
-							to submit a GitHub issue or pull request with your suggestions.
-							<br />
-							Additionally, there are many apps on the list that haven't been implemented yet. If you're
-							interested in helping out, you can choose one of these apps and start working on it. Your
-							contributions will help make the Svelte MiniApp even more useful and enjoyable for everyone.
-						</span>
-					</InfoBlock>
+					{#each infoBlocksData as block}
+						<InfoBlock dir={block.dir}>
+							<LordIcon
+								slot="icon"
+								dir={block.iconDir === 'left' || block.iconDir === 'right'
+									? block.iconDir
+									: undefined}
+								src={block.iconId}
+							/>
+							<span slot="header">{block.header}</span>
+							<span slot="paragraph">{@html block.paragraph}</span>
+						</InfoBlock>
+					{/each}
 
 					<p class="mt-4 text-lg text-gray-800 dark:text-gray-200">
 						Your contribution to our app's growth and development is invaluable. By sharing the app
