@@ -9,6 +9,7 @@
 	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import { seenCookie } from '$lib/utils';
+	import LordIcon from './LordIcon.svelte';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -231,16 +232,8 @@
 
 			<div class="mx-auto space-y-10 px-4 py-8 text-center xl:container">
 				<div class="mx-auto grid min-h-[80vh] max-w-[1024px] space-y-3 text-lg lg:text-2xl">
-					<InfoBlock direction="left">
-						<lord-icon
-							slot="icon"
-							target="div"
-							src="https://cdn.lordicon.com/ercyvufy.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="float-right m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
-						>
-						</lord-icon>
+					<InfoBlock dir="left">
+						<LordIcon slot="icon" dir="right" src="ercyvufy" />
 						<span slot="header">Share the app:</span>
 						<span slot="paragraph">
 							<b class="dark:text-gray-200">Spread the word</b> Casually mention the awesome Svelte MiniApp
@@ -252,16 +245,8 @@
 						</span>
 					</InfoBlock>
 
-					<InfoBlock direction="right">
-						<lord-icon
-							slot="icon"
-							target="div"
-							src="https://cdn.lordicon.com/rpgflpkp.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="float-left m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
-						>
-						</lord-icon>
+					<InfoBlock dir="right">
+						<LordIcon slot="icon" dir="left" src="rpgflpkp" />
 						<span slot="header">Report a bug:</span>
 						<span slot="paragraph">
 							We're committed to making your Svelte MiniApp experience the best it can be. If you
@@ -274,16 +259,8 @@
 						</span>
 					</InfoBlock>
 
-					<InfoBlock direction="left">
-						<lord-icon
-							slot="icon"
-							target="div"
-							src="https://cdn.lordicon.com/kndkiwmf.json"
-							colors="primary:red,secondary:green"
-							trigger="loop-on-hover"
-							class="float-right m-3 h-16 w-16 pt-5 md:h-24 md:w-24"
-						>
-						</lord-icon>
+					<InfoBlock dir="left">
+						<LordIcon slot="icon" dir="right" src="kndkiwmf" />
 						<span slot="header">Contribute to the app:</span>
 						<span slot="paragraph">
 							Do you have ideas for new features or improvements? We'd love to hear them! Feel free
