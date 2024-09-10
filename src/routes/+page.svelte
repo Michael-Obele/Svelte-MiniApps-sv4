@@ -1,8 +1,4 @@
 <script lang="ts">
-	import Footer from './Footer.svelte';
-	import InfoBlock from './InfoBlock.svelte';
-	import ContentBlock from './ContentBlock.svelte';
-	//
 	import { page } from '$app/stores';
 	import { projects, done } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
@@ -10,6 +6,10 @@
 	import { toast } from 'svelte-sonner';
 	import { seenCookie } from '$lib/utils';
 	import LordIcon from './LordIcon.svelte';
+	//
+	import Footer from './Footer.svelte';
+	import InfoBlock from './InfoBlock.svelte';
+	import ContentBlock from './ContentBlock.svelte';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
