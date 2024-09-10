@@ -26,7 +26,7 @@
 			>
 				Made with
 				<Heart size="20" class="mx-2 text-red-500" fill="red" />
-				by Michael-Obele
+				by <span class="ms-2 font-bold"> Michael </span>
 			</a>
 			<p class="text-sm text-gray-500">
 				FYI: This app is <span class="font-semibold text-red-500">installable</span>.
