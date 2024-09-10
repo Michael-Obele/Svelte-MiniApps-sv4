@@ -3,12 +3,6 @@
 	export let trigger: string = 'loop-on-hover'; // Default trigger
 	export let colors: string = 'primary:red,secondary:green'; // Default colors
 	export let dir: 'left' | 'right' = 'right';
-	var float: string;
-	if (dir == 'left') {
-		float = 'float-left';
-	} else {
-		float = 'float-right';
-	}
 </script>
 
 <lord-icon
