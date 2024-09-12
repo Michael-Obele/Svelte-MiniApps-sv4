@@ -2,7 +2,7 @@
 	"name": "Svelte Mini Apps",
 	"orientation": "portrait-primary",
 	"display_override": ["standalone", "fullscreen", "window-controls-overlay"],
-	"scope": "/svelte-apps.me",
+	"scope": "/",
 	"shortcuts": [
 		{
 			"name": "Home",
@@ -66,8 +66,8 @@
 
 	"short_name": "Svelte-Apps",
 	"description": "A collection of useful and engaging tools built with Svelte.",
-	"start_url": "/",
-	"id": "MiniApps000",
+	"start_url": ".",
+	"id": "me.svelte_apps.twa",
 	"display": "standalone",
 	"theme_color": "#B91C1C",
 	"background_color": "#020817",
