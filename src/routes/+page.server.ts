@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions, RequestEvent } from './$types';
-import { supabase } from '$lib/supabaseClient';
+// import { supabase } from '$lib/supabaseClient';
 
 export const load: PageServerLoad = async (event) => {
 	if (event.url.href == 'https://svelte-mini-apps.netlify.app/') {
