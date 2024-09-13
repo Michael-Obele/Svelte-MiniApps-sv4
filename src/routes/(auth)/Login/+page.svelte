@@ -6,6 +6,7 @@
 	import { signIn } from '@auth/sveltekit/client';
 	import { enhance } from '$app/forms';
 	import { toast } from 'svelte-sonner';
+	import { googleSVG } from '$lib';
 	//
 
 	export let form: ActionData;
@@ -120,21 +121,32 @@
 							>Show Password</label
 						>
 					</div>
-					<Button
-						disabled={isLoading}
-						on:click={() => signIn()}
-						class="mx-auto mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
-					>
-						<Github class="mx-2" />
-						Continue with Github
-					</Button>
+					{#each ['Github', 'Google'] as provider}
+						<Button
+							disabled={isLoading}
+							on:click={() => signIn()}
+							class="group mx-auto mb-2 me-2 inline-flex w-full items-center justify-center rounded-lg bg-[#24292F] px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-[#24292F]/90 focus:outline-none focus:ring-4 focus:ring-[#24292F]/50 dark:hover:bg-[#050708]/30 dark:focus:ring-gray-500"
+						>
+							{#if provider === 'Github'}
+								<Github class="mx-2" />
+							{:else}
+								<img
+									src={googleSVG}
+									alt="Google Icon"
+									class="me-2 size-8 saturate-0 transition-colors delay-150 duration-300 group-hover:saturate-100"
+								/>
+							{/if}
+							Continue with {provider}
+						</Button>
+					{/each}
+
 					<Button
 						disabled={isLoading}
 						type="submit"
 						class="w-full rounded-lg bg-green-600 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
 					>
-						{isLoading ? 'Submitting...' : 'Sign in'}</Button
-					>
+						{isLoading ? 'Submitting...' : 'Sign in'}
+					</Button>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">
 						Don’t have an account yet? <a
 							href="/Register"
