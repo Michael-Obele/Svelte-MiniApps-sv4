@@ -69,7 +69,7 @@
 	"start_url": "/",
 	"id": "me.svelte_apps.twa",
 	"display": "standalone",
-	"theme_color": "#B91C1C",
+	"theme_color": "#020817",
 	"background_color": "#020817",
 	"icons": [
 		{
