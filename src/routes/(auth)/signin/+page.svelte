@@ -5,6 +5,8 @@
 	import { Github } from 'lucide-svelte';
 	import { Button } from '$lib/components/ui/button/index.js';
 	import { buttonVariants } from '$lib/components/ui/button';
+	import { googleSVG } from '$lib';
+	// import { providerMap } from '$lib/auth'; //Causes issues with the sign-in page
 </script>
 
 <div class="container flex min-h-screen flex-col items-center space-y-10">
@@ -30,6 +32,20 @@
 			<div slot="submitButton" class="flex items-center pt-1">
 				<Github class="mx-2" />
 				Sign in with Github
+			</div>
+		</SignIn>
+		<SignIn
+			provider="google"
+			signInPage="signin"
+			class="mx-auto mb-2 w-fit items-center justify-center rounded-lg bg-gray-800 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-500 dark:hover:bg-gray-900 dark:focus:ring-gray-500"
+		>
+			<div slot="submitButton" class="group flex items-center pt-1">
+				<img
+					src={googleSVG}
+					alt="Google Icon"
+					class="me-2 size-8 saturate-0 transition-colors delay-150 duration-300 group-hover:saturate-100"
+				/>
+				Sign in with Google
 			</div>
 		</SignIn>
 	</div>
