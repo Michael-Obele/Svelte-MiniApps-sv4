@@ -66,7 +66,7 @@
 
 	"short_name": "Svelte-Apps",
 	"description": "A collection of useful and engaging tools built with Svelte.",
-	"start_url": ".",
+	"start_url": "/",
 	"id": "me.svelte_apps.twa",
 	"display": "standalone",
 	"theme_color": "#B91C1C",
