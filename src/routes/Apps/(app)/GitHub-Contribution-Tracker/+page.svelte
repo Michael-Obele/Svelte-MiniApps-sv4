@@ -348,6 +348,7 @@
 	</Chart>
 </div> -->
 
+<!-- 
 <div class="h-[300px] rounded border p-4">
 	<Chart
 		{data}
@@ -373,4 +374,4 @@
 			<TooltipItem label="value" value={data.value} />
 		</Tooltip>
 	</Chart>
-</div>
+</div> -->

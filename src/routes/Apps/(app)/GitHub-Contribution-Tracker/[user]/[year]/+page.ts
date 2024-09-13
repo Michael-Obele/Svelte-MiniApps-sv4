@@ -82,8 +82,8 @@ function sortContributionsByMonth(
 		if (indexA > indexB) return 1;
 
 		// If months are equal, sort by day
-		const dayA = Object.keys(daysA)[0]; // Assuming you want to sort by the first day of each month
-		const dayB = Object.keys(daysB)[0]; // Assuming you want to sort by the first day of each month
+		const dayA = Object.keys(daysA)[0]; 
+		const dayB = Object.keys(daysB)[0]; 
 		return dayA.localeCompare(dayB); // Use localeCompare for string comparison
 	});
 
