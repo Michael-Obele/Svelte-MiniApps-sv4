@@ -1,6 +1,5 @@
 import { fontFamily } from 'tailwindcss/defaultTheme';
 const svelteUx = require('svelte-ux/plugins/tailwind.cjs');
-import { fontFamily } from 'tailwindcss/defaultTheme';
 import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
