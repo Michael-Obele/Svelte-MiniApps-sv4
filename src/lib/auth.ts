@@ -20,5 +20,6 @@ export const { handle, signIn, signOut } = SvelteKitAuth({
 	providers: [GitHub, Google],
 	pages: {
 		signIn: '/signin'
+		// error: '/error'
 	}
 });

@@ -17,6 +17,14 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>Profile - Svelte Mini Apps</title>
+	<meta
+		name="description"
+		content="Profile page for Svelte Mini Apps, a collection of small, focused web applications built with Svelte."
+	/>
+</svelte:head>
+
 <section class="min-h-screen space-y-3 bg-gray-100 p-6 py-4 dark:bg-gray-900">
 	<h1 class="text-lg font-semibold md:text-2xl lg:text-3xl">Profile Page</h1>
 	<main class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">

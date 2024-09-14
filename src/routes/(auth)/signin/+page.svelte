@@ -7,6 +7,17 @@
 	import { buttonVariants } from '$lib/components/ui/button';
 	import { googleSVG } from '$lib';
 	// import { providerMap } from '$lib/auth'; //Causes issues with the sign-in page
+	import { page } from '$app/stores';
+	import { redirect } from '@sveltejs/kit';
+	import { goto } from '$app/navigation';
+
+	const errorMessages: Record<string, string> = {
+		OAuthAccountNotLinked:
+			'An account already exists with the same email address but different sign-in method. Please sign in using your existing account provider.'
+	};
+
+	$: error = $page.url.searchParams.get('error') || '';
+	$: errorMessage = errorMessages[error as keyof typeof errorMessages];
 </script>
 
 <div class="container flex min-h-screen flex-col items-center space-y-10">
@@ -48,5 +59,10 @@
 				Sign in with Google
 			</div>
 		</SignIn>
+		{#if errorMessage}
+			<p class="mx-auto mt-2 max-w-xl text-center text-sm text-red-500 dark:text-red-400">
+				{errorMessage}
+			</p>
+		{/if}
 	</div>
 </div>

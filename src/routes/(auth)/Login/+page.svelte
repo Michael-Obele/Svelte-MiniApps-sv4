@@ -40,6 +40,14 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Login - Svelte Mini Apps</title>
+	<meta
+		name="description"
+		content="Login to access Svelte Mini Apps and explore a collection of small, focused web applications built with Svelte."
+	/>
+</svelte:head>
+
 <section class="min-h-screen bg-gray-50 dark:bg-gray-900">
 	<div class="mx-auto flex flex-col items-center justify-center px-6 py-8 md:h-screen lg:py-0">
 		<!-- Logo -->
