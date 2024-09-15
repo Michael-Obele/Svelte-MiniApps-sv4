@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { ChevronLeft } from 'lucide-svelte';
+	import { ArrowUp } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { contributions } from '$lib/utils';
 	import * as Accordion from '$lib/components/ui/accordion';
@@ -23,6 +23,102 @@
 		'Nov',
 		'Dec'
 	];
+
+	import { cubicInOut } from 'svelte/easing';
+	import { scaleBand, scaleOrdinal, scaleTime } from 'd3-scale';
+	import { flatGroup } from 'd3-array';
+	import { format as formatDate } from 'date-fns';
+
+	import {
+		Arc,
+		Chart,
+		Group,
+		Area,
+		Bars,
+		Axis,
+		LinearGradient,
+		Svg,
+		Text,
+		Tooltip,
+		Labels,
+		Highlight,
+		TooltipItem,
+		radiansToDegrees,
+		Bar,
+		Pattern,
+		RectClipPath,
+		Rule,
+		createStackData,
+		stackOffsetSeparated
+	} from 'layerchart';
+	import {
+		Field,
+		RangeField,
+		SpringValue,
+		Switch,
+		Toggle,
+		cls,
+		round,
+		format,
+		PeriodType,
+		ToggleGroup,
+		ToggleOption
+	} from 'svelte-ux';
+
+	interface ContributionItem {
+		date: string;
+		contributionCount: number;
+	}
+
+	function arrangeDataByMonth(data: ContributionItem[]): ContributionItem[][] {
+		const monthlyData: ContributionItem[][] = Array(12)
+			.fill(null)
+			.map(() => []);
+
+		data.forEach((item: ContributionItem) => {
+			const date = new Date(item.date);
+			const monthIndex = date.getMonth();
+
+			monthlyData[monthIndex].push(item);
+		});
+
+		return monthlyData;
+	}
+
+	// Example usage (assuming data.gitContributions is of type ContributionItem[]):
+	const contributionsByMonth = arrangeDataByMonth(data.gitContributions);
+
+	function calculateMonthlyContributions(
+		data: ContributionItem[][]
+	): { date: Date; contributionCount: number }[] {
+		return data.map((monthData, monthIndex) => {
+			const date = new Date(monthData[0].date); // Get the date from the first item of the month
+			const contributionCount = monthData.reduce((sum, item) => sum + item.contributionCount, 0);
+
+			return { date, contributionCount };
+		});
+	}
+
+	// Example usage:
+	const monthlyContributionData = calculateMonthlyContributions(contributionsByMonth);
+	// console.log(monthlyContributionData);
+
+	function scrollToHeatmap() {
+		const heatmapElement = document.getElementById('heatmap');
+		if (heatmapElement) {
+			heatmapElement.scrollIntoView({
+				behavior: 'smooth', // Smooth scrolling animation
+				block: 'start' // Align the top of the element to the top of the viewport
+			});
+		}
+	}
+
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: 'smooth' // For smooth scrolling
+		});
+	}
 </script>
 
 <svelte:head>
@@ -56,53 +152,86 @@
 			>that's</span
 		>
 	</div>
-	{#each $contributions as item}
-		{#if item.count >= 1}
-			<div class="m-5 flex space-x-3">
-				<h3>{item.count} {item.count === 1 ? 'contribution' : 'contributions'} on</h3>
-				<h1>{item.date}</h1>
-			</div>
-		{/if}
-	{/each}
+</div>
+
+<div class="h-[400px] w-[90vw] rounded border p-4">
+	<Chart
+		data={monthlyContributionData}
+		x="date"
+		xScale={scaleBand().padding(0.4)}
+		y="contributionCount"
+		yDomain={[0, null]}
+		yNice={4}
+		padding={{ left: 16, bottom: 24 }}
+		tooltip={{ mode: 'band' }}
+	>
+		<Svg>
+			<Axis placement="left" grid rule />
+			<Axis placement="bottom" format={(d) => formatDate(d, 'MMM')} rule />
+
+			<Bars radius={4} strokeWidth={1} class="fill-green-700 dark:fill-green-500" />
+			<Highlight area />
+		</Svg>
+		<Tooltip
+			class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black"
+			header={(data) => formatDate(data.date, 'eee, MMMM do')}
+			let:data
+		>
+			<TooltipItem
+				class="text-black dark:text-slate-900"
+				label="Contributions"
+				value={data.contributionCount}
+			/>
+		</Tooltip>
+	</Chart>
 </div>
 
 <!-- More Stats -->
+<div class="mx-auto my-12 flex w-full flex-col space-y-3 text-center">
+	<a
+		href="#heatmap"
+		class="text-center text-2xl font-medium hover:underline dark:text-blue-500"
+		on:click|preventDefault={scrollToHeatmap}
+	>
+		Scroll to Heat Map
+	</a>
+	<h3 class="text-center text-3xl font-bold text-gray-900 dark:text-white">More Stats</h3>
+</div>
 
-<Accordion.Root class="px-10 text-xl">
-	<Accordion.Item value="item-1">
-		<Accordion.Trigger>More Details</Accordion.Trigger>
-		<Accordion.Content>
-			{#each Object.keys(data.page_data.sortedContributions) as month, i}
-				<div class="m-3 mx-auto flex w-fit flex-row space-x-3">
-					<h2>{month}</h2>
-					<ul>
-						{#each Object.keys(data.page_data.sortedContributions[month]) as day}
-							<li>
-								{day} : {data.page_data.sortedContributions[month][day]}
-								{data.page_data.sortedContributions[month][day] === 1
-									? 'contribution'
-									: 'contributions'}
-							</li>
-						{/each}
-					</ul>
-				</div>
-				<div
-					class:hidden={i + 1 == Object.keys(data.page_data.sortedContributions).length}
-					class="inline-flex w-full items-center justify-center"
+{#each contributionsByMonth as month, i}
+	{#if month.some((day) => day.contributionCount > 0)}
+		<div class="mx-auto h-[800px] w-[80vw] rounded border p-4">
+			<Chart
+				data={month}
+				x="contributionCount"
+				y="date"
+				xDomain={[0, null]}
+				xNice
+				yScale={scaleBand().padding(0.4)}
+				padding={{ left: 20, bottom: 20 }}
+				tooltip={{ mode: 'band' }}
+			>
+				<Svg>
+					<Axis placement="bottom" grid rule />
+					<Axis placement="left" format={(d) => formatDate(d, 'dd MMM')} grid rule />
+					<Bars radius={4} rounded="right" strokeWidth={1} class="fill-amber-700" />
+					<Highlight area />
+				</Svg>
+				<Tooltip
+					class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black"
+					header={(data) => formatDate(data.date, 'eee, MMMM do')}
+					let:data
 				>
-					<hr class="my-8 h-px w-64 border-0 bg-gray-200 dark:bg-gray-700" />
-					<span
-						class="absolute left-1/2 -translate-x-1/2 bg-white px-3 font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
-						>and</span
-					>
-				</div>
-			{/each}
-		</Accordion.Content>
-	</Accordion.Item>
-</Accordion.Root>
+					<TooltipItem label="contributionCount" value={data.contributionCount} />
+				</Tooltip>
+			</Chart>
+		</div>
+	{/if}
+{/each}
+
 <!-- End of More Stats -->
 
-<div class="inline-flex w-full items-center justify-center">
+<div id="heatmap" class="inline-flex w-full items-center justify-center">
 	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
 	<span
 		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
@@ -204,5 +333,13 @@
 		on:click={() => goto('/Apps/GitHub-Contribution-Tracker')}
 	>
 		<span> Go Back </span>
+	</Button>
+
+	<Button
+		class="group me-2 inline-flex items-center justify-center rounded-lg border border-green-700 bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-100 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800 md:text-xl"
+		on:click={scrollToTop}
+	>
+		<span class="hidden md:inline">Back to Top</span>
+		<ArrowUp class="h-6 w-6 md:ml-2" />
 	</Button>
 </div>

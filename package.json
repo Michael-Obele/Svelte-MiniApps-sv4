@@ -60,6 +60,8 @@
     "date-and-time": "^3.2.0",
     "date-fns": "^3.6.0",
     "formsnap": "^1.0.0",
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.1.0",
     "html-to-image": "^1.11.11",
     "jsonwebtoken": "^9.0.2",
     "layerchart": "^0.44.0",

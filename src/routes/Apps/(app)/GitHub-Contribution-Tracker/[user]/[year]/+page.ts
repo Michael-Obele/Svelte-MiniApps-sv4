@@ -82,8 +82,8 @@ function sortContributionsByMonth(
 		if (indexA > indexB) return 1;
 
 		// If months are equal, sort by day
-		const dayA = Object.keys(daysA)[0]; 
-		const dayB = Object.keys(daysB)[0]; 
+		const dayA = Object.keys(daysA)[0];
+		const dayB = Object.keys(daysB)[0];
 		return dayA.localeCompare(dayB); // Use localeCompare for string comparison
 	});
 
@@ -101,20 +101,9 @@ interface OutputEntry {
 	value: number;
 }
 
-const sortedContributions = sortContributionsByMonth(contributionsByMonth);
-
-interface LoadData {
-	props: {
-		user: string;
-		year: string;
-	};
-	contributionsInfo: string; // Adjust the type according to the actual data structure
-	streakStats: any; // Replace 'any' with a more specific type if possible
-}
-
 export const load: PageLoad = async ({ parent, data }) => {
 	await parent();
-	let { props, contributionsInfo, streakStats } = data;
+	let { props, contributionsInfo, streakStats, gitContributions } = data;
 
 	const user = props.user;
 	const year = props.year;
@@ -164,6 +153,7 @@ export const load: PageLoad = async ({ parent, data }) => {
 		props,
 		contributionsInfo,
 		streakStats,
+		gitContributions,
 		page_data: {
 			jsonData,
 			totalContributions,

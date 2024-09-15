@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { afterUpdate, setContext } from 'svelte';
+	import { afterUpdate, beforeUpdate, onMount, setContext } from 'svelte';
 	import * as Breadcrumb from '$lib/components/ui/breadcrumb/index.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 

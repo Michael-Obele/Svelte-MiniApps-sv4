@@ -1,5 +1,61 @@
 import { redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
+import { gql, GraphQLClient } from 'graphql-request';
+
+interface ContributionData {
+	user: {
+		contributionsCollection: {
+			contributionCalendar: {
+				weeks: Array<{
+					contributionDays: Array<{
+						contributionCount: number;
+						date: string;
+					}>;
+				}>;
+				totalContributions: number;
+			};
+		};
+	};
+}
+
+let info: ContributionData;
+
+/**
+ * Fetches contribution data from the GitHub GraphQL API for a given user and year.
+ *
+ * @param user - The GitHub username.
+ * @param year - The year for which to fetch contributions.
+ * @returns A Promise that resolves with the contribution data.
+ */
+async function fetchInfo(user: string, year: number | string): Promise<ContributionData> {
+	const query = gql`
+	query {
+		user(login: "${user}") {
+			contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${year}-12-31T23:59:59Z") {
+				contributionCalendar {
+					totalContributions
+					weeks {
+						contributionDays {
+							contributionCount
+							date
+						}
+					}
+				}
+			}
+		}
+	}
+`;
+
+	const client = new GraphQLClient('https://api.github.com/graphql', {
+		headers: {
+			Authorization: `bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+		}
+	});
+
+	info = await client.request(query);
+
+	return info;
+}
 
 /**
  * Asynchronously fetches GitHub contributions and streak stats for a specified user and year.
@@ -21,6 +77,21 @@ async function fetchData(user: string, year: number | string) {
 	}
 	const contributionsHtmlData = await contributionsResponse.text();
 
+	// New GitHub contributions data
+	info = await fetchInfo(user, year);
+	const {
+		contributionCalendar: { weeks, totalContributions }
+	} = info.user.contributionsCollection;
+
+	const dataSet = weeks.flatMap((week) =>
+		week.contributionDays.map((day) => ({
+			date: new Date(day.date).toISOString(),
+			contributionCount: day.contributionCount
+		}))
+	);
+
+	const gitContributions = dataSet;
+
 	// Fetch streak stats data
 	const streakStatsApiUrl = `https://github-readme-streak-stats.herokuapp.com/?user=${user}&theme=dark&hide_border=false`;
 
@@ -36,7 +107,8 @@ async function fetchData(user: string, year: number | string) {
 	return {
 		props: { user, year },
 		contributionsInfo: contributionsHtmlData,
-		streakStats: streakStatsSvgData
+		streakStats: streakStatsSvgData,
+		gitContributions
 	};
 }
 
@@ -70,7 +142,8 @@ export async function load({
 		return {
 			props: { user, year },
 			contributionsInfo: data.contributionsInfo,
-			streakStats: data.streakStats
+			streakStats: data.streakStats,
+			gitContributions: data.gitContributions
 		};
 	} catch (error) {
 		// Handle errors and redirect if necessary
