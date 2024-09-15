@@ -214,7 +214,12 @@
 				<Svg>
 					<Axis placement="bottom" grid rule />
 					<Axis placement="left" format={(d) => formatDate(d, 'dd MMM')} grid rule />
-					<Bars radius={4} rounded="right" strokeWidth={1} class="fill-amber-700" />
+					<Bars
+						radius={4}
+						rounded="right"
+						strokeWidth={1}
+						class="fill-green-700 dark:fill-green-500"
+					/>
 					<Highlight area />
 				</Svg>
 				<Tooltip
