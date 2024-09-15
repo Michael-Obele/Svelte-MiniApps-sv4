@@ -2,8 +2,6 @@
 	import { goto } from '$app/navigation';
 	import { ArrowUp } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
-	import { contributions } from '$lib/utils';
-	import * as Accordion from '$lib/components/ui/accordion';
 	import { Button } from '$lib/components/ui/button/index.js';
 	export let data;
 	const year: string = data.props.year;
@@ -24,46 +22,10 @@
 		'Dec'
 	];
 
-	import { cubicInOut } from 'svelte/easing';
-	import { scaleBand, scaleOrdinal, scaleTime } from 'd3-scale';
-	import { flatGroup } from 'd3-array';
+	import { scaleBand } from 'd3-scale';
 	import { format as formatDate } from 'date-fns';
 
-	import {
-		Arc,
-		Chart,
-		Group,
-		Area,
-		Bars,
-		Axis,
-		LinearGradient,
-		Svg,
-		Text,
-		Tooltip,
-		Labels,
-		Highlight,
-		TooltipItem,
-		radiansToDegrees,
-		Bar,
-		Pattern,
-		RectClipPath,
-		Rule,
-		createStackData,
-		stackOffsetSeparated
-	} from 'layerchart';
-	import {
-		Field,
-		RangeField,
-		SpringValue,
-		Switch,
-		Toggle,
-		cls,
-		round,
-		format,
-		PeriodType,
-		ToggleGroup,
-		ToggleOption
-	} from 'svelte-ux';
+	import { Chart, Bars, Axis, Svg, Tooltip, Highlight, TooltipItem } from 'layerchart';
 
 	interface ContributionItem {
 		date: string;
