@@ -1,6 +1,4 @@
 import { fontFamily } from 'tailwindcss/defaultTheme';
-const svelteUx = require('svelte-ux/plugins/tailwind.cjs');
-import colors from 'tailwindcss/colors';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -63,6 +61,14 @@ const config = {
 				card: {
 					DEFAULT: 'hsl(var(--card) / <alpha-value>)',
 					foreground: 'hsl(var(--card-foreground) / <alpha-value>)'
+				},
+				// LayerChart tokens mapped to shadcn-svelte colors.
+				surface: {
+					content: 'hsl(var(--card-foreground) / <alpha-value>)',
+					100: 'hsl(var(--background) / <alpha-value>)',
+					200: 'hsl(var(---muted) / <alpha-value>)',
+					// not sure what color maps here (should be darker than 200).  Could add a new color to `app.css`
+					300: 'hsl(var(--background) / <alpha-value>)'
 				}
 			},
 			borderRadius: {
@@ -73,35 +79,8 @@ const config = {
 			fontFamily: {
 				sans: [...fontFamily.sans]
 			}
-		},
-		ux: {
-			themes: {
-				light: {
-					primary: colors['orange']['500'],
-					'primary-content': 'white',
-					secondary: colors['blue']['500'],
-					'surface-100': 'white',
-					'surface-200': colors['gray']['100'],
-					'surface-300': colors['gray']['300'],
-					'surface-content': colors['gray']['900'],
-					'color-scheme': 'light'
-				},
-				dark: {
-					primary: colors['orange']['500'],
-					'primary-content': 'white',
-					secondary: colors['blue']['500'],
-					'surface-100': colors['zinc']['800'],
-					'surface-200': colors['zinc']['900'],
-					'surface-300': colors['zinc']['950'],
-					'surface-content': colors['zinc']['100'],
-					'color-scheme': 'dark'
-				}
-			}
 		}
-	},
-	plugins: [
-		svelteUx // uses hsl() color space by default. To use oklch(), use: svelteUx({ colorSpace: 'oklch' }),
-	]
+	}
 };
 
 export default config;
