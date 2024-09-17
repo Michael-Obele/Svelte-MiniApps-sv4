@@ -76,6 +76,8 @@
 	// 	date: string;
 	// 	value: number;
 	// }
+
+	console.log(data.calendar);
 </script>
 
 <svelte:head>

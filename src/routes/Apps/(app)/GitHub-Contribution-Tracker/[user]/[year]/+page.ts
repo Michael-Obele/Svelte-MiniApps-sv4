@@ -1,6 +1,9 @@
 import type { PageLoad, PageParentData } from './$types';
 import { writable } from 'svelte/store';
 import { parseHTML } from 'linkedom';
+import { gql, GraphQLClient } from 'graphql-request';
+import { endOfYear, startOfYear } from 'date-fns';
+import { timeYear } from 'd3-time';
 
 function extractContributionData(html: any): ContributionsData {
 	const { document } = parseHTML(html);
@@ -22,23 +25,6 @@ interface ContributionsByMonth {
 		[day: string]: number;
 	};
 }
-
-let contributionsByMonth: ContributionsByMonth = {};
-
-const monthOrder = [
-	'January',
-	'February',
-	'March',
-	'April',
-	'May',
-	'June',
-	'July',
-	'August',
-	'September',
-	'October',
-	'November',
-	'December'
-];
 
 const monthAbs = [
 	{
@@ -91,51 +77,78 @@ const monthAbs = [
 	}
 ];
 
-interface ContributionsDataForSorting {
-	[month: string]: {
-		[day: string]: number;
-	};
-}
-
-function sortContributionsByMonth(
-	contributionsByMonth: ContributionsDataForSorting
-): ContributionsDataForSorting {
-	// Convert the object into an array of entries
-	const entries = Object.entries(contributionsByMonth);
-
-	// Sort the entries by month and then by day
-	const sortedEntries = entries.sort(([monthA, daysA], [monthB, daysB]) => {
-		// Get the index of each month in the monthOrder array
-		const indexA = monthOrder.indexOf(monthA);
-		const indexB = monthOrder.indexOf(monthB);
-
-		// Sort by month first
-		if (indexA < indexB) return -1;
-		if (indexA > indexB) return 1;
-
-		// If months are equal, sort by day
-		const dayA = Object.keys(daysA)[0];
-		const dayB = Object.keys(daysB)[0];
-		return dayA.localeCompare(dayB); // Use localeCompare for string comparison
-	});
-
-	// Convert the sorted array back into an object
-	const sortedContributionsByMonth: ContributionsDataForSorting = {};
-	sortedEntries.forEach(([month, days]) => {
-		sortedContributionsByMonth[month] = days;
-	});
-
-	return sortedContributionsByMonth;
-}
-
 interface OutputEntry {
 	date: string;
 	value: number;
 }
 
+interface GitHubResponse {
+	user: {
+		contributionsCollection: {
+			contributionCalendar: {
+				weeks: Array<{
+					contributionDays: Array<{
+						contributionCount: number;
+						date: string;
+					}>;
+				}>;
+			};
+		};
+	};
+}
+
+async function fetchCalendar(user: string, year: number | string) {
+	let data: any[] = [];
+	let info: GitHubResponse;
+
+	async function fetchPage() {
+		const query = gql`
+		  query {
+			user(login: "${user}") {
+			contributionsCollection(from: "${year}-01-01T00:00:00Z", to: "${year}-12-31T23:59:59Z") {
+				contributionCalendar {
+				  totalContributions
+				  weeks {
+					firstDay
+					contributionDays {
+					  weekday
+					  date
+					  contributionCount
+					  contributionLevel
+					  color
+					}
+				  }
+				  months {
+					name
+					year
+					firstDay
+					totalWeeks
+				  }
+				}
+			  }
+			}
+		  }
+		`;
+
+		const client = new GraphQLClient('https://api.github.com/graphql', {
+			headers: {
+				Authorization: `bearer ${import.meta.env.VITE_GITHUB_TOKEN}`
+			}
+		});
+
+		info = await client.request(query);
+
+		data = data.concat(info.user.contributionsCollection.contributionCalendar);
+	}
+
+	data = data.flatMap((d) => d.weeks.flatMap((w: { contributionDays: any }) => w.contributionDays));
+
+	return data;
+}
+
 export const load: PageLoad = async ({ parent, data }) => {
 	await parent();
-	let { props, contributionsInfo, streakStats, gitContributions } = data;
+	let { props, contributionsInfo, totalContributions, streakStats, gitContributions } = data;
 
 	const user = props.user;
 	const year = props.year;
@@ -162,8 +175,6 @@ export const load: PageLoad = async ({ parent, data }) => {
 		}
 	});
 
-	const sortedContributions = sortContributionsByMonth(contributionsByMonth);
-
 	let dataSet: OutputEntry[] = jsonData
 		.map((entry) => {
 			const [contributionString] = entry;
@@ -177,8 +188,6 @@ export const load: PageLoad = async ({ parent, data }) => {
 		})
 		.filter((entry) => entry !== null) as OutputEntry[];
 
-	let totalContributions = dataSet.reduce((accumulator, current) => accumulator + current.value, 0);
-
 	return {
 		props,
 		contributionsInfo,
@@ -186,11 +195,11 @@ export const load: PageLoad = async ({ parent, data }) => {
 		gitContributions,
 		totalContributions,
 		monthAbs,
+		calendar: await fetchCalendar(user, year),
 		page_data: {
 			jsonData,
 			totalContributions,
-			dataSet,
-			sortedContributions
+			dataSet
 		}
 	};
 };
