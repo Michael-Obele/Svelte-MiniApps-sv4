@@ -1,10 +1,6 @@
 <script lang="ts">
+	import { scrollToTop } from '$lib/utils';
 	import { Heart } from 'lucide-svelte';
-
-	// Function to scroll smoothly to the top of the page
-	function scrollToTop() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	}
 </script>
 
 <footer class="w-full bg-black py-5 text-center text-white md:py-10">

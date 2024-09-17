@@ -1,7 +1,6 @@
 import type { PageLoad, PageParentData } from './$types';
 import { writable } from 'svelte/store';
 import { parseHTML } from 'linkedom';
-import { contributions } from '$lib/utils';
 
 function extractContributionData(html: any): ContributionsData {
 	const { document } = parseHTML(html);
@@ -17,24 +16,6 @@ function extractContributionData(html: any): ContributionsData {
 }
 
 export type ContributionsData = string[][];
-
-const parseData = (data: ContributionsData) => {
-	data.forEach((entry) => {
-		const [contributionString] = entry;
-		const match = contributionString.match(/(\d+) contributions? on (\w+)/);
-		if (match) {
-			const [, count, month] = match;
-			contributions.update((current) => {
-				const monthIndex = current.findIndex((m) => m.date === month);
-				if (monthIndex !== -1) {
-					current[monthIndex].count += parseInt(count, 10);
-				}
-
-				return current;
-			});
-		}
-	});
-};
 
 interface ContributionsByMonth {
 	[month: string]: {
@@ -162,8 +143,6 @@ export const load: PageLoad = async ({ parent, data }) => {
 	const jsonData = extractContributionData(contributionsInfo);
 
 	let contributionsByMonth: ContributionsByMonth = {};
-
-	parseData(jsonData);
 
 	jsonData.forEach((entry) => {
 		const [contributionString] = entry;

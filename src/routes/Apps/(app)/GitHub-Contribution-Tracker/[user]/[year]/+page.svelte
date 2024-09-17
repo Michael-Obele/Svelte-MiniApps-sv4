@@ -62,27 +62,11 @@
 	const monthlyContributionData = calculateMonthlyContributions(contributionsByMonth);
 	// console.log(monthlyContributionData);
 
-	function scrollToHeatmap() {
-		const heatmapElement = document.getElementById('heatmap');
-		if (heatmapElement) {
-			heatmapElement.scrollIntoView({
-				behavior: 'smooth', // Smooth scrolling animation
-				block: 'start' // Align the top of the element to the top of the viewport
-			});
-		}
-	}
-
-	function scrollToTop() {
-		window.scrollTo({
-			top: 0,
-			behavior: 'smooth' // For smooth scrolling
-		});
-	}
-
 	import { PeriodType, format } from 'svelte-ux';
 	import { startOfYear, endOfYear } from 'date-fns';
 	import { scaleThreshold } from 'd3-scale';
 	import { range } from 'd3-array';
+	import { scrollToID, scrollToTop } from '$lib/utils.js';
 
 	// const now = new Date();
 	// const firstDayOfYear = startOfYear(now);
@@ -164,7 +148,7 @@
 	<a
 		href="#heatmap"
 		class="text-center text-2xl font-medium hover:underline dark:text-blue-500"
-		on:click|preventDefault={scrollToHeatmap}
+		on:click|preventDefault={() => scrollToID('heatmap')}
 	>
 		Scroll to Heat Map
 	</a>

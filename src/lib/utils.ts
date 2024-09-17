@@ -57,26 +57,16 @@ export const flyAndScale = (
 	};
 };
 
-// An array of contributions for each month, initialized with a count of 0 for each month
-export let contributions = writable([
-	{ date: 'January', count: 0 },
-	{ date: 'February', count: 0 },
-	{ date: 'March', count: 0 },
-	{ date: 'April', count: 0 },
-	{ date: 'May', count: 0 },
-	{ date: 'June', count: 0 },
-	{ date: 'July', count: 0 },
-	{ date: 'August', count: 0 },
-	{ date: 'September', count: 0 },
-	{ date: 'October', count: 0 },
-	{ date: 'November', count: 0 },
-	{ date: 'December', count: 0 }
-]);
-
 // A writable store that represents a filter state, initially set to false
 export let filter = persisted('filter', 'all');
 
-export function stringifyWithBigInt(obj: any) {
+/**
+ * Converts an object to a JSON string, handling BigInt values by converting them to strings.
+ *
+ * @param obj - The object to be stringified.
+ * @returns The JSON string representation of the object.
+ */
+export function stringifyWithBigInt(obj: any): string {
 	return JSON.stringify(obj, (key, value) => {
 		if (typeof value === 'bigint') {
 			return value.toString(); // Convert bigint to string
@@ -91,3 +81,28 @@ export const savePassword = writable(false);
 export const showPassword = writable(false);
 
 export const seenCookie = persisted<boolean>('seen-cookie', false);
+
+/**
+ * Scrolls the page smoothly to the element with the specified ID.
+ *
+ * @param {string} id - The ID of the element to scroll to.
+ */
+export function scrollToID(id: string): void {
+	const element = document.getElementById(id);
+	if (element) {
+		element.scrollIntoView({
+			behavior: 'smooth', // Smooth scrolling animation
+			block: 'start' // Align the top of the element to the top of the viewport
+		});
+	}
+}
+
+/**
+ * Scrolls the window to the top of the page with a smooth scrolling effect.
+ */
+export function scrollToTop() {
+	window.scrollTo({
+		top: 0,
+		behavior: 'smooth' // For smooth scrolling
+	});
+}
