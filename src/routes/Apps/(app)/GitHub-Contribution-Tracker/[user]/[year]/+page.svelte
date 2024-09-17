@@ -160,7 +160,7 @@
 		</Svg>
 		<Tooltip
 			class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black"
-			header={(data) => formatDate(data.date, 'eee, MMMM do')}
+			header={(data) => formatDate(data.date, 'MMMM')}
 			let:data
 		>
 			<TooltipItem
