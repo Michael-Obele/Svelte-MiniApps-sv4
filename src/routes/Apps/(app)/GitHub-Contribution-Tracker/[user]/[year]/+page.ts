@@ -26,6 +26,8 @@ interface ContributionsByMonth {
 	};
 }
 
+let contributionsByMonth: ContributionsByMonth = {};
+
 const monthAbs = [
 	{
 		name: 'Jan',
@@ -140,7 +142,8 @@ async function fetchCalendar(user: string, year: number | string) {
 
 		data = data.concat(info.user.contributionsCollection.contributionCalendar);
 	}
-
+	let fetchData = fetchPage();
+	await fetchData;
 	data = data.flatMap((d) => d.weeks.flatMap((w: { contributionDays: any }) => w.contributionDays));
 
 	return data;

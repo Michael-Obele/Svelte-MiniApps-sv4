@@ -58,26 +58,20 @@
 
 	const contributionsByMonth = arrangeDataByMonth(data.gitContributions);
 
-	// Example usage:
 	const monthlyContributionData = calculateMonthlyContributions(contributionsByMonth);
-	// console.log(monthlyContributionData);
 
 	import { PeriodType, format } from 'svelte-ux';
-	import { startOfYear, endOfYear } from 'date-fns';
+	import { startOfYear, parseISO, endOfYear } from 'date-fns';
 	import { scaleThreshold } from 'd3-scale';
 	import { range } from 'd3-array';
 	import { scrollToID, scrollToTop } from '$lib/utils.js';
 
-	// const now = new Date();
-	// const firstDayOfYear = startOfYear(now);
-	// const lastDayOfYear = endOfYear(now);
+	import { flatGroup, sum } from 'd3-array';
 
-	// interface DataPoint {
-	// 	date: string;
-	// 	value: number;
-	// }
+	import { sortFunc } from 'svelte-ux';
 
-	console.log(data.calendar);
+	$: calendarDataByYear = flatGroup(data.calendar ?? [], (d) => parseISO(d.date).getFullYear());
+	sortFunc((d) => d[0], 'desc');
 </script>
 
 <svelte:head>
@@ -160,7 +154,7 @@
 {#each contributionsByMonth as month, i}
 	{#if month.some((day) => day.contributionCount > 0)}
 		<h3 class="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white">
-			{monthAbs[i].full_name}
+			{formatDate(month[i].date, 'MMMM yyyy')}
 		</h3>
 		<div class="mx-auto h-[800px] w-[80vw] rounded border p-4">
 			<Chart
@@ -197,11 +191,14 @@
 {/each}
 <!-- End of More Stats -->
 
-<!-- <div class="h-[200px] overflow-hidden rounded border p-4">
+<!-- <div
+	class="overflow-hidden rounded border p-4"
+	style:height="{140 * calendarDataByYear.length + 16}px"
+>
 	<Chart
-		data={data.page_data.dataSet}
-		x={'date'}
-		r={'value'}
+		data={data.calendar}
+		x="date"
+		r="contributionCount"
 		rScale={scaleThreshold().unknown('transparent')}
 		rDomain={[1, 10, 20, 30]}
 		rRange={[
@@ -211,13 +208,38 @@
 			'hsl(var(--color-primary-700))',
 			'hsl(var(--color-primary-900))'
 		]}
+		padding={{ top: 8, left: 20 }}
 		let:tooltip
 	>
 		<Svg>
-			<Calendar start={firstDayOfYear} end={lastDayOfYear} {tooltip} cellSize={18} monthPath />
+			{#each calendarDataByYear as [year, calendarData], i}
+				{@const start = startOfYear(calendarData[0].date)}
+				{@const end = endOfYear(calendarData[calendarData.length - 1].date)}
+				<Group y={140 * i}>
+					<Text
+						value={year}
+						class="text-xs"
+						rotate={270}
+						x={-20}
+						y={(16 * 7) / 2}
+						textAnchor="middle"
+						verticalAnchor="start"
+					/>
+					<Calendar {start} {end} {tooltip} cellSize={16} monthPath />
+				</Group>
+			{/each}
 		</Svg>
 
-		<Tooltip header={(d) => d.value} />
+		<Tooltip header={(d) => format(d.date, PeriodType.Day)} let:data>
+			{#if data?.contributionCount != null}
+				<TooltipItem
+					label="Contributions"
+					value={data.contributionCount}
+					format="integer"
+					valueAlign="right"
+				/>
+			{/if}
+		</Tooltip>
 	</Chart>
 </div> -->
 
