@@ -7,20 +7,7 @@
 	const year: string = data.props.year;
 	const user: string = data.props.user;
 
-	const monthAbs = [
-		'Jan',
-		'Feb',
-		'Mar',
-		'Apr',
-		'May',
-		'Jun',
-		'Jul',
-		'Aug',
-		'Sep',
-		'Oct',
-		'Nov',
-		'Dec'
-	];
+	let monthAbs = data.monthAbs;
 
 	import { scaleBand } from 'd3-scale';
 	import { format as formatDate } from 'date-fns';
@@ -184,8 +171,11 @@
 	<h3 class="text-center text-3xl font-bold text-gray-900 dark:text-white">More Stats</h3>
 </div>
 
-{#each contributionsByMonth as month}
+{#each contributionsByMonth as month, i}
 	{#if month.some((day) => day.contributionCount > 0)}
+		<h3 class="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white">
+			{monthAbs[i].full_name}
+		</h3>
 		<div class="mx-auto h-[800px] w-[80vw] rounded border p-4">
 			<Chart
 				data={month}
@@ -263,7 +253,7 @@
 		data={data.page_data.dataSet}
 		dayLabelWidth={3}
 		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs}
+		monthLabels={monthAbs.map((month) => month.name)}
 		endDate={`${year}-04-01T03:00:00.000Z`}
 		monthGap={10}
 		monthLabelHeight={8}
@@ -279,7 +269,7 @@
 		data={data.page_data.dataSet}
 		dayLabelWidth={3}
 		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs}
+		monthLabels={monthAbs.map((month) => month.name)}
 		endDate={`${year}-08-01T03:00:00.000Z`}
 		monthGap={10}
 		monthLabelHeight={8}
@@ -295,7 +285,7 @@
 		data={data.page_data.dataSet}
 		dayLabelWidth={5}
 		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs}
+		monthLabels={monthAbs.map((month) => month.name)}
 		endDate={`${year}-12-01T03:00:00.000Z`}
 		monthGap={10}
 		monthLabelHeight={8}
@@ -315,7 +305,7 @@
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
 		data={data.page_data.dataSet}
 		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs}
+		monthLabels={monthAbs.map((month) => month.name)}
 		endDate={`${year}-06-01T03:00:00.000Z`}
 		monthGap={8}
 		monthLabelHeight={25}
@@ -332,7 +322,7 @@
 		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
 		data={data.page_data.dataSet}
 		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs}
+		monthLabels={monthAbs.map((month) => month.name)}
 		endDate={`${year}-12-01T03:00:00.000Z`}
 		monthGap={8}
 		monthLabelHeight={25}

@@ -59,6 +59,57 @@ const monthOrder = [
 	'December'
 ];
 
+const monthAbs = [
+	{
+		name: 'Jan',
+		full_name: 'January'
+	},
+	{
+		name: 'Feb',
+		full_name: 'February'
+	},
+	{
+		name: 'Mar',
+		full_name: 'March'
+	},
+	{
+		name: 'Apr',
+		full_name: 'April'
+	},
+	{
+		name: 'May',
+		full_name: 'May'
+	},
+	{
+		name: 'Jun',
+		full_name: 'June'
+	},
+	{
+		name: 'Jul',
+		full_name: 'July'
+	},
+	{
+		name: 'Aug',
+		full_name: 'August'
+	},
+	{
+		name: 'Sep',
+		full_name: 'September'
+	},
+	{
+		name: 'Oct',
+		full_name: 'October'
+	},
+	{
+		name: 'Nov',
+		full_name: 'November'
+	},
+	{
+		name: 'Dec',
+		full_name: 'December'
+	}
+];
+
 interface ContributionsDataForSorting {
 	[month: string]: {
 		[day: string]: number;
@@ -155,6 +206,7 @@ export const load: PageLoad = async ({ parent, data }) => {
 		streakStats,
 		gitContributions,
 		totalContributions,
+		monthAbs,
 		page_data: {
 			jsonData,
 			totalContributions,
