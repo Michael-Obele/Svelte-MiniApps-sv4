@@ -27,7 +27,7 @@ let info: ContributionData;
  * @param year - The year for which to fetch contributions.
  * @returns A Promise that resolves with the contribution data.
  */
-async function fetchInfo(user: string, year: number | string): Promise<ContributionData> {
+async function fetchCommit(user: string, year: number | string): Promise<ContributionData> {
 	const query = gql`
 	query {
 		user(login: "${user}") {
@@ -78,7 +78,7 @@ async function fetchData(user: string, year: number | string) {
 	const contributionsHtmlData = await contributionsResponse.text();
 
 	// New GitHub contributions data
-	info = await fetchInfo(user, year);
+	info = await fetchCommit(user, year);
 	const {
 		contributionCalendar: { weeks, totalContributions }
 	} = info.user.contributionsCollection;
@@ -108,6 +108,7 @@ async function fetchData(user: string, year: number | string) {
 		props: { user, year },
 		contributionsInfo: contributionsHtmlData,
 		streakStats: streakStatsSvgData,
+		totalContributions,
 		gitContributions
 	};
 }
@@ -143,7 +144,8 @@ export async function load({
 			props: { user, year },
 			contributionsInfo: data.contributionsInfo,
 			streakStats: data.streakStats,
-			gitContributions: data.gitContributions
+			gitContributions: data.gitContributions,
+			totalContributions: data.totalContributions
 		};
 	} catch (error) {
 		// Handle errors and redirect if necessary

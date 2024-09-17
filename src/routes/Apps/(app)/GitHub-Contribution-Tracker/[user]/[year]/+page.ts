@@ -154,6 +154,7 @@ export const load: PageLoad = async ({ parent, data }) => {
 		contributionsInfo,
 		streakStats,
 		gitContributions,
+		totalContributions,
 		page_data: {
 			jsonData,
 			totalContributions,

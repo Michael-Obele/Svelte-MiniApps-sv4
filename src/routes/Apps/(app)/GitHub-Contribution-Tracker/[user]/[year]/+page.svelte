@@ -25,7 +25,18 @@
 	import { scaleBand } from 'd3-scale';
 	import { format as formatDate } from 'date-fns';
 
-	import { Chart, Bars, Axis, Svg, Tooltip, Highlight, TooltipItem } from 'layerchart';
+	import {
+		Chart,
+		Bars,
+		Calendar,
+		Axis,
+		Group,
+		Text,
+		Svg,
+		Tooltip,
+		Highlight,
+		TooltipItem
+	} from 'layerchart';
 
 	interface ContributionItem {
 		date: string;
@@ -47,9 +58,6 @@
 		return monthlyData;
 	}
 
-	// Example usage (assuming data.gitContributions is of type ContributionItem[]):
-	const contributionsByMonth = arrangeDataByMonth(data.gitContributions);
-
 	function calculateMonthlyContributions(
 		data: ContributionItem[][]
 	): { date: Date; contributionCount: number }[] {
@@ -60,6 +68,8 @@
 			return { date, contributionCount };
 		});
 	}
+
+	const contributionsByMonth = arrangeDataByMonth(data.gitContributions);
 
 	// Example usage:
 	const monthlyContributionData = calculateMonthlyContributions(contributionsByMonth);
@@ -81,6 +91,20 @@
 			behavior: 'smooth' // For smooth scrolling
 		});
 	}
+
+	import { PeriodType, format } from 'svelte-ux';
+	import { startOfYear, endOfYear } from 'date-fns';
+	import { scaleThreshold } from 'd3-scale';
+	import { range } from 'd3-array';
+
+	// const now = new Date();
+	// const firstDayOfYear = startOfYear(now);
+	// const lastDayOfYear = endOfYear(now);
+
+	// interface DataPoint {
+	// 	date: string;
+	// 	value: number;
+	// }
 </script>
 
 <svelte:head>
@@ -104,7 +128,7 @@
 <div class="mx-auto w-fit space-y-3 text-center">
 	<h3>
 		On {data.props.year}.
-		<span>Your Total contributions are {data.page_data.totalContributions}</span>
+		<span>Your Total contributions are {data.totalContributions}</span>
 	</h3>
 
 	<div class="inline-flex w-full items-center justify-center">
@@ -116,7 +140,7 @@
 	</div>
 </div>
 
-<div class="h-[400px] w-[90vw] rounded border p-4">
+<div class="mx-auto h-[400px] w-[90vw] rounded border p-4">
 	<Chart
 		data={monthlyContributionData}
 		x="date"
@@ -160,7 +184,7 @@
 	<h3 class="text-center text-3xl font-bold text-gray-900 dark:text-white">More Stats</h3>
 </div>
 
-{#each contributionsByMonth as month, i}
+{#each contributionsByMonth as month}
 	{#if month.some((day) => day.contributionCount > 0)}
 		<div class="mx-auto h-[800px] w-[80vw] rounded border p-4">
 			<Chart
@@ -195,10 +219,33 @@
 		</div>
 	{/if}
 {/each}
-
 <!-- End of More Stats -->
 
-<div id="heatmap" class="inline-flex w-full items-center justify-center">
+<!-- <div class="h-[200px] overflow-hidden rounded border p-4">
+	<Chart
+		data={data.page_data.dataSet}
+		x={'date'}
+		r={'value'}
+		rScale={scaleThreshold().unknown('transparent')}
+		rDomain={[1, 10, 20, 30]}
+		rRange={[
+			'hsl(var(--color-surface-100))',
+			'hsl(var(--color-primary-300))',
+			'hsl(var(--color-primary-500))',
+			'hsl(var(--color-primary-700))',
+			'hsl(var(--color-primary-900))'
+		]}
+		let:tooltip
+	>
+		<Svg>
+			<Calendar start={firstDayOfYear} end={lastDayOfYear} {tooltip} cellSize={18} monthPath />
+		</Svg>
+
+		<Tooltip header={(d) => d.value} />
+	</Chart>
+</div> -->
+
+<div id="heatmap" class="my-12 inline-flex w-full items-center justify-center">
 	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
 	<span
 		class="absolute left-1/2 -translate-x-1/2 bg-white px-3 text-2xl font-medium text-gray-900 dark:bg-gray-900 dark:text-white"
