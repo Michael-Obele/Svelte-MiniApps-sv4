@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
-	import { Button } from '$lib/components/ui/button/index.js';
 	import { Input } from '$lib/components/ui/input';
 	import type { UserContext } from '$lib/types';
 	import { redirect, type SubmitFunction } from '@sveltejs/kit';
@@ -61,6 +59,45 @@
 	// 	});
 	// };
 </script>
+
+<svelte:head>
+	<title>Svelte MiniApps - GitHub Contribution Tracker</title>
+	<meta
+		name="description"
+		content="Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more."
+	/>
+	<meta property="og:title" content="Svelte MiniApps - GitHub Contribution Tracker" />
+	<meta
+		property="og:description"
+		content="Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more."
+	/>
+	<meta property="og:url" content="https://svelte-apps.me/apps/github-contribution-tracker" />
+	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
+	<meta property="og:type" content="website" />
+	<meta property="og:locale" content="en_US" />
+
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Svelte MiniApps - GitHub Contribution Tracker" />
+	<meta
+		name="twitter:description"
+		content="Track and visualize your GitHub contributions with interactive charts and heatmaps."
+	/>
+	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
+
+	<link rel="canonical" href="https://svelte-apps.me/apps/github-contribution-tracker" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<meta name="robots" content="index, follow" />
+	<script type="application/ld+json">
+		{
+			"@context": "http://schema.org",
+			"@type": "WebApplication",
+			"name": "Svelte MiniApps - GitHub Contribution Tracker",
+			"url": "https://svelte-apps.me/apps/github-contribution-tracker",
+			"description": "Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more."
+		}
+	</script>
+</svelte:head>
 
 <main>
 	<div class="text-center">

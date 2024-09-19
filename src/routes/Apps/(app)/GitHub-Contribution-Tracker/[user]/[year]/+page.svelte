@@ -75,7 +75,11 @@
 </script>
 
 <svelte:head>
-	<title>GitHub API</title>
+	<title>{user} - GitHub Contributions in {year}</title>
+	<meta
+		name="description"
+		content="Visualize {user}'s GitHub contributions for {year} with interactive charts and heatmaps. Track their coding activity, streaks, and more."
+	/>
 </svelte:head>
 
 <h1 class="text-center text-2xl">GitHub Contributions</h1>
