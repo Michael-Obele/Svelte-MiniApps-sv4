@@ -2,7 +2,7 @@
 	import TaskCard from './TaskCard.svelte';
 	import { done, type Project } from '$lib/index';
 
-	export let items: Project[]; // TODO: define the type of 'items' here
+	export let items: Project[];
 </script>
 
 <div class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">

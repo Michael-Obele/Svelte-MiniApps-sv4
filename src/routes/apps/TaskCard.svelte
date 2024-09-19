@@ -1,10 +1,7 @@
 <script lang="ts">
 	import Tags from './Tags.svelte';
-
 	import { done } from '$lib/index';
-	import { projects } from '$lib/index';
 	import { BadgeCheck, HardHat, ArrowRight } from 'lucide-svelte';
-	import { afterUpdate } from 'svelte';
 
 	export let item;
 </script>
