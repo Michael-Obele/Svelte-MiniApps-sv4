@@ -41,7 +41,7 @@
 	</p>
 	{#if done.includes(item.title)}
 		<a
-			href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+			href={'/apps/' + item.title.replace(/\s+/g, '-').toLowerCase()}
 			class="inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
 			>Try now
 			<ArrowRight size="22" class="mx-1" />

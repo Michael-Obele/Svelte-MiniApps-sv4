@@ -596,3 +596,12 @@ export const _currencies = [
 		label: 'Peruvian Sol'
 	}
 ];
+
+import type { PageLoad } from './$types';
+
+export const load: PageLoad = async (event) => {
+	let currencyList = _currencies;
+	return {
+		currencyList
+	};
+};

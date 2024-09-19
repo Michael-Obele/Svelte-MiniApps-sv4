@@ -75,7 +75,7 @@
 		content="Generates random passwords with configurable length and complexity. Secure your accounts with ease."
 	/>
 	<meta property="og:url" content="https://svelte-apps.me/apps/password-generator" />
-	<meta property="og:image" content="https://svelte-apps.me/static/images/password-generator.png" />
+	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 
@@ -88,10 +88,7 @@
 		name="twitter:description"
 		content="Generate strong, random passwords with ease using the Svelte MiniApps Random Password Generator."
 	/>
-	<meta
-		name="twitter:image"
-		content="https://svelte-apps.me/static/images/password-generator.png"
-	/>
+	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
 
 	<link rel="canonical" href="https://svelte-apps.me/apps/password-generator" />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />

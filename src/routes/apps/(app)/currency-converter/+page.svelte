@@ -3,11 +3,12 @@
 	import type { ActionData, SubmitFunction } from './$types';
 	import { _currencies } from './+page';
 	import Input from '$lib/components/ui/input/input.svelte';
-	import { Motion } from 'svelte-motion';
 	import { toast } from 'svelte-sonner';
 	import { page } from '$app/stores';
 	import type { UserContext } from '$lib/types';
 	import { getContext } from 'svelte';
+
+	export let data;
 
 	let userData = $page.data.user?.userData;
 
@@ -22,7 +23,7 @@
 			rate?: string;
 		};
 	}
-	let currencyList = _currencies;
+	let currencyList = data.currencyList;
 
 	// Start form submission process.
 	const handleSubmit: SubmitFunction = () => {

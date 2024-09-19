@@ -1,14 +1,14 @@
 import { done } from '$lib';
 
 // Your domain
-// const site = 'https://svelte-mini-apps.netlify.app';
+// const site = 'https://svelte-mini-apps.netlify.app'; // Netlify Domain
 const site = 'https://svelte-apps.me';
 
 // Populate this with all the slugs you wish to include
 const staticPages: { url: string; priority?: number; changefreq?: string }[] = [
 	{ url: '/', priority: 0.8, changefreq: 'daily' }, // Root route
-	{ url: '/About', priority: 0.5, changefreq: 'weekly' }, // About page
-	{ url: '/Apps', priority: 0.8, changefreq: 'weekly' } // Apps page
+	{ url: '/about', priority: 0.5, changefreq: 'weekly' }, // About page
+	{ url: '/apps', priority: 0.8, changefreq: 'weekly' } // Apps page
 	// Add more static routes here
 ];
 
@@ -18,7 +18,7 @@ export async function GET({ url }): Promise<Response> {
 
 	const dynamicRoutes = await Promise.all(
 		appNames.map(async (name) => ({
-			url: `/Apps/${slugify(name)}`,
+			url: `/apps/${slugify(name.toLowerCase())}`,
 			lastmod: await getLastModified(slugify(name)), // Await the result
 			priority: 0.8,
 			changefreq: 'weekly'
@@ -81,7 +81,7 @@ const getLastModified = async (name: string): Promise<string> => {
 	};
 
 	try {
-		const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1&path=src/routes/Apps/(app)/${name}`;
+		const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1&path=src/routes/apps/(app)/${name}`;
 
 		const response = await fetch(url, { headers });
 

@@ -1,12 +1,7 @@
 <script lang="ts">
 	import TaskCard from './TaskCard.svelte';
-
-	import Tags from './Tags.svelte';
-
 	import { done } from '$lib/index';
 	import { projects } from '$lib/index';
-	import { BadgeCheck, HardHat, ArrowRight } from 'lucide-svelte';
-	import { afterUpdate } from 'svelte';
 
 	export let filteredBy: string;
 
@@ -20,7 +15,7 @@
 			{#if done.includes(item.title)}
 				<a
 					class:pointer-events-none={!done.includes(item.title)}
-					href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+					href={'/apps/' + item.title.replace(/\s+/g, '-').toLowerCase()}
 					class=""
 				>
 					<TaskCard {item} />
@@ -34,7 +29,7 @@
 	<div class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 		{#each projects as item}
 			{#if done.includes(item.title)}
-				<a href={'/Apps/' + item.title.replace(/\s+/g, '-')} class="">
+				<a href={'/apps/' + item.title.replace(/\s+/g, '-').toLowerCase()} class="">
 					<TaskCard {item} />
 				</a>
 			{/if}
@@ -47,7 +42,7 @@
 				{#if done.includes(item.title)}
 					<a
 						class:pointer-events-none={!done.includes(item.title)}
-						href={'/Apps/' + item.title.replace(/\s+/g, '-')}
+						href={'/apps/' + item.title.replace(/\s+/g, '-').toLowerCase()}
 						class=""
 					>
 						<TaskCard {item} />

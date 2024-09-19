@@ -29,25 +29,6 @@
 		}
 	}
 
-	function updateApp() {
-		if (registration && registration.waiting) {
-			registration.waiting.postMessage({ type: 'skipWaiting' });
-			// Refresh the page after sending the message
-			window.location.reload();
-		}
-	}
-
-	if (updateAvailable) {
-		toast('New App version available!!', {
-			action: {
-				label: 'Update now',
-				onClick: () => updateApp()
-			},
-			duration: Number.POSITIVE_INFINITY,
-			icon: Download
-		});
-	}
-
 	onMount(() => {
 		detectSWUpdate();
 	});
@@ -60,28 +41,28 @@
 		}, 3000);
 	});
 
-	afterUpdate(() => {
-		const url = $page.url.href;
+	// afterUpdate(() => {
+	// 	const url = $page.url.href;
 
-		if (url.includes('reload')) {
-			// Split the URL into base and query string
-			const [baseUrl, queryString] = url.split('?');
+	// 	if (url.includes('reload')) {
+	// 		// Split the URL into base and query string
+	// 		const [baseUrl, queryString] = url.split('?');
 
-			// Split the query string into individual parameters
-			const queryParams = queryString.split('&');
+	// 		// Split the query string into individual parameters
+	// 		const queryParams = queryString.split('&');
 
-			// Filter out the 'reload' parameter
-			const filteredParams = queryParams.filter((param) => !param.startsWith('reload'));
+	// 		// Filter out the 'reload' parameter
+	// 		const filteredParams = queryParams.filter((param) => !param.startsWith('reload'));
 
-			// Reconstruct the query string without the 'reload' parameter
-			const newQueryString = filteredParams.join('&');
+	// 		// Reconstruct the query string without the 'reload' parameter
+	// 		const newQueryString = filteredParams.join('&');
 
-			// Construct a new URL without the 'reload' parameter
-			const newUrl = baseUrl + newQueryString;
+	// 		// Construct a new URL without the 'reload' parameter
+	// 		const newUrl = baseUrl + newQueryString;
 
-			goto(newUrl, { replaceState: true });
-		}
-	});
+	// 		goto(newUrl, { replaceState: true });
+	// 	}
+	// });
 </script>
 
 <svelte:head>

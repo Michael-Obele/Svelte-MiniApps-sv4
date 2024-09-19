@@ -1,5 +1,7 @@
 import type { LayoutServerLoad } from './$types';
 import { getDbInstance } from '$lib/database';
+import { goto } from '$app/navigation';
+import { redirect } from '@sveltejs/kit';
 
 const db = getDbInstance(); // Get the Prisma client instance
 
@@ -43,6 +45,12 @@ export const load: LayoutServerLoad = async (event) => {
 				email: session.user.email || null
 			};
 		}
+	}
+
+	let url = event.url.pathname;
+
+	if (url !== url.toLowerCase()) {
+		redirect(301, url.toLowerCase());
 	}
 
 	return {

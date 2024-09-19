@@ -51,16 +51,18 @@
 			</Breadcrumb.Item>
 			<Breadcrumb.Separator />
 			<Breadcrumb.Item>
-				<Breadcrumb.Link href="/Apps">Apps</Breadcrumb.Link>
+				<Breadcrumb.Link href="/apps">Apps</Breadcrumb.Link>
 			</Breadcrumb.Item>
 			<Breadcrumb.Separator />
 			<Breadcrumb.Item>
 				{#if routeId == currentRoute}
-					<Breadcrumb.Page>{routeId}</Breadcrumb.Page>
+					<Breadcrumb.Page class="capitalize">{routeId}</Breadcrumb.Page>
 				{:else}
-					<Breadcrumb.Link href="/Apps/{routeId}">{routeId}</Breadcrumb.Link>
+					<Breadcrumb.Link href="/apps/{routeId.toLowerCase()}"
+						>{routeId.toLowerCase()}</Breadcrumb.Link
+					>
 				{/if}
-				<Badge variant="secondary" href="{link}/{routeId}" target="_blank" class="">
+				<Badge variant="secondary" href="{link}/{routeId.toLowerCase()}" target="_blank" class="">
 					<span class="hidden sm:inline"> View Source Code </span>
 					<Code2 size="16" class="sm:mx-1" /></Badge
 				>
