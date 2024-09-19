@@ -150,7 +150,7 @@ export async function load({
 	} catch (error) {
 		// Handle errors and redirect if necessary
 		console.error(`Error fetching data: ${(error as Error).message}`);
-		redirect(302, '/Apps/GitHub-Contribution-Tracker');
+		redirect(302, '/apps/github-contribution-tracker');
 	}
 }
 

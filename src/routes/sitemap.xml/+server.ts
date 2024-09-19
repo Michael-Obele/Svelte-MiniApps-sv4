@@ -80,6 +80,8 @@ const getLastModified = async (name: string): Promise<string> => {
 		Authorization: `token ${accessToken}`
 	};
 
+	name = name.toLowerCase();
+
 	try {
 		const url = `https://api.github.com/repos/${owner}/${repo}/commits?per_page=1&path=src/routes/apps/(app)/${name}`;
 

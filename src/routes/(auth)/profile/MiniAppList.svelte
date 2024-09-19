@@ -35,7 +35,7 @@ Utilizes the `projects` and `done` arrays imported from `$lib` to determine avai
 								<div class="font-semibold">{app.title}</div>
 								<div class="text-sm text-muted-foreground">{truncateText(app.details, 65)}</div>
 							</div>
-							<a href="/Apps/{app.title.split(' ').join('-')}">
+							<a href="/apps/{app.title.split(' ').join('-')}">
 								<Button size="sm">Open</Button>
 							</a>
 						</div>

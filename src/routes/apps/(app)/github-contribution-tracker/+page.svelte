@@ -41,7 +41,7 @@
 	// const handleSubmit: SubmitFunction = ({ formData }) => {
 	// 	isLoading = true; // Indicate submission is in progress.
 	// 	toast.loading('Submitting...'); // Show loading toast.
-	// 	fetch(`/Apps/GitHub-Contribution-Tracker/${username}/${year}`, {
+	// 	fetch(`/apps/GitHub-Contribution-Tracker/${username}/${year}`, {
 	// 		method: 'POST',
 	// 		body: formData
 	// 	}).then(async (response) => {

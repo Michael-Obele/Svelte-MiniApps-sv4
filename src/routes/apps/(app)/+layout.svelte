@@ -12,7 +12,7 @@
 	let userUsername = $page.data.user.userData?.username;
 	let sessionUserName = $page.data.user.session?.user?.name;
 	setContext('userContext', { userUsername, sessionUserName });
-	let link = 'https://github.com/Michael-Obele/Svelte-MiniApps/tree/master/src/routes/Apps/(app)';
+	let link = 'https://github.com/Michael-Obele/Svelte-MiniApps/tree/master/src/routes/apps/(app)';
 </script>
 
 <svelte:head>
@@ -58,7 +58,7 @@
 				{#if routeId == currentRoute}
 					<Breadcrumb.Page class="capitalize">{routeId}</Breadcrumb.Page>
 				{:else}
-					<Breadcrumb.Link href="/apps/{routeId.toLowerCase()}"
+					<Breadcrumb.Link class="capitalize" href="/apps/{routeId.toLowerCase()}"
 						>{routeId.toLowerCase()}</Breadcrumb.Link
 					>
 				{/if}
