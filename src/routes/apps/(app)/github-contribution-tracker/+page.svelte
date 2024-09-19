@@ -17,7 +17,7 @@
 		event.preventDefault();
 		const formData = new FormData(event.target as HTMLFormElement);
 		toast.promise(
-			fetch(`/Apps/GitHub-Contribution-Tracker/${username}/${year}`, {
+			fetch(`/apps/github-contribution-tracker/${username}/${year}`, {
 				method: 'POST',
 				body: formData
 			}).then(async (response) => {
@@ -25,7 +25,7 @@
 				if (!response.ok) {
 					isLoading = false;
 				} else {
-					goto(`GitHub-Contribution-Tracker/${username}/${year}`);
+					goto(`github-contribution-tracker/${username}/${year}`);
 					return true;
 				}
 			}),
