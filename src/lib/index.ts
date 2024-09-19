@@ -9,7 +9,14 @@ export const done = [
 	'Advanced Emoji Tools'
 ];
 //
-export const projects = [
+export type Project = {
+	title: string;
+	details: string;
+	tag: string;
+	difficulty: 'easy' | 'medium' | 'hard';
+};
+
+export const projects: Project[] = [
 	{
 		title: 'Unit Converter',
 		details: 'Converts between various units (length, temperature, volume, etc.)',
