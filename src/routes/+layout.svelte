@@ -7,7 +7,7 @@
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
 	import { afterUpdate, onMount } from 'svelte';
-	import { goto } from '$app/navigation';
+	import { goto, invalidate } from '$app/navigation';
 	import { partytownSnippet } from '@builder.io/partytown/integration';
 
 	let updateAvailable = false;
@@ -41,28 +41,7 @@
 		}, 3000);
 	});
 
-	// afterUpdate(() => {
-	// 	const url = $page.url.href;
-
-	// 	if (url.includes('reload')) {
-	// 		// Split the URL into base and query string
-	// 		const [baseUrl, queryString] = url.split('?');
-
-	// 		// Split the query string into individual parameters
-	// 		const queryParams = queryString.split('&');
-
-	// 		// Filter out the 'reload' parameter
-	// 		const filteredParams = queryParams.filter((param) => !param.startsWith('reload'));
-
-	// 		// Reconstruct the query string without the 'reload' parameter
-	// 		const newQueryString = filteredParams.join('&');
-
-	// 		// Construct a new URL without the 'reload' parameter
-	// 		const newUrl = baseUrl + newQueryString;
-
-	// 		goto(newUrl, { replaceState: true });
-	// 	}
-	// });
+	$: userData = $page.data.user.userData;
 </script>
 
 <svelte:head>
@@ -92,7 +71,7 @@
 
 <ModeWatcher />
 
-<Navbar />
+<Navbar {userData} />
 
 <Toaster />
 

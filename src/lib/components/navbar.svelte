@@ -18,21 +18,20 @@
 		if (item === 'Home' && routeId == '/') {
 			return true;
 		} else {
-			return routeId && (`/${item}` === routeId || routeId.includes(item));
+			return routeId && (`/${item}` === routeId || routeId.includes(item.toLowerCase()));
 		}
 	};
 
 	$: show = false;
+	export let userData;
 
 	let href = (item: string) => {
 		if (item === 'Home') {
 			return '/';
 		} else {
-			return `/${item}`;
+			return `/${item.toLowerCase()}`;
 		}
 	};
-
-	$: userData = $page.data.user.userData;
 </script>
 
 <nav class="border-gray-200 bg-white dark:bg-gray-900">
