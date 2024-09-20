@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { ArrowUp } from 'lucide-svelte';
+	import { ArrowUp, ArrowLeft } from 'lucide-svelte';
 	import SvelteHeatmap from 'svelte-heatmap';
 	import { Button } from '$lib/components/ui/button/index.js';
 	export let data;
@@ -348,8 +348,8 @@
 		class="group me-2 inline-flex items-center justify-center rounded-lg border border-green-700 bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-100 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800 md:text-xl"
 		on:click={() => goto('/apps/github-contribution-tracker')}
 	>
-		>
-		<span> Go Back </span>
+		<ArrowLeft class="h-6 w-6 md:mr-2" />
+		<span class="hidden md:inline"> Go Back </span>
 	</Button>
 
 	<Button
