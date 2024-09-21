@@ -56,6 +56,19 @@
 		const foundCurrency = currencyList.find((f) => f.value === currencyTo);
 		return foundCurrency ? foundCurrency.label : currencyTo; // Return label if found, else return the currency code
 	}
+
+	function formatNumberInput(e: Event) {
+		const target = e.target as HTMLInputElement; // Type assertion for e.target
+
+		// Get the input value and remove any existing commas
+		let value = target.value.replace(/,/g, '');
+
+		// Format the number with commas as thousands separators
+		value = Number(value).toLocaleString();
+
+		// Update the input value with the formatted number
+		target.value = value;
+	}
 </script>
 
 <section class="my-8 px-4 text-center">
@@ -129,6 +142,7 @@
 			id="currencyAmount"
 			pattern="\d+(?:,\d+)*"
 			name="currencyAmount"
+			on:change={(e) => formatNumberInput(e)}
 			value={''}
 			placeholder="Enter amount"
 			required
