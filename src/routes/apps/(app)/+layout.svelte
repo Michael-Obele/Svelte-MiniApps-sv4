@@ -4,7 +4,7 @@
 	import { Badge } from '$lib/components/ui/badge/index.js';
 
 	import { page } from '$app/stores';
-	import { Code } from 'lucide-svelte';
+	import { CodeXml } from 'lucide-svelte';
 	$: route = $page.url.pathname.split('/');
 	$: routeId = route[2];
 	$: currentRoute = route[route.length - 1];
@@ -64,8 +64,8 @@
 				{/if}
 				<Badge variant="secondary" href="{link}/{routeId.toLowerCase()}" target="_blank" class="">
 					<span class="hidden sm:inline"> View Source Code </span>
-					<Code size="16" class="sm:mx-1" /></Badge
-				>
+					<CodeXml size="16" class="sm:mx-1" />
+				</Badge>
 			</Breadcrumb.Item>
 		</Breadcrumb.List>
 	</Breadcrumb.Root>
