@@ -160,7 +160,7 @@
 		<h3 class="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white">
 			{formatDate(month[i].date, 'MMMM yyyy')}
 		</h3>
-		<div class="mx-auto h-[800px] w-[80vw] rounded border p-4">
+		<div class="ml-8 mr-28 h-[800px] w-[75vw] rounded border p-4 md:mx-auto md:w-[80vw]">
 			<Chart
 				data={month}
 				x="contributionCount"
@@ -343,7 +343,7 @@
 	/>
 </div>
 
-<div class="mx-auto my-10 w-fit">
+<div class="mx-auto my-10 flex w-fit items-center justify-center">
 	<Button
 		class="group me-2 inline-flex items-center justify-center rounded-lg border border-green-700 bg-green-500 px-5 py-2.5 text-center text-sm font-medium text-green-700 hover:bg-green-800 hover:text-white focus:outline-none focus:ring-4 focus:ring-green-300 dark:border-green-500 dark:text-green-100 dark:hover:bg-green-600 dark:hover:text-white dark:focus:ring-green-800 md:text-xl"
 		on:click={() => goto('/apps/github-contribution-tracker')}
