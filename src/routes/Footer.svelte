@@ -1,30 +1,46 @@
 <script lang="ts">
+	import ThemeSwitch from '$lib/components/ThemeSwitch.svelte';
 	import { scrollToTop } from '$lib/utils';
-	import { Heart } from 'lucide-svelte';
+	import { Heart, MoveUp, ArrowUpFromDot, ArrowUp } from 'lucide-svelte';
 </script>
 
 <footer class="w-full bg-black py-5 text-center text-white md:py-10">
 	<div class="container px-4 md:px-6">
 		<!-- Existing Scroll to Top Button -->
-		<button
-			class="mt-2 text-red-500 underline hover:no-underline dark:text-green-500"
-			on:click={scrollToTop}
-		>
-			Back to top
-		</button>
-		<!-- New Content: Made with Love and Installable Message -->
-		<div class="mt-2 flex flex-wrap items-center justify-center gap-4">
-			<a
-				href="https://github.com/Michael-Obele"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="flex flex-row items-center justify-between text-green-400 hover:text-green-300"
+		<div class="mx-auto mb-8 flex w-fit items-center justify-center space-x-3">
+			<button
+				class="mx-auto flex w-fit space-x-2 rounded-full bg-white p-2 text-green-500 hover:bg-red-400 hover:text-white dark:bg-green-500 dark:text-black dark:hover:bg-green-400 dark:hover:text-black"
+				on:click={scrollToTop}
 			>
-				Made with
-				<Heart size="20" class="mx-2 text-red-500" fill="red" />
-				by <span class="ms-2 font-bold"> Michael </span>
-			</a>
-			<p class="text-sm text-gray-500">
+				Back to top
+				<ArrowUp />
+			</button>
+			<ThemeSwitch />
+		</div>
+
+		<!-- New Content: Made with Love and Installable Message -->
+		<div class="mt-2 flex flex-col flex-wrap items-center justify-center gap-4">
+			<span class="flex flex-row flex-wrap items-center justify-between space-x-4">
+				<a
+					href="https://github.com/Michael-Obele"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex flex-row items-center justify-between text-green-400 hover:text-green-300"
+				>
+					Made with
+					<Heart size="20" class="mx-2 text-red-500" fill="red" />
+					by <span class="ms-2 font-bold"> Michael </span>
+				</a>
+				<iframe
+					src="https://github.com/sponsors/Michael-Obele/button"
+					title="Sponsor Michael-Obele"
+					height="32"
+					width="114"
+					style="border: 0; border-radius: 6px;"
+				></iframe>
+			</span>
+
+			<p class="text-base text-gray-200">
 				FYI: This app is <span class="font-semibold text-red-500">installable</span>.
 			</p>
 		</div>

@@ -70,6 +70,16 @@
 
 	import { sortFunc } from 'svelte-ux';
 
+	// let newData = data.calendar.map((d) => {
+	// 	return {
+	// 		...d,
+	// 		date: new Date(d.date),
+	// 		value: d.contributionCount
+	// 	};
+	// });
+
+	// $: console.log(newData);
+
 	$: calendarDataByYear = flatGroup(data.calendar ?? [], (d) => parseISO(d.date).getFullYear());
 	sortFunc((d) => d[0], 'desc');
 </script>
@@ -200,17 +210,17 @@
 	style:height="{140 * calendarDataByYear.length + 16}px"
 >
 	<Chart
-		data={data.calendar}
+		data={newData}
 		x="date"
-		r="contributionCount"
+		r="value"
 		rScale={scaleThreshold().unknown('transparent')}
 		rDomain={[1, 10, 20, 30]}
 		rRange={[
-			'hsl(var(--color-surface-100))',
-			'hsl(var(--color-primary-300))',
-			'hsl(var(--color-primary-500))',
-			'hsl(var(--color-primary-700))',
-			'hsl(var(--color-primary-900))'
+			'hsl(var(--color-green-100))',
+			'hsl(var(--color-blue-300))',
+			'hsl(var(--color-blue-500))',
+			'hsl(var(--color-blue-700))',
+			'hsl(var(--color-blue-900))'
 		]}
 		padding={{ top: 8, left: 20 }}
 		let:tooltip
@@ -235,13 +245,8 @@
 		</Svg>
 
 		<Tooltip header={(d) => format(d.date, PeriodType.Day)} let:data>
-			{#if data?.contributionCount != null}
-				<TooltipItem
-					label="Contributions"
-					value={data.contributionCount}
-					format="integer"
-					valueAlign="right"
-				/>
+			{#if data?.value != null}
+				<TooltipItem label="Contributions" value={data.value} format="integer" valueAlign="right" />
 			{/if}
 		</Tooltip>
 	</Chart>
