@@ -9,6 +9,7 @@
 	import { afterUpdate, onMount } from 'svelte';
 	import { goto, invalidate } from '$app/navigation';
 	import { partytownSnippet } from '@builder.io/partytown/integration';
+	import Footer from '$lib/components/footer.svelte';
 
 	let updateAvailable = false;
 
@@ -76,6 +77,8 @@
 <Toaster />
 
 <slot class="text-gray-900 dark:text-white" />
+
+<Footer />
 
 <!--
 	<script type="application/ld+json">

@@ -1,20 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { projects, done } from '$lib/index';
+	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import { seenCookie } from '$lib/utils';
 	import LordIcon from './LordIcon.svelte';
 	//
-	import Footer from './Footer.svelte';
+	import Footer from '../lib/components/footer.svelte';
 	import InfoBlock from './InfoBlock.svelte';
 	import ContentBlock from './ContentBlock.svelte';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
-	let websiteUrl = 'https://svelte-apps.me/';
-	let websiteImage = 'https://i.ibb.co/ZhhhnCz/svelte-badge.png';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
 	//
@@ -221,5 +219,3 @@
 		</div>
 	</section>
 </div>
-
-<Footer />
