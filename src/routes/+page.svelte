@@ -165,7 +165,6 @@
 								</span>
 							{/each}
 						</div>
-
 						<span slot="paragraph">
 							{block.paragraph}
 						</span>

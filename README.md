@@ -40,7 +40,11 @@ Clone the repository and run the development server to explore the mini-apps.
 ```bash
 git clone https://github.com/Michael-Obele/Svelte-MiniApps.git
 cd Svelte-MiniApps
+cp .env.example .env
 bun install
+bun install @prisma/client
+bun install prisma --save-dev
+bun prisma generate
 bun run dev
 ```
 
