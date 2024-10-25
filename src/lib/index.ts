@@ -6,7 +6,8 @@ export const done = [
 	'English Dictionary App',
 	'Random Emoji Generator',
 	'Currency Converter',
-	'Advanced Emoji Tools'
+	'Advanced Emoji Tools',
+	'Budget Tracker'
 ];
 //
 export type Project = {
@@ -22,6 +23,12 @@ export const projects: Project[] = [
 		details: 'Converts between various units (length, temperature, volume, etc.)',
 		tag: 'utility',
 		difficulty: 'easy'
+	},
+	{
+		title: 'Budget Tracker',
+		details: 'Create and manage budgets, track expenses, and monitor your remaining balance.',
+		tag: 'finance',
+		difficulty: 'medium'
 	},
 	{
 		title: 'Random Password Generator',

@@ -106,3 +106,19 @@ export function scrollToTop() {
 		behavior: 'smooth' // For smooth scrolling
 	});
 }
+
+// Define the type for a single budget
+export type Budget = {
+	name: string;
+	amount: number;
+	expenses: Expense[];
+};
+
+// Define the type for an expense
+export type Expense = {
+	name: string;
+	amount: number;
+};
+
+// Store budgets in localStorage
+export const budgets = persisted<Budget[]>('budgets', []);

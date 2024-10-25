@@ -22,6 +22,7 @@ model User {
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt()
     SavePassword  SavePassword[]
+    budgets       Budget[]
 }
 
 model SavePassword {
@@ -75,4 +76,25 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+}
+
+model Budget {
+    id        String    @id() @default(cuid())
+    userId    String?
+    name      String
+    amount    Decimal
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt()
+    expenses  Expense[]
+    user      User?     @relation(fields: [userId], references: [id])
+}
+
+model Expense {
+    id        String   @id() @default(cuid())
+    budgetId  String
+    name      String
+    amount    Decimal
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt()
+    budget    Budget   @relation(fields: [budgetId], references: [id])
 }
