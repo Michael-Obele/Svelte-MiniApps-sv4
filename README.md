@@ -37,6 +37,8 @@ Svelte MiniApps is a single Progressive Web App (PWA) featuring a collection of 
 
 Clone the repository and run the development server to explore the mini-apps.
 
+<!-- I apologies for not keeping this installation process not up to date. -->
+
 ```bash
 git clone https://github.com/Michael-Obele/Svelte-MiniApps.git
 cd Svelte-MiniApps
@@ -49,6 +51,8 @@ bun run dev
 ```
 
 This will launch a local server and open the mini-apps in your browser.
+
+###### **Important**: For production environments, it's recommended to switch your Prisma data source provider from SQLite to PostgreSQL or MySQL.
 
 ### Installable
 
