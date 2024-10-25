@@ -46,7 +46,6 @@ cp .env.example .env
 bun install
 bun install @prisma/client
 bun install prisma --save-dev
-bun prisma generate
 bun run dev
 ```
 
