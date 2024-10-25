@@ -110,14 +110,14 @@ export function scrollToTop() {
 // Define the type for a single budget
 export type Budget = {
 	name: string;
-	amount: number;
+	amount: string;
 	expenses: Expense[];
 };
 
 // Define the type for an expense
 export type Expense = {
 	name: string;
-	amount: number;
+	amount: string;
 };
 
 // Store budgets in localStorage

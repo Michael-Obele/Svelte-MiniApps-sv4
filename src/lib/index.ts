@@ -127,12 +127,6 @@ export const projects: Project[] = [
 		difficulty: 'hard'
 	},
 	{
-		title: 'Budget Tracker',
-		details: 'Helps you track your income and expenses to manage your finances.',
-		tag: 'finance',
-		difficulty: 'hard'
-	},
-	{
 		title: 'Simple Drawing App',
 		details: 'Lets you create basic drawings using lines, shapes, and colors.',
 		tag: 'design',

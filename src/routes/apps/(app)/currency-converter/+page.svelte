@@ -140,8 +140,8 @@
 		<Input
 			type="text"
 			id="currencyAmount"
-			pattern="\d+(?:,\d+)*"
 			name="currencyAmount"
+			pattern="\d+(?:,\d+)*"
 			on:change={(e) => formatNumberInput(e)}
 			value={''}
 			placeholder="Enter amount"

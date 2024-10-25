@@ -2,20 +2,18 @@
 	import { enhance } from '$app/forms';
 	import { persisted } from 'svelte-persisted-store';
 	import { get } from 'svelte/store';
-	import { budgets, type Budget } from '$lib/utils';
+	import { budgets, type Budget, type Expense } from '$lib/utils';
 
 	// Access the budgets store
 	let currentBudgets = get(budgets);
 
 	let newExpenseName = '';
-	let newExpenseAmount = 0;
-	let newBudgetName = '';
-	let newBudgetAmount = 0;
+	let newExpenseAmount = '';
 
 	let selectedBudgetName: string | null = null; // Store the selected budget's name
 
 	const handleAddExpense = () => {
-		if (newExpenseName && newExpenseAmount > 0 && selectedBudgetName) {
+		if (newExpenseName && Number(newExpenseAmount) > 0 && selectedBudgetName) {
 			// Find the selected budget
 			const budgetToUpdate = $budgets.find((budget) => budget.name === selectedBudgetName);
 
@@ -31,13 +29,13 @@
 
 				// Reset input fields
 				newExpenseName = '';
-				newExpenseAmount = 0;
+				newExpenseAmount = '';
 			}
 		}
 	};
 
 	let budgetName = '';
-	let budgetAmount = 0;
+	let budgetAmount = '';
 
 	const handleCreateBudget = () => {
 		const existingBudgetIndex = $budgets.findIndex(
@@ -65,7 +63,7 @@
 
 	let editingBudgetName: string | null = null; // Store the name of the budget being edited
 	let editBudgetName: string = '';
-	let editBudgetAmount: number = 0;
+	let editBudgetAmount: string = '';
 
 	const handleEditBudget = (budget: Budget) => {
 		editingBudgetName = budget.name; // Store the name for editing
@@ -88,20 +86,20 @@
 			});
 			editingBudgetName = null;
 			editBudgetName = '';
-			editBudgetAmount = 0;
+			editBudgetAmount = '';
 		}
 	};
 
 	const handleCancelEdit = () => {
 		editBudgetName = '';
-		editBudgetAmount = 0;
+		editBudgetAmount = '';
 	};
 
-	let editingExpense: { budgetName: string; expenseIndex: number } | null = null;
+	let editingExpense: { budgetName: string; expenseIndex: string } | null = null;
 	let editExpenseName: string = '';
-	let editExpenseAmount: number = 0;
+	let editExpenseAmount: string = '';
 
-	const handleEditExpense = (budgetName: string, expenseIndex: number, expense: Expense) => {
+	const handleEditExpense = (budgetName: string, expenseIndex: string, expense: Expense) => {
 		editingExpense = { budgetName, expenseIndex };
 		editExpenseName = expense.name;
 		editExpenseAmount = expense.amount;
@@ -122,15 +120,38 @@
 			});
 			editingExpense = null;
 			editExpenseName = '';
-			editExpenseAmount = 0;
+			editExpenseAmount = '';
 		}
 	};
 
 	const handleCancelExpenseEdit = () => {
 		editingExpense = null;
 		editExpenseName = '';
-		editExpenseAmount = 0;
+		editExpenseAmount = '';
 	};
+	function formatNumberInput(e: Event) {
+		const target = e.target as HTMLInputElement; // Type assertion for e.target
+
+		// Get the input value and remove any existing commas
+		let value = target.value.replace(/,/g, '');
+
+		// Format the string with commas as thousands separators
+		value = Number(value).toLocaleString();
+
+		// Update the input value with the formatted string
+		target.value = value;
+	}
+
+	const calculateRemainingBudget = (budget) => {
+  const budgetAmount = Number(budget.amount.replace(/,/g, ''));
+  const totalExpenses = budget.expenses.reduce((total, e) => {
+    const expenseAmount = Number(e.amount.replace(/,/g, ''));
+    return total + expenseAmount;
+  }, 0);
+
+  const remainingBudget = budgetAmount - totalExpenses;
+  return remainingBudget.toLocaleString();
+};
 </script>
 
 <div class="container mx-auto p-4 text-white">
@@ -154,10 +175,12 @@
 				<label for="budget-amount" class="mb-2 block font-bold text-gray-700">Initial Amount:</label
 				>
 				<input
-					type="number"
+					type="text"
 					id="budget-amount"
 					name="amount"
 					bind:value={budgetAmount}
+					pattern="\d+(?:,\d+)*"
+					on:change={(e) => formatNumberInput(e)}
 					min="0"
 					step="0.01"
 					required
@@ -176,7 +199,7 @@
 	{#if $budgets.length > 0}
 		<div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
 			<h3 class="mb-2 text-lg font-bold">Your Budgets</h3>
-			{#each $budgets as budget, i}
+			{#each $budgets as budget}
 				<div class="mb-4 border-t border-gray-600 pt-4">
 					{#if editingBudgetName === budget.name}
 						<!-- {/* Edit form */} -->
@@ -187,8 +210,10 @@
 								class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-white shadow focus:outline-none"
 							/>
 							<input
-								type="number"
+								type="text"
 								bind:value={editBudgetAmount}
+								pattern="\d+(?:,\d+)*"
+								on:change={(e) => formatNumberInput(e)}
 								class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-white shadow focus:outline-none"
 							/>
 							<div class="flex gap-2">
@@ -212,15 +237,17 @@
 						<h4 class="text-lg font-bold">{budget.name}</h4>
 						<p>
 							Initial Amount:
-							<span class="font-semibold">${budget.amount.toFixed(2)}</span>
+							<span class="font-semibold">${Number(budget.amount.replace(/,/g, '')).toLocaleString()}</span>
 						</p>
 
 						<p>
 							Remaining:
 							<span class="font-semibold">
-								${(
-									budget.amount - budget.expenses.reduce((total, e) => total + e.amount, 0)
-								).toFixed(2)}
+								${
+									calculateRemainingBudget(budget)
+
+								}
+						
 							</span>
 						</p>
 
@@ -261,8 +288,10 @@
 						class="focus:shadow-outline mr-2 w-full appearance-none rounded border px-3 py-2 leading-tight text-white shadow focus:outline-none"
 					/>
 					<input
-						type="number"
+						type="text"
 						bind:value={newExpenseAmount}
+						pattern="\d+(?:,\d+)*"
+						on:change={(e) => formatNumberInput(e)}
 						placeholder="Amount"
 						class="focus:shadow-outline mr-2 w-24 appearance-none rounded border px-3 py-2 leading-tight text-white shadow focus:outline-none"
 					/>
@@ -281,7 +310,7 @@
 			{#if $budgets.find((b) => b.name === selectedBudgetName)?.expenses.length > 0}
 				<ul class="list-inside list-disc space-y-4">
 					{#each $budgets.find((b) => b.name === selectedBudgetName)?.expenses ?? [] as expense, expenseIndex}
-						{#if editingExpense?.budgetName === selectedBudgetName && editingExpense?.expenseIndex === expenseIndex}
+						{#if editingExpense?.budgetName === selectedBudgetName && Number(editingExpense?.expenseIndex) === expenseIndex}
 							<!-- {/* Edit form for expense */} -->
 							<form class="flex flex-col gap-2" on:submit|preventDefault={handleSaveExpense}>
 								<input
@@ -290,8 +319,10 @@
 									class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-white shadow focus:outline-none"
 								/>
 								<input
-									type="number"
+									type="text"
 									bind:value={editExpenseAmount}
+									pattern="\d+(?:,\d+)*"
+									on:change={(e) => formatNumberInput(e)}
 									class="focus:shadow-outline w-full appearance-none rounded border px-3 py-2 leading-tight text-white shadow focus:outline-none"
 								/>
 								<div class="flex gap-2">
@@ -313,7 +344,7 @@
 						{:else}
 							<!-- {/* Display expense details */} -->
 							<li>
-								{expense.name}: ${expense.amount.toFixed(2)}
+								{expense.name}: ${Number(expense.amount).toLocaleString()}
 								<button
 									on:click={() => handleEditExpense(selectedBudgetName, expenseIndex, expense)}
 									class="focus:shadow-outline ml-2 rounded bg-blue-500 px-4 py-2 text-xs font-bold text-white hover:bg-blue-700 focus:outline-none"

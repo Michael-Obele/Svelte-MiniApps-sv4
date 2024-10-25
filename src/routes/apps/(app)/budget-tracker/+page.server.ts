@@ -13,7 +13,8 @@ export const actions: Actions = {
 	createBalance: async ({ request }) => {
 		const data = await request.formData();
 		const name = data.get('name') as string;
-		const amount = parseFloat(data.get('amount') as string) || 0;
+		// const amount = parseFloat(data.get('amount') as string) || 0;
+		const amount = parseFloat(String(data.get('amount')).replace(/,/g, ''));
 
 		try {
 			// Validate input (add more validation as needed)
