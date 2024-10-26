@@ -6,8 +6,7 @@
 	import { Toaster } from '$lib/components/ui/sonner';
 	import '../app.pcss';
 	import { ModeWatcher } from 'mode-watcher';
-	import { afterUpdate, onMount } from 'svelte';
-	import { goto, invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
 	import { partytownSnippet } from '@builder.io/partytown/integration';
 	import Footer from '$lib/components/footer.svelte';
 
@@ -74,7 +73,7 @@
 
 <Navbar {userData} />
 
-<Toaster />
+<Toaster position="top-center" />
 
 <slot class="text-gray-900 dark:text-white" />
 

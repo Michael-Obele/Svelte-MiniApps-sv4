@@ -1,6 +1,9 @@
 <script lang="ts">
+	import { buttonVariants } from '$lib/components/ui/button/index.js';
 	import { get } from 'svelte/store';
-	import { budgets, type Budget, type Expense } from '$lib/utils';
+	import * as AlertDialog from '$lib/components/ui/alert-dialog';
+	import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
+	import Button from '$lib/components/ui/button/button.svelte';
 
 	let newExpenseName: string = '';
 	let newExpenseAmount: string = '';
@@ -92,6 +95,10 @@
 		);
 		return (budgetAmount - totalExpenses).toLocaleString();
 	};
+
+	const handleDeleteBudget = (budgetName: string): void => {
+		budgets.set($budgets.filter((b) => b.name !== budgetName));
+	};
 </script>
 
 <div class="container mx-auto p-4 text-white">
@@ -104,7 +111,7 @@
 				type="text"
 				bind:value={budgetName}
 				placeholder="Name"
-				class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
+				class="mb-2 w-full appearance-none rounded border border-white bg-black p-2"
 			/>
 			<input
 				type="text"
@@ -112,8 +119,22 @@
 				pattern="\d+(?:,\d+)*"
 				on:change={formatNumberInput}
 				placeholder="Initial Amount"
-				class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
+				class="mb-2 w-full appearance-none rounded border border-white bg-black p-2"
 			/>
+
+			<select
+				name="currency"
+				id="currency"
+				bind:value={$budgetCurrency}
+				class="mb-2 w-full appearance-none rounded border border-white bg-black p-2 text-center"
+			>
+				<option value="$">USD: $</option>
+				<option value="€">EUR: €</option>
+				<option value="£">GBP: £</option>
+				<option value="₦">NGN: ₦</option>
+				<option value="¥">CNY: ¥</option>
+			</select>
+
 			<button
 				on:click={handleCreateBudget}
 				class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700">Create Budget</button
@@ -155,14 +176,41 @@
 						<h4 class="text-lg font-bold">{budget.name}</h4>
 						<p>
 							Initial Amount: <span class="font-semibold"
-								>${Number(budget.amount.replace(/,/g, '')).toLocaleString()}</span
+								>{$budgetCurrency}{Number(budget.amount.replace(/,/g, '')).toLocaleString()}</span
 							>
 						</p>
-						<p>Remaining: <span class="font-semibold">${calculateRemainingBudget(budget)}</span></p>
-						<button
-							on:click={() => handleEditBudget(budget)}
-							class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700">Edit</button
-						>
+						<p>
+							Remaining: <span class="font-semibold"
+								>{$budgetCurrency}{calculateRemainingBudget(budget)}</span
+							>
+						</p>
+						<div class="flex gap-2">
+							<Button
+								on:click={() => handleEditBudget(budget)}
+								class="bg-blue-500 text-white hover:bg-blue-700">Edit</Button
+							>
+							<AlertDialog.Root>
+								<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}
+									>Delete</AlertDialog.Trigger
+								>
+								<AlertDialog.Content>
+									<AlertDialog.Header>
+										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
+										<AlertDialog.Description>
+											This action cannot be undone. This will permanently delete your account and
+											remove your data from our servers.
+										</AlertDialog.Description>
+									</AlertDialog.Header>
+									<AlertDialog.Footer>
+										<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+										<AlertDialog.Action
+											class={buttonVariants({ variant: 'destructive' })}
+											on:click={() => handleDeleteBudget(budget.name)}>Continue</AlertDialog.Action
+										>
+									</AlertDialog.Footer>
+								</AlertDialog.Content>
+							</AlertDialog.Root>
+						</div>
 					{/if}
 				</div>
 			{/each}
@@ -175,7 +223,8 @@
 				<select
 					id="budget-select"
 					bind:value={selectedBudgetName}
-					class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
+					placeholder="Select a budget"
+					class="mb-2 w-full appearance-none rounded border border-white bg-black p-2"
 				>
 					<option value={null} disabled>Select a budget</option>
 					{#each $budgets as budget}
@@ -185,12 +234,12 @@
 			</div>
 
 			{#if selectedBudgetName}
-				<form class="mt-2 flex items-center" on:submit|preventDefault={handleAddExpense}>
+				<div class="my-2 flex flex-row items-center space-x-2">
 					<input
 						type="text"
 						bind:value={newExpenseName}
 						placeholder="Expense name"
-						class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
+						class="w-full appearance-none rounded border border-white bg-black p-2"
 					/>
 					<input
 						type="text"
@@ -198,12 +247,14 @@
 						pattern="\d+(?:,\d+)*"
 						on:change={formatNumberInput}
 						placeholder="Amount"
-						class="mb-2 w-24 appearance-none rounded border border-gray-300 p-2"
+						class="w-24 appearance-none rounded border border-white bg-black p-2"
 					/>
-					<button type="submit" class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700"
+					<button
+						on:abort={() => handleAddExpense()}
+						class="text-nowrap rounded bg-blue-500 p-2 text-white hover:bg-blue-700"
 						>Add Expense</button
 					>
-				</form>
+				</div>
 			{/if}
 		</div>
 
@@ -215,37 +266,39 @@
 					<ul class="list-inside list-disc space-y-4">
 						{#each $budgets.find((b) => b.name === selectedBudgetName)?.expenses ?? [] as expense, expenseIndex}
 							{#if editingExpense?.budgetName === selectedBudgetName && editingExpense?.expenseIndex === expenseIndex}
-								<form class="flex flex-col gap-2" on:submit|preventDefault={handleSaveExpense}>
+								<form
+									class="flex flex-col items-center gap-2"
+									on:submit|preventDefault={handleSaveExpense}
+								>
 									<input
 										type="text"
 										bind:value={editExpenseName}
-										class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
+										class="w-full appearance-none rounded border border-gray-300 p-2"
 									/>
 									<input
 										type="text"
 										bind:value={editExpenseAmount}
 										pattern="\d+(?:,\d+)*"
 										on:change={formatNumberInput}
-										class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
+										class="w-full appearance-none rounded border border-gray-300 p-2"
 									/>
 									<div class="flex gap-2">
-										<button
-											type="submit"
-											class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700">Save</button
+										<Button type="submit" class="rounded bg-blue-500 text-white hover:bg-blue-700"
+											>Save</Button
 										>
-										<button
+										<Button
 											type="button"
 											on:click={() => (editingExpense = null)}
-											class="rounded bg-gray-500 p-2 text-white hover:bg-gray-700">Cancel</button
+											class="rounded bg-gray-500 text-white hover:bg-gray-700">Cancel</Button
 										>
 									</div>
 								</form>
 							{:else}
 								<li>
-									{expense.name}: ${Number(expense.amount).toLocaleString()}
-									<button
+									{expense.name}: {$budgetCurrency}{Number(expense.amount).toLocaleString()}
+									<Button
 										on:click={() => handleEditExpense(selectedBudgetName, expenseIndex, expense)}
-										class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700">Edit</button
+										class="bg-blue-500 text-white hover:bg-blue-700">Edit</Button
 									>
 								</li>
 							{/if}

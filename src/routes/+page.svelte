@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
@@ -10,6 +11,7 @@
 	import Footer from '../lib/components/footer.svelte';
 	import InfoBlock from './InfoBlock.svelte';
 	import ContentBlock from './ContentBlock.svelte';
+	import { goto } from '$app/navigation';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -30,6 +32,28 @@
 	//
 	export let data;
 	let { contentBlocksData, infoBlocksData } = data;
+
+	const isNotNewYear2025 = () => {
+		const currentDate = new Date();
+		const newYear2025 = new Date('2025-01-01T00:00:00.000Z');
+
+		return currentDate.getTime() !== newYear2025.getTime();
+	};
+
+	onMount(async () => {
+		if (isNotNewYear2025()) {
+			// Run your function here
+			toast('Try our new Budget App!', {
+				icon: CheckCircle2,
+				action: {
+					label: 'OK',
+					onClick: () => goto('/apps/budget-tracker')
+				}
+			});
+			console.log('Running function on mount');
+			// Your function code here
+		}
+	});
 </script>
 
 <svelte:head>

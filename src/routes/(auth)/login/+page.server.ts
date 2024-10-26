@@ -60,7 +60,8 @@ const login: Action = async ({ cookies, request }) => {
 		httpOnly: true,
 		sameSite: 'strict',
 		secure: process.env.NODE_ENV === 'production',
-		maxAge: 60 * 60 * 24 // Set the maxAge to 1 day
+		// set to 1 month
+		maxAge: 60 * 60 * 24 * 30
 	});
 	// Redirect the user to the homepage
 	return redirect(302, '/');

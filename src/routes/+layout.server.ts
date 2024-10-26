@@ -15,10 +15,6 @@ interface User {
 	email: string | null;
 }
 
-interface Password {
-	password: string;
-}
-
 export const load: LayoutServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 

@@ -43,5 +43,7 @@
 			>Try now
 			<ArrowRight size="22" class="mx-1" />
 		</a>
+	{:else}
+		<p class="text-lg font-medium text-gray-500 dark:text-gray-400">Coming Soon!</p>
 	{/if}
 </div>

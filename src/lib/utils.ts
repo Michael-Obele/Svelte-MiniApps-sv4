@@ -122,3 +122,5 @@ export type Expense = {
 
 // Store budgets in localStorage
 export const budgets = persisted<Budget[]>('budgets', []);
+
+export const budgetCurrency = persisted<string>('budget-currency', '$');
