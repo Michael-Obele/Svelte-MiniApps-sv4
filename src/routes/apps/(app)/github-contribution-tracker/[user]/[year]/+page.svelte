@@ -1,13 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ArrowUp, ArrowLeft } from 'lucide-svelte';
-	import { Button } from '$lib/components/ui/button/index.js';
+	import { Button, buttonVariants } from '$lib/components/ui/button/index.js';
 	export let data;
 	const year: string = data.props.year;
 	const user: string = data.props.user;
-
-	let monthAbs = data.monthAbs;
-
+	import * as Drawer from '$lib/components/ui/drawer';
 	import { scaleBand } from 'd3-scale';
 	import { format as formatDate } from 'date-fns';
 
@@ -154,44 +152,54 @@
 
 {#each contributionsByMonth as month, i}
 	{#if month.some((day) => day.contributionCount > 0)}
-		<div class="my-10 space-y-2">
+		<div class="my-10 flex flex-col items-center justify-center space-y-2">
 			<h3 class="text-center text-3xl font-bold text-gray-900 dark:text-white">
 				{formatDate(month[i].date, 'MMMM yyyy')}
 			</h3>
 			<h5 class="text-center text-2xl font-bold text-gray-900 dark:text-white">
 				Total Contributions: {month.reduce((a, b) => a + b.contributionCount, 0)}
 			</h5>
-		</div>
-
-		<div class="ml-8 mr-28 h-[800px] w-[75vw] rounded border p-4 md:mx-auto md:w-[80vw]">
-			<Chart
-				data={month}
-				x="contributionCount"
-				y="date"
-				xDomain={[0, null]}
-				xNice
-				yScale={scaleBand().padding(0.4)}
-				padding={{ left: 20, bottom: 20 }}
-				tooltip={{ mode: 'band' }}
-			>
-				<Svg>
-					<Axis placement="bottom" grid rule />
-					<Axis placement="left" format={(d) => formatDate(d, 'dd MMM')} grid rule />
-					<Bars
-						radius={4}
-						rounded="right"
-						strokeWidth={1}
-						class="fill-green-700 dark:fill-green-500"
-					/>
-					<Highlight area />
-				</Svg>
-				<Tooltip.Root class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black" let:data>
-					<Tooltip.Header>{formatDate(data.date, 'eee, MMMM do')}</Tooltip.Header>
-					<Tooltip.List>
-						<Tooltip.Item label="contributionCount" value={data.contributionCount} />
-					</Tooltip.List>
-				</Tooltip.Root>
-			</Chart>
+			<Drawer.Root>
+				<Drawer.Trigger class={buttonVariants({ variant: 'secondary' })}>View Chart</Drawer.Trigger>
+				<Drawer.Content class="px-3">
+					<div class="mt-5 h-[80vh] w-full rounded border p-4 md:mx-auto md:w-[80vw]">
+						<Chart
+							data={month}
+							x="contributionCount"
+							y="date"
+							xDomain={[0, null]}
+							xNice
+							yScale={scaleBand().padding(0.4)}
+							padding={{ left: 20, bottom: 20 }}
+							tooltip={{ mode: 'band' }}
+						>
+							<Svg>
+								<Axis placement="bottom" grid rule />
+								<Axis placement="left" format={(d) => formatDate(d, 'dd MMM')} grid rule />
+								<Bars
+									radius={4}
+									rounded="right"
+									strokeWidth={1}
+									class="fill-green-700 dark:fill-green-500"
+								/>
+								<Highlight area />
+							</Svg>
+							<Tooltip.Root
+								class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black"
+								let:data
+							>
+								<Tooltip.Header>{formatDate(data.date, 'eee, MMMM do')}</Tooltip.Header>
+								<Tooltip.List>
+									<Tooltip.Item label="contributionCount" value={data.contributionCount} />
+								</Tooltip.List>
+							</Tooltip.Root>
+						</Chart>
+					</div>
+					<Drawer.Footer>
+						<Drawer.Close class={buttonVariants({ variant: 'destructive' })}>Close</Drawer.Close>
+					</Drawer.Footer>
+				</Drawer.Content>
+			</Drawer.Root>
 		</div>
 	{/if}
 {/each}
