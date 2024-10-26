@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ArrowUp, ArrowLeft } from 'lucide-svelte';
-	import SvelteHeatmap from 'svelte-heatmap';
+	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	export let data;
 	const year: string = data.props.year;
@@ -12,18 +12,7 @@
 	import { scaleBand } from 'd3-scale';
 	import { format as formatDate } from 'date-fns';
 
-	import {
-		Chart,
-		Bars,
-		Calendar,
-		Axis,
-		Group,
-		Text,
-		Svg,
-		Tooltip,
-		Highlight,
-		TooltipItem
-	} from 'layerchart';
+	import { Chart, Bars, Calendar, Axis, Group, Text, Svg, Tooltip, Highlight } from 'layerchart';
 
 	interface ContributionItem {
 		date: string;
@@ -70,17 +59,17 @@
 
 	import { sortFunc } from 'svelte-ux';
 
-	// let newData = data.calendar.map((d) => {
-	// 	return {
-	// 		...d,
-	// 		date: new Date(d.date),
-	// 		value: d.contributionCount
-	// 	};
-	// });
+	$: calendarData = data.calendar.map((d) => {
+		return {
+			...d,
+			date: parseISO(d.date),
+			value: d.contributionCount
+		};
+	});
 
-	// $: console.log(newData);
+	// $: console.log({ calendarData });
 
-	$: calendarDataByYear = flatGroup(data.calendar ?? [], (d) => parseISO(d.date).getFullYear());
+	$: calendarDataByYear = flatGroup(calendarData, (d) => d.date.getFullYear());
 	sortFunc((d) => d[0], 'desc');
 </script>
 
@@ -135,21 +124,20 @@
 		<Svg>
 			<Axis placement="left" grid rule />
 			<Axis placement="bottom" format={(d) => formatDate(d, 'MMM')} rule />
-
 			<Bars radius={4} strokeWidth={1} class="fill-green-700 dark:fill-green-500" />
 			<Highlight area />
 		</Svg>
-		<Tooltip
-			class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black"
-			header={(data) => formatDate(data.date, 'MMMM')}
-			let:data
-		>
-			<TooltipItem
-				class="text-black dark:text-slate-900"
-				label="Contributions"
-				value={data.contributionCount}
-			/>
-		</Tooltip>
+
+		<Tooltip.Root class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black" let:data>
+			<Tooltip.Header>{formatDate(data.date, 'MMMM')}</Tooltip.Header>
+			<Tooltip.List>
+				<Tooltip.Item
+					class="text-black dark:text-slate-900"
+					label="Contributions"
+					value={data.contributionCount}
+				/>
+			</Tooltip.List>
+		</Tooltip.Root>
 	</Chart>
 </div>
 
@@ -192,65 +180,17 @@
 					/>
 					<Highlight area />
 				</Svg>
-				<Tooltip
-					class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black"
-					header={(data) => formatDate(data.date, 'eee, MMMM do')}
-					let:data
-				>
-					<TooltipItem label="contributionCount" value={data.contributionCount} />
-				</Tooltip>
+				<Tooltip.Root class="bg-red-800 fill-green-400 dark:bg-red-500 dark:text-black" let:data>
+					<Tooltip.Header>{formatDate(data.date, 'eee, MMMM do')}</Tooltip.Header>
+					<Tooltip.List>
+						<Tooltip.Item label="contributionCount" value={data.contributionCount} />
+					</Tooltip.List>
+				</Tooltip.Root>
 			</Chart>
 		</div>
 	{/if}
 {/each}
 <!-- End of More Stats -->
-
-<!-- <div
-	class="overflow-hidden rounded border p-4"
-	style:height="{140 * calendarDataByYear.length + 16}px"
->
-	<Chart
-		data={newData}
-		x="date"
-		r="value"
-		rScale={scaleThreshold().unknown('transparent')}
-		rDomain={[1, 10, 20, 30]}
-		rRange={[
-			'hsl(var(--color-green-100))',
-			'hsl(var(--color-blue-300))',
-			'hsl(var(--color-blue-500))',
-			'hsl(var(--color-blue-700))',
-			'hsl(var(--color-blue-900))'
-		]}
-		padding={{ top: 8, left: 20 }}
-		let:tooltip
-	>
-		<Svg>
-			{#each calendarDataByYear as [year, calendarData], i}
-				{@const start = startOfYear(calendarData[0].date)}
-				{@const end = endOfYear(calendarData[calendarData.length - 1].date)}
-				<Group y={140 * i}>
-					<Text
-						value={year}
-						class="text-xs"
-						rotate={270}
-						x={-20}
-						y={(16 * 7) / 2}
-						textAnchor="middle"
-						verticalAnchor="start"
-					/>
-					<Calendar {start} {end} {tooltip} cellSize={16} monthPath />
-				</Group>
-			{/each}
-		</Svg>
-
-		<Tooltip header={(d) => format(d.date, PeriodType.Day)} let:data>
-			{#if data?.value != null}
-				<TooltipItem label="Contributions" value={data.value} format="integer" valueAlign="right" />
-			{/if}
-		</Tooltip>
-	</Chart>
-</div> -->
 
 <div id="heatmap" class="my-12 inline-flex w-full items-center justify-center">
 	<hr class="my-8 h-[2px] w-64 rounded-xl border-0 bg-gray-200 dark:bg-gray-700" />
@@ -260,92 +200,38 @@
 	>
 </div>
 
-<div class="mx-auto w-full space-y-8 px-6 py-5 lg:hidden">
-	<SvelteHeatmap
-		allowOverflow={true}
-		cellGap={3}
-		fontColor={'white'}
-		cellRadius={1}
-		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={data.page_data.dataSet}
-		dayLabelWidth={3}
-		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs.map((month) => month.name)}
-		endDate={`${year}-04-01T03:00:00.000Z`}
-		monthGap={10}
-		monthLabelHeight={8}
-		startDate={`${year}-01-01T03:00:00.000Z`}
-		view={'monthly'}
-	/>
-	<SvelteHeatmap
-		allowOverflow={true}
-		cellGap={3}
-		fontColor={'white'}
-		cellRadius={1}
-		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={data.page_data.dataSet}
-		dayLabelWidth={3}
-		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs.map((month) => month.name)}
-		endDate={`${year}-08-01T03:00:00.000Z`}
-		monthGap={10}
-		monthLabelHeight={8}
-		startDate={`${year}-05-01T03:00:00.000Z`}
-		view={'monthly'}
-	/>
-	<SvelteHeatmap
-		allowOverflow={true}
-		cellGap={3}
-		fontColor={'white'}
-		cellRadius={1}
-		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={data.page_data.dataSet}
-		dayLabelWidth={5}
-		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs.map((month) => month.name)}
-		endDate={`${year}-12-01T03:00:00.000Z`}
-		monthGap={10}
-		monthLabelHeight={8}
-		startDate={`${year}-09-01T03:00:00.000Z`}
-		view={'monthly'}
-	/>
-</div>
+<div class="h-[200px] rounded border p-4">
+	<Chart
+		data={calendarData}
+		x="date"
+		c="value"
+		cScale={scaleThreshold().unknown('transparent')}
+		cDomain={[1, 3, 6, 10]}
+		cRange={['#ebf8e1', '#74c476', '#238b45', '#006d2c']}
+		let:tooltip
+	>
+		<Svg>
+			{#each calendarDataByYear as [year, calendarData], i}
+				{@const start = startOfYear(calendarData[0].date)}
+				{@const end = endOfYear(calendarData[calendarData.length - 1].date)}
+				<Calendar {start} {end} {tooltip} monthPath />
+			{/each}
+		</Svg>
 
-<div class="mx-auto hidden w-full space-y-10 px-6 py-2 lg:block">
-	<SvelteHeatmap
-		allowOverflow={true}
-		cellGap={3}
-		dayLabelWidth={2}
-		dayLabels={['', 'Mon', '', 'Web', '', 'Fri', '']}
-		fontColor={'white'}
-		cellRadius={1}
-		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={data.page_data.dataSet}
-		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs.map((month) => month.name)}
-		endDate={`${year}-06-01T03:00:00.000Z`}
-		monthGap={8}
-		monthLabelHeight={25}
-		startDate={`${year}-01-01T03:00:00.000Z`}
-		view={'monthly'}
-	/>
-	<SvelteHeatmap
-		allowOverflow={true}
-		cellGap={3}
-		dayLabelWidth={2}
-		dayLabels={['', 'Mon', '', 'Web', '', 'Fri', '']}
-		fontColor={'white'}
-		cellRadius={1}
-		colors={['#a1dab4', '#42b6c4', '#2c7fb9', '#263494']}
-		data={data.page_data.dataSet}
-		emptyColor={'#ecedf0'}
-		monthLabels={monthAbs.map((month) => month.name)}
-		endDate={`${year}-12-01T03:00:00.000Z`}
-		monthGap={8}
-		monthLabelHeight={25}
-		startDate={`${year}-07-01T03:00:00.000Z`}
-		view={'monthly'}
-	/>
+		<Tooltip.Root let:data>
+			<Tooltip.Header>{format(data.date, PeriodType.Day)}</Tooltip.Header>
+			{#if data?.value != null}
+				<Tooltip.List>
+					<Tooltip.Item
+						label="Contributions"
+						value={data.value}
+						format="integer"
+						valueAlign="right"
+					/>
+				</Tooltip.List>
+			{/if}
+		</Tooltip.Root>
+	</Chart>
 </div>
 
 <div class="mx-auto my-10 flex w-fit items-center justify-center">
