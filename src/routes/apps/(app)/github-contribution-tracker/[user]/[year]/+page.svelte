@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { ArrowUp, ArrowLeft } from 'lucide-svelte';
-	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import { Button } from '$lib/components/ui/button/index.js';
 	export let data;
 	const year: string = data.props.year;
@@ -155,9 +154,15 @@
 
 {#each contributionsByMonth as month, i}
 	{#if month.some((day) => day.contributionCount > 0)}
-		<h3 class="my-8 text-center text-3xl font-bold text-gray-900 dark:text-white">
-			{formatDate(month[i].date, 'MMMM yyyy')}
-		</h3>
+		<div class="my-10 space-y-2">
+			<h3 class="text-center text-3xl font-bold text-gray-900 dark:text-white">
+				{formatDate(month[i].date, 'MMMM yyyy')}
+			</h3>
+			<h5 class="text-center text-2xl font-bold text-gray-900 dark:text-white">
+				Total Contributions: {month.reduce((a, b) => a + b.contributionCount, 0)}
+			</h5>
+		</div>
+
 		<div class="ml-8 mr-28 h-[800px] w-[75vw] rounded border p-4 md:mx-auto md:w-[80vw]">
 			<Chart
 				data={month}
