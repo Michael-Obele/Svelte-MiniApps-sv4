@@ -200,7 +200,7 @@
 	>
 </div>
 
-<div class="h-[200px] rounded border p-4">
+<div class="h-[20vw] w-[95vw] rounded border p-4 pl-6 pt-6">
 	<Chart
 		data={calendarData}
 		x="date"
@@ -214,7 +214,18 @@
 			{#each calendarDataByYear as [year, calendarData], i}
 				{@const start = startOfYear(calendarData[0].date)}
 				{@const end = endOfYear(calendarData[calendarData.length - 1].date)}
-				<Calendar {start} {end} {tooltip} monthPath />
+				<Group y={140 * i}>
+					<Text
+						value={year}
+						class="left-5 mx-3 p-5 text-xs"
+						rotate={270}
+						x={-20}
+						y={(16 * 7) / 2}
+						textAnchor="middle"
+						verticalAnchor="start"
+					/>
+					<Calendar {start} {end} {tooltip} monthPath />
+				</Group>
 			{/each}
 		</Svg>
 
