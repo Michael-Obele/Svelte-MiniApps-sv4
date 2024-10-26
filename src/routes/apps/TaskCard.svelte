@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Tags from './Tags.svelte';
 	import { done } from '$lib/index';
-	import { BadgeCheck, HardHat, ArrowRight } from 'lucide-svelte';
-
+	import { BadgeCheck, HardHat, ArrowRight, Info } from 'lucide-svelte';
+	import * as Tooltip from '$lib/components/ui/tooltip';
 	export let item;
 </script>
 
@@ -44,6 +44,23 @@
 			<ArrowRight size="22" class="mx-1" />
 		</a>
 	{:else}
-		<p class="text-lg font-medium text-gray-500 dark:text-gray-400">Coming Soon!</p>
+		<div class="flex flex-row items-center space-x-2">
+			<p class="text-lg font-medium text-gray-500 dark:text-gray-400">Coming Soon!</p>
+			<Tooltip.Root>
+				<Tooltip.Trigger>
+					<Info size={20} />
+				</Tooltip.Trigger>
+				<Tooltip.Content
+					class="max-w-[200px] rounded-md border border-gray-200 px-2.5 py-1 text-sm font-medium text-gray-900 dark:border-gray-700 dark:text-gray-200"
+				>
+					<p>
+						Coming soon! Contribute on <a
+							class="underline"
+							href="https://github.com/Michael-Obele/Svelte-MiniApps">GitHub</a
+						> to help us launch faster.
+					</p>
+				</Tooltip.Content>
+			</Tooltip.Root>
+		</div>
 	{/if}
 </div>
