@@ -1,6 +1,7 @@
 <script lang="ts">
+	import InfoBtn from './info.svelte';
+
 	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import { get } from 'svelte/store';
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
 	import Button from '$lib/components/ui/button/button.svelte';
@@ -110,7 +111,10 @@
 </script>
 
 <div class="container mx-auto p-4 text-white">
-	<h2 class="mb-4 text-2xl font-bold">Budget Tracker</h2>
+	<h2 class="mb-4 flex items-center gap-2 text-2xl font-bold">
+		Budget Tracker
+		<InfoBtn />
+	</h2>
 
 	<div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
 		<h3 class="mb-2 text-lg font-bold">Create Budget</h3>
