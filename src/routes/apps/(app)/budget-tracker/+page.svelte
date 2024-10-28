@@ -21,6 +21,14 @@
 		}
 	};
 
+	const handleToggleExpenseDone = (budgetName: string, expenseIndex: number): void => {
+		const budget = $budgets.find((b) => b.name === budgetName);
+		if (budget) {
+			budget.expenses[expenseIndex].done = !budget.expenses[expenseIndex].done;
+			budgets.set($budgets);
+		}
+	};
+
 	let budgetName: string = '';
 	let budgetAmount: string = '';
 
@@ -250,7 +258,7 @@
 						class="w-24 appearance-none rounded border border-white bg-black p-2"
 					/>
 					<button
-						on:abort={() => handleAddExpense()}
+						on:click={() => handleAddExpense()}
 						class="text-nowrap rounded bg-blue-500 p-2 text-white hover:bg-blue-700"
 						>Add Expense</button
 					>
@@ -263,7 +271,7 @@
 			{#if $budgets.length > 0}
 				{@const budget = $budgets.find((b) => b.name === selectedBudgetName)}
 				{#if budget && budget.expenses?.length > 0}
-					<ul class="list-inside list-disc space-y-4">
+					<ul class="mt-4 list-inside list-disc space-y-4">
 						{#each $budgets.find((b) => b.name === selectedBudgetName)?.expenses ?? [] as expense, expenseIndex}
 							{#if editingExpense?.budgetName === selectedBudgetName && editingExpense?.expenseIndex === expenseIndex}
 								<form
@@ -295,12 +303,26 @@
 								</form>
 							{:else}
 								<li>
-									{expense.name}: {$budgetCurrency}{Number(expense.amount).toLocaleString()}
+									<span class={expense.done ? 'line-through opacity-50' : ''}>
+										<span class="text-lg font-medium text-gray-900 dark:text-white">
+											{expense.name}:
+										</span>
+										<span class="text-lg font-medium text-gray-700 dark:text-gray-200">
+											{$budgetCurrency}{Number(expense.amount).toLocaleString()}
+										</span>
+									</span>
 									<Button
 										on:click={() => handleEditExpense(selectedBudgetName, expenseIndex, expense)}
-										class="bg-blue-500 text-white hover:bg-blue-700">Edit</Button
+										class="mx-3 bg-blue-500 p-1 px-4 text-white hover:bg-blue-700">Edit</Button
 									>
+									<Button
+										on:click={() => handleToggleExpenseDone(selectedBudgetName, expenseIndex)}
+										class="bg-green-500 p-1 px-4 text-white hover:bg-green-700"
+									>
+										{expense.done ? 'Undo' : 'Done'}
+									</Button>
 								</li>
+								<hr class="border-gray-200 dark:border-gray-700" />
 							{/if}
 						{/each}
 					</ul>

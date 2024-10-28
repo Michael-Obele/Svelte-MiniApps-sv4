@@ -118,6 +118,7 @@ export type Budget = {
 export type Expense = {
 	name: string;
 	amount: string;
+	done?: boolean;
 };
 
 // Store budgets in localStorage
