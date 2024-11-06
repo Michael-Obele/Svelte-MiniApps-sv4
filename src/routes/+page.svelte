@@ -42,16 +42,13 @@
 
 	onMount(async () => {
 		if (isNotNewYear2025()) {
-			// Run your function here
 			toast('Try our new Budget App!', {
 				icon: CheckCircle2,
 				action: {
 					label: 'OK',
-					onClick: () => goto('/apps/budget-tracker')
+					onClick: () => toast.dismiss()
 				}
 			});
-			console.log('Running function on mount');
-			// Your function code here
 		}
 	});
 </script>

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { sitename, siteurl, siteimage } from '$lib'; // Import site-related variables
 	import { enhance } from '$app/forms';
 	import type { ActionData, SubmitFunction } from './$types';
 	import { _currencies } from './+page';
@@ -70,6 +71,51 @@
 		target.value = value;
 	}
 </script>
+
+<svelte:head>
+	<title>Currency Converter - {sitename}</title>
+	<meta
+		name="description"
+		content="Convert currencies effortlessly with our easy-to-use currency converter. Get instant results and accurate exchange rates."
+	/>
+	<meta
+		name="keywords"
+		content="currency converter, exchange rates, currency exchange, money converter, convert money"
+	/>
+
+	<!-- Open Graph Meta Tags -->
+	<meta property="og:title" content="Currency Converter - {sitename}" />
+	<meta
+		property="og:description"
+		content="Convert currencies easily and quickly with our free online tool."
+	/>
+	<meta property="og:image" content={siteimage} />
+	<meta property="og:url" content="{siteurl}apps/currency-converter" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content={sitename} />
+	<meta property="og:locale" content="en_US" />
+
+	<!-- Twitter Card Meta Tags -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Currency Converter - {sitename}" />
+	<meta
+		name="twitter:description"
+		content="Convert currencies easily and quickly with our free online tool."
+	/>
+	<meta name="twitter:image" content={siteimage} />
+	<meta name="twitter:site" content="@yourtwitterhandle" />
+	<!-- Optional -->
+	<meta name="twitter:creator" content="@yourtwitterhandle" />
+	<!-- Optional -->
+
+	<!-- Canonical URL -->
+	<link rel="canonical" href="{siteurl}apps/currency-converter" />
+
+	<!-- Other optional meta tags -->
+	<meta name="robots" content="index, follow" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charSet="UTF-8" />
+</svelte:head>
 
 <section class="my-8 px-4 text-center">
 	<h1 class="mb-4 text-4xl font-bold text-gray-800 dark:text-gray-200">

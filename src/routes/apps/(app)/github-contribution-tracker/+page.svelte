@@ -6,6 +6,7 @@
 	import { redirect, type SubmitFunction } from '@sveltejs/kit';
 	import { getContext, onMount } from 'svelte';
 	import { toast } from 'svelte-sonner';
+	import { siteurl, sitename, siteimage } from '$lib';
 
 	const { userUsername } = getContext<UserContext>('userContext');
 	let username: string;
@@ -61,30 +62,38 @@
 </script>
 
 <svelte:head>
-	<title>Svelte MiniApps - GitHub Contribution Tracker</title>
+	<title>{sitename} - GitHub Contribution Tracker</title>
 	<meta
 		name="description"
 		content="Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more."
 	/>
-	<meta property="og:title" content="Svelte MiniApps - GitHub Contribution Tracker" />
+	<meta
+		name="keywords"
+		content="GitHub, Contributions, Tracker, Visualization, Heatmap, Svelte, SvelteKit, Open Source"
+	/>
+	{#await siteurl then}<meta
+			name="keywords"
+			content="GitHub, Contributions, Tracker, Visualization, Heatmap, Svelte, SvelteKit, Open Source"
+		/>{/await}
+	<meta property="og:title" content="{sitename} - GitHub Contribution Tracker" />
 	<meta
 		property="og:description"
 		content="Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more."
 	/>
-	<meta property="og:url" content="https://svelte-apps.me/apps/github-contribution-tracker" />
-	<meta property="og:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
+	<meta property="og:url" content={siteurl + 'apps/github-contribution-tracker'} />
+	<meta property="og:image" content={siteimage} />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 
 	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Svelte MiniApps - GitHub Contribution Tracker" />
+	<meta name="twitter:title" content="{sitename} - GitHub Contribution Tracker" />
 	<meta
 		name="twitter:description"
 		content="Track and visualize your GitHub contributions with interactive charts and heatmaps."
 	/>
-	<meta name="twitter:image" content="https://i.ibb.co/ZhhhnCz/svelte-badge.png" />
+	<meta name="twitter:image" content={siteimage} />
 
-	<link rel="canonical" href="https://svelte-apps.me/apps/github-contribution-tracker" />
+	<link rel="canonical" href={siteurl + 'apps/github-contribution-tracker'} />
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<meta charset="UTF-8" />
 	<meta name="robots" content="index, follow" />
@@ -92,9 +101,16 @@
 		{
 			"@context": "http://schema.org",
 			"@type": "WebApplication",
-			"name": "Svelte MiniApps - GitHub Contribution Tracker",
-			"url": "https://svelte-apps.me/apps/github-contribution-tracker",
-			"description": "Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more."
+			"name": "{sitename} - GitHub Contribution Tracker",
+			"url": siteurl + "apps/github-contribution-tracker",
+			"description": "Track and visualize your GitHub contributions with interactive charts and heatmaps. Analyze your coding activity, streaks, and more.",
+            "applicationCategory": "developer-tool", // More specific category
+            "operatingSystem": "Web",
+            "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+             }
 		}
 	</script>
 </svelte:head>
@@ -112,7 +128,7 @@
 
 	<div class="mt-5">
 		<h3 class="text-center text-xl">Enter Details</h3>
-		<form on:submit={handleSubmit} class="mx-auto mt-5 max-w-sm p-3" method="POST">
+		<form use:enhance={handleSubmit} class="mx-auto mt-5 max-w-sm p-3" method="POST">
 			<div class="mb-5">
 				<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 					>Your GitHub Username</label

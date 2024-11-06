@@ -73,7 +73,7 @@
 
 <Navbar {userData} />
 
-<Toaster closeButton position="top-center" />
+<Toaster position="top-center" />
 
 <slot class="text-gray-900 dark:text-white" />
 

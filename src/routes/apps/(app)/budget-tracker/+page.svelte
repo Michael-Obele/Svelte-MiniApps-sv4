@@ -5,7 +5,7 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
 	import Button from '$lib/components/ui/button/button.svelte';
-	import { siteimage, siteurl } from '$lib';
+	import { siteimage, siteurl, sitename } from '$lib';
 
 	let newExpenseName: string = '';
 	let newExpenseAmount: string = '';
