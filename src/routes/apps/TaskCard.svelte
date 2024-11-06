@@ -1,9 +1,13 @@
 <script lang="ts">
 	import Tags from './Tags.svelte';
-	import { done } from '$lib/index';
 	import { BadgeCheck, HardHat, ArrowRight, Info } from 'lucide-svelte';
 	import * as Tooltip from '$lib/components/ui/tooltip';
-	export let item;
+	import { done, type Project } from '$lib/index';
+
+	interface Props {
+		item: Project;
+	}
+	let { item }: Props = $props();
 </script>
 
 <div
