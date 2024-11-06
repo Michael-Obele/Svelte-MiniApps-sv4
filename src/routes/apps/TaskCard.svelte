@@ -1,9 +1,13 @@
 <script lang="ts">
 	import Tags from './Tags.svelte';
-	import { done } from '$lib/index';
 	import { BadgeCheck, HardHat, ArrowRight, Info } from 'lucide-svelte';
 	import * as Tooltip from '$lib/components/ui/tooltip';
-	export let item;
+	import { done, type Project } from '$lib/index';
+
+	interface Props {
+		item: Project;
+	}
+	let { item }: Props = $props();
 </script>
 
 <div
@@ -52,12 +56,12 @@
 				<Tooltip.Content
 					class="max-w-[200px] rounded-md border border-gray-200 px-2.5 py-1 text-sm font-medium text-gray-900 dark:border-gray-700 dark:text-gray-200"
 				>
-					<p>
+					<span class="">
 						Coming soon! Contribute on <a
 							class="underline"
 							href="https://github.com/Michael-Obele/Svelte-MiniApps">GitHub</a
 						> to help us launch faster.
-					</p>
+					</span>
 				</Tooltip.Content>
 			</Tooltip.Root>
 		</div>
