@@ -43,7 +43,7 @@
 			<ArrowRight size="22" class="mx-1" />
 		</span>
 	{:else}
-		<div class="flex flex-row items-center space-x-2">
+		<div class="absolute bottom-5 flex flex-row items-center space-x-2">
 			<p class="text-lg font-medium text-gray-500 dark:text-gray-400">Coming Soon!</p>
 			<Tooltip.Root>
 				<Tooltip.Trigger>
