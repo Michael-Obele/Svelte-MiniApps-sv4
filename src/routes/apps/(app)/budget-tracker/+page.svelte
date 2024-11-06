@@ -5,6 +5,7 @@
 	import * as AlertDialog from '$lib/components/ui/alert-dialog';
 	import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
 	import Button from '$lib/components/ui/button/button.svelte';
+	import { siteimage, siteurl } from '$lib';
 
 	let newExpenseName: string = '';
 	let newExpenseAmount: string = '';
@@ -109,6 +110,45 @@
 		budgets.set($budgets.filter((b) => b.name !== budgetName));
 	};
 </script>
+
+<svelte:head>
+	<title>Budget Tracker</title>
+	<meta
+		name="description"
+		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
+	/>
+	<meta
+		name="keywords"
+		content="budget, tracker, expenses, finance, money, savings, budgeting, financial planning"
+	/>
+	<meta name="robots" content="index, follow" />
+
+	<!-- Open Graph meta tags for social sharing -->
+	<meta property="og:title" content="Budget Tracker" />
+	<meta
+		property="og:description"
+		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
+	/>
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content={siteurl} />
+	<!-- Replace with your URL -->
+	<meta property="og:image" content={siteimage} />
+	<!-- Replace with your image URL -->
+
+	<!-- Twitter Card meta tags for Twitter sharing -->
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Budget Tracker" />
+	<meta
+		name="twitter:description"
+		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
+	/>
+	<meta name="twitter:image" content={siteimage} />
+	<!-- Replace with your image URL -->
+
+	<!-- Add more meta tags as needed based on your specific content and target audience -->
+	<link rel="canonical" href={siteurl} />
+	<!-- Important for SEO, prevents duplicate content issues -->
+</svelte:head>
 
 <div class="container mx-auto p-4 text-white">
 	<h2 class="mb-4 flex items-center gap-2 text-2xl font-bold">
