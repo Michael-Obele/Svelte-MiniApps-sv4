@@ -8,7 +8,9 @@
 <div class="mx-12 my-8 flex h-fit flex-col gap-5 md:grid md:grid-cols-2">
 	{#each items as item}
 		{#if done.includes(item.title)}
-			<TaskCard {item} />
+			<a href={'/apps/' + item.title.replace(/\s+/g, '-').toLowerCase()}>
+				<TaskCard {item} />
+			</a>
 		{:else}
 			<TaskCard {item} />
 		{/if}

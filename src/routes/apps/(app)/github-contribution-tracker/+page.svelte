@@ -37,28 +37,6 @@
 			}
 		);
 	}
-
-	// Start form submission process.
-	// const handleSubmit: SubmitFunction = ({ formData }) => {
-	// 	isLoading = true; // Indicate submission is in progress.
-	// 	toast.loading('Submitting...'); // Show loading toast.
-	// 	fetch(`/apps/GitHub-Contribution-Tracker/${username}/${year}`, {
-	// 		method: 'POST',
-	// 		body: formData
-	// 	}).then(async (response) => {
-	// 		if (!response.ok) {
-	// 			toast.error('Error'); // Show error toast.
-	// 		} else {
-	// 			toast.success('Success', {
-	// 				action: {
-	// 					label: 'OK',
-	// 					onClick: () => toast.dismiss()
-	// 				}
-	// 			}); // Show success toast.
-	// 		}
-	// 		isLoading = false; // Submission process ends.
-	// 	});
-	// };
 </script>
 
 <svelte:head>
