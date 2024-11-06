@@ -37,12 +37,11 @@
 		{item.details}
 	</p>
 	{#if done.includes(item.title)}
-		<a
-			href={'/apps/' + item.title.replace(/\s+/g, '-').toLowerCase()}
+		<span
 			class="absolute bottom-5 inline-flex items-center text-lg font-medium text-red-600 group-hover:underline dark:text-red-500"
 			>Try now
 			<ArrowRight size="22" class="mx-1" />
-		</a>
+		</span>
 	{:else}
 		<div class="flex flex-row items-center space-x-2">
 			<p class="text-lg font-medium text-gray-500 dark:text-gray-400">Coming Soon!</p>
