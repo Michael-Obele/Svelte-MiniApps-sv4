@@ -42,11 +42,11 @@
 
 	onMount(async () => {
 		if (isNotNewYear2025()) {
-			toast('Try our new Budget App!', {
+			let budgetToast = toast('Try our new Budget App!', {
 				icon: CheckCircle2,
 				action: {
 					label: 'OK',
-					onClick: () => toast.dismiss()
+					onClick: () => toast.dismiss(budgetToast)
 				}
 			});
 		}
