@@ -3,9 +3,9 @@
 	import { onMount } from 'svelte';
 	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
-	import { ArrowRight, CheckCircle2, Cookie } from 'lucide-svelte';
+	import { ArrowRight, BadgeDollarSign, CheckCircle2, Cookie } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
-	import { seenCookie } from '$lib/utils';
+	import { seenCookie, seenNewAppAlert } from '$lib/utils';
 	import LordIcon from './LordIcon.svelte';
 	//
 	import Footer from '../lib/components/footer.svelte';
@@ -28,29 +28,20 @@
 			icon: Cookie
 		});
 	}
+
+	if ($seenNewAppAlert == false) {
+		toast('Try our new Budget App!', {
+			action: {
+				label: 'OK',
+				onClick: () => seenNewAppAlert.set(true)
+			},
+			icon: BadgeDollarSign
+		});
+	}
 	let userData = $page.data.user.userData;
 	//
 	export let data;
 	let { contentBlocksData, infoBlocksData } = data;
-
-	const isNotNewYear2025 = () => {
-		const currentDate = new Date();
-		const newYear2025 = new Date('2025-01-01T00:00:00.000Z');
-
-		return currentDate.getTime() !== newYear2025.getTime();
-	};
-
-	onMount(async () => {
-		if (isNotNewYear2025()) {
-			let budgetToast = toast('Try our new Budget App!', {
-				icon: CheckCircle2,
-				action: {
-					label: 'OK',
-					onClick: () => toast.dismiss(budgetToast)
-				}
-			});
-		}
-	});
 </script>
 
 <svelte:head>

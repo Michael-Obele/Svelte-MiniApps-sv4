@@ -81,6 +81,7 @@ export const savePassword = writable(false);
 export const showPassword = writable(false);
 
 export const seenCookie = persisted<boolean>('seen-cookie', false);
+export const seenNewAppAlert = persisted<boolean>('seen-new-app-alert', false);
 
 /**
  * Scrolls the page smoothly to the element with the specified ID.
