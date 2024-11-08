@@ -38,7 +38,7 @@
 		"tslib": "^2.4.1",
 		"typescript": "^5.5.0",
 		"vaul-svelte": "^0.3.2",
-		"vite": "^5.4.4",
+		"vite": "^5.0.3",
 		"workbox-precaching": "^7.0.0"
 	},
 	"type": "module",
@@ -85,8 +85,7 @@
 		"svelte-ux": "^0.74.8",
 		"sveltekit-superforms": "^2.12.2",
 		"tailwind-merge": "^2.3.0",
-		"tailwind-variants": "^0.2.1",
-		"zod": "^3.22.4"
+		"tailwind-variants": "^0.2.1"
 	},
 	"trustedDependencies": [
 		"@prisma/client",

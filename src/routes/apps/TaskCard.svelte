@@ -4,10 +4,7 @@
 	import * as Tooltip from '$lib/components/ui/tooltip';
 	import { done, type Project } from '$lib/index';
 
-	interface Props {
-		item: Project;
-	}
-	let { item }: Props = $props();
+	export let item: Project;
 </script>
 
 <div

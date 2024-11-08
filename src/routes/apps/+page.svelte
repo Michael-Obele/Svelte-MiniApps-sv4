@@ -4,7 +4,6 @@
 
 	import { filter } from '$lib/utils';
 	import Input from '$lib/components/ui/input/input.svelte';
-	import { afterUpdate } from 'svelte';
 
 	function setFilterValue(filterValue: string): () => void {
 		return () => {
