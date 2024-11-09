@@ -106,7 +106,7 @@
 
 	<div class="mt-5">
 		<h3 class="text-center text-xl">Enter Details</h3>
-		<form use:enhance={handleSubmit} class="mx-auto mt-5 max-w-sm p-3" method="POST">
+		<form on:submit={handleSubmit} class="mx-auto mt-5 max-w-sm p-3" method="POST">
 			<div class="mb-5">
 				<label for="user" class="mb-2 block text-sm font-medium text-gray-900 dark:text-white"
 					>Your GitHub Username</label
