@@ -48,13 +48,6 @@
 		detectSWUpdate();
 	});
 
-	onMount(() => {
-		const script = document.createElement('script');
-		script.src = 'https://cdn.lordicon.com/lordicon.js';
-		script.async = true;
-		document.head.appendChild(script);
-	});
-
 	$: userData = $page.data.user.userData;
 </script>
 
@@ -67,8 +60,10 @@
 		};
 	</script>
 
-	{@html '<script>' + partytownSnippet() + '</script>'}
+	<script defer src="https://cdn.lordicon.com/lordicon.js"></script>
 
+	{@html '<script>' + partytownSnippet() + '</script>'}
+	<!-- Google tag (gtag.js) -->
 	<script
 		type="text/partytown"
 		src="https://www.googletagmanager.com/gtag/js?id=G-3QH4C3V22M"
