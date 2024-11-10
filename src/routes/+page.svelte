@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { onMount } from 'svelte';
 	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, BadgeDollarSign, CheckCircle2, Cookie } from 'lucide-svelte';
@@ -8,10 +7,8 @@
 	import { seenCookie, seenNewAppAlert } from '$lib/utils';
 	import LordIcon from './LordIcon.svelte';
 	//
-	import Footer from '../lib/components/footer.svelte';
 	import InfoBlock from './InfoBlock.svelte';
 	import ContentBlock from './ContentBlock.svelte';
-	import { goto } from '$app/navigation';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';

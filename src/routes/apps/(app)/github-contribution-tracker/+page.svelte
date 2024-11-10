@@ -25,6 +25,7 @@
 				const data = await response.json();
 				if (!response.ok) {
 					isLoading = false;
+					goto(window.location.pathname);
 				} else {
 					goto(`github-contribution-tracker/${username}/${year}`);
 					return true;
