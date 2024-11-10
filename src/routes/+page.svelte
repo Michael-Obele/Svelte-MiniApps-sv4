@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import { onMount } from 'svelte';
 	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, BadgeDollarSign, CheckCircle2, Cookie } from 'lucide-svelte';
@@ -9,6 +10,8 @@
 	//
 	import InfoBlock from './InfoBlock.svelte';
 	import ContentBlock from './ContentBlock.svelte';
+	//
+	import { requestNotificationPermission } from '$lib/notifications';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -39,6 +42,12 @@
 	//
 	export let data;
 	let { contentBlocksData, infoBlocksData } = data;
+
+	onMount(() => {
+		// Optionally request permission on component mount
+		// ADD: notification feature to the app
+		// requestNotificationPermission();
+	});
 </script>
 
 <svelte:head>
