@@ -65,18 +65,6 @@ async function fetchCommit(user: string, year: number | string): Promise<Contrib
  * @returns An object containing the user and year props, contributionsInfo with contributions data, and streakStats with streak stats data.
  */
 async function fetchData(user: string, year: number | string) {
-	// Create start and end dates but fetches the entire year though.
-	const startDate = `${year}-02-01`;
-	const endDate = `${year}-03-31`;
-
-	// Fetch GitHub contributions data
-	const contributionsApiUrl = `https://github.com/users/${user}/contributions?from=${startDate}&to=${endDate}`;
-	const contributionsResponse = await fetch(contributionsApiUrl);
-	if (!contributionsResponse.ok) {
-		console.error(`Failed to fetch GitHub contributions for ${user}`);
-	}
-	const contributionsHtmlData = await contributionsResponse.text();
-
 	// New GitHub contributions data
 	info = await fetchCommit(user, year);
 	const {
@@ -106,7 +94,6 @@ async function fetchData(user: string, year: number | string) {
 	// Return an object with user, year, contributions data, and streak stats data
 	return {
 		props: { user, year },
-		contributionsInfo: contributionsHtmlData,
 		streakStats: streakStatsSvgData,
 		totalContributions,
 		gitContributions
@@ -142,7 +129,6 @@ export async function load({
 		let data = await fetchData(user, year);
 		return {
 			props: { user, year },
-			contributionsInfo: data.contributionsInfo,
 			streakStats: data.streakStats,
 			gitContributions: data.gitContributions,
 			totalContributions: data.totalContributions
@@ -168,7 +154,6 @@ export const actions = {
 			let data = await fetchData(user, year);
 			return {
 				props: { user, year },
-				contributionsInfo: data.contributionsInfo,
 				streakStats: data.streakStats
 			};
 		} catch (error) {

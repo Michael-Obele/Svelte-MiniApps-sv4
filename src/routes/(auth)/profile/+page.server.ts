@@ -13,6 +13,7 @@ export const load: PageServerLoad = async (event) => {
 		return redirect(303, '/Login');
 	}
 };
+
 export const actions: Actions = {
 	// View action to display saved passwords for a user
 	viewPasswords: async ({ request }) => {
