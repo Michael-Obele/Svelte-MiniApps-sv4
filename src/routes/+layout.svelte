@@ -1,7 +1,5 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import { toast } from 'svelte-sonner';
-	import { Download } from 'lucide-svelte';
 	import Navbar from '$lib/components/navbar.svelte';
 	import { Toaster } from '$lib/components/ui/sonner';
 	import '../app.pcss';
@@ -9,19 +7,36 @@
 	import { onMount } from 'svelte';
 	import { partytownSnippet } from '@builder.io/partytown/integration';
 	import Footer from '$lib/components/footer.svelte';
+	import { writable } from 'svelte/store';
 
-	let updateAvailable = false;
+	// Make updateAvailable reactive
+	export const updateAvailable = writable(false);
 
-	let registration: ServiceWorkerRegistration; // Store the registration globally
+	let registration: ServiceWorkerRegistration;
 
 	async function detectSWUpdate() {
 		try {
+			// Wait for the service worker registration to be ready
 			registration = await navigator.serviceWorker.ready;
 
+			// Listen for an update to the service worker
 			registration.addEventListener('updatefound', () => {
-				// We'll prompt the user as soon as 'updatefound' is fired
-				if (registration.installing) {
-					updateAvailable = true;
+				const newWorker = registration.installing;
+
+				if (newWorker) {
+					newWorker.addEventListener('statechange', () => {
+						// Check if the new service worker is installed and ready to take over
+						if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+							// Set updateAvailable to true to make it reactive
+							updateAvailable.set(true);
+
+							// Prompt the user to reload for the update
+							if (confirm('A new version is available. Would you like to reload to update?')) {
+								newWorker.postMessage({ type: 'SKIP_WAITING' });
+								window.location.reload();
+							}
+						}
+					});
 				}
 			});
 		} catch (error) {
@@ -34,11 +49,10 @@
 	});
 
 	onMount(() => {
-		setTimeout(() => {
-			const script = document.createElement('script');
-			script.src = 'https://cdn.lordicon.com/lordicon.js';
-			document.body.appendChild(script);
-		}, 3000);
+		const script = document.createElement('script');
+		script.src = 'https://cdn.lordicon.com/lordicon.js';
+		script.async = true;
+		document.head.appendChild(script);
 	});
 
 	$: userData = $page.data.user.userData;
