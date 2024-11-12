@@ -9,14 +9,16 @@
 		<!-- Existing Scroll to Top Button -->
 		<div class="mx-auto mb-8 flex w-fit items-center justify-center space-x-3">
 			<button
-				class="mx-auto flex w-fit space-x-2 rounded-full bg-white p-2 text-green-500 hover:bg-red-400 hover:text-white dark:bg-green-500 dark:text-black dark:hover:bg-green-400 dark:hover:text-black"
+				class="mx-auto flex w-fit items-center space-x-2 rounded-md bg-white p-2 px-3 text-green-700 hover:bg-red-400 hover:text-white dark:bg-green-500 dark:text-black dark:hover:bg-green-400 dark:hover:text-black"
 				on:click={scrollToTop}
 			>
 				Back to top
-				<ArrowUp />
+				<ArrowUp class="ml-2 size-5" />
 			</button>
 			<ThemeSwitch />
 		</div>
+
+		
 
 		<!-- New Content: Made with Love and Installable Message -->
 		<div class="mt-2 flex flex-col flex-wrap items-center justify-center gap-4">
