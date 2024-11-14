@@ -5,7 +5,7 @@
 		title: string;
 		description: string;
 	}
-	export var data: { features: any; reasons: any; future: any; next: any };
+	export let data: { features: any; reasons: any; future: any; next: any };
 
 	import { _splitDescription } from './+page';
 	import { onMount } from 'svelte';
