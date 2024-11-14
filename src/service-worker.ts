@@ -10,9 +10,6 @@ import { build, files, version } from '$service-worker';
 
 const CACHE = `cache-${version}`;
 const ASSETS = [...build, ...files];
-const LORDICON_URL = 'https://cdn.lordicon.com/lordicon.js';
-
-ASSETS.push(LORDICON_URL);
 
 self.addEventListener('install', (event) => {
 	async function addFilesToCache() {
@@ -41,10 +38,6 @@ self.addEventListener('fetch', (event) => {
 		if (ASSETS.includes(url.pathname)) {
 			const cachedResponse = await cache.match(url.pathname);
 			return cachedResponse ?? fetchAndCache(event.request, cache);
-		}
-
-		if (event.request.url === LORDICON_URL) {
-			return fetchAndCache(event.request, cache);
 		}
 
 		try {
