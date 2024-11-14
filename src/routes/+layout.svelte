@@ -47,7 +47,15 @@
 	onMount(() => {
 		detectSWUpdate();
 	});
-
+	//
+	import lottie from 'lottie-web';
+	onMount(async () => {
+		// Make onMount async
+		// Dynamically import @lordicon/element *inside* onMount
+		const { defineElement } = await import('@lordicon/element');
+		defineElement(lottie.loadAnimation);
+	});
+	//
 	$: userData = $page.data.user.userData;
 </script>
 
@@ -59,8 +67,6 @@
 			forward: ['dataLayer.push', 'gtag']
 		};
 	</script>
-
-	<script defer src="https://cdn.lordicon.com/lordicon.js"></script>
 
 	{@html '<script>' + partytownSnippet() + '</script>'}
 	<!-- Google tag (gtag.js) -->

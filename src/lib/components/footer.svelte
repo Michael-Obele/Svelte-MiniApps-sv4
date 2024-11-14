@@ -18,8 +18,6 @@
 			<ThemeSwitch />
 		</div>
 
-		
-
 		<!-- New Content: Made with Love and Installable Message -->
 		<div class="mt-2 flex flex-col flex-wrap items-center justify-center gap-4">
 			<span class="flex flex-row flex-wrap items-center justify-between space-x-4">
