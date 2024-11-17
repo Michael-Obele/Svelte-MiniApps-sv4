@@ -121,6 +121,25 @@
 	let syncError: string | null = null;
 	let syncSuccess: string | null = null;
 
+	/**
+	 * Syncs local budgets to server.
+	 *
+	 * If the user is not logged in (i.e. no `userData.id`), this function will
+	 * do nothing.
+	 *
+	 * This function will send a POST request to `?/syncBudgets` with the local
+	 * budgets as a JSON string in the request body. The request will include the
+	 * user's ID in the request body.
+	 *
+	 * If the response is successful (i.e. `responseData.type === 'success'`), the
+	 * local budgets will be updated with the server data. The `syncSuccess` variable
+	 * will be set to `'Budgets synced successfully!'`.
+	 *
+	 * If the response is not successful, the `syncError` variable will be set to
+	 * `'Failed to sync budgets'`. If an error occurs during the request, the error
+	 * will be logged to the console and the `syncError` variable will be set to
+	 * `'Failed to sync budgets'`.
+	 */
 	async function handleSync() {
 		if (!userData?.id) {
 			console.error('No user ID available:', userData);
@@ -135,24 +154,19 @@
 			const formData = new FormData();
 			formData.append('budgets', JSON.stringify($budgets));
 			formData.append('userId', userData.id);
-			
-			console.log('Sending userId:', userData.id);
-			console.log('Sending budgets:', $budgets);
+		
 			
 			const response = await fetch('?/syncBudgets', {
 				method: 'POST',
 				body: formData
 			});
 			
-			console.log('Response status:', response.status);
 			
 			const responseData = await response.json();
-			console.log('Response data:', responseData);
 			
 			if (responseData.type === 'success') {
 				// Parse the data string back to JSON
 				const parsedData = JSON.parse(responseData.data);
-				console.log('Parsed data:', parsedData);
 				
 				// Update local budgets with server data
 				budgets.set($budgets);
