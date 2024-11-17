@@ -6,10 +6,17 @@
 	import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
 	import Button from '$lib/components/ui/button/button.svelte';
 	import { siteimage, siteurl, sitename } from '$lib';
+	import { enhance } from '$app/forms';
+	import { getContext, onMount } from 'svelte';
+	import type { UserContext } from '$lib/types';
+	import { page } from '$app/stores';
 
 	let newExpenseName: string = '';
 	let newExpenseAmount: string = '';
 	let selectedBudgetName: string = '';
+
+	let userData = $page.data.user?.userData;
+
 
 	const handleAddExpense = (): void => {
 		if (newExpenseName && Number(newExpenseAmount) > 0 && selectedBudgetName) {
@@ -109,6 +116,104 @@
 	const handleDeleteBudget = (budgetName: string): void => {
 		budgets.set($budgets.filter((b) => b.name !== budgetName));
 	};
+
+	let syncing = false;
+	let syncError: string | null = null;
+	let syncSuccess: string | null = null;
+
+	async function handleSync() {
+		if (!userData?.id) {
+			console.error('No user ID available:', userData);
+			return;
+		}
+		
+		syncing = true;
+		syncError = null;
+		syncSuccess = null;
+		try {
+			// Sync local budgets to server
+			const formData = new FormData();
+			formData.append('budgets', JSON.stringify($budgets));
+			formData.append('userId', userData.id);
+			
+			console.log('Sending userId:', userData.id);
+			console.log('Sending budgets:', $budgets);
+			
+			const response = await fetch('?/syncBudgets', {
+				method: 'POST',
+				body: formData
+			});
+			
+			console.log('Response status:', response.status);
+			
+			const responseData = await response.json();
+			console.log('Response data:', responseData);
+			
+			if (responseData.type === 'success') {
+				// Parse the data string back to JSON
+				const parsedData = JSON.parse(responseData.data);
+				console.log('Parsed data:', parsedData);
+				
+				// Update local budgets with server data
+				budgets.set($budgets);
+				console.log('Local budgets updated');
+				syncError = null;
+				syncSuccess = 'Budgets synced successfully!';
+			} else {
+				console.error('Sync failed:', responseData);
+				syncError = 'Failed to sync budgets';
+			}
+		} catch (error) {
+			if (error instanceof Error) {
+			console.error('Error syncing budgets:', error);
+			console.error('Error details:', {
+				name: error.name,
+				message: error.message,
+				stack: error.stack
+			});
+			syncError = 'Failed to sync budgets';
+			}
+		} finally {
+			syncing = false;
+		}
+	}
+
+	async function loadServerBudgets() {
+		if (!userData?.id) return;
+
+		try {
+			const formData = new FormData();
+			formData.append('userId', userData.id);
+			
+			const response = await fetch('?/getBudgets', {
+				method: 'POST',
+				body: formData
+			});
+			
+			const result = await response.json();
+			
+			if (result.success) {
+				// Merge server budgets with local budgets
+				const serverBudgets = result.budgets;
+				const localBudgets = $budgets;
+				
+				// Simple merge strategy: Keep both local and server budgets, avoiding duplicates by name
+				const mergedBudgets = [...localBudgets];
+				
+				for (const serverBudget of serverBudgets) {
+					if (!mergedBudgets.some(b => b.name === serverBudget.name)) {
+						mergedBudgets.push(serverBudget);
+					}
+				}
+				
+				budgets.set(mergedBudgets);
+			}
+		} catch (error) {
+			console.error('Error loading server budgets:', error);
+		}
+	}
+
+
 </script>
 
 <svelte:head>
@@ -139,7 +244,7 @@
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Budget Tracker" />
 	<meta
-		name="twitter:description"
+		property="twitter:description"
 		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
 	/>
 	<meta name="twitter:image" content={siteimage} />
@@ -151,10 +256,30 @@
 </svelte:head>
 
 <div class="container mx-auto p-4 text-white">
-	<h2 class="mb-4 flex items-center gap-2 text-2xl font-bold">
-		Budget Tracker
-		<InfoBtn />
-	</h2>
+	<div class="mb-4 flex items-center justify-between">
+		<h2 class="flex items-center gap-2 text-2xl font-bold">
+			Budget Tracker
+			<InfoBtn />
+		</h2>
+		{#if userData}
+		<div class="flex items-center gap-4">
+			<button
+				on:click={handleSync}
+				disabled={syncing}
+				class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+			>
+				{syncing ? 'Syncing...' : 'Sync'}
+			</button>
+			{#if syncError}
+				<span class="text-red-500">{syncError}</span>
+			{:else if syncSuccess}
+				<span class="text-green-500">{syncSuccess}</span>
+			{/if}
+		</div>
+		  
+		{/if}
+		
+	</div>
 
 	<div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
 		<h3 class="mb-2 text-lg font-bold">Create Budget</h3>

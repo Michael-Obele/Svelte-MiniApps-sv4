@@ -31,14 +31,29 @@ export const load: LayoutServerLoad = async (event) => {
 	} else {
 		const session = await event.locals.auth();
 		if (session && session.user) {
+			// First, try to find or create user in database
+			const dbUser = await db.user.upsert({
+				where: { email: session.user.email || '' },
+				create: {
+					email: session.user.email || '',
+					name: session.user.name || '',
+					image: session.user.image || '',
+					username: session.user.name || ''
+				},
+				update: {
+					name: session.user.name || '',
+					image: session.user.image || ''
+				}
+			});
+
 			userData = {
-				username: session.user.name || null,
-				id: null,
-				isAdmin: false,
-				createdAt: null,
-				name: session.user.name || null,
-				image: session.user.image || null,
-				email: session.user.email || null
+				username: dbUser.username,
+				id: dbUser.id,
+				isAdmin: dbUser.isAdmin,
+				createdAt: dbUser.createdAt,
+				name: dbUser.name,
+				image: dbUser.image,
+				email: dbUser.email
 			};
 		}
 	}

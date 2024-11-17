@@ -9,7 +9,7 @@ generator client {
 
 model User {
     id            String         @id() @default(cuid())
-    username      String?        @unique()
+    username      String?        @unique(map: "User_username_unique")
     passwordHash  String?
     userAuthToken String?        @unique()
     name          String?
@@ -23,6 +23,9 @@ model User {
     updatedAt     DateTime       @updatedAt()
     SavePassword  SavePassword[]
     budgets       Budget[]
+    userBudgets   UserBudgets?  
+
+    @@unique([username])
 }
 
 model SavePassword {
@@ -82,7 +85,7 @@ model Budget {
     id        String    @id() @default(cuid())
     userId    String?
     name      String
-    amount    Decimal
+    amount    String
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt()
     expenses  Expense[]
@@ -93,8 +96,18 @@ model Expense {
     id        String   @id() @default(cuid())
     budgetId  String
     name      String
-    amount    Decimal
+    amount    String
+    done      Boolean  @default(false)
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt()
-    budget    Budget   @relation(fields: [budgetId], references: [id])
+    budget    Budget   @relation(fields: [budgetId], references: [id], onDelete: Cascade)
+}
+
+model UserBudgets {
+    id          String   @id @default(cuid())
+    userId      String   @unique(map: "UserBudgets_userId_unique")
+    budgetData  String   // Store the entire budget JSON as a string
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt
+    user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
