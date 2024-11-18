@@ -1,12 +1,15 @@
 <script lang="ts">
     import { budgets, budgetCurrency, type Expense } from '$lib/utils';
     import Button from '$lib/components/ui/button/button.svelte';
+    import * as AlertDialog from '$lib/components/ui/alert-dialog';
+    import { buttonVariants } from '$lib/components/ui/button/index.js';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher<{
         saveExpense: { budgetName: string; expenseIndex: number; name: string; amount: string };
         editExpense: { budgetName: string; expenseIndex: number; expense: Expense };
         toggleExpenseDone: { budgetName: string; expenseIndex: number };
+        deleteExpense: { budgetName: string; expenseIndex: number };
     }>();
 
     export let selectedBudgetName: string;
@@ -42,6 +45,10 @@
 
     function handleToggleExpenseDone(budgetName: string, expenseIndex: number) {
         dispatch('toggleExpenseDone', { budgetName, expenseIndex });
+    }
+
+    function handleDeleteExpense(budgetName: string, expenseIndex: number) {
+        dispatch('deleteExpense', { budgetName, expenseIndex });
     }
 </script>
 
@@ -102,6 +109,28 @@
                                 >
                                     {expense.done ? 'Undo' : 'Done'}
                                 </Button>
+                                <AlertDialog.Root>
+                                    <AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}>
+                                        Delete
+                                    </AlertDialog.Trigger>
+                                    <AlertDialog.Content>
+                                        <AlertDialog.Header>
+                                            <AlertDialog.Title>Delete Expense</AlertDialog.Title>
+                                            <AlertDialog.Description>
+                                                Are you sure you want to delete this expense? This action cannot be undone.
+                                            </AlertDialog.Description>
+                                        </AlertDialog.Header>
+                                        <AlertDialog.Footer>
+                                            <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
+                                            <AlertDialog.Action
+                                                class={buttonVariants({ variant: 'destructive' })}
+                                                on:click={() => handleDeleteExpense(selectedBudgetName, expenseIndex)}
+                                            >
+                                                Delete
+                                            </AlertDialog.Action>
+                                        </AlertDialog.Footer>
+                                    </AlertDialog.Content>
+                                </AlertDialog.Root>
                             </li>
                             <hr class="border-gray-200 dark:border-gray-700" />
                         {/if}

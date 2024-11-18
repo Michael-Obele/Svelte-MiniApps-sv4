@@ -256,6 +256,22 @@
                     });
                     budgets.set(updatedBudgets);
                 }}
+                on:deleteExpense={({ detail }) => {
+                    const { budgetName, expenseIndex } = detail;
+                    const updatedBudgets = $budgets.map(budget => {
+                        if (budget.name === budgetName) {
+                            const updatedExpenses = [...budget.expenses];
+                            updatedExpenses.splice(expenseIndex, 1);
+                            return {
+                                ...budget,
+                                expenses: updatedExpenses
+                            };
+                        }
+                        return budget;
+                    });
+                    budgets.set(updatedBudgets);
+                    console.log('Expense deleted:', { budgetName, expenseIndex });
+                }}
             />
         {/if}
     {/if}
