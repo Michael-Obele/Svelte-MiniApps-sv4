@@ -1,518 +1,236 @@
 <script lang="ts">
-	import InfoBtn from './info.svelte';
+    import InfoBtn from './info.svelte';
+    import CreateBudget from './components/CreateBudget.svelte';
+    import BudgetList from './components/BudgetList.svelte';
+    import AddExpense from './components/AddExpense.svelte';
+    import ExpenseList from './components/ExpenseList.svelte';
+    import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
+    import { page } from '$app/stores';
+    import { siteimage, siteurl } from '$lib';
 
-	import { buttonVariants } from '$lib/components/ui/button/index.js';
-	import * as AlertDialog from '$lib/components/ui/alert-dialog';
-	import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
-	import Button from '$lib/components/ui/button/button.svelte';
-	import { siteimage, siteurl, sitename } from '$lib';
-	import { enhance } from '$app/forms';
-	import { getContext, onMount } from 'svelte';
-	import type { UserContext } from '$lib/types';
-	import { page } from '$app/stores';
+    // User Data
+    const userData = $page.data.user?.userData;
 
-	let newExpenseName: string = '';
-	let newExpenseAmount: string = '';
-	let selectedBudgetName: string = '';
+    // State Management
+    let syncing = false;
+    let syncError: string | null = null;
+    let syncSuccess: string | null = null;
 
-	let userData = $page.data.user?.userData;
+    // Budget State
+    let budgetName = '';
+    let budgetAmount = '';
+    let editingBudgetName: string | null = null;
+    let editBudgetName = '';
+    let editBudgetAmount = '';
 
+    // Expense State
+    let selectedBudgetName = '';
+    let newExpenseName = '';
+    let newExpenseAmount = '';
+    let editingExpense: { budgetName: string; expenseIndex: number } | null = null;
+    let editExpenseName = '';
+    let editExpenseAmount = '';
 
-	const handleAddExpense = (): void => {
-		if (newExpenseName && Number(newExpenseAmount) > 0 && selectedBudgetName) {
-			const budgetToUpdate = $budgets.find((b) => b.name === selectedBudgetName);
-			if (budgetToUpdate) {
-				budgetToUpdate.expenses.push({ name: newExpenseName, amount: newExpenseAmount });
-				budgets.set($budgets);
-				newExpenseName = '';
-				newExpenseAmount = '';
-			}
-		}
-	};
+    // Utility Functions
+    function formatNumberInput(e: Event): void {
+        const target = e.target as HTMLInputElement;
+        const value = target.value.replace(/,/g, '');
+        target.value = Number(value).toLocaleString();
+    }
 
-	const handleToggleExpenseDone = (budgetName: string, expenseIndex: number): void => {
-		const budget = $budgets.find((b) => b.name === budgetName);
-		if (budget) {
-			budget.expenses[expenseIndex].done = !budget.expenses[expenseIndex].done;
-			budgets.set($budgets);
-		}
-	};
+    const calculateRemainingBudget = (budget: Budget): string => {
+        const budgetAmount = Number(budget.amount.replace(/,/g, ''));
+        const totalExpenses = budget.expenses.reduce(
+            (total, e) => total + Number(e.amount.replace(/,/g, '')),
+            0
+        );
+        return (budgetAmount - totalExpenses).toLocaleString();
+    };
 
-	let budgetName: string = '';
-	let budgetAmount: string = '';
+    // Budget Management
+    const handleCreateBudget = (): void => {
+        const existingBudget = $budgets.find((b) => b.name.toLowerCase() === budgetName.toLowerCase());
+        if (existingBudget) {
+            existingBudget.amount = budgetAmount;
+            existingBudget.expenses = [];
+        } else {
+            $budgets.push({ name: budgetName, amount: budgetAmount, expenses: [] });
+        }
+        budgets.set($budgets);
+        budgetName = '';
+        budgetAmount = '';
+    };
 
-	const handleCreateBudget = (): void => {
-		const existingBudget = $budgets.find((b) => b.name.toLowerCase() === budgetName.toLowerCase());
-		if (existingBudget) {
-			existingBudget.amount = budgetAmount;
-			existingBudget.expenses = [];
-		} else {
-			$budgets.push({ name: budgetName, amount: budgetAmount, expenses: [] });
-		}
-		budgets.set($budgets);
-		budgetName = '';
-		budgetAmount = '';
-	};
+    const handleEditBudget = (budget: Budget): void => {
+        editingBudgetName = budget.name;
+        editBudgetName = budget.name;
+        editBudgetAmount = budget.amount;
+    };
 
-	let editingBudgetName: string | null = null;
-	let editBudgetName: string = '';
-	let editBudgetAmount: string = '';
+    const handleSaveBudget = (): void => {
+        if (editingBudgetName) {
+            const budget = $budgets.find((b) => b.name === editingBudgetName);
+            if (budget) {
+                budget.name = editBudgetName;
+                budget.amount = editBudgetAmount;
+                budgets.set($budgets);
+            }
+            editingBudgetName = null;
+        }
+    };
 
-	const handleEditBudget = (budget: Budget): void => {
-		editingBudgetName = budget.name;
-		editBudgetName = budget.name;
-		editBudgetAmount = budget.amount;
-	};
+    const handleDeleteBudget = (budgetName: string): void => {
+        budgets.set($budgets.filter((b) => b.name !== budgetName));
+    };
 
-	const handleSaveBudget = (): void => {
-		if (editingBudgetName) {
-			const budget = $budgets.find((b) => b.name === editingBudgetName);
-			if (budget) {
-				budget.name = editBudgetName;
-				budget.amount = editBudgetAmount;
-			}
-			budgets.set($budgets);
-			editingBudgetName = null;
-		}
-	};
+    // Expense Management
+    const handleAddExpense = (): void => {
+        if (newExpenseName && Number(newExpenseAmount) > 0 && selectedBudgetName) {
+            const budgetToUpdate = $budgets.find((b) => b.name === selectedBudgetName);
+            if (budgetToUpdate) {
+                budgetToUpdate.expenses.push({ name: newExpenseName, amount: newExpenseAmount });
+                budgets.set($budgets);
+                newExpenseName = '';
+                newExpenseAmount = '';
+            }
+        }
+    };
 
-	let editingExpense: { budgetName: string; expenseIndex: number } | null = null;
-	let editExpenseName: string = '';
-	let editExpenseAmount: string = '';
+    const handleEditExpense = (budgetName: string, expenseIndex: number, expense: Expense): void => {
+        editingExpense = { budgetName, expenseIndex };
+        editExpenseName = expense.name;
+        editExpenseAmount = expense.amount;
+    };
 
-	const handleEditExpense = (budgetName: string, expenseIndex: number, expense: Expense): void => {
-		editingExpense = { budgetName, expenseIndex };
-		editExpenseName = expense.name;
-		editExpenseAmount = expense.amount;
-	};
+    const handleSaveExpense = (): void => {
+        if (editingExpense) {
+            const { budgetName, expenseIndex } = editingExpense;
+            const budget = $budgets.find((b) => b.name === budgetName);
+            if (budget) {
+                budget.expenses[expenseIndex] = { name: editExpenseName, amount: editExpenseAmount };
+                budgets.set($budgets);
+            }
+            editingExpense = null;
+        }
+    };
 
-	const handleSaveExpense = (): void => {
-		if (editingExpense) {
-			const { budgetName, expenseIndex } = editingExpense;
-			const budget = $budgets.find((b) => b.name === budgetName);
-			if (budget) {
-				budget.expenses[expenseIndex] = { name: editExpenseName, amount: editExpenseAmount };
-			}
-			budgets.set($budgets);
-			editingExpense = null;
-		}
-	};
+    const handleToggleExpenseDone = (budgetName: string, expenseIndex: number): void => {
+        const budget = $budgets.find((b) => b.name === budgetName);
+        if (budget) {
+            budget.expenses[expenseIndex].done = !budget.expenses[expenseIndex].done;
+            budgets.set($budgets);
+        }
+    };
 
-	function formatNumberInput(e: Event): void {
-		const target = e.target as HTMLInputElement;
-		let value = target.value.replace(/,/g, '');
-		target.value = Number(value).toLocaleString();
-	}
+    // Server Sync
+    async function handleSync() {
+        if (!userData?.id) return;
+        
+        syncing = true;
+        syncError = null;
+        syncSuccess = null;
 
-	const calculateRemainingBudget = (budget: Budget): string => {
-		const budgetAmount = Number(budget.amount.replace(/,/g, ''));
-		const totalExpenses = budget.expenses.reduce(
-			(total, e) => total + Number(e.amount.replace(/,/g, '')),
-			0
-		);
-		return (budgetAmount - totalExpenses).toLocaleString();
-	};
-
-	const handleDeleteBudget = (budgetName: string): void => {
-		budgets.set($budgets.filter((b) => b.name !== budgetName));
-	};
-
-	let syncing = false;
-	let syncError: string | null = null;
-	let syncSuccess: string | null = null;
-
-	/**
-	 * Syncs local budgets to server.
-	 *
-	 * If the user is not logged in (i.e. no `userData.id`), this function will
-	 * do nothing.
-	 *
-	 * This function will send a POST request to `?/syncBudgets` with the local
-	 * budgets as a JSON string in the request body. The request will include the
-	 * user's ID in the request body.
-	 *
-	 * If the response is successful (i.e. `responseData.type === 'success'`), the
-	 * local budgets will be updated with the server data. The `syncSuccess` variable
-	 * will be set to `'Budgets synced successfully!'`.
-	 *
-	 * If the response is not successful, the `syncError` variable will be set to
-	 * `'Failed to sync budgets'`. If an error occurs during the request, the error
-	 * will be logged to the console and the `syncError` variable will be set to
-	 * `'Failed to sync budgets'`.
-	 */
-	async function handleSync() {
-		if (!userData?.id) {
-			console.error('No user ID available:', userData);
-			return;
-		}
-		
-		syncing = true;
-		syncError = null;
-		syncSuccess = null;
-		try {
-			// Sync local budgets to server
-			const formData = new FormData();
-			formData.append('budgets', JSON.stringify($budgets));
-			formData.append('userId', userData.id);
-		
-			
-			const response = await fetch('?/syncBudgets', {
-				method: 'POST',
-				body: formData
-			});
-			
-			
-			const responseData = await response.json();
-			
-			if (responseData.type === 'success') {
-				// Parse the data string back to JSON
-				const parsedData = JSON.parse(responseData.data);
-				
-				// Update local budgets with server data
-				budgets.set($budgets);
-				console.log('Local budgets updated');
-				syncError = null;
-				syncSuccess = 'Budgets synced successfully!';
-			} else {
-				console.error('Sync failed:', responseData);
-				syncError = 'Failed to sync budgets';
-			}
-		} catch (error) {
-			if (error instanceof Error) {
-			console.error('Error syncing budgets:', error);
-			console.error('Error details:', {
-				name: error.name,
-				message: error.message,
-				stack: error.stack
-			});
-			syncError = 'Failed to sync budgets';
-			}
-		} finally {
-			syncing = false;
-		}
-	}
-
-	async function loadServerBudgets() {
-		if (!userData?.id) return;
-
-		try {
-			const formData = new FormData();
-			formData.append('userId', userData.id);
-			
-			const response = await fetch('?/getBudgets', {
-				method: 'POST',
-				body: formData
-			});
-			
-			const result = await response.json();
-			
-			if (result.success) {
-				// Merge server budgets with local budgets
-				const serverBudgets = result.budgets;
-				const localBudgets = $budgets;
-				
-				// Simple merge strategy: Keep both local and server budgets, avoiding duplicates by name
-				const mergedBudgets = [...localBudgets];
-				
-				for (const serverBudget of serverBudgets) {
-					if (!mergedBudgets.some(b => b.name === serverBudget.name)) {
-						mergedBudgets.push(serverBudget);
-					}
-				}
-				
-				budgets.set(mergedBudgets);
-			}
-		} catch (error) {
-			console.error('Error loading server budgets:', error);
-		}
-	}
-
-
+        try {
+            const formData = new FormData();
+            formData.append('budgets', JSON.stringify($budgets));
+            formData.append('userId', userData.id);
+            
+            const response = await fetch('?/syncBudgets', {
+                method: 'POST',
+                body: formData
+            });
+            
+            const responseData = await response.json();
+            
+            if (responseData.type === 'success') {
+                const parsedData = JSON.parse(responseData.data);
+                budgets.set($budgets);
+                syncSuccess = 'Budgets synced successfully!';
+            } else {
+                syncError = 'Failed to sync budgets';
+            }
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error('Error syncing budgets:', error);
+                syncError = 'Failed to sync budgets';
+            }
+        } finally {
+            syncing = false;
+        }
+    }
 </script>
 
 <svelte:head>
-	<title>Budget Tracker</title>
-	<meta
-		name="description"
-		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
-	/>
-	<meta
-		name="keywords"
-		content="budget, tracker, expenses, finance, money, savings, budgeting, financial planning"
-	/>
-	<meta name="robots" content="index, follow" />
-
-	<!-- Open Graph meta tags for social sharing -->
-	<meta property="og:title" content="Budget Tracker" />
-	<meta
-		property="og:description"
-		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
-	/>
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content={siteurl} />
-	<!-- Replace with your URL -->
-	<meta property="og:image" content={siteimage} />
-	<!-- Replace with your image URL -->
-
-	<!-- Twitter Card meta tags for Twitter sharing -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Budget Tracker" />
-	<meta
-		property="twitter:description"
-		content="Track your budgets and expenses easily with this simple and intuitive budget tracker."
-	/>
-	<meta name="twitter:image" content={siteimage} />
-	<!-- Replace with your image URL -->
-
-	<!-- Add more meta tags as needed based on your specific content and target audience -->
-	<link rel="canonical" href={siteurl} />
-	<!-- Important for SEO, prevents duplicate content issues -->
+    <title>Budget Tracker</title>
+    <meta name="description" content="Track your budgets and expenses easily with this simple and intuitive budget tracker." />
+    <meta property="og:title" content="Budget Tracker" />
+    <meta property="og:description" content="Track your budgets and expenses easily with this simple and intuitive budget tracker." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={siteurl} />
+    <meta property="og:image" content={siteimage} />
+    <link rel="canonical" href={siteurl} />
 </svelte:head>
 
 <div class="container mx-auto p-4 text-white">
-	<div class="mb-4 flex items-center justify-between">
-		<h2 class="flex items-center gap-2 text-2xl font-bold">
-			Budget Tracker
-			<InfoBtn />
-		</h2>
-		{#if userData}
-		<div class="flex items-center gap-4">
-			<button
-				on:click={handleSync}
-				disabled={syncing}
-				class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
-			>
-				{syncing ? 'Syncing...' : 'Sync'}
-			</button>
-			{#if syncError}
-				<span class="text-red-500">{syncError}</span>
-			{:else if syncSuccess}
-				<span class="text-green-500">{syncSuccess}</span>
-			{/if}
-		</div>
-		  
-		{/if}
-		
-	</div>
+    <div class="mb-4 flex items-center justify-between">
+        <h2 class="flex items-center gap-2 text-2xl font-bold">
+            Budget Tracker
+            <InfoBtn />
+        </h2>
+        {#if userData}
+            <div class="flex items-center gap-4">
+                <button
+                    on:click={handleSync}
+                    disabled={syncing}
+                    class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                >
+                    {syncing ? 'Syncing...' : 'Sync'}
+                </button>
+                {#if syncError}
+                    <span class="text-red-500">{syncError}</span>
+                {:else if syncSuccess}
+                    <span class="text-green-500">{syncSuccess}</span>
+                {/if}
+            </div>
+        {/if}
+    </div>
 
-	<div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
-		<h3 class="mb-2 text-lg font-bold">Create Budget</h3>
-		<div class="flex flex-col gap-4">
-			<input
-				type="text"
-				bind:value={budgetName}
-				placeholder="Name"
-				class="mb-2 w-full appearance-none rounded border border-white bg-black p-2"
-			/>
-			<input
-				type="text"
-				bind:value={budgetAmount}
-				pattern="\d+(?:,\d+)*"
-				on:change={formatNumberInput}
-				placeholder="Initial Amount"
-				class="mb-2 w-full appearance-none rounded border border-white bg-black p-2"
-			/>
+    <CreateBudget
+        {budgetName}
+        {budgetAmount}
+        onCreateBudget={handleCreateBudget}
+        {formatNumberInput}
+    />
 
-			<select
-				name="currency"
-				id="currency"
-				bind:value={$budgetCurrency}
-				class="mb-2 w-full appearance-none rounded border border-white bg-black p-2 text-center"
-			>
-				<option value="$">USD: $</option>
-				<option value="€">EUR: €</option>
-				<option value="£">GBP: £</option>
-				<option value="₦">NGN: ₦</option>
-				<option value="¥">CNY: ¥</option>
-			</select>
+    {#if $budgets.length > 0}
+        <BudgetList
+            {editingBudgetName}
+            {editBudgetName}
+            {editBudgetAmount}
+            onSaveBudget={handleSaveBudget}
+            onEditBudget={handleEditBudget}
+            onDeleteBudget={handleDeleteBudget}
+            {formatNumberInput}
+            {calculateRemainingBudget}
+        />
 
-			<button
-				on:click={handleCreateBudget}
-				class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700">Create Budget</button
-			>
-		</div>
-	</div>
+        <AddExpense
+            {selectedBudgetName}
+            {newExpenseName}
+            {newExpenseAmount}
+            onAddExpense={handleAddExpense}
+            {formatNumberInput}
+        />
 
-	{#if $budgets.length > 0}
-		<div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
-			<h3 class="mb-2 text-lg font-bold">Your Budgets</h3>
-			{#each $budgets as budget}
-				<div class="mb-4 border-t border-gray-600 pt-4">
-					{#if editingBudgetName === budget.name}
-						<form class="flex flex-col gap-2" on:submit|preventDefault={handleSaveBudget}>
-							<input
-								type="text"
-								bind:value={editBudgetName}
-								class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
-							/>
-							<input
-								type="text"
-								bind:value={editBudgetAmount}
-								pattern="\d+(?:,\d+)*"
-								on:change={formatNumberInput}
-								class="mb-2 w-full appearance-none rounded border border-gray-300 p-2"
-							/>
-							<div class="flex gap-2">
-								<button type="submit" class="rounded bg-blue-500 p-2 text-white hover:bg-blue-700"
-									>Save</button
-								>
-								<button
-									type="button"
-									on:click={() => (editingBudgetName = null)}
-									class="rounded bg-gray-500 p-2 text-white hover:bg-gray-700">Cancel</button
-								>
-							</div>
-						</form>
-					{:else}
-						<h4 class="text-lg font-bold">{budget.name}</h4>
-						<p>
-							Initial Amount: <span class="font-semibold"
-								>{$budgetCurrency}{Number(budget.amount.replace(/,/g, '')).toLocaleString()}</span
-							>
-						</p>
-						<p>
-							Remaining: <span class="font-semibold"
-								>{$budgetCurrency}{calculateRemainingBudget(budget)}</span
-							>
-						</p>
-						<div class="flex gap-2">
-							<Button
-								on:click={() => handleEditBudget(budget)}
-								class="bg-blue-500 text-white hover:bg-blue-700">Edit</Button
-							>
-							<AlertDialog.Root>
-								<AlertDialog.Trigger class={buttonVariants({ variant: 'destructive' })}
-									>Delete</AlertDialog.Trigger
-								>
-								<AlertDialog.Content>
-									<AlertDialog.Header>
-										<AlertDialog.Title>Are you absolutely sure?</AlertDialog.Title>
-										<AlertDialog.Description>
-											This action cannot be undone. This will permanently delete your account and
-											remove your data from our servers.
-										</AlertDialog.Description>
-									</AlertDialog.Header>
-									<AlertDialog.Footer>
-										<AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
-										<AlertDialog.Action
-											class={buttonVariants({ variant: 'destructive' })}
-											on:click={() => handleDeleteBudget(budget.name)}>Continue</AlertDialog.Action
-										>
-									</AlertDialog.Footer>
-								</AlertDialog.Content>
-							</AlertDialog.Root>
-						</div>
-					{/if}
-				</div>
-			{/each}
-		</div>
-
-		<div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
-			<h3 class="mb-2 text-lg font-bold">Add Expense</h3>
-			<div class="mb-4">
-				<label for="budget-select" class="mb-2 block font-bold text-gray-700">Select Budget:</label>
-				<select
-					id="budget-select"
-					bind:value={selectedBudgetName}
-					placeholder="Select a budget"
-					class="mb-2 w-full appearance-none rounded border border-white bg-black p-2"
-				>
-					<option value={null} disabled>Select a budget</option>
-					{#each $budgets as budget}
-						<option value={budget.name}>{budget.name}</option>
-					{/each}
-				</select>
-			</div>
-
-			{#if selectedBudgetName}
-				<div class="my-2 flex flex-row items-center space-x-2">
-					<input
-						type="text"
-						bind:value={newExpenseName}
-						placeholder="Expense name"
-						class="w-full appearance-none rounded border border-white bg-black p-2"
-					/>
-					<input
-						type="text"
-						bind:value={newExpenseAmount}
-						pattern="\d+(?:,\d+)*"
-						on:change={formatNumberInput}
-						placeholder="Amount"
-						class="w-24 appearance-none rounded border border-white bg-black p-2"
-					/>
-					<button
-						on:click={() => handleAddExpense()}
-						class="text-nowrap rounded bg-blue-500 p-2 text-white hover:bg-blue-700"
-						>Add Expense</button
-					>
-				</div>
-			{/if}
-		</div>
-
-		<div class="mt-4">
-			<h4 class="text-lg font-bold">Expenses for {selectedBudgetName}:</h4>
-			{#if $budgets.length > 0}
-				{@const budget = $budgets.find((b) => b.name === selectedBudgetName)}
-				{#if budget && budget.expenses?.length > 0}
-					<ul class="mt-4 list-inside list-disc space-y-4">
-						{#each $budgets.find((b) => b.name === selectedBudgetName)?.expenses ?? [] as expense, expenseIndex}
-							{#if editingExpense?.budgetName === selectedBudgetName && editingExpense?.expenseIndex === expenseIndex}
-								<form
-									class="flex flex-col items-center gap-2"
-									on:submit|preventDefault={handleSaveExpense}
-								>
-									<input
-										type="text"
-										bind:value={editExpenseName}
-										class="w-full appearance-none rounded border border-gray-300 p-2"
-									/>
-									<input
-										type="text"
-										bind:value={editExpenseAmount}
-										pattern="\d+(?:,\d+)*"
-										on:change={formatNumberInput}
-										class="w-full appearance-none rounded border border-gray-300 p-2"
-									/>
-									<div class="flex gap-2">
-										<Button type="submit" class="rounded bg-blue-500 text-white hover:bg-blue-700"
-											>Save</Button
-										>
-										<Button
-											type="button"
-											on:click={() => (editingExpense = null)}
-											class="rounded bg-gray-500 text-white hover:bg-gray-700">Cancel</Button
-										>
-									</div>
-								</form>
-							{:else}
-								<li>
-									<span class={expense.done ? 'line-through opacity-50' : ''}>
-										<span class="text-lg font-medium text-gray-900 dark:text-white">
-											{expense.name}:
-										</span>
-										<span class="text-lg font-medium text-gray-700 dark:text-gray-200">
-											{$budgetCurrency}{Number(expense.amount).toLocaleString()}
-										</span>
-									</span>
-									<Button
-										on:click={() => handleEditExpense(selectedBudgetName, expenseIndex, expense)}
-										class="mx-3 bg-blue-500 p-1 px-4 text-white hover:bg-blue-700">Edit</Button
-									>
-									<Button
-										on:click={() => handleToggleExpenseDone(selectedBudgetName, expenseIndex)}
-										class="bg-green-500 p-1 px-4 text-white hover:bg-green-700"
-									>
-										{expense.done ? 'Undo' : 'Done'}
-									</Button>
-								</li>
-								<hr class="border-gray-200 dark:border-gray-700" />
-							{/if}
-						{/each}
-					</ul>
-				{:else}
-					<p>No expenses added yet for this budget.</p>
-				{/if}
-			{/if}
-		</div>
-	{/if}
+        <ExpenseList
+            {selectedBudgetName}
+            {editingExpense}
+            {editExpenseName}
+            {editExpenseAmount}
+            onSaveExpense={handleSaveExpense}
+            onEditExpense={handleEditExpense}
+            onToggleExpenseDone={handleToggleExpenseDone}
+            {formatNumberInput}
+        />
+    {/if}
 </div>
