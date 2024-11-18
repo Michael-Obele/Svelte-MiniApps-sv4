@@ -1,9 +1,9 @@
 import type { LayoutServerLoad } from './$types';
-import { getDbInstance } from '$lib/database';
+ 
 import { goto } from '$app/navigation';
 import { redirect } from '@sveltejs/kit';
 
-const db = getDbInstance(); // Get the Prisma client instance
+import { db } from '$lib/database'; // Get the Prisma client instance
 
 interface User {
 	username: string | null;

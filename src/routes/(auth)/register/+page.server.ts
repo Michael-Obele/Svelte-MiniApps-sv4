@@ -1,10 +1,10 @@
 import { error, fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
 import bcrypt from 'bcryptjs';
-import { getDbInstance } from '$lib/database';
+ 
 import { Admin_PW } from '$env/static/private';
 
-const db = getDbInstance(); // Get the Prisma client instance
+import { db } from '$lib/database'; // Get the Prisma client instance
 
 export const load: PageServerLoad = async (session) => {
 	var sessionData = session.cookies.get('session');

@@ -1,8 +1,8 @@
 import { fail, redirect } from '@sveltejs/kit';
 import bcrypt from 'bcryptjs';
 import type { Action, Actions, PageServerLoad } from './$types';
-import { getDbInstance } from '$lib/database';
-const db = getDbInstance(); // Get the Prisma client instance
+ 
+import { db } from '$lib/database'; // Get the Prisma client instance
 
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');

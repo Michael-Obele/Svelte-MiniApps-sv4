@@ -1,9 +1,9 @@
 import type { Actions, PageServerLoad, RequestEvent } from './$types';
-import { getDbInstance } from '$lib/database';
+ 
 import { fail } from '@sveltejs/kit';
 import type { Prisma } from '@prisma/client';
 
-const db = getDbInstance();
+import { db } from '$lib/database';
 
 /**
  * This function defines a set of actions related to saving, viewing, updating, and hiding passwords.

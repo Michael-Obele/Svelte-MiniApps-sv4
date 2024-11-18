@@ -1,16 +1,48 @@
 import { fail, redirect } from '@sveltejs/kit';
 import type { Action, Actions, PageServerLoad } from './$types';
-import { getDbInstance } from '$lib/database';
+ 
 import type { Prisma } from '@prisma/client';
 import bcrypt from 'bcryptjs'; // Import bcrypt
 
-const db = getDbInstance();
+import { db } from '$lib/database';
 
 export const load: PageServerLoad = async (event) => {
 	const sessionID = event.cookies.get('session');
 	const session = await event.locals.auth();
+
+	// If no session exists at all, redirect to login
 	if (!sessionID && !session) {
 		return redirect(303, '/Login');
+	}
+
+	// If there's a sessionID cookie, validate it against the database
+	if (sessionID) {
+		const user = await db.user.findUnique({
+			where: { userAuthToken: sessionID }
+		});
+
+		// If session is invalid (no user found), delete the cookie and redirect
+		if (!user) {
+			event.cookies.delete('session', { path: '/' });
+			return redirect(303, '/Login');
+		}
+	}
+
+	// If we have a session from auth() but no sessionID cookie, we should set it
+	if (session && !sessionID) {
+		const user = await db.user.findUnique({
+			where: { email: session.user?.email as string }
+		});
+
+		if (user?.userAuthToken) {
+			event.cookies.set('session', user.userAuthToken, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'strict',
+				secure: process.env.NODE_ENV === 'production',
+				maxAge: 60 * 60 * 24 * 30 // 30 days
+			});
+		}
 	}
 };
 
