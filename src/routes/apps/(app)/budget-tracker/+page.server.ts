@@ -10,7 +10,6 @@ export const actions: Actions = {
 		const userId = data.get('userId') as string;
 
 		console.log('Received budgets:', budgets);
-		console.log('Received userId:', userId);
 
 		if (!userId) {
 			return fail(401, { message: 'Unauthorized' });
