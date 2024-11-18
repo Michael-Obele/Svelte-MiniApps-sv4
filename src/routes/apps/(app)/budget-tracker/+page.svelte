@@ -31,6 +31,15 @@
     let editExpenseName = '';
     let editExpenseAmount = '';
 
+    // Debug logging
+    $: {
+        console.log('Parent component state:', {
+            selectedBudgetName,
+            budgets: $budgets,
+            currentBudget: $budgets.find(b => b.name === selectedBudgetName)
+        });
+    }
+
     // Utility Functions
     function formatNumberInput(e: Event): void {
         const target = e.target as HTMLInputElement;
@@ -48,82 +57,7 @@
     };
 
     // Budget Management
-    const handleCreateBudget = (): void => {
-        const existingBudget = $budgets.find((b) => b.name.toLowerCase() === budgetName.toLowerCase());
-        if (existingBudget) {
-            existingBudget.amount = budgetAmount;
-            existingBudget.expenses = [];
-        } else {
-            $budgets.push({ name: budgetName, amount: budgetAmount, expenses: [] });
-        }
-        budgets.set($budgets);
-        budgetName = '';
-        budgetAmount = '';
-    };
-
-    const handleEditBudget = (budget: Budget): void => {
-        editingBudgetName = budget.name;
-        editBudgetName = budget.name;
-        editBudgetAmount = budget.amount;
-    };
-
-    const handleSaveBudget = (): void => {
-        if (editingBudgetName) {
-            const budget = $budgets.find((b) => b.name === editingBudgetName);
-            if (budget) {
-                budget.name = editBudgetName;
-                budget.amount = editBudgetAmount;
-                budgets.set($budgets);
-            }
-            editingBudgetName = null;
-        }
-    };
-
-    const handleDeleteBudget = (budgetName: string): void => {
-        budgets.set($budgets.filter((b) => b.name !== budgetName));
-    };
-
-    // Expense Management
-    const handleAddExpense = (): void => {
-        if (newExpenseName && Number(newExpenseAmount) > 0 && selectedBudgetName) {
-            const budgetToUpdate = $budgets.find((b) => b.name === selectedBudgetName);
-            if (budgetToUpdate) {
-                budgetToUpdate.expenses.push({ name: newExpenseName, amount: newExpenseAmount });
-                budgets.set($budgets);
-                newExpenseName = '';
-                newExpenseAmount = '';
-            }
-        }
-    };
-
-    const handleEditExpense = (budgetName: string, expenseIndex: number, expense: Expense): void => {
-        editingExpense = { budgetName, expenseIndex };
-        editExpenseName = expense.name;
-        editExpenseAmount = expense.amount;
-    };
-
-    const handleSaveExpense = (): void => {
-        if (editingExpense) {
-            const { budgetName, expenseIndex } = editingExpense;
-            const budget = $budgets.find((b) => b.name === budgetName);
-            if (budget) {
-                budget.expenses[expenseIndex] = { name: editExpenseName, amount: editExpenseAmount };
-                budgets.set($budgets);
-            }
-            editingExpense = null;
-        }
-    };
-
-    const handleToggleExpenseDone = (budgetName: string, expenseIndex: number): void => {
-        const budget = $budgets.find((b) => b.name === budgetName);
-        if (budget) {
-            budget.expenses[expenseIndex].done = !budget.expenses[expenseIndex].done;
-            budgets.set($budgets);
-        }
-    };
-
-    // Server Sync
-    async function handleSync() {
+    const handleSync = async () => {
         if (!userData?.id) return;
         
         syncing = true;
@@ -198,8 +132,20 @@
     <CreateBudget
         {budgetName}
         {budgetAmount}
-        onCreateBudget={handleCreateBudget}
         {formatNumberInput}
+        on:createBudget={({ detail }) => {
+            const { name, amount } = detail;
+            const existingBudget = $budgets.find((b) => b.name.toLowerCase() === name.toLowerCase());
+            if (existingBudget) {
+                existingBudget.amount = amount;
+                existingBudget.expenses = [];
+            } else {
+                $budgets.push({ name, amount, expenses: [] });
+            }
+            budgets.set($budgets);
+            budgetName = '';
+            budgetAmount = '';
+        }}
     />
 
     {#if $budgets.length > 0}
@@ -207,30 +153,110 @@
             {editingBudgetName}
             {editBudgetName}
             {editBudgetAmount}
-            onSaveBudget={handleSaveBudget}
-            onEditBudget={handleEditBudget}
-            onDeleteBudget={handleDeleteBudget}
             {formatNumberInput}
             {calculateRemainingBudget}
+            on:saveBudget={({ detail }) => {
+                const { name, amount } = detail;
+                if (editingBudgetName) {
+                    const budget = $budgets.find((b) => b.name === editingBudgetName);
+                    if (budget) {
+                        budget.name = name;
+                        budget.amount = amount;
+                        budgets.set($budgets);
+                    }
+                    editingBudgetName = null;
+                }
+            }}
+            on:editBudget={({ detail }) => {
+                editingBudgetName = detail.name;
+                editBudgetName = detail.name;
+                editBudgetAmount = detail.amount;
+            }}
+            on:deleteBudget={({ detail }) => {
+                budgets.set($budgets.filter((b) => b.name !== detail.name));
+            }}
         />
 
         <AddExpense
             {selectedBudgetName}
             {newExpenseName}
             {newExpenseAmount}
-            onAddExpense={handleAddExpense}
             {formatNumberInput}
+            on:selectBudget={({ detail }) => {
+                selectedBudgetName = detail.budgetName;
+                console.log('Budget selected:', detail.budgetName);
+            }}
+            on:addExpense={({ detail }) => {
+                const { budgetName, name, amount } = detail;
+                if (name && Number(amount) > 0 && budgetName) {
+                    const updatedBudgets = $budgets.map(budget => {
+                        if (budget.name === budgetName) {
+                            return {
+                                ...budget,
+                                expenses: [...budget.expenses, { name, amount, done: false }]
+                            };
+                        }
+                        return budget;
+                    });
+                    budgets.set(updatedBudgets);
+                    newExpenseName = '';
+                    newExpenseAmount = '';
+                }
+            }}
         />
 
-        <ExpenseList
-            {selectedBudgetName}
-            {editingExpense}
-            {editExpenseName}
-            {editExpenseAmount}
-            onSaveExpense={handleSaveExpense}
-            onEditExpense={handleEditExpense}
-            onToggleExpenseDone={handleToggleExpenseDone}
-            {formatNumberInput}
-        />
+        {#if selectedBudgetName}
+            <ExpenseList
+                {selectedBudgetName}
+                {editingExpense}
+                {editExpenseName}
+                {editExpenseAmount}
+                {formatNumberInput}
+                on:saveExpense={({ detail }) => {
+                    const { budgetName, expenseIndex, name, amount } = detail;
+                    const updatedBudgets = $budgets.map(budget => {
+                        if (budget.name === budgetName) {
+                            const updatedExpenses = [...budget.expenses];
+                            updatedExpenses[expenseIndex] = { 
+                                ...updatedExpenses[expenseIndex],
+                                name, 
+                                amount 
+                            };
+                            return {
+                                ...budget,
+                                expenses: updatedExpenses
+                            };
+                        }
+                        return budget;
+                    });
+                    budgets.set(updatedBudgets);
+                    editingExpense = null;
+                }}
+                on:editExpense={({ detail }) => {
+                    const { budgetName, expenseIndex, expense } = detail;
+                    editingExpense = { budgetName, expenseIndex };
+                    editExpenseName = expense.name;
+                    editExpenseAmount = expense.amount;
+                }}
+                on:toggleExpenseDone={({ detail }) => {
+                    const { budgetName, expenseIndex } = detail;
+                    const updatedBudgets = $budgets.map(budget => {
+                        if (budget.name === budgetName) {
+                            const updatedExpenses = [...budget.expenses];
+                            updatedExpenses[expenseIndex] = { 
+                                ...updatedExpenses[expenseIndex],
+                                done: !updatedExpenses[expenseIndex].done 
+                            };
+                            return {
+                                ...budget,
+                                expenses: updatedExpenses
+                            };
+                        }
+                        return budget;
+                    });
+                    budgets.set(updatedBudgets);
+                }}
+            />
+        {/if}
     {/if}
 </div>

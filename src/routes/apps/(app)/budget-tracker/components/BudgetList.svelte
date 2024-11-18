@@ -3,15 +3,31 @@
     import Button from '$lib/components/ui/button/button.svelte';
     import * as AlertDialog from '$lib/components/ui/alert-dialog';
     import { buttonVariants } from '$lib/components/ui/button/index.js';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher<{
+        saveBudget: { name: string; amount: string };
+        editBudget: Budget;
+        deleteBudget: { name: string };
+    }>();
 
     export let editingBudgetName: string | null;
     export let editBudgetName: string;
     export let editBudgetAmount: string;
-    export let onSaveBudget: () => void;
-    export let onEditBudget: (budget: Budget) => void;
-    export let onDeleteBudget: (name: string) => void;
     export let formatNumberInput: (e: Event) => void;
     export let calculateRemainingBudget: (budget: Budget) => string;
+
+    function handleSaveBudget() {
+        dispatch('saveBudget', { name: editBudgetName, amount: editBudgetAmount });
+    }
+
+    function handleEditBudget(budget: Budget) {
+        dispatch('editBudget', budget);
+    }
+
+    function handleDeleteBudget(name: string) {
+        dispatch('deleteBudget', { name });
+    }
 </script>
 
 <div class="mb-4 rounded-md bg-green-500 p-4 shadow-md">
@@ -19,7 +35,7 @@
     {#each $budgets as budget}
         <div class="mb-4 border-t border-gray-600 pt-4">
             {#if editingBudgetName === budget.name}
-                <form class="flex flex-col gap-2" on:submit|preventDefault={onSaveBudget}>
+                <form class="flex flex-col gap-2" on:submit|preventDefault={handleSaveBudget}>
                     <input
                         type="text"
                         bind:value={editBudgetName}
@@ -59,7 +75,7 @@
                 </p>
                 <div class="flex gap-2">
                     <Button
-                        on:click={() => onEditBudget(budget)}
+                        on:click={() => handleEditBudget(budget)}
                         class="bg-blue-500 text-white hover:bg-blue-700"
                     >
                         Edit
@@ -79,7 +95,7 @@
                                 <AlertDialog.Cancel>Cancel</AlertDialog.Cancel>
                                 <AlertDialog.Action
                                     class={buttonVariants({ variant: 'destructive' })}
-                                    on:click={() => onDeleteBudget(budget.name)}
+                                    on:click={() => handleDeleteBudget(budget.name)}
                                 >
                                     Continue
                                 </AlertDialog.Action>

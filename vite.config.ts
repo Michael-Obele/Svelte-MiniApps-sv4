@@ -16,5 +16,9 @@ export default defineConfig({
 		partytownVite({
 			dest: join(__dirname, 'static', '~partytown')
 		})
-	]
+	],
+	server: {
+		port: 5179,
+		strictPort: false
+	}
 });
