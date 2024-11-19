@@ -7,6 +7,9 @@
     import { budgets, budgetCurrency, type Budget, type Expense } from '$lib/utils';
     import { page } from '$app/stores';
     import { siteimage, siteurl } from '$lib';
+    import { invalidateAll } from '$app/navigation';
+    import { applyAction, deserialize } from '$app/forms';
+    import type { ActionData } from './$types';
 
     // User Data
     const userData = $page.data.user?.userData;
@@ -15,6 +18,50 @@
     let syncing = false;
     let syncError: string | null = null;
     let syncSuccess: string | null = null;
+
+    // Form handling
+    let form: ActionData;
+
+    async function handleSync(event: SubmitEvent) {
+        const form = event.target as HTMLFormElement;
+        syncing = true;
+        syncError = null;
+        syncSuccess = null;
+
+        try {
+            const formData = new FormData(form);
+            formData.set('budgets', JSON.stringify($budgets));
+            formData.set('userId', userData?.id || '');
+
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = deserialize(await response.text());
+            console.log('result: ',result);
+
+            if (result.type === 'success') {
+                // Update the budgets store with the merged data from the server
+                if (result.data?.data && Array.isArray(result.data.data)) {
+                    budgets.set(result.data.data);
+                } else {
+                    budgets.set([]);
+                }
+                syncSuccess = 'Budgets synced successfully!';
+                await invalidateAll();
+            } else if (result.type === 'failure') {
+                syncError = typeof result.data?.message === 'string' ? result.data.message : 'Failed to sync budgets';
+            }
+
+            applyAction(result);
+        } catch (error) {
+            console.error('Error syncing budgets:', error);
+            syncError = error instanceof Error ? error.message : 'Failed to sync budgets';
+        } finally {
+            syncing = false;
+        }
+    }
 
     // Budget State
     let budgetName = '';
@@ -57,41 +104,6 @@
     };
 
     // Budget Management
-    const handleSync = async () => {
-        if (!userData?.id) return;
-        
-        syncing = true;
-        syncError = null;
-        syncSuccess = null;
-
-        try {
-            const formData = new FormData();
-            formData.append('budgets', JSON.stringify($budgets));
-            formData.append('userId', userData.id);
-            
-            const response = await fetch('?/syncBudgets', {
-                method: 'POST',
-                body: formData
-            });
-            
-            const responseData = await response.json();
-            
-            if (responseData.type === 'success') {
-                const parsedData = JSON.parse(responseData.data);
-                budgets.set($budgets);
-                syncSuccess = 'Budgets synced successfully!';
-            } else {
-                syncError = 'Failed to sync budgets';
-            }
-        } catch (error) {
-            if (error instanceof Error) {
-                console.error('Error syncing budgets:', error);
-                syncError = 'Failed to sync budgets';
-            }
-        } finally {
-            syncing = false;
-        }
-    }
 </script>
 
 <svelte:head>
@@ -113,13 +125,19 @@
         </h2>
         {#if userData}
             <div class="flex items-center gap-4">
-                <button
-                    on:click={handleSync}
-                    disabled={syncing}
-                    class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                <form 
+                    action="?/syncBudgets" 
+                    method="POST" 
+                    on:submit|preventDefault={handleSync}
                 >
-                    {syncing ? 'Syncing...' : 'Sync'}
-                </button>
+                    <button
+                        type="submit"
+                        disabled={syncing}
+                        class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-700 disabled:opacity-50"
+                    >
+                        {syncing ? 'Syncing...' : 'Sync'}
+                    </button>
+                </form>
                 {#if syncError}
                     <span class="text-red-500">{syncError}</span>
                 {:else if syncSuccess}
