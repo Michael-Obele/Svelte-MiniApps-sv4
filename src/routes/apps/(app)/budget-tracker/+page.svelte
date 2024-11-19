@@ -90,8 +90,9 @@
     // Utility Functions
     function formatNumberInput(e: Event): void {
         const target = e.target as HTMLInputElement;
-        const value = target.value.replace(/,/g, '');
-        target.value = Number(value).toLocaleString();
+        const value = target.value.replace(/[^\d]/g, '');
+        const numberValue = Number(value);
+        target.value = numberValue.toLocaleString();
     }
 
     const calculateRemainingBudget = (budget: Budget): string => {
