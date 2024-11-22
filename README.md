@@ -88,3 +88,9 @@ This project is licensed under the [MIT License](https://opensource.org/licenses
 - The full license text is in the [`LICENSE`](LICENSE) file in the repository.
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://app.netlify.com/sites/svelte-mini-apps/deploys)
+
+<div style="position: relative; padding-bottom: calc(46.40625% + 41px); height: 0;">
+	<iframe src="https://story-api.livedemo.ai/workspaces/6740395d9ead5e00083ae87f/stories/6740b5d8037561001dab57aa/preview?step=1&embed" frameBorder="0" loading="lazy"
+			webkitallowfullscreen mozallowfullscreen allowFullScreen
+			style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 6px;"></iframe>
+</div>
