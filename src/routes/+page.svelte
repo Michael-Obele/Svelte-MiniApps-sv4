@@ -3,7 +3,7 @@
 	import { onMount } from 'svelte';
 	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
-	import { ArrowRight, BadgeDollarSign, CheckCircle2, Cookie } from 'lucide-svelte';
+	import { ArrowRight, BadgeDollarSign, CheckCircle2, Cookie, ExternalLink } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
 	import { seenCookie, seenNewAppAlert } from '$lib/utils';
 	import LordIcon from './LordIcon.svelte';
@@ -65,6 +65,20 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<link rel="canonical" href={websiteUrl} />
 </svelte:head>
+
+<div class="w-full bg-red-50 dark:bg-red-950/30">
+	<div class="container mx-auto px-4 py-2 text-center">
+		<a
+			href="https://next.svelte-apps.me"
+			class="inline-flex items-center gap-1.5 text-sm text-red-700 hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
+			target="_blank"
+			rel="noopener noreferrer"
+		>
+			🚀 Check out our Svelte 5 version
+			<ExternalLink class="h-3.5 w-3.5" />
+		</a>
+	</div>
+</div>
 
 <div class="pb-5 xl:px-10">
 	<section class="w-full py-8 md:py-14 lg:py-24">
