@@ -1,8 +1,20 @@
-# Svelte MiniApps
+# Svelte MiniApps (SvelteKit 4 Version)
 
-**Boost your productivity with Svelte MiniApps - a collection of user-friendly tools built with SvelteKit!**
+> **⚠️ ARCHIVED: This project has been archived in favor of our new [Svelte 5 version](https://svelte-apps.me). Please visit the new version for the latest updates and improvements.**
 
-Svelte MiniApps is a collection of small, single-purpose applications designed for simplicity and efficiency. Originally a personal project to learn full-stack development, it has evolved into a repository of handy tools for various tasks.
+## Repository Migration Notice
+- **Repository Changes**:
+  - This repository has been renamed from `Svelte-MiniApps` to `Svelte-MiniApps-sv4`
+  - The new Svelte 5 version is now available at [Svelte-MiniApps](https://github.com/Michael-Obele/Svelte-MiniApps)
+
+## Important Migration Information
+- **Authentication Changes**: 
+  - OAuth logins will no longer be supported
+  - Username/password login will continue to work
+  - Users can export their passwords as text before migrating
+- **Website Availability**:
+  - The old website (this version) will remain accessible for an extended period
+  - This ensures a smooth transition for all users
 
 ## Table of Contents
 
@@ -29,41 +41,44 @@ Svelte MiniApps is a single Progressive Web App (PWA) featuring a collection of 
 
 ## Getting Started
 
-**Prerequisites:**
+> **Note**: This is the archived SvelteKit 4 version. For the latest version, visit [svelte-apps.me](https://svelte-apps.me)
 
-- Node.js and npm (or another package manager).
+**Prerequisites:**
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [Bun](https://bun.sh/) (recommended) or npm
 
 **Explore the Mini-Apps:**
 
-Clone the repository and run the development server to explore the mini-apps.
-
-<!-- I apologies for not keeping this installation process not up to date. -->
-
 ```bash
-git clone https://github.com/Michael-Obele/Svelte-MiniApps.git
-cd Svelte-MiniApps
+# Clone the archived version
+git clone https://github.com/Michael-Obele/Svelte-MiniApps-sv4.git
+cd Svelte-MiniApps-sv4
+
+# Set up environment
 cp .env.example .env
+
+# Install dependencies (using Bun)
 bun install
-bun install @prisma/client
-bun install prisma --save-dev
+bun add @prisma/client
+bun add -d prisma
+
+# Start development server
 bun run dev
 ```
 
-This will launch a local server and open the mini-apps in your browser.
-
-###### **Important**: For production environments, it's recommended to switch your Prisma data source provider from SQLite to PostgreSQL or MySQL.
+###### **Note**: This version uses SQLite by default. For production environments, it's recommended to use PostgreSQL or MySQL.
 
 ### Installable
 
-Install Svelte MiniApps as standalone applications for quick access:
+You can install either version as a PWA:
 
-1. Open the mini-app in your browser.
-2. Click on the browser's menu (three dots).
-3. Select "Install" or "Add to Home Screen."
+1. Open the app in your browser
+2. Click the browser's install button or menu (three dots)
+3. Select "Install" or "Add to Home Screen"
 
-### Live Version
-
-Access the live version at: [Svelte MiniApps](https://svelte-apps.me/)
+### Live Versions
+- **Archived (SvelteKit 4)**: [sv4.svelte-apps.me](https://sv4.svelte-apps.me)
+- **Current (Svelte 5)**: [svelte-apps.me](https://svelte-apps.me)
 
 ## List of Apps
 
