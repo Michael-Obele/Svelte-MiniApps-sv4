@@ -18,11 +18,6 @@
 			"name": "About",
 			"url": "/About",
 			"description": "Learn more about Svelte MiniApps, its purpose, and how it was built."
-		},
-		{
-			"name": "GitHub Repo",
-			"url": "https://github.com/michael-obele/svelte-apps",
-			"description": "Check out the source code and contribute to Svelte MiniApps."
 		}
 	],
 	"screenshots": [

@@ -60,7 +60,7 @@
 </script>
 
 <svelte:head>
-	<title>Svelte MiniApps</title>
+	<title>Svelte MiniApps sv4</title>
 	<script>
 		// Forward the necessary functions to the web worker layer
 		partytown = {
