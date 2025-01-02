@@ -11,7 +11,7 @@
 	import InfoBlock from './InfoBlock.svelte';
 	import ContentBlock from './ContentBlock.svelte';
 	//
-	let websiteTitle = 'Svelte MiniApps';
+	let websiteTitle = 'Svelte MiniApps sv4';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
 	let twitterTitle = `${websiteTitle} - Simplify Tasks with Mini Applications`;
 	let twitterDescription = `Svelte MiniApps - The go-to collection of interactive tools built with Svelte. Explore and enhance your workflow!`;
