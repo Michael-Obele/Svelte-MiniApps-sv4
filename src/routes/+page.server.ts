@@ -4,7 +4,7 @@ import type { PageServerLoad, Actions, RequestEvent } from './$types';
 
 export const load: PageServerLoad = async (event) => {
 	// if (event.url.href === 'https://svelte-mini-apps.netlify.app/') {
-	// 	redirect(301, 'https://svelte-apps.me/');
+	// 	redirect(301, 'https://old.svelte-apps.me/');
 	// }
 };
 

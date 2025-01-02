@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { onMount } from 'svelte';
-	import { projects, done, websiteUrl, websiteImage } from '$lib/index';
+	import { projects, done, siteurl, siteimage } from '$lib/index';
 	import Svelte from '$lib/logo/svelte.svelte';
 	import { ArrowRight, BadgeDollarSign, CheckCircle2, Cookie, ExternalLink } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
@@ -10,8 +10,6 @@
 	//
 	import InfoBlock from './InfoBlock.svelte';
 	import ContentBlock from './ContentBlock.svelte';
-	//
-	import { requestNotificationPermission } from '$lib/notifications';
 	//
 	let websiteTitle = 'Svelte MiniApps';
 	let websiteDescription = 'A collection of useful and engaging tools built with Svelte.';
@@ -55,21 +53,21 @@
 	<meta name="description" content={websiteDescription} />
 	<meta property="og:title" content={websiteTitle} />
 	<meta property="og:description" content={websiteDescription} />
-	<meta property="og:url" content={websiteUrl} />
-	<meta property="og:image" content={websiteImage} />
+	<meta property="og:url" content={siteurl} />
+	<meta property="og:image" content={siteimage} />
 	<meta name="twitter:title" content={twitterTitle} />
 	<meta name="twitter:description" content={twitterDescription} />
 	<meta name="google-site-verification" content="10ATAx6uImjU99YXvI91DB-E9h-MAgI6jsUkLfJlRwY" />
-	<meta name="twitter:image" content={websiteImage} />
+	<meta name="twitter:image" content={siteimage} />
 	<meta name="robots" content="index, follow" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<link rel="canonical" href={websiteUrl} />
+	<link rel="canonical" href={siteurl} />
 </svelte:head>
 
 <div class="w-full bg-red-50 dark:bg-red-950/30">
 	<div class="container mx-auto px-4 py-2 text-center">
 		<a
-			href="https://next.svelte-apps.me"
+			href="https://svelte-apps.me/"
 			class="inline-flex items-center gap-1.5 text-sm text-red-700 hover:text-red-800 dark:text-red-300 dark:hover:text-red-200"
 			target="_blank"
 			rel="noopener noreferrer"

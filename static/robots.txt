@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://svelte-apps.me/sitemap.xml
+Sitemap: https://old.svelte-apps.me/sitemap.xml

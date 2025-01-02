@@ -2,7 +2,7 @@ import { done } from '$lib';
 
 // Your domain
 // const site = 'https://svelte-mini-apps.netlify.app'; // Netlify Domain
-const site = 'https://svelte-apps.me';
+const site = 'https://old.svelte-apps.me';
 
 // Populate this with all the slugs you wish to include
 const staticPages: { url: string; priority?: number; changefreq?: string }[] = [
