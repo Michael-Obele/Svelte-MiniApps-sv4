@@ -12,7 +12,8 @@
 	let userUsername = $page.data.user.userData?.username;
 	let sessionUserName = $page.data.user.session?.user?.name;
 	setContext('userContext', { userUsername, sessionUserName });
-	let link = 'https://github.com/Michael-Obele/Svelte-MiniApps/tree/master/src/routes/apps/(app)';
+	let link =
+		'https://github.com/Michael-Obele/Svelte-MiniApps-sv4/tree/master/src/routes/apps/(app)';
 </script>
 
 <svelte:head>
