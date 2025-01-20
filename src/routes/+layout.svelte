@@ -49,6 +49,7 @@
 	});
 	//
 	import lottie from 'lottie-web';
+	import Update from '$lib/components/Update.svelte';
 	onMount(async () => {
 		// Make onMount async
 		// Dynamically import @lordicon/element *inside* onMount
@@ -87,6 +88,8 @@
 <ModeWatcher />
 
 <Navbar {userData} />
+
+<Update />
 
 <Toaster position="top-center" />
 
