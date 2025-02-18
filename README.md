@@ -63,18 +63,18 @@ bun run dev
 2. Use the browser menu (three dots) → "Install" or "Add to Home Screen"
 
 ### Live Versions
-- **Archived (SvelteKit 4):** [sv4.svelte-apps.me](https://sv4.svelte-apps.me)
+- **Archived (SvelteKit 4):** [old.svelte-apps.me](https://old.svelte-apps.me)
 - **Current (Svelte 5):** [svelte-apps.me](https://svelte-apps.me)
 
 ---
 
 ## 📱 Demo
 
-> **Note:** GitHub READMEs do not support embedded iframes.  
-> For an interactive step-by-step preview, visit the LiveDemo link below.  
+> **Note:** GitHub READMEs do not support embedded iframes.
+> For an interactive step-by-step preview, visit the LiveDemo link below.
 > For a full experience, use the main app link or see the screenshots.
 
-[![Open Demo](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://sv4.svelte-apps.me)
+[![Open Demo](https://api.netlify.com/api/v1/badges/0d21d41b-36d1-4e3e-9d4a-897788f50b7b/deploy-status)](https://old.svelte-apps.me)
 
 **🔗 [Interactive LiveDemo Preview (Storybook/Walkthrough)](https://story-api.livedemo.ai/workspaces/6740395d9ead5e00083ae87f/stories/6740b5d8037561001dab57aa/preview?step=1&embed)**
 
@@ -89,7 +89,7 @@ bun run dev
 ---
 
 ## 📋 List of Apps
-See the full list at [sv4.svelte-apps.me/#apps](https://sv4.svelte-apps.me/#apps)
+See the full list at [old.svelte-apps.me/#apps](https://old.svelte-apps.me/#apps)
 
 ---
 
